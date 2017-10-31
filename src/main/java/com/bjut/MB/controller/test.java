@@ -12,6 +12,6 @@ public class test {
     @RequestMapping(value = "/test")
     @ResponseBody
     public String test(){
-        return "HELLO WORLD!!";
+        return "HELLO WORLD!!!";
     }
 }
