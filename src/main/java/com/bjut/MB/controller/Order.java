@@ -31,7 +31,6 @@ public class Order {
         catch (Exception e){
             logger.error("添加随工单异常" + e.getMessage());
             map.put("code","2");
-            System.out.println();
         }
         return map.toString();
     }
