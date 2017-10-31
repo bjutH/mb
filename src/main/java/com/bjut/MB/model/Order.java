@@ -8,6 +8,7 @@ public class Order {
     private String processes;
     private String operater;
     private String other;
+    private String ps;
 
     public String getOrderNum() {
         return orderNum;
@@ -48,6 +49,4 @@ public class Order {
     public void setPs(String ps) {
         this.ps = ps;
     }
-
-    private String ps;
 }
