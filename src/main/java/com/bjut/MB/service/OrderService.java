@@ -20,34 +20,34 @@ public class OrderService {
     public Map<String, String> addOrder(String orderNum, String process) throws Exception{
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","1");
+            map.put("code","0");
             map.put("msg", "随工单编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(process)){
-            map.put("code","1");
+            map.put("code","0");
             map.put("msg", "工序名称不能为空！");
             return map;
         }
         //orderDao.addOrder(orderNum, process);
-        map.put("code","0");
+        map.put("code","1");
         return map;
     }
 
     public Map<String, String> updateOrder(String orderNum,String process,String operater,String other,String ps) throws Exception{
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","1");
+            map.put("code","0");
             map.put("msg", "随工单编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(process)){
-            map.put("code","1");
+            map.put("code","0");
             map.put("msg", "工序名称不能为空！");
             return map;
         }
         //orderDao.addOrder(orderNum, process);
-        map.put("code","0");
+        map.put("code","1");
         return map;
     }
 
