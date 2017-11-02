@@ -43,7 +43,7 @@ public class OrderService {
         }
         if(StringUtils.isBlank(process)){
             map.put("code","0");
-            map.put("msg", "工序名称不能为空！");
+            map.put("msg", "工序名称不能为空!！");
             return map;
         }
         //orderDao.addOrder(orderNum, process);
