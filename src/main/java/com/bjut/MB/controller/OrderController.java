@@ -27,14 +27,15 @@ public class OrderController {
     private OrderService orderService;
     @RequestMapping(value = "/addorder")
     @ResponseBody
-    public String addOrder(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "processes") String processes){
+    public String addOrder(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process,
+                           @RequestParam(value = "operater") String operater,@RequestParam(value = "other") String other,@RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = orderService.addOrder(orderNum,processes);
+            map = orderService.addOrder(orderNum, process,operater,other,ps);
         }
         catch (Exception e){
             logger.error("添加随工单异常" + e.getMessage());
-            map.put("code","2");
+            map.put("code","3");
         }
         return map.toString();
     }
@@ -48,7 +49,7 @@ public class OrderController {
             map = orderService.updateOrder(orderNum,processes,operater,other,ps);
         } catch (Exception e) {
             logger.error("更新随工单异常" + e.getMessage());
-            map.put("code","2");
+            map.put("code","3");
         }
         return map.toString();
     }
