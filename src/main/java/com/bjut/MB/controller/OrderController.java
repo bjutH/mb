@@ -1,23 +1,27 @@
 package com.bjut.MB.controller;
 
+import com.bjut.MB.model.Order;
 import com.bjut.MB.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.xml.bind.SchemaOutputResolver;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2017/10/31.
  */
 @Controller
-public class Order {
+public class OrderController {
     private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
     @Autowired
     private OrderService orderService;
@@ -49,4 +53,9 @@ public class Order {
         return map.toString();
     }
 
+    @RequestMapping(value = "/selectorder")
+    public String selectOrder(Model model,String orderNum){
+        List<Order> orderList = orderService.selectOrder(orderNum);
+        return null;
+    }
 }

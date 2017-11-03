@@ -1,12 +1,14 @@
 package com.bjut.MB.service;
 
 import com.bjut.MB.dao.OrderDao;
+import com.bjut.MB.model.Order;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,12 +45,16 @@ public class OrderService {
         }
         if(StringUtils.isBlank(process)){
             map.put("code","0");
-            map.put("msg", "工序名称不能为空!！");
+            map.put("msg", "工序名称不能为空！");
             return map;
         }
-        //orderDao.addOrder(orderNum, process);
         map.put("code","1");
         return map;
     }
 
+    public List<Order> selectOrder(String orderNum){
+        //return orderDao.selectOrder(orderNum);
+
+        return null;
+    }
 }
