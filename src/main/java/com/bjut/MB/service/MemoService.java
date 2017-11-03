@@ -1,7 +1,6 @@
 package com.bjut.MB.service;
 
 import com.bjut.MB.model.Memo;
-import com.bjut.MB.model.Order;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
