@@ -34,7 +34,7 @@ public class PackController {
             map = packService.addPack(orderNum, process, result, operater);
         }
         catch (Exception e){
-            logger.error("添加备忘录异常" + e.getMessage());
+            logger.error("添加装箱记录单异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();
@@ -48,7 +48,7 @@ public class PackController {
             map = packService.updatePack(orderNum, process, result, operater);
         }
         catch (Exception e){
-            logger.error("更新备忘录异常" + e.getMessage());
+            logger.error("更新装箱记录单异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();

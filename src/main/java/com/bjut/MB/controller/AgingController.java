@@ -38,7 +38,7 @@ public class AgingController {
             map = agingService.addAging(orderNum, process, result, date, phenomenon, handle, ps, operater);
         }
         catch (Exception e){
-            logger.error("添加备忘录异常" + e.getMessage());
+            logger.error("添加老化观测表异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();
@@ -54,7 +54,7 @@ public class AgingController {
             map = agingService.updateAging(orderNum, process, result, date, phenomenon, handle, ps, operater);
         }
         catch (Exception e){
-            logger.error("更新备忘录异常" + e.getMessage());
+            logger.error("更新老化观测表异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();
