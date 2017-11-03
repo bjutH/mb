@@ -20,18 +20,22 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/10/31.
  */
+
+//随工单表
 @Controller
 public class OrderController {
     private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+
     @Autowired
     private OrderService orderService;
+
     @RequestMapping(value = "/addorder")
     @ResponseBody
     public String addOrder(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process,
                            @RequestParam(value = "operater") String operater,@RequestParam(value = "other") String other,@RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = orderService.addOrder(orderNum, process,operater,other,ps);
+            map = orderService.addOrder(orderNum, process, operater, other, ps);
         }
         catch (Exception e){
             logger.error("添加随工单异常" + e.getMessage());
@@ -46,7 +50,7 @@ public class OrderController {
     @RequestParam(value = "operater") String operater,@RequestParam(value = "other") String other,@RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = orderService.updateOrder(orderNum,processes,operater,other,ps);
+            map = orderService.updateOrder(orderNum, processes, operater, other, ps);
         } catch (Exception e) {
             logger.error("更新随工单异常" + e.getMessage());
             map.put("code","3");

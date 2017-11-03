@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -14,10 +15,12 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/11/3.
  */
+@Service
 public class RemadeSercice {
-    private static final Logger logger = LoggerFactory.getLogger(MemoService.class);
+    private static final Logger logger = LoggerFactory.getLogger(RemadeSercice.class);
+
     @Autowired
-    //RemadeDao remadeDao = new RemadeDao();
+    //private RemadeDao remadeDao;
 
     public Map<String,String> addRemade(String orderNum, Date date,String number,String updateSoftware,String updateHardware,
                                         String updateContent,String updatePeople,String testPeople){
@@ -32,7 +35,7 @@ public class RemadeSercice {
             map.put("msg", "返工记录表时间不能为空！");
             return map;
         }
-        //int i = remadeDao.addRemade(orderNum, date,number,updateSoftware,updateHardware,updateContent,updatePeople,testPeople);
+        //int i = remadeDao.addRemade(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
         //map.put("code",i);
         return map;
     }
@@ -49,7 +52,7 @@ public class RemadeSercice {
             map.put("msg", "返工记录表时间不能为空！");
             return map;
         }
-        //int i = remadeDao.updateRemade(orderNum, date,number,updateSoftware,updateHardware,updateContent,updatePeople,testPeople);
+        //int i = remadeDao.updateRemade(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
         //map.put("code",i);
         return map;
     }

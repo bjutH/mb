@@ -5,6 +5,7 @@ import com.bjut.MB.service.RemadeSercice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,8 +18,12 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/11/3.
  */
+
+//返工记录表
+@Controller
 public class RemadeController {
-    private static final Logger logger = LoggerFactory.getLogger(MemoController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RemadeController.class);
+
     @Autowired
     private RemadeSercice remadeSercice;
 
@@ -30,7 +35,7 @@ public class RemadeController {
                           @RequestParam(value = "updatePeople") String updatePeople, @RequestParam(value = "testPeople") String testPeople){
         Map<String,String> map = new HashMap<>();
         try {
-            map = remadeSercice.addRemade(orderNum, date,number,updateSoftware,updateHardware,updateContent,updatePeople,testPeople);
+            map = remadeSercice.addRemade(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
         }
         catch (Exception e){
             logger.error("添加返工记录表异常" + e.getMessage());
@@ -46,7 +51,7 @@ public class RemadeController {
                              @RequestParam(value = "updatePeople") String updatePeople, @RequestParam(value = "testPeople") String testPeople){
         Map<String,String> map = new HashMap<>();
         try {
-            map = remadeSercice.updateRemade(orderNum, date,number,updateSoftware,updateHardware,updateContent,updatePeople,testPeople);
+            map = remadeSercice.updateRemade(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
         }
         catch (Exception e){
             logger.error("更新返工记录表异常" + e.getMessage());

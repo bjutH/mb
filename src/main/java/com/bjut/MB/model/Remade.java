@@ -1,11 +1,13 @@
 package com.bjut.MB.model;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/11/3.
  */
 public class Remade {
     private String orderNum;
-    private String date;
+    private Date date;
     private String number;
     private String updateSoftware;
     private String updateHardware;
@@ -21,11 +23,11 @@ public class Remade {
         this.orderNum = orderNum;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

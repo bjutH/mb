@@ -17,9 +17,12 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/11/3.
  */
+
+//仪器备忘录
 @Controller
 public class MemoController {
     private static final Logger logger = LoggerFactory.getLogger(MemoController.class);
+
     @Autowired
     private MemoService memoService;
 
@@ -32,7 +35,7 @@ public class MemoController {
                           @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = memoService.addMemo(orderNum, name,number,boardNum,weld,debug,test,version,ps);
+            map = memoService.addMemo(orderNum, name, number, boardNum, weld, debug, test, version, ps);
         }
         catch (Exception e){
             logger.error("添加备忘录异常" + e.getMessage());
@@ -49,7 +52,7 @@ public class MemoController {
                              @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = memoService.updateMemo(orderNum,name,number,boardNum,weld,debug,test,version,ps);
+            map = memoService.updateMemo(orderNum, name, number, boardNum, weld, debug, test, version, ps);
         }
         catch (Exception e){
             logger.error("更新备忘录异常" + e.getMessage());

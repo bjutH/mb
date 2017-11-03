@@ -18,8 +18,9 @@ import java.util.Map;
 @Service
 public class MemoService {
     private static final Logger logger = LoggerFactory.getLogger(MemoService.class);
+
     @Autowired
-    //MemoDao memoDao = new MemoDao();
+    //private MemoDao memoDao;
 
     public Map<String,String> addMemo(String orderNum,String name,String number,String boardNum,
                                       String weld,String debug,String test,String version,String ps){
@@ -34,7 +35,7 @@ public class MemoService {
             map.put("msg", "备忘录名称不能为空！");
             return map;
         }
-        //int i = MemoDao.addMemo(orderNum, name,number,boardNum,,weld,debug,test,version,ps);
+        //int i = memoDao.addMemo(orderNum, name, number, boardNum, weld, debug, test, version, ps);
         //map.put("code",i);
         return map;
     }
@@ -51,13 +52,13 @@ public class MemoService {
             map.put("msg", "备忘录名称不能为空！");
             return map;
         }
-        //int i = MemoDao.updateMemo(orderNum,name,number,boardNum,weld,debug,test,version,ps);
+        //int i = memoDao.updateMemo(orderNum, name, number, boardNum, weld, debug, test, version, ps);
         //map.put("code",i);
         return map;
     }
 
     public List<Memo> selectMemo(String orderNum){
-        //return MemoDao.selectMemo(orderNum);
+        //return memoDao.selectMemo(orderNum);
         return null;
     }
 }
