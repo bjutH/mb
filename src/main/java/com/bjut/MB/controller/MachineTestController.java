@@ -1,7 +1,7 @@
 package com.bjut.MB.controller;
 
-import com.bjut.MB.model.ProcessTest;
-import com.bjut.MB.service.ProcessTestService;
+import com.bjut.MB.model.MachineTest;
+import com.bjut.MB.service.MachineTestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,48 +18,46 @@ import java.util.Map;
  * Created by Administrator on 2017/11/6.
  */
 @Controller
-public class ProcessTestController {
-    private static final Logger logger = LoggerFactory.getLogger(ProcessTestController.class);
+public class MachineTestController {
+    private static final Logger logger = LoggerFactory.getLogger(DebugController.class);
 
     @Autowired
-    private ProcessTestService processTestService;
+    private MachineTestService machineTestService;
 
-    @RequestMapping(value = "/addprocesstest")
+    @RequestMapping(value = "/adddemachineTest")
     @ResponseBody
     public String addAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                            @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                           @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                           @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+                           @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = processTestService.addProcessesTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = machineTestService.addMachineTest(orderNum, process, data, result, ps);
         }
         catch (Exception e){
-            logger.error("添加关键工序检验报告单异常" + e.getMessage());
+            logger.error("添加整机检验报告单异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();
     }
-    @RequestMapping(value = "/updateprocesstest")
+    @RequestMapping(value = "/updatedebug")
     @ResponseBody
     public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                               @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                              @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                              @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+                              @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = processTestService.updateProcessesTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = machineTestService.updateMachineTest(orderNum, process, data, result, ps);
         }
         catch (Exception e){
-            logger.error("更新关键工序检验报告单异常异常" + e.getMessage());
+            logger.error("更新整机检验报告单异常异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();
     }
-    @RequestMapping(value = "/selectprocesstest")
+    @RequestMapping(value = "/selectdebug")
     @ResponseBody
     public String selectAging(@RequestParam(value = "orderNum") String orderNum){
-        List<ProcessTest> agingList = processTestService.selectProcessesTest(orderNum);
+        List<MachineTest> agingList = machineTestService.selectMachineTest(orderNum);
         return null;
     }
 }
