@@ -24,7 +24,7 @@ public class MachineTestController {
     @Autowired
     private MachineTestService machineTestService;
 
-    @RequestMapping(value = "/adddemachineTest")
+    @RequestMapping(value = "/addmachinetest")
     @ResponseBody
     public String addAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                            @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
@@ -39,7 +39,7 @@ public class MachineTestController {
         }
         return map.toString();
     }
-    @RequestMapping(value = "/updatedebug")
+    @RequestMapping(value = "/updatemachinetest")
     @ResponseBody
     public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                               @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
@@ -54,7 +54,7 @@ public class MachineTestController {
         }
         return map.toString();
     }
-    @RequestMapping(value = "/selectdebug")
+    @RequestMapping(value = "/selectmachinetest")
     @ResponseBody
     public String selectAging(@RequestParam(value = "orderNum") String orderNum){
         List<MachineTest> agingList = machineTestService.selectMachineTest(orderNum);
