@@ -1,7 +1,7 @@
 package com.bjut.MB.controller;
 
-import com.bjut.MB.model.ProductTest;
-import com.bjut.MB.service.ProductTestService;
+import com.bjut.MB.model.PerformTest;
+import com.bjut.MB.service.PerformTestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +17,15 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/11/6.
  */
-//成品检验报告单
+//性能要求检验单
 @Controller
-public class ProductTestController {
-    private static final Logger logger = LoggerFactory.getLogger(ProductTestController.class);
+public class PerformTestController {
+    private static final Logger logger = LoggerFactory.getLogger(PerformTestController.class);
 
     @Autowired
-    private ProductTestService productTestService;
+    private PerformTestService performTestService;
 
-    @RequestMapping(value = "/addproducttest")
+    @RequestMapping(value = "/addperformtest")
     @ResponseBody
     public String addAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                            @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
@@ -33,15 +33,15 @@ public class ProductTestController {
                            @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = productTestService.addProductTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = performTestService.addPerformTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
         }
         catch (Exception e){
-            logger.error("添加成品检验报告单异常" + e.getMessage());
+            logger.error("添加性能要求检验单异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();
     }
-    @RequestMapping(value = "/updateproducttest")
+    @RequestMapping(value = "/updateperformtest")
     @ResponseBody
     public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                               @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
@@ -49,18 +49,18 @@ public class ProductTestController {
                               @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = productTestService.updateProductTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = performTestService.updatePerformTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
         }
         catch (Exception e){
-            logger.error("更新成品检验报告单异常" + e.getMessage());
+            logger.error("更新性能要求检验单异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();
     }
-    @RequestMapping(value = "/selectproducttest")
+    @RequestMapping(value = "/selectperformtest")
     @ResponseBody
     public String selectAging(@RequestParam(value = "orderNum") String orderNum){
-        List<ProductTest> agingList = productTestService.selectProductTest(orderNum);
+        List<PerformTest> agingList = performTestService.selectPerformTest(orderNum);
         return null;
     }
 }
