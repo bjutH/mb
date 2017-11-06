@@ -52,7 +52,7 @@ public class ProcessTestController {
             map = processTestService.updateProcessesTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
         }
         catch (Exception e){
-            logger.error("更新关键工序检验报告单异常异常" + e.getMessage());
+            logger.error("更新关键工序检验报告单异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();

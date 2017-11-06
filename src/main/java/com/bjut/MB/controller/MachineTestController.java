@@ -50,7 +50,7 @@ public class MachineTestController {
             map = machineTestService.updateMachineTest(orderNum, process, data, result, ps);
         }
         catch (Exception e){
-            logger.error("更新整机检验报告单异常异常" + e.getMessage());
+            logger.error("更新整机检验报告单异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();

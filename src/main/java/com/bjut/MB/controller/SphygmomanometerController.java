@@ -52,7 +52,7 @@ public class SphygmomanometerController {
             map = sphygmomanometerService.updateSphygmomanometer(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
         }
         catch (Exception e){
-            logger.error("更新血压计检定报告单异常异常" + e.getMessage());
+            logger.error("更新血压计检定报告单异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();

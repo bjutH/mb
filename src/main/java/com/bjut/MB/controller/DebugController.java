@@ -52,7 +52,7 @@ public class DebugController {
             map = debugService.updateDebug(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
         }
         catch (Exception e){
-            logger.error("更新整机调试报告单异常异常" + e.getMessage());
+            logger.error("更新整机调试报告单异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();

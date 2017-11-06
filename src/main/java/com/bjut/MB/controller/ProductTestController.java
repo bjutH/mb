@@ -52,7 +52,7 @@ public class ProductTestController {
             map = productTestService.updateProductTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
         }
         catch (Exception e){
-            logger.error("更新成品检验报告单异常异常" + e.getMessage());
+            logger.error("更新成品检验报告单异常" + e.getMessage());
             map.put("code","3");
         }
         return map.toString();
