@@ -1,0 +1,25 @@
+package com.bjut.MB.dao;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+/**
+ * Created by Cheng on 2017/10/31.
+ */
+public interface RebackRecord {
+    String TABLE_NAME = "fangong_record_list";
+    String INSERT_FIELDS = "product_num, date, modify_num, soft_modify_des, handware_modify_des, struct_modify_des, modifyer, checker";
+    String SELECT_FIELDS = "date, modify_num, soft_modify_des, handware_modify_des, struct_modify_des, modifyer, checker";
+
+
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{date}, #{modify_num}, #{soft_modify_des}, #{handware_modify_des}, #{struct_modify_des}, #{modifyer}, #{checker}"})
+    void addProcess(String product_num,String date, String modify_num, String soft_modify_des, String handware_modify_des, String struct_modify_des, String modifyer, String checker );
+
+    @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
+    String selectRebackList(String product_num);
+
+    @Update({"update ", TABLE_NAME, "set product_num = #{product_num}, date = #{date}, modify_num = #{modify_num}, soft_modify_des = #{soft_modify_des}, handware_modify_des = #{handware_modify_des}, struct_modify_des = #{struct_modify_des}, modifyer = #{modifyer}, checker = #{checker}  where product_num = #{product_num}"})
+    void UpdateRebackList(String product_num,String date, String modify_num, String soft_modify_des, String handware_modify_des, String struct_modify_des, String modifyer, String checker);
+
+}
