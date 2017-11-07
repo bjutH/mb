@@ -23,6 +23,6 @@ public interface YiqiDao {
     @Update({"update ", TABLE_NAME, "set num = #{num}, pad_id = #{pad_id}, hanjie = #{hanjie} , debug = #{debug}, check = #{check}, soft_num = #{soft_num}, ps = #{ps} where product_num = #{product_num} and ps_name = #{ps_name}"})
     void UpdateOperaterAndOther(String product_num, String ps_name, String num, String pad_id, String hanjie, String debug, String check, String soft_num, String ps);
 
-    @Delete({"delete from", TABLE_NAME ,"where product_num = #{product_num}, ps_name = #{ps_name}"})
-    void DeleteItem(String product_name, String ps_name);
+    @Delete({"delete from", TABLE_NAME ,"where product_num = #{product_num}"})
+    void DeleteItem(String product_name);
 }

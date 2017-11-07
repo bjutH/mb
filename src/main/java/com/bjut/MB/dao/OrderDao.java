@@ -3,6 +3,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Delete;
 
 
 
@@ -24,4 +25,8 @@ public interface OrderDao {
 
     @Update({"update ", TABLE_NAME, "set operater = #{operater}, other = #{other}, ps = #{ps} where product_num = #{product_num} and process = #{process}"})
     void UpdateOperaterAndOther(String product_num, String operater, String process, String other, String ps);
+
+    @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
+    void DeleteItem(String product_num);
+
 }

@@ -23,6 +23,6 @@ public interface PackageListDao {
     @Update({"update ", TABLE_NAME, "set confirm = #{confirm}, self_check = #{self_check}, packager = #{packager} where product_num = #{product_num} and item = #{item}"})
     void UpdateConfirmAndPackager(String confirm, String self_check, String packager);
 
-    @Delete({"delete from", TABLE_NAME, "where product_num = #{product_num} and item = #{item}"})
-    void DeleteItem(String product_num, String item);
+    @Delete({"delete from", TABLE_NAME, "where product_num = #{product_num}"})
+    void DeleteItem(String product_num);
 }

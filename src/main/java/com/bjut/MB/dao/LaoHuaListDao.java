@@ -23,6 +23,6 @@ public interface LaoHuaListDao {
     @Update({"update ", TABLE_NAME, "set result = #{result}, process_result = #{process_result}, ps = #{ps} debuger = #{debuger} where product_num = #{product_num} and demand = #{demand}"})
     void UpdateResultAndOther(String product_num, String demand, String result, String process_result, String ps, String debuger);
 
-    @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num} and demand = #{demand}"})
-    void DeleteItem(String product_num, String demand);
+    @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
+    void DeleteItem(String product_num);
 }
