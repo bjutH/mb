@@ -33,8 +33,14 @@ public class OrderService {
             map.put("msg", "工序名称不能为空！");
             return map;
         }
-        //int i = orderDao.addOrder(orderNum, process, operater, other, ps);
-        //map.put("code",i);
+        try {
+            orderDao.addProcess(orderNum, process);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("添加随工单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
 
@@ -50,13 +56,31 @@ public class OrderService {
             map.put("msg", "工序名称不能为空！");
             return map;
         }
-        //int i = orderDao.updateOrder(orderNum, process, operater, other, ps);
-        //map.put("code","i");
+        try {
+            orderDao.updateOperaterAndOther(orderNum, process, operater, other, ps);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("更新随工单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
 
     public List<Order> selectOrder(String orderNum){
-        //return orderDao.selectOrder(orderNum);
-        return null;
+        return orderDao.selectOperaterAndOhter(orderNum);
+    }
+
+    public Map<String, String> deleteOrder(String orderNum){
+        Map<String, String> map = new HashMap<String, String>();
+        try {
+            orderDao.deleteOrder(orderNum);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("删除随工单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
+        return map;
     }
 }

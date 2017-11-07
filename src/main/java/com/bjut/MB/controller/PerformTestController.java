@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +28,7 @@ public class PerformTestController {
 
     @RequestMapping(value = "/addperformtest")
     @ResponseBody
-    public String addAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+    public String addPerformTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                            @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
                            @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
                            @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
@@ -41,9 +42,10 @@ public class PerformTestController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/updateperformtest")
     @ResponseBody
-    public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+    public String updatePerformTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                               @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
                               @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
                               @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
@@ -57,10 +59,24 @@ public class PerformTestController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/selectperformtest")
     @ResponseBody
-    public String selectAging(@RequestParam(value = "orderNum") String orderNum){
+    public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<PerformTest> agingList = performTestService.selectPerformTest(orderNum);
         return null;
+    }
+
+    @RequestMapping(value = "/deleteperformtest")
+    @ResponseBody
+    public String deletePerformTest(@RequestParam(value = "orderNum") String orderNum){
+        Map<String,String> map = new HashMap<>();
+        try {
+            map = performTestService.deletePerformTest(orderNum);
+        } catch (Exception e) {
+            logger.error("删除性能要求检验单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
     }
 }

@@ -19,7 +19,7 @@ public class PerformTestService {
     private static final Logger logger = LoggerFactory.getLogger(PerformTestService.class);
 
     @Autowired
-    //private PerformTestDao performTestDao;
+    private PerformTestDao performTestDao;
 
     public Map<String,String> addPerformTest(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
         Map<String, String> map = new HashMap<String, String>();
@@ -33,10 +33,17 @@ public class PerformTestService {
             map.put("msg", "性能要求检验单内容不能为空！");
             return map;
         }
-        //int i = performTestDao.addPerformTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
-        //map.put("code",i);
+        try {
+            performTestDao.addPerformTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("添加性能要求检验单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
+
     public Map<String, String> updatePerformTest(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
@@ -49,13 +56,31 @@ public class PerformTestService {
             map.put("msg", "性能要求检验单内容不能为空！");
             return map;
         }
-        //int i = performTestDao.updatePerformTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
-        //map.put("code",i);
+        try {
+            performTestDao.updatePerformTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("更新性能要求检验单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
 
     public List<PerformTest> selectPerformTest(String orderNum){
-        //return performTestDao.selectPerformTest（orderNum);
-        return null;
+        return performTestDao.selectPerformTest(orderNum);
+    }
+
+    public Map<String, String> deletePerformTest(String orderNum){
+        Map<String, String> map = new HashMap<String, String>();
+        try {
+            performTestDao.deletePerformTest(orderNum);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("删除性能要求检验单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
+        return map;
     }
 }

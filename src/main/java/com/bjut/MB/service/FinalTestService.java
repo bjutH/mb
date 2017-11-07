@@ -19,7 +19,7 @@ public class FinalTestService {
     private static final Logger logger = LoggerFactory.getLogger(FinalTestService.class);
 
     @Autowired
-    //private FinalTestDao finalTestDao;
+    private FinalTestDao finalTestDao;
 
     public Map<String,String> addFinalTest(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
         Map<String, String> map = new HashMap<String, String>();
@@ -33,10 +33,17 @@ public class FinalTestService {
             map.put("msg", "最终检验报告单内容不能为空！");
             return map;
         }
-        //int i = finalTestDao.addFinalTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
-        //map.put("code",i);
+        try {
+            finalTestDao.addFinalTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("添加最终检验报告单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
+
     public Map<String, String> updateFinalTest(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
@@ -49,13 +56,31 @@ public class FinalTestService {
             map.put("msg", "最终检验报告单内容不能为空！");
             return map;
         }
-        //int i = finalTestDao.updateFinalTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
-        //map.put("code",i);
+        try {
+            finalTestDao.updateFinalTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("更新最终检验报告单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
 
     public List<FinalTest> selectFinalTest(String orderNum){
-        //return finalTestDao.selectFinalTest（orderNum);
-        return null;
+        return finalTestDao.selectFinalTest(orderNum);
+    }
+
+    public Map<String, String> deleteFinalTest(String orderNum){
+        Map<String, String> map = new HashMap<String, String>();
+        try {
+            finalTestDao.deleteFinalTest(orderNum);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("删除最终检验报告单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
+        return map;
     }
 }

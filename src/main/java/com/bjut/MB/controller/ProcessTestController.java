@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,13 +28,13 @@ public class ProcessTestController {
 
     @RequestMapping(value = "/addprocesstest")
     @ResponseBody
-    public String addAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+    public String addProcessTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                            @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
                            @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
                            @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = processTestService.addProcessesTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = processTestService.addProcessTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
         }
         catch (Exception e){
             logger.error("添加关键工序检验报告单异常" + e.getMessage());
@@ -41,15 +42,16 @@ public class ProcessTestController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/updateprocesstest")
     @ResponseBody
-    public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+    public String updateProcessTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                               @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
                               @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
                               @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = processTestService.updateProcessesTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = processTestService.updateProcessTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
         }
         catch (Exception e){
             logger.error("更新关键工序检验报告单异常" + e.getMessage());
@@ -57,10 +59,24 @@ public class ProcessTestController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/selectprocesstest")
     @ResponseBody
-    public String selectAging(@RequestParam(value = "orderNum") String orderNum){
-        List<ProcessTest> agingList = processTestService.selectProcessesTest(orderNum);
+    public String selectProcessTest(Model model, @RequestParam(value = "orderNum") String orderNum){
+        List<ProcessTest> agingList = processTestService.selectProcessTest(orderNum);
         return null;
+    }
+
+    @RequestMapping(value = "/deleteprocesstest")
+    @ResponseBody
+    public String deleteProcessTest(@RequestParam(value = "orderNum") String orderNum){
+        Map<String,String> map = new HashMap<>();
+        try {
+            map = processTestService.deleteProcessTest(orderNum);
+        } catch (Exception e) {
+            logger.error("删除关键工序检验报告单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
     }
 }

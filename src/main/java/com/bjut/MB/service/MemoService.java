@@ -19,14 +19,14 @@ public class MemoService {
     private static final Logger logger = LoggerFactory.getLogger(MemoService.class);
 
     @Autowired
-    //private MemoDao memoDao;
+    private YiqiDao yiqiDao;
 
     public Map<String,String> addMemo(String orderNum,String name,String number,String boardNum,
                                       String weld,String debug,String test,String version,String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
-            map.put("msg", "随工单编号不能为空！");
+            map.put("msg", "备忘录编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(name)){
@@ -34,16 +34,23 @@ public class MemoService {
             map.put("msg", "备忘录名称不能为空！");
             return map;
         }
-        //int i = memoDao.addMemo(orderNum, name, number, boardNum, weld, debug, test, version, ps);
-        //map.put("code",i);
+        try {
+            yiqiDao.addProcess(orderNum, name, number, boardNum, weld, debug, test, version, ps);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("添加备忘录DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
+
     public Map<String, String> updateMemo(String orderNum,String name,String number,String boardNum,
                                           String weld,String debug,String test,String version,String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
-            map.put("msg", "随工单编号不能为空！");
+            map.put("msg", "备忘录编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(name)){
@@ -51,13 +58,31 @@ public class MemoService {
             map.put("msg", "备忘录名称不能为空！");
             return map;
         }
-        //int i = memoDao.updateMemo(orderNum, name, number, boardNum, weld, debug, test, version, ps);
-        //map.put("code",i);
+        try {
+            yiqiDao.UpdateOperaterAndOther(orderNum, name, number, boardNum, weld, debug, test, version, ps);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("更新备忘录DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
 
     public List<Memo> selectMemo(String orderNum){
-        //return memoDao.selectMemo(orderNum);
-        return null;
+        return yiqiDao.selectOperaterAndOhter(orderNum);
+    }
+
+    public Map<String, String> deleteMemo(String orderNum){
+        Map<String, String> map = new HashMap<String, String>();
+        try {
+            yiqiDao.DeleteMemo(orderNum);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("删除备忘录DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
+        return map;
     }
 }

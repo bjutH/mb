@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +44,7 @@ public class AgingController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/updateaging")
     @ResponseBody
     public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
@@ -59,10 +61,24 @@ public class AgingController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/selectaging")
     @ResponseBody
-    public String selectAging(@RequestParam(value = "orderNum") String orderNum){
+    public String selectAging(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<Aging> agingList = agingService.selectAging(orderNum);
         return null;
+    }
+
+    @RequestMapping(value = "/deleteaging")
+    @ResponseBody
+    public String deleteAging(@RequestParam(value = "orderNum") String orderNum){
+        Map<String,String> map = new HashMap<>();
+        try {
+            map = agingService.deleteAging(orderNum);
+        } catch (Exception e) {
+            logger.error("删除老化观测表异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
     }
 }

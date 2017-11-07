@@ -19,7 +19,7 @@ public class MachineTestService {
     private static final Logger logger = LoggerFactory.getLogger(MachineTestService.class);
 
     @Autowired
-    //private MachineTest machineTest;
+    //private MachineTestDao machineTestDao;
 
     public Map<String,String> addMachineTest(String orderNum, String process, String data, String result, String ps){
         Map<String, String> map = new HashMap<String, String>();
@@ -33,10 +33,17 @@ public class MachineTestService {
             map.put("msg", "整机检验报告单要求不能为空！");
             return map;
         }
-        //int i = machineTest.addMachineTest(orderNum, process, data, result，ps);
-        //map.put("code",i);
+        try {
+            machineTestDao.addMachineTest(orderNum, process, data, result, ps);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("添加整机检验报告单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
+
     public Map<String, String> updateMachineTest(String orderNum, String process, String data, String result, String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
@@ -49,13 +56,30 @@ public class MachineTestService {
             map.put("msg", "整机检验报告单要求不能为空！");
             return map;
         }
-        //int i = machineTest.updateMachineTest(orderNum, process, data, result，ps);
-        //map.put("code",i);
+        try {
+            machineTestDao.updateMachineTest(orderNum, process, data, result, ps);
+            map.put("code","1");
+        }catch (Exception e){
+            logger.error("更新整机检验报告单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
 
     public List<MachineTest> selectMachineTest(String orderNum){
-        //return machineTest.selectMachineTest(orderNum);
-        return null;
+        return machineTestDao.selectMachineTest(orderNum);
+    }
+
+    public Map<String, String> deleteMachineTest(String orderNum){
+        Map<String, String> map = new HashMap<String, String>();
+        try {
+            machineTestDao.DeleteMachineTest(orderNum);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("删除整机检验报告单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
+        return map;
     }
 }

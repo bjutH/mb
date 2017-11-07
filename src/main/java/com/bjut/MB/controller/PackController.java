@@ -5,6 +5,7 @@ import com.bjut.MB.service.PackService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,7 +27,7 @@ public class PackController {
 
     @RequestMapping(value = "/addpack")
     @ResponseBody
-    public String addAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+    public String addPack(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                            @RequestParam(value = "result") String result,@RequestParam(value = "handle") String operater){
         Map<String,String> map = new HashMap<>();
         try {
@@ -38,9 +39,10 @@ public class PackController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/updatepack")
     @ResponseBody
-    public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+    public String updatePack(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                               @RequestParam(value = "result") String result,@RequestParam(value = "handle") String operater){
         Map<String,String> map = new HashMap<>();
         try {
@@ -52,10 +54,24 @@ public class PackController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/selectpack")
     @ResponseBody
-    public String selectAging(@RequestParam(value = "orderNum") String orderNum){
+    public String selectPack(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<Pack> packList = packService.selectPack(orderNum);
         return null;
+    }
+
+    @RequestMapping(value = "/deletepack")
+    @ResponseBody
+    public String deletePack(@RequestParam(value = "orderNum") String orderNum){
+        Map<String,String> map = new HashMap<>();
+        try {
+            map = packService.deletePack(orderNum);
+        } catch (Exception e) {
+            logger.error("删除装箱记录单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
     }
 }

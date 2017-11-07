@@ -19,13 +19,13 @@ public class PackService {
     private static final Logger logger = LoggerFactory.getLogger(PackService.class);
 
     @Autowired
-    //private PackDao packdao;
+    private PackageListDao packageListDao;
 
     public Map<String,String> addPack(String orderNum, String process, String result, String operater){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
-            map.put("msg", "随工单编号不能为空！");
+            map.put("msg", "装箱记录单编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(process)){
@@ -33,15 +33,22 @@ public class PackService {
             map.put("msg", "装箱记录单名称不能为空！");
             return map;
         }
-        //int i = packdao.addPack(orderNum, process, result, operater);
-        //map.put("code",i);
+        try {
+            packageListDao.addProcess(orderNum, process, result, operater);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("添加装箱记录单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
+
     public Map<String, String> updatePack(String orderNum, String process, String result, String operater){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
-            map.put("msg", "随工单编号不能为空！");
+            map.put("msg", "装箱记录单编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(process)){
@@ -49,13 +56,31 @@ public class PackService {
             map.put("msg", "装箱记录单名称不能为空！");
             return map;
         }
-        //int i = packdao.updatePack(orderNum, process, result, operater);
-        //map.put("code",i);
+        try {
+            packageListDao.UpdateConfirmAndPackager(orderNum, process, result, operater);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("更新装箱记录单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
 
     public List<Pack> selectPack(String orderNum){
-        //return aging.selectPack(orderNum);
-        return null;
+        return packageListDao.selectConfirmAndPackager(orderNum);
+    }
+
+    public Map<String, String> deletePack(String orderNum){
+        Map<String, String> map = new HashMap<String, String>();
+        try {
+            packageListDao.DeletePack(orderNum);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("删除装箱记录单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
+        return map;
     }
 }

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +28,7 @@ public class DebugController {
 
     @RequestMapping(value = "/adddebug")
     @ResponseBody
-    public String addAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+    public String addDebug(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                            @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
                            @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
                            @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
@@ -41,9 +42,10 @@ public class DebugController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/updatedebug")
     @ResponseBody
-    public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+    public String updateDebug(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                               @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
                               @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
                               @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
@@ -57,10 +59,24 @@ public class DebugController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/selectdebug")
     @ResponseBody
-    public String selectAging(@RequestParam(value = "orderNum") String orderNum){
+    public String selectDebug(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<Debug> agingList = debugService.selectDebug(orderNum);
         return null;
+    }
+
+    @RequestMapping(value = "/deleteorder")
+    @ResponseBody
+    public String deleteDebug(@RequestParam(value = "orderNum") String orderNum){
+        Map<String,String> map = new HashMap<>();
+        try {
+            map = debugService.deleteDebug(orderNum);
+        } catch (Exception e) {
+            logger.error("删除整机调试报告单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
     }
 }

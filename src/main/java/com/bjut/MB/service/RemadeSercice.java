@@ -20,14 +20,14 @@ public class RemadeSercice {
     private static final Logger logger = LoggerFactory.getLogger(RemadeSercice.class);
 
     @Autowired
-    //private RemadeDao remadeDao;
+    private RebackRecordDao rebackRecordDao;
 
     public Map<String,String> addRemade(String orderNum, Date date,String number,String updateSoftware,String updateHardware,
                                         String updateContent,String updatePeople,String testPeople){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
-            map.put("msg", "随工单编号不能为空！");
+            map.put("msg", "返工记录表编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(date.toString())){
@@ -35,16 +35,23 @@ public class RemadeSercice {
             map.put("msg", "返工记录表时间不能为空！");
             return map;
         }
-        //int i = remadeDao.addRemade(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
-        //map.put("code",i);
+        try {
+            rebackRecordDao.addProcess(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
+            map.put("code","0");
+        }
+        catch (Exception e){
+            logger.error("添加返工记录表DAO异常" + e.getMessage());
+            map.put("code","1");
+        }
         return map;
     }
+
     public Map<String, String> updateRemade(String orderNum, Date date, String number, String updateSoftware, String updateHardware,
                                             String updateContent, String updatePeople, String testPeople){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
-            map.put("msg", "随工单编号不能为空！");
+            map.put("msg", "返工记录表编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(date.toString())){
@@ -52,13 +59,31 @@ public class RemadeSercice {
             map.put("msg", "返工记录表时间不能为空！");
             return map;
         }
-        //int i = remadeDao.updateRemade(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
-        //map.put("code",i);
+        try {
+            rebackRecordDao.UpdateRebackList(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("更新返工记录表DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
 
     public List<Remade> selectRemade(String orderNum){
-        //return remadeDao.selectRemade(orderNum);
-        return null;
+        return rebackRecordDao.selectRebackList(orderNum);
+    }
+
+    public Map<String, String> deleteRemade(String orderNum){
+        Map<String, String> map = new HashMap<String, String>();
+        try {
+            rebackRecordDao.DeleteRemade(orderNum);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("删除返工记录表DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
+        return map;
     }
 }

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -62,8 +63,21 @@ public class MemoController {
     }
     @RequestMapping(value = "/selectmemo")
     @ResponseBody
-    public String selectMemo(@RequestParam(value = "orderNum") String orderNum){
+    public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<Memo> memoList = memoService.selectMemo(orderNum);
         return null;
+    }
+
+    @RequestMapping(value = "/deletememo")
+    @ResponseBody
+    public String deleteMemo(@RequestParam(value = "orderNum") String orderNum){
+        Map<String,String> map = new HashMap<>();
+        try {
+            map = memoService.deleteMemo(orderNum);
+        } catch (Exception e) {
+            logger.error("删除备忘录异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
     }
 }

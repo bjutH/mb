@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +28,7 @@ public class MachineTestController {
 
     @RequestMapping(value = "/addmachinetest")
     @ResponseBody
-    public String addAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+    public String addMachineTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                            @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
                            @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
@@ -40,9 +41,10 @@ public class MachineTestController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/updatemachinetest")
     @ResponseBody
-    public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+    public String updateMachineTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                               @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
                               @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
@@ -55,10 +57,24 @@ public class MachineTestController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/selectmachinetest")
     @ResponseBody
-    public String selectAging(@RequestParam(value = "orderNum") String orderNum){
+    public String selectMachineTest(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<MachineTest> agingList = machineTestService.selectMachineTest(orderNum);
         return null;
+    }
+
+    @RequestMapping(value = "/deletemachinetest")
+    @ResponseBody
+    public String deleteMachineTest(@RequestParam(value = "orderNum") String orderNum){
+        Map<String,String> map = new HashMap<>();
+        try {
+            map = machineTestService.deleteMachineTest(orderNum);
+        } catch (Exception e) {
+            logger.error("删除整机检验报告单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
     }
 }

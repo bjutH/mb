@@ -19,7 +19,7 @@ public class SphygmomanometerService {
     private static final Logger logger = LoggerFactory.getLogger(SphygmomanometerService.class);
 
     @Autowired
-    //private SphygmomanometerDao sphygmomanometerDao;
+    private SphygmomanometerDao sphygmomanometerDao;
 
     public Map<String,String> addSphygmomanometer(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
         Map<String, String> map = new HashMap<String, String>();
@@ -33,10 +33,17 @@ public class SphygmomanometerService {
             map.put("msg", "血压计检定报告单内容不能为空！");
             return map;
         }
-        //int i = sphygmomanometerDao.addSphygmomanometer(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
-        //map.put("code",i);
+        try{
+            sphygmomanometerDao.addSphygmomanometer(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("添加血压计检定报告单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
+
     public Map<String, String> updateSphygmomanometer(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
@@ -49,13 +56,31 @@ public class SphygmomanometerService {
             map.put("msg", "血压计检定报告单内容不能为空！");
             return map;
         }
-        //int i = sphygmomanometerDao.updateSphygmomanometer(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
-        //map.put("code",i);
+        try {
+            sphygmomanometerDao.updateSphygmomanometer(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("更新血压计检定报告单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
         return map;
     }
 
     public List<Sphygmomanometer> selectSphygmomanometer(String orderNum){
-        //return sphygmomanometerDao.selectSphygmomanometer（orderNum);
-        return null;
+        return sphygmomanometerDao.selectSphygmomanometer(orderNum);
+    }
+
+    public Map<String, String> deleteSphygmomanometer(String orderNum){
+        Map<String, String> map = new HashMap<String, String>();
+        try {
+            sphygmomanometerDao.deleteSphygmomanometer(orderNum);
+            map.put("code","1");
+        }
+        catch (Exception e){
+            logger.error("删除血压计检定报告单DAO异常" + e.getMessage());
+            map.put("code","0");
+        }
+        return map;
     }
 }

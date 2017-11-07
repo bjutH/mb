@@ -57,8 +57,22 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/selectorder")
-    public String selectOrder(Model model,String orderNum){
+    @ResponseBody
+    public String selectOrder(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<Order> orderList = orderService.selectOrder(orderNum);
         return null;
+    }
+
+    @RequestMapping(value = "/deleteorder")
+    @ResponseBody
+    public String deleteOrder(@RequestParam(value = "orderNum") String orderNum){
+        Map<String,String> map = new HashMap<>();
+        try {
+            map = orderService.deleteOrder(orderNum);
+        } catch (Exception e) {
+            logger.error("删除随工单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
     }
 }
