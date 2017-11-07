@@ -57,7 +57,7 @@ public class OrderService {
             return map;
         }
         try {
-            orderDao.updateOperaterAndOther(orderNum, process, operater, other, ps);
+            orderDao.UpdateOperaterAndOther(orderNum, process, operater, other, ps);
             map.put("code","1");
         }
         catch (Exception e){
@@ -74,7 +74,7 @@ public class OrderService {
     public Map<String, String> deleteOrder(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            orderDao.deleteOrder(orderNum);
+            orderDao.DeleteItem(orderNum);
             map.put("code","1");
         }
         catch (Exception e){
