@@ -18,7 +18,7 @@ public interface PackageListDao {
     void addProcess(String product_num,String item);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and item = #{item}"})
-    String selectConfirmAndPackager(String product_num, String item);
+    List<Pack> selectConfirmAndPackager(String product_num, String item);
 
     @Update({"update ", TABLE_NAME, "set confirm = #{confirm}, self_check = #{self_check}, packager = #{packager} where product_num = #{product_num} and item = #{item}"})
     void UpdateConfirmAndPackager(String confirm, String self_check, String packager);

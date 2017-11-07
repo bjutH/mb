@@ -23,5 +23,5 @@ public interface OrderDao {
     List<Order> selectOperaterAndOhter(String product_num, String process);
 
     @Update({"update ", TABLE_NAME, "set operater = #{operater}, other = #{other}, ps = #{ps} where product_num = #{product_num} and process = #{process}"})
-    void UpdateOperaterAndOther(String product_num, String process, String other, String ps);
+    void UpdateOperaterAndOther(String product_num, String operater, String process, String other, String ps);
 }
