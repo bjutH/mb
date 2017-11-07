@@ -21,7 +21,7 @@ public interface OrderDao {
     void addProcess(String product_num,String process);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
-    String selectOperaterAndOhter(String product_num, String process);
+    List<Order> selectOperaterAndOhter(String product_num, String process);
 
     @Update({"update ", TABLE_NAME, "set operater = #{operater}, other = #{other}, ps = #{ps} where product_num = #{product_num} and process = #{process}"})
     void UpdateOperaterAndOther(String product_num, String process, String operater, String other, String ps);

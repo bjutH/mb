@@ -18,7 +18,7 @@ public interface LaoHuaList {
     void addProcess(String product_num,String demand);
 
     @Select({"select ", SELECT_FIELDS, "from ", TABLE_NAME, "where product_num = #{product_num} and demand = #{demand}"})
-    String selectResultAndOther(String product_num, String demand);
+    List<Aging> selectResultAndOther(String product_num, String demand);
 
     @Update({"update ", TABLE_NAME, "set result = #{result}, process_result = #{process_result}, ps = #{ps} debuger = #{debuger} where product_num = #{product_num} and demand = #{demand}"})
     void UpdateResultAndOther(String product_num, String demand, String result, String process_result, String ps, String debuger);
