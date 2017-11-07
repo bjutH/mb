@@ -1,9 +1,12 @@
 package com.bjut.MB.dao;
 
+import com.bjut.MB.model.Pack;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Delete;
+
+import java.util.List;
 
 /**
  * Created by Cheng on 2017/10/31.
