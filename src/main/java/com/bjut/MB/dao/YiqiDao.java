@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Delete;
 /**
  * Created by Cheng on 2017/10/31.
  */
-public interface Yiqi {
+public interface YiqiDao {
     String TABLE_NAME = "yiqi_ps";
     String INSERT_FIELDS = "product_num, ps_name";
     String SELECT_FIELDS = "*";

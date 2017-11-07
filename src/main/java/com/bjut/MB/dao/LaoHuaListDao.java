@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Delete;
 /**
  * Created by Cheng on 2017/10/31.
  */
-public interface LaoHuaList {
+public interface LaoHuaListDao {
     String TABLE_NAME = "laohua";
     String INSERT_FIELDS = "product_num, demand";
     String SELECT_FIELDS = "*";

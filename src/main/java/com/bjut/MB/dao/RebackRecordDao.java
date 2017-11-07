@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Delete;
 /**
  * Created by Cheng on 2017/10/31.
  */
-public interface RebackRecord {
+public interface RebackRecordDao {
     String TABLE_NAME = "fangong_record_list";
     String INSERT_FIELDS = "product_num, date, modify_num, soft_modify_des, handware_modify_des, struct_modify_des, modifyer, checker";
     String SELECT_FIELDS = "*";
