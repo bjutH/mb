@@ -3,7 +3,6 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.Delete;
 
 
 
@@ -14,18 +13,15 @@ import org.apache.ibatis.annotations.Delete;
 public interface OrderDao {
     String TABLE_NAME = "suigongdan";
     String INSERT_FIELDS = "product_num, process";
-    String SELECT_FIELDS = "*";
+    String SELECT_FIELDS = "operater, other, ps";
 
 
-    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{process})"})
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{process}"})
     void addProcess(String product_num,String process);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
     String selectOperaterAndOhter(String product_num, String process);
 
     @Update({"update ", TABLE_NAME, "set operater = #{operater}, other = #{other}, ps = #{ps} where product_num = #{product_num} and process = #{process}"})
-    void UpdateOperaterAndOther(String product_num, String process, String operater, String other, String ps);
-
-    @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
-    void DeleteItem(String product_num,String process);
+    void UpdateOperaterAndOther(String product_num, String process, String other, String ps);
 }

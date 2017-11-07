@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Delete;
 /**
  * Created by Cheng on 2017/10/31.
  */
-public interface PackageList {
+public interface PackageListDao {
     String TABLE_NAME = "package_record";
     String INSERT_FIELDS = "product_num, item";
     String SELECT_FIELDS = "*";
