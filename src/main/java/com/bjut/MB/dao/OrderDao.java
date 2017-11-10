@@ -16,7 +16,7 @@ import java.util.List;
 public interface OrderDao {
     String TABLE_NAME = "suigongdan";
     String INSERT_FIELDS = "product_num, process";
-    String SELECT_FIELDS = "operater, other, ps";
+    String SELECT_FIELDS = "*";
 
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{process}"})
