@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by Cheng on 2017/11/10.
  */
+//血压计鉴定报告单
 public interface SphygmomanometerDao {
     String TABLE_NAME = "xueyaji";
     String INSERT_FIELDS = "product_num, process";
@@ -25,8 +26,8 @@ public interface SphygmomanometerDao {
     List<Sphygmomanometer> selectAll(String product_num);
 
     @Update({"update ", TABLE_NAME, "set real_data = #{real_data}, conclusion = #{conclusion}, ps = #{ps} where product_num = #{product_num} and serial_num = #{serial_num}"})
-    void UpdateItem(String product_num, String real_data, String conclusion, String serial_num, String ps);
+    void updateItem(String product_num, String real_data, String conclusion, String serial_num, String ps);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
-    void DeleteAll(String product_num);
+    void deleteAll(String product_num);
 }

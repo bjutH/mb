@@ -20,14 +20,14 @@ public interface ProcessTestDao {
 
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{theoryData}"})
-    void addProcess(String product_num,String theoryData);
+    void addItem(String product_num,String theoryData);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
-    List<ProcessTest> selectOperaterAndOhter(String product_num);
+    List<ProcessTest> selectAll(String product_num);
 
-    @Update({"update ", TABLE_NAME, "set testData = #{testData}, testResult = #{testResult}, testMachine = #{testMachine}, machineType = #{machineType},machineNo = #{machineNo}, ps = #{ps} where product_num = #{product_num} and theoryData = #{theoryData}"})
-    void UpdateOperaterAndOther(String product_num, String theoryData, String testData, String testResult, String testMachine, String machineType, String machineNo, String ps);
+    @Update({"update ", TABLE_NAME, "set test_data = #{test_data}, test_result = #{test_result}, test_machine = #{test_machine}, machine_type = #{machine_type},machine_no = #{machine_no}, ps = #{ps} where product_num = #{product_num} and theory_data = #{theory_data}"})
+    void updateItem(String product_num, String theory_data, String test_data, String test_result, String test_machine, String machine_type, String machine_no, String ps);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
-    void DeleteItem(String product_num);
+    void deleteAll(String product_num);
 }

@@ -11,21 +11,22 @@ import java.util.List;
 /**
  * Created by Cheng on 2017/10/31.
  */
-public interface LaoHuaListDao {
-    String TABLE_NAME = "laohua";
+//老化观测表
+public interface AgingDao {
+    String TABLE_NAME = "aging";
     String INSERT_FIELDS = "product_num, demand";
     String SELECT_FIELDS = "*";
 
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{demand})"})
-    void addProcess(String product_num,String demand);
+    void addItem(String product_num,String demand);
 
     @Select({"select ", SELECT_FIELDS, "from ", TABLE_NAME, "where product_num = #{product_num}"})
-    List<Aging> selectResultAndOther(String product_num);
+    List<Aging> selectAll(String product_num);
 
     @Update({"update ", TABLE_NAME, "set result = #{result}, process_result = #{process_result}, ps = #{ps} debuger = #{debuger} where product_num = #{product_num} and demand = #{demand}"})
-    void UpdateResultAndOther(String product_num, String demand, String result, String process_result, String ps, String debuger);
+    void updateItem(String product_num, String demand, String result, String process_result, String ps, String debuger);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
-    void DeleteItem(String product_num);
+    void deleteAll(String product_num);
 }

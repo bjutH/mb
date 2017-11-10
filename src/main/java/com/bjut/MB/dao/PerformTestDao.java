@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by Cheng on 2017/11/10.
  */
+//性能要求检验单
 public interface PerformTestDao {
     String TABLE_NAME = "perform_test";
     String INSERT_FIELDS = "product_num, serial_num";
@@ -25,8 +26,8 @@ public interface PerformTestDao {
     List<PerformTest> selectAll(String product_num);
 
     @Update({"update ", TABLE_NAME, "set real_data = #{real_data}, conclusion = #{conclusion}, ps = #{ps} where product_num = #{product_num} and serial_num = #{serial_num}"})
-    void UpdateItem(String product_num, String serial_num, String real_data, String conclusion, String ps);
+    void updateItem(String product_num, String serial_num, String real_data, String conclusion, String ps);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
-    void DeleteAll(String product_num);
+    void deleteAll(String product_num);
 }
