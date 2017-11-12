@@ -58,7 +58,7 @@ public class PackService {
             return map;
         }
         try {
-            packDao.updateItem(orderNum, process, result, operater);
+            packDao.updateItem(result, operater, orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
