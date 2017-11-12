@@ -25,7 +25,7 @@ public interface PackDao {
     List<Pack> selectAll(String product_num);
 
     @Update({"update ", TABLE_NAME, "set confirm = #{confirm}, self_check = #{self_check}, packager = #{packager} where product_num = #{product_num} and item = #{item}"})
-    void updateItem(String confirm, String self_check, String packager);
+    void updateItem(String confirm, String self_check, String packager, String product_num, String item);
 
     @Delete({"delete from", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);
