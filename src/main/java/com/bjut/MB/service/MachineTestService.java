@@ -1,5 +1,6 @@
 package com.bjut.MB.service;
 
+import com.bjut.MB.dao.MachineTestDao;
 import com.bjut.MB.model.MachineTest;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ public class MachineTestService {
     private static final Logger logger = LoggerFactory.getLogger(MachineTestService.class);
 
     @Autowired
-    //private MachineTestDao machineTestDao;
+    private MachineTestDao machineTestDao;
 
     public Map<String,String> addMachineTest(String orderNum, String process, String data, String result, String ps){
         Map<String, String> map = new HashMap<String, String>();
@@ -34,7 +35,7 @@ public class MachineTestService {
             return map;
         }
         try {
-            machineTestDao.addMachineTest(orderNum, process, data, result, ps);
+            machineTestDao.addItem(orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -57,7 +58,7 @@ public class MachineTestService {
             return map;
         }
         try {
-            machineTestDao.updateMachineTest(orderNum, process, data, result, ps);
+            machineTestDao.updateItem(orderNum, data, result, process, ps);
             map.put("code","1");
         }catch (Exception e){
             logger.error("更新整机检验报告单DAO异常" + e.getMessage());
@@ -67,13 +68,13 @@ public class MachineTestService {
     }
 
     public List<MachineTest> selectMachineTest(String orderNum){
-        return machineTestDao.selectMachineTest(orderNum);
+        return machineTestDao.selectAll(orderNum);
     }
 
     public Map<String, String> deleteMachineTest(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            machineTestDao.DeleteMachineTest(orderNum);
+            machineTestDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){

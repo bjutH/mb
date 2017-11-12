@@ -1,5 +1,6 @@
 package com.bjut.MB.service;
 
+import com.bjut.MB.dao.YiqiDao;
 import com.bjut.MB.model.Memo;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ public class MemoService {
             return map;
         }
         try {
-            yiqiDao.addProcess(orderNum, name, number, boardNum, weld, debug, test, version, ps);
+            yiqiDao.addItem(orderNum, name);
             map.put("code","1");
         }
         catch (Exception e){
@@ -59,7 +60,7 @@ public class MemoService {
             return map;
         }
         try {
-            yiqiDao.UpdateOperaterAndOther(orderNum, name, number, boardNum, weld, debug, test, version, ps);
+            yiqiDao.updateItem(orderNum, name, number, boardNum, weld, debug, test, version, ps);
             map.put("code","1");
         }
         catch (Exception e){
@@ -70,13 +71,13 @@ public class MemoService {
     }
 
     public List<Memo> selectMemo(String orderNum){
-        return yiqiDao.selectOperaterAndOhter(orderNum);
+        return yiqiDao.selectAll(orderNum);
     }
 
     public Map<String, String> deleteMemo(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            yiqiDao.DeleteMemo(orderNum);
+            yiqiDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){

@@ -34,7 +34,7 @@ public class OrderService {
             return map;
         }
         try {
-            orderDao.addProcess(orderNum, process);
+            orderDao.addItem(orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -57,7 +57,7 @@ public class OrderService {
             return map;
         }
         try {
-            orderDao.UpdateOperaterAndOther(orderNum, process, operater, other, ps);
+            orderDao.updateItem(orderNum, process, operater, other, ps);
             map.put("code","1");
         }
         catch (Exception e){
@@ -68,13 +68,13 @@ public class OrderService {
     }
 
     public List<Order> selectOrder(String orderNum){
-        return orderDao.selectOperaterAndOhter(orderNum);
+        return orderDao.selectAll(orderNum);
     }
 
     public Map<String, String> deleteOrder(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            orderDao.DeleteItem(orderNum);
+            orderDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){
