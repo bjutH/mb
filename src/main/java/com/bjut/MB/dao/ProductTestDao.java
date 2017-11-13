@@ -18,13 +18,25 @@ public interface ProductTestDao {
     String INSERT_FIELDS = "product_num, test_item";
     String SELECT_FIELDS = "*";
 
-
+    /**
+     *
+     * @param product_num 产品编号
+     * @param test_item 检测项目
+     */
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{test_item}"})
     void addItem(String product_num,String test_item);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<ProductTest> selectAll(String product_num);
 
+    /**
+     *
+     * @param product_num 产品编号
+     * @param test_item 检验项目
+     * @param test_record 实测记录
+     * @param item_result 单项结论
+     * @param ps 备注
+     */
     @Update({"update ", TABLE_NAME, "set test_record = #{test_record}, item_result = #{item_result}, ps = #{ps} where product_num = #{product_num} and test_item = #{test_item}"})
     void updateItem(String product_num, String test_item, String test_record, String item_result, String ps);
 

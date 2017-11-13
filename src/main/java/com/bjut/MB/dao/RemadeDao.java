@@ -18,13 +18,34 @@ public interface RemadeDao {
     String INSERT_FIELDS = "product_num, date, modify_num, soft_modify_des, handware_modify_des, struct_modify_des, modifyer, checker";
     String SELECT_FIELDS = "*";
 
-
+    /**
+     *
+     * @param product_num 产品编号
+     * @param date 日期
+     * @param modify_num 更改单号
+     * @param soft_modify_des 软件更改内容简述
+     * @param handware_modify_des 硬件更改内容简述
+     * @param struct_modify_des 结构更改内容简述
+     * @param modifyer 更改人
+     * @param checker 检查人
+     */
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{date}, #{modify_num}, #{soft_modify_des}, #{handware_modify_des}, #{struct_modify_des}, #{modifyer}, #{checker})"})
     void addItem(String product_num,Date date, String modify_num, String soft_modify_des, String handware_modify_des, String struct_modify_des, String modifyer, String checker );
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<Remade> selectAll(String product_num);
 
+    /**
+     *
+     * @param product_num 产品编号
+     * @param date 日期
+     * @param modify_num 更改单号
+     * @param soft_modify_des 软件更改内容简述
+     * @param handware_modify_des 硬件更改简述
+     * @param struct_modify_des 结构更改简述
+     * @param modifyer 更改人
+     * @param checker 检查人
+     */
     @Update({"update ", TABLE_NAME, "set product_num = #{product_num}, date = #{date}, modify_num = #{modify_num}, soft_modify_des = #{soft_modify_des}, handware_modify_des = #{handware_modify_des}, struct_modify_des = #{struct_modify_des}, modifyer = #{modifyer}, checker = #{checker}  where product_num = #{product_num}"})
     void updateItem(String product_num, Date date, String modify_num, String soft_modify_des, String handware_modify_des, String struct_modify_des, String modifyer, String checker);
 
