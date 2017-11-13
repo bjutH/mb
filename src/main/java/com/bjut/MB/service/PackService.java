@@ -1,5 +1,6 @@
 package com.bjut.MB.service;
 
+import com.bjut.MB.dao.PackDao;
 import com.bjut.MB.model.Pack;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ public class PackService {
     private static final Logger logger = LoggerFactory.getLogger(PackService.class);
 
     @Autowired
-    private PackageListDao packageListDao;
+    private PackDao packDao;
 
     public Map<String,String> addPack(String orderNum, String process, String result, String operater){
         Map<String, String> map = new HashMap<String, String>();
@@ -34,7 +35,7 @@ public class PackService {
             return map;
         }
         try {
-            packageListDao.addProcess(orderNum, process, result, operater);
+            packDao.addItem(orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -57,7 +58,7 @@ public class PackService {
             return map;
         }
         try {
-            packageListDao.UpdateConfirmAndPackager(orderNum, process, result, operater);
+            packDao.updateItem(result, operater, orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -68,13 +69,13 @@ public class PackService {
     }
 
     public List<Pack> selectPack(String orderNum){
-        return packageListDao.selectConfirmAndPackager(orderNum);
+        return packDao.selectAll(orderNum);
     }
 
     public Map<String, String> deletePack(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            packageListDao.DeletePack(orderNum);
+            packDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){

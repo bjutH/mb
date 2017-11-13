@@ -1,5 +1,6 @@
 package com.bjut.MB.service;
 
+import com.bjut.MB.dao.AgingDao;
 import com.bjut.MB.model.Aging;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ public class AgingService {
     private static final Logger logger = LoggerFactory.getLogger(AgingService.class);
 
     @Autowired
-    private LaoHuaListDao laoHuaListDao;
+    private AgingDao agingDao;
 
     public Map<String,String> addAging(String orderNum, String process, String result, Date date, String phenomenon, String handle,String ps, String operater){
         Map<String, String> map = new HashMap<String, String>();
@@ -35,7 +36,7 @@ public class AgingService {
             return map;
         }
         try {
-            laoHuaListDao.addProcess(orderNum, process, result, date, phenomenon, handle, ps, operater);
+            agingDao.addItem(orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -58,7 +59,7 @@ public class AgingService {
             return map;
         }
         try {
-            laoHuaListDao.UpdateOperaterAndOther(orderNum, process, result, date, phenomenon, handle, ps, operater);
+            agingDao.updateItem(orderNum, process, result, date, phenomenon, handle, ps, operater);
             map.put("code","1");
         }
         catch (Exception e){
@@ -69,13 +70,13 @@ public class AgingService {
     }
 
     public List<Aging> selectAging(String orderNum){
-        return laoHuaListDao.selectOperaterAndOhter(orderNum);
+        return agingDao.selectAll(orderNum);
     }
 
     public Map<String, String> deleteAging(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            laoHuaListDao.DeleteAging(orderNum);
+            agingDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){

@@ -1,5 +1,6 @@
 package com.bjut.MB.service;
 
+import com.bjut.MB.dao.DebugDao;
 import com.bjut.MB.model.Debug;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ public class DebugService {
             return map;
         }
         try {
-            debugDao.addDebug(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            debugDao.addItem(orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -57,7 +58,7 @@ public class DebugService {
             return map;
         }
         try {
-            debugDao.updateDebug(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            debugDao.updateItem(orderNum, data, result, detectionDevice, deviceType, deviceNum, ps, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -68,13 +69,13 @@ public class DebugService {
     }
 
     public List<Debug> selectDebug(String orderNum){
-        return debugDao.selectDebug(orderNum);
+        return debugDao.selectAll(orderNum);
     }
 
     public Map<String, String> deleteDebug(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            debugDao.deleteDebug(orderNum);
+            debugDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){

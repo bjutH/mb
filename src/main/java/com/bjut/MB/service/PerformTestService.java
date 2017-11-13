@@ -1,5 +1,6 @@
 package com.bjut.MB.service;
 
+import com.bjut.MB.dao.PerformTestDao;
 import com.bjut.MB.model.PerformTest;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ public class PerformTestService {
             return map;
         }
         try {
-            performTestDao.addPerformTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            performTestDao.addItem(orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -57,7 +58,7 @@ public class PerformTestService {
             return map;
         }
         try {
-            performTestDao.updatePerformTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            performTestDao.updateItem(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
             map.put("code","1");
         }
         catch (Exception e){
@@ -68,13 +69,13 @@ public class PerformTestService {
     }
 
     public List<PerformTest> selectPerformTest(String orderNum){
-        return performTestDao.selectPerformTest(orderNum);
+        return performTestDao.selectAll(orderNum);
     }
 
     public Map<String, String> deletePerformTest(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            performTestDao.deletePerformTest(orderNum);
+            performTestDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){

@@ -1,5 +1,6 @@
 package com.bjut.MB.service;
 
+import com.bjut.MB.dao.ProcessTestDao;
 import com.bjut.MB.model.ProcessTest;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ public class ProcessTestService {
             return map;
         }
         try {
-            processTestDao.addProcessTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            processTestDao.addItem(orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -57,7 +58,7 @@ public class ProcessTestService {
             return map;
         }
         try {
-            processTestDao.updateProcessTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            processTestDao.updateItem(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
             map.put("code","1");
         }
         catch (Exception e){
@@ -68,13 +69,13 @@ public class ProcessTestService {
     }
 
     public List<ProcessTest> selectProcessTest(String orderNum){
-        return processTestDao.selectProcessTest(orderNum);
+        return processTestDao.selectAll(orderNum);
     }
 
     public Map<String, String> deleteProcessTest(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            processTestDao.deleteProcessTest(orderNum);
+            processTestDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){

@@ -1,5 +1,6 @@
 package com.bjut.MB.service;
 
+import com.bjut.MB.dao.RemadeDao;
 import com.bjut.MB.model.Remade;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ public class RemadeSercice {
     private static final Logger logger = LoggerFactory.getLogger(RemadeSercice.class);
 
     @Autowired
-    private RebackRecordDao rebackRecordDao;
+    private RemadeDao remadeDao;
 
     public Map<String,String> addRemade(String orderNum, Date date,String number,String updateSoftware,String updateHardware,
                                         String updateContent,String updatePeople,String testPeople){
@@ -36,7 +37,7 @@ public class RemadeSercice {
             return map;
         }
         try {
-            rebackRecordDao.addProcess(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
+            remadeDao.addItem(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
             map.put("code","0");
         }
         catch (Exception e){
@@ -60,7 +61,7 @@ public class RemadeSercice {
             return map;
         }
         try {
-            rebackRecordDao.UpdateRebackList(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
+            remadeDao.updateItem(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
             map.put("code","1");
         }
         catch (Exception e){
@@ -71,13 +72,13 @@ public class RemadeSercice {
     }
 
     public List<Remade> selectRemade(String orderNum){
-        return rebackRecordDao.selectRebackList(orderNum);
+        return remadeDao.selectAll(orderNum);
     }
 
     public Map<String, String> deleteRemade(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            rebackRecordDao.DeleteRemade(orderNum);
+            remadeDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){

@@ -1,5 +1,6 @@
 package com.bjut.MB.service;
 
+import com.bjut.MB.dao.ProductTestDao;
 import com.bjut.MB.model.ProductTest;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ public class ProductTestService {
             return map;
         }
         try {
-            productTestDao.addProductTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            productTestDao.addItem(orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -57,7 +58,7 @@ public class ProductTestService {
             return map;
         }
         try {
-            productTestDao.updateProductTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            productTestDao.updateItem(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
             map.put("code","1");
         }
         catch (Exception e){
@@ -68,13 +69,13 @@ public class ProductTestService {
     }
 
     public List<ProductTest> selectProductTest(String orderNum){
-        return productTestDao.selectProductTest(orderNum);
+        return productTestDao.selectAll(orderNum);
     }
 
     public Map<String, String> deleteProductTest(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            productTestDao.deleteProductTest(orderNum);
+            productTestDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){

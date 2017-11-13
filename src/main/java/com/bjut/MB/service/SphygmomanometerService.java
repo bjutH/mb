@@ -1,5 +1,6 @@
 package com.bjut.MB.service;
 
+import com.bjut.MB.dao.SphygmomanometerDao;
 import com.bjut.MB.model.Sphygmomanometer;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ public class SphygmomanometerService {
             return map;
         }
         try{
-            sphygmomanometerDao.addSphygmomanometer(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            sphygmomanometerDao.addItem(orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -57,7 +58,7 @@ public class SphygmomanometerService {
             return map;
         }
         try {
-            sphygmomanometerDao.updateSphygmomanometer(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            sphygmomanometerDao.updateItem(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
             map.put("code","1");
         }
         catch (Exception e){
@@ -68,13 +69,13 @@ public class SphygmomanometerService {
     }
 
     public List<Sphygmomanometer> selectSphygmomanometer(String orderNum){
-        return sphygmomanometerDao.selectSphygmomanometer(orderNum);
+        return sphygmomanometerDao.selectAll(orderNum);
     }
 
     public Map<String, String> deleteSphygmomanometer(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         try {
-            sphygmomanometerDao.deleteSphygmomanometer(orderNum);
+            sphygmomanometerDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){
