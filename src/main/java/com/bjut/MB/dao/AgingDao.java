@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Delete;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,7 +46,7 @@ public interface AgingDao {
      * @param debuger 调试员
      */
     @Update({"update ", TABLE_NAME, "set result = #{result}, time = #{time}, phenomenon = #{phenomenon}, process_result = #{process_result}, ps = #{ps} debuger = #{debuger} where product_num = #{product_num} and demand = #{demand}"})
-    void updateItem(String product_num, String demand, String result, String time,String phenomenon, String process_result, String ps, String debuger);
+    void updateItem(String product_num, String demand, String result, Date time, String phenomenon, String process_result, String ps, String debuger);
 
     /**
      *
