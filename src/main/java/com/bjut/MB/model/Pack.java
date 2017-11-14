@@ -7,6 +7,7 @@ public class Pack {
     private String orderNum;
     private String process;
     private String result;
+    private String check;
     private String operater;
 
     public String getOrderNum() {
@@ -31,6 +32,14 @@ public class Pack {
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    public String getCheck() {
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
     }
 
     public String getOperater() {

@@ -22,7 +22,13 @@ public class SphygmomanometerService {
     @Autowired
     private SphygmomanometerDao sphygmomanometerDao;
 
-    public Map<String,String> addSphygmomanometer(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
+    /**
+     *
+     * @param orderNum  产品编号
+     * @param process   序号
+     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
+    public Map<String,String> addSphygmomanometer(String orderNum, String process){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -45,7 +51,16 @@ public class SphygmomanometerService {
         return map;
     }
 
-    public Map<String, String> updateSphygmomanometer(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
+    /**
+     *
+     * @param orderNum  产品编号
+     * @param process   序号
+     * @param data      实际数据
+     * @param result    结论
+     * @param ps        备注
+     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
+    public Map<String, String> updateSphygmomanometer(String orderNum, String process, String data, String result, String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -58,7 +73,7 @@ public class SphygmomanometerService {
             return map;
         }
         try {
-            sphygmomanometerDao.updateItem(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            sphygmomanometerDao.updateItem(orderNum, data, result, process, ps);
             map.put("code","1");
         }
         catch (Exception e){
@@ -68,12 +83,27 @@ public class SphygmomanometerService {
         return map;
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return          返回一个LIST集合
+     */
     public List<Sphygmomanometer> selectSphygmomanometer(String orderNum){
         return sphygmomanometerDao.selectAll(orderNum);
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
     public Map<String, String> deleteSphygmomanometer(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
+        if(StringUtils.isBlank(orderNum)){
+            map.put("code","2");
+            map.put("msg", "血压计检定报告单编号不能为空！");
+            return map;
+        }
         try {
             sphygmomanometerDao.deleteAll(orderNum);
             map.put("code","1");

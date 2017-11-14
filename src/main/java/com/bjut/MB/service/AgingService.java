@@ -23,7 +23,13 @@ public class AgingService {
     @Autowired
     private AgingDao agingDao;
 
-    public Map<String,String> addAging(String orderNum, String process, String result, Date date, String phenomenon, String handle,String ps, String operater){
+    /**
+     *
+     * @param orderNum 产品编号
+     * @param process   要求
+     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
+    public Map<String,String> addAging(String orderNum, String process){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -46,6 +52,18 @@ public class AgingService {
         return map;
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @param process   要求
+     * @param result    观测结果
+     * @param date      观测时间
+     * @param phenomenon    故障现象
+     * @param handle    处理结果
+     * @param ps        备注
+     * @param operater  调试员
+     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
     public Map<String, String> updateAging(String orderNum, String process, String result, Date date, String phenomenon, String handle,String ps, String operater){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
@@ -69,12 +87,27 @@ public class AgingService {
         return map;
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return          返回一个LIST集合
+     */
     public List<Aging> selectAging(String orderNum){
         return agingDao.selectAll(orderNum);
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
     public Map<String, String> deleteAging(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
+        if(StringUtils.isBlank(orderNum)){
+            map.put("code","2");
+            map.put("msg", "老化观测表编号不能为空！");
+            return map;
+        }
         try {
             agingDao.deleteAll(orderNum);
             map.put("code","1");

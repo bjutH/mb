@@ -29,14 +29,10 @@ public class MemoController {
 
     @RequestMapping(value = "/addmemo")
     @ResponseBody
-    public String addMemo(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "name") String name,
-                          @RequestParam(value = "number") String number, @RequestParam(value = "boardNum") String boardNum,
-                          @RequestParam(value = "weld") String weld, @RequestParam(value = "debug") String debug,
-                          @RequestParam(value = "test") String test,@RequestParam(value = "version") String version,
-                          @RequestParam(value = "ps") String ps){
+    public String addMemo(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "name") String name){
         Map<String,String> map = new HashMap<>();
         try {
-            map = memoService.addMemo(orderNum, name, number, boardNum, weld, debug, test, version, ps);
+            map = memoService.addMemo(orderNum, name);
         }
         catch (Exception e){
             logger.error("添加备忘录异常" + e.getMessage());
@@ -47,10 +43,10 @@ public class MemoController {
     @RequestMapping(value = "/updatememo")
     @ResponseBody
     public String updateMemo(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "name") String name,
-            @RequestParam(value = "number") String number, @RequestParam(value = "boardNum") String boardNum,
-            @RequestParam(value = "weld") String weld, @RequestParam(value = "debug") String debug,
-            @RequestParam(value = "test") String test,@RequestParam(value = "version") String version,
-                             @RequestParam(value = "ps") String ps){
+                              @RequestParam(value = "number") String number, @RequestParam(value = "boardNum") String boardNum,
+                              @RequestParam(value = "weld") String weld, @RequestParam(value = "debug") String debug,
+                              @RequestParam(value = "test") String test, @RequestParam(value = "version") String version,
+                              @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
             map = memoService.updateMemo(orderNum, name, number, boardNum, weld, debug, test, version, ps);

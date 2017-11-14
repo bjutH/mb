@@ -48,9 +48,9 @@ public class RemadeController {
     @RequestMapping(value = "/updateremade")
     @ResponseBody
     public String updateRemade(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "date") Date date,
-                             @RequestParam(value = "number") String number, @RequestParam(value = "updateSoftware") String updateSoftware,
-                             @RequestParam(value = "updateHardware") String updateHardware, @RequestParam(value = "updateContent") String updateContent,
-                             @RequestParam(value = "updatePeople") String updatePeople, @RequestParam(value = "testPeople") String testPeople){
+                                @RequestParam(value = "number") String number, @RequestParam(value = "updateSoftware") String updateSoftware,
+                                @RequestParam(value = "updateHardware") String updateHardware, @RequestParam(value = "updateContent") String updateContent,
+                                @RequestParam(value = "updatePeople") String updatePeople, @RequestParam(value = "testPeople") String testPeople){
         Map<String,String> map = new HashMap<>();
         try {
             map = remadeSercice.updateRemade(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);

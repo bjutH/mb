@@ -28,13 +28,10 @@ public class SphygmomanometerController {
 
     @RequestMapping(value = "/addsphygmomanometer")
     @ResponseBody
-    public String addSphygmomanometer(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                           @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                           @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                           @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+    public String addSphygmomanometer(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
         Map<String,String> map = new HashMap<>();
         try {
-            map = sphygmomanometerService.addSphygmomanometer(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = sphygmomanometerService.addSphygmomanometer(orderNum, process);
         }
         catch (Exception e){
             logger.error("添加血压计检定报告单异常" + e.getMessage());
@@ -46,12 +43,11 @@ public class SphygmomanometerController {
     @RequestMapping(value = "/updatesphygmomanometer")
     @ResponseBody
     public String updateSphygmomanometer(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                              @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                              @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                              @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+                                          @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
+                                          @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = sphygmomanometerService.updateSphygmomanometer(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = sphygmomanometerService.updateSphygmomanometer(orderNum, process, data, result, ps);
         }
         catch (Exception e){
             logger.error("更新血压计检定报告单异常" + e.getMessage());

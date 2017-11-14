@@ -11,6 +11,7 @@ public class MbApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }

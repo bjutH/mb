@@ -22,7 +22,13 @@ public class DebugService {
     @Autowired
     private DebugDao debugDao;
 
-    public Map<String,String> addDebug(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
+    /**
+     *
+     * @param orderNum  产品编号
+     * @param process   理论数据
+     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
+    public Map<String,String> addDebug(String orderNum, String process){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -45,6 +51,18 @@ public class DebugService {
         return map;
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @param process   观测数据
+     * @param data      理论数据
+     * @param result    观测结果
+     * @param detectionDevice   检测设备
+     * @param deviceType    设备型号
+     * @param deviceNum 设备编号
+     * @param ps    备注
+     * @return  返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
     public Map<String, String> updateDebug(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
@@ -68,12 +86,27 @@ public class DebugService {
         return map;
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return  返回一个LIST集合
+     */
     public List<Debug> selectDebug(String orderNum){
         return debugDao.selectAll(orderNum);
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return  返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
     public Map<String, String> deleteDebug(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
+        if(StringUtils.isBlank(orderNum)){
+            map.put("code","2");
+            map.put("msg", "整机调试报告单编号不能为空！");
+            return map;
+        }
         try {
             debugDao.deleteAll(orderNum);
             map.put("code","1");

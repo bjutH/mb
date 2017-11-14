@@ -30,13 +30,10 @@ public class AgingController {
 
     @RequestMapping(value = "/addaging")
     @ResponseBody
-    public String addAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                          @RequestParam(value = "result") String result, @RequestParam(value = "date") Date date,
-                          @RequestParam(value = "phenomenon") String phenomenon, @RequestParam(value = "handle") String handle,
-                          @RequestParam(value = "phenomenon") String ps, @RequestParam(value = "handle") String operater){
+    public String addAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
         Map<String,String> map = new HashMap<>();
         try {
-            map = agingService.addAging(orderNum, process, result, date, phenomenon, handle, ps, operater);
+            map = agingService.addAging(orderNum, process);
         }
         catch (Exception e){
             logger.error("添加老化观测表异常" + e.getMessage());
@@ -50,7 +47,7 @@ public class AgingController {
     public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                               @RequestParam(value = "result") String result, @RequestParam(value = "date") Date date,
                               @RequestParam(value = "phenomenon") String phenomenon, @RequestParam(value = "handle") String handle,
-                              @RequestParam(value = "phenomenon") String ps, @RequestParam(value = "handle") String operater){
+                              @RequestParam(value = "ps") String ps, @RequestParam(value = "operater") String operater){
         Map<String,String> map = new HashMap<>();
         try {
             map = agingService.updateAging(orderNum, process, result, date, phenomenon, handle, ps, operater);

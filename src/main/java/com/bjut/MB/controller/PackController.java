@@ -27,11 +27,10 @@ public class PackController {
 
     @RequestMapping(value = "/addpack")
     @ResponseBody
-    public String addPack(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                           @RequestParam(value = "result") String result,@RequestParam(value = "handle") String operater){
+    public String addPack(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
         Map<String,String> map = new HashMap<>();
         try {
-            map = packService.addPack(orderNum, process, result, operater);
+            map = packService.addPack(orderNum, process);
         }
         catch (Exception e){
             logger.error("添加装箱记录单异常" + e.getMessage());
@@ -43,10 +42,11 @@ public class PackController {
     @RequestMapping(value = "/updatepack")
     @ResponseBody
     public String updatePack(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                              @RequestParam(value = "result") String result,@RequestParam(value = "handle") String operater){
+                              @RequestParam(value = "result") String result, @RequestParam(value = "check") String check,
+                              @RequestParam(value = "operater") String operater){
         Map<String,String> map = new HashMap<>();
         try {
-            map = packService.updatePack(orderNum, process, result, operater);
+            map = packService.updatePack(orderNum, process, result, check, operater);
         }
         catch (Exception e){
             logger.error("更新装箱记录单异常" + e.getMessage());

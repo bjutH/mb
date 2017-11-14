@@ -28,13 +28,10 @@ public class ProductTestController {
 
     @RequestMapping(value = "/addproducttest")
     @ResponseBody
-    public String addProductTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                           @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                           @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                           @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+    public String addProductTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
         Map<String,String> map = new HashMap<>();
         try {
-            map = productTestService.addProductTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = productTestService.addProductTest(orderNum, process);
         }
         catch (Exception e){
             logger.error("添加成品检验报告单异常" + e.getMessage());
@@ -46,12 +43,11 @@ public class ProductTestController {
     @RequestMapping(value = "/updateproducttest")
     @ResponseBody
     public String updateProductTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                              @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                              @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                              @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+                                     @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
+                                     @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = productTestService.updateProductTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = productTestService.updateProductTest(orderNum, process, data, result, ps);
         }
         catch (Exception e){
             logger.error("更新成品检验报告单异常" + e.getMessage());

@@ -28,13 +28,10 @@ public class ProcessTestController {
 
     @RequestMapping(value = "/addprocesstest")
     @ResponseBody
-    public String addProcessTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                           @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                           @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                           @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+    public String addProcessTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
         Map<String,String> map = new HashMap<>();
         try {
-            map = processTestService.addProcessTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = processTestService.addProcessTest(orderNum, process);
         }
         catch (Exception e){
             logger.error("添加关键工序检验报告单异常" + e.getMessage());
@@ -46,9 +43,9 @@ public class ProcessTestController {
     @RequestMapping(value = "/updateprocesstest")
     @ResponseBody
     public String updateProcessTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                              @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                              @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                              @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+                                    @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
+                                    @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
+                                    @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
             map = processTestService.updateProcessTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
