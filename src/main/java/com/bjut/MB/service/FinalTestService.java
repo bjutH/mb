@@ -50,6 +50,18 @@ public class FinalTestService {
         return map;
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @param process   要求
+     * @param data      数据
+     * @param result    结果
+     * @param detectionDevice   检测设备
+     * @param deviceType    设备类型
+     * @param deviceNum     设备编号
+     * @param ps        备注
+     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
     public Map<String, String> updateFinalTest(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
