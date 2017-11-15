@@ -22,7 +22,13 @@ public class MachineTestService {
     @Autowired
     private MachineTestDao machineTestDao;
 
-    public Map<String,String> addMachineTest(String orderNum, String process, String data, String result, String ps){
+    /**
+     *
+     * @param orderNum  产品编号
+     * @param process   检测要求
+     * @return  返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
+    public Map<String,String> addMachineTest(String orderNum, String process){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -45,6 +51,15 @@ public class MachineTestService {
         return map;
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @param process   检测要求
+     * @param data      检验数据
+     * @param result    检验结果
+     * @param ps        备注
+     * @return
+     */
     public Map<String, String> updateMachineTest(String orderNum, String process, String data, String result, String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
@@ -67,12 +82,27 @@ public class MachineTestService {
         return map;
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return  返回一个LIST集合
+     */
     public List<MachineTest> selectMachineTest(String orderNum){
         return machineTestDao.selectAll(orderNum);
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return  返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
     public Map<String, String> deleteMachineTest(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
+        if(StringUtils.isBlank(orderNum)){
+            map.put("code","2");
+            map.put("msg", "整机检验报告单编号不能为空！");
+            return map;
+        }
         try {
             machineTestDao.deleteAll(orderNum);
             map.put("code","1");

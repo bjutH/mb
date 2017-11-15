@@ -28,12 +28,10 @@ public class MachineTestController {
 
     @RequestMapping(value = "/addmachinetest")
     @ResponseBody
-    public String addMachineTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                           @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                           @RequestParam(value = "ps") String ps){
+    public String addMachineTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
         Map<String,String> map = new HashMap<>();
         try {
-            map = machineTestService.addMachineTest(orderNum, process, data, result, ps);
+            map = machineTestService.addMachineTest(orderNum, process);
         }
         catch (Exception e){
             logger.error("添加整机检验报告单异常" + e.getMessage());
@@ -45,7 +43,7 @@ public class MachineTestController {
     @RequestMapping(value = "/updatemachinetest")
     @ResponseBody
     public String updateMachineTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                              @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
+                              @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
                               @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {

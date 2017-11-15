@@ -28,13 +28,10 @@ public class FianlTestController {
 
     @RequestMapping(value = "/addfinaltest")
     @ResponseBody
-    public String addFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                           @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                           @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                           @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+    public String addFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
         Map<String,String> map = new HashMap<>();
         try {
-            map = finalTestService.addFinalTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = finalTestService.addFinalTest(orderNum, process);
         }
         catch (Exception e){
             logger.error("添加最终检验单异常" + e.getMessage());
@@ -46,7 +43,7 @@ public class FianlTestController {
     @RequestMapping(value = "/updatefinaltest")
     @ResponseBody
     public String updateFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                              @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
+                              @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
                               @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
                               @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();

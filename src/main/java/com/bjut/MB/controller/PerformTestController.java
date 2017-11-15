@@ -28,13 +28,10 @@ public class PerformTestController {
 
     @RequestMapping(value = "/addperformtest")
     @ResponseBody
-    public String addPerformTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                           @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                           @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                           @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+    public String addPerformTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
         Map<String,String> map = new HashMap<>();
         try {
-            map = performTestService.addPerformTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = performTestService.addPerformTest(orderNum, process);
         }
         catch (Exception e){
             logger.error("添加性能要求检验单异常" + e.getMessage());
@@ -46,12 +43,11 @@ public class PerformTestController {
     @RequestMapping(value = "/updateperformtest")
     @ResponseBody
     public String updatePerformTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                              @RequestParam(value = "data") String data, @RequestParam(value = "daresultte") String result,
-                              @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                              @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+                                     @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
+                                     @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
-            map = performTestService.updatePerformTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = performTestService.updatePerformTest(orderNum, process, data, result, ps);
         }
         catch (Exception e){
             logger.error("更新性能要求检验单异常" + e.getMessage());

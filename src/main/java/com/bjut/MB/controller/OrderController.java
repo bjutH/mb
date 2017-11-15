@@ -29,11 +29,10 @@ public class OrderController {
 
     @RequestMapping(value = "/addorder")
     @ResponseBody
-    public String addOrder(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process,
-                           @RequestParam(value = "operater") String operater,@RequestParam(value = "other") String other,@RequestParam(value = "ps") String ps){
+    public String addOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
         Map<String,String> map = new HashMap<>();
         try {
-            map = orderService.addOrder(orderNum, process, operater, other, ps);
+            map = orderService.addOrder(orderNum, process);
         }
         catch (Exception e){
             logger.error("添加随工单异常" + e.getMessage());
@@ -44,8 +43,9 @@ public class OrderController {
 
     @RequestMapping(value = "/updateorder")
     @ResponseBody
-    public String updateOrder(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "processes") String processes,
-    @RequestParam(value = "operater") String operater,@RequestParam(value = "other") String other,@RequestParam(value = "ps") String ps){
+    public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "processes") String processes,
+                               @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
+                               @RequestParam(value = "ps") String ps){
         Map<String,String> map = new HashMap<>();
         try {
             map = orderService.updateOrder(orderNum, processes, operater, other, ps);

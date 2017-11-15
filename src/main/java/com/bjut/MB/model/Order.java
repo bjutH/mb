@@ -5,7 +5,7 @@ package com.bjut.MB.model;
  */
 public class Order {
     private String orderNum;
-    private String processes;
+    private String process;
     private String operater;
     private String other;
     private String ps;
@@ -18,12 +18,12 @@ public class Order {
         this.orderNum = orderNum;
     }
 
-    public String getProcesses() {
-        return processes;
+    public String getProcess() {
+        return process;
     }
 
-    public void setProcesses(String processes) {
-        this.processes = processes;
+    public void setProcess(String process) {
+        this.process = process;
     }
 
     public String getOperater() {
