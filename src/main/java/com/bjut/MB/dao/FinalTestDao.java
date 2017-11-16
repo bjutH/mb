@@ -1,11 +1,13 @@
 package com.bjut.MB.dao;
 
+import com.bjut.MB.model.FinalTest;
 import com.bjut.MB.model.Order;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,10 +33,10 @@ public interface FinalTestDao {
      * @param random_result 确认数量、检验结果合格-不合格
      */
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{machine_type}, #{inner_label}, #{check_result}, #{checker}, #{check_date}, #{final_checker}, #{final_check_date}, #{name}, #{random_result}"})
-    void addItem(String product_num,String machine_type, String inner_label, String check_result, String checker, String check_date, String final_checker, String final_check_date, String name, String random_result);
+    void addItem(String product_num, String machine_type, String inner_label, String check_result, String checker, Date check_date, String final_checker, Date final_check_date, String name, String random_result);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
-    List<Order> selectAll(String product_num);
+    List<FinalTest> selectAll(String product_num);
 
 
     /**
@@ -51,7 +53,7 @@ public interface FinalTestDao {
      * @param random_result 确认数量、检验结果合格-不合格
      */
     @Update({"update ", TABLE_NAME, "set machine_type = #{machine_type}, inner_label = #{inner_label}, check_result = #{check_result}, checker = #{checker}, check_date = #{check_date}, final_checker = #{final_checker}, final_check_date = #{final_check_date}, name = #{name}, random_result = #{random_result} where product_num = #{product_num}"})
-    void updateItem(String product_num,String machine_type, String inner_label, String check_result, String checker, String check_date, String final_checker, String final_check_date, String name, String random_result);
+    void updateItem(String product_num,String machine_type, String inner_label, String check_result, String checker, Date check_date, String final_checker, Date final_check_date, String name, String random_result);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);
