@@ -1,8 +1,9 @@
 package com.bjut.MB.Utils;
 
 import com.bjut.MB.dao.OrderDao;
+import com.bjut.MB.dao.YiqiDao;
+import com.bjut.MB.model.Memo;
 import com.bjut.MB.model.Order;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -12,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import static com.sun.corba.se.spi.activation.IIOP_CLEAR_TEXT.value;
@@ -28,6 +27,10 @@ public class ExcelUtils {
 
     @Autowired
     private OrderDao orderDao;
+    @Autowired
+    private YiqiDao yiqiDao;
+
+
     /**
      *
      * @param modelPath  EXCEL文件路径
@@ -80,8 +83,9 @@ public class ExcelUtils {
      * @param modelPath EXCEL文件路径
      * @param x          随工单编号的横坐标
      * @param y          随工单编号的纵坐标
+     * @param type       哪张表单
      */
-    public void replaceExcel(String modelPath, int x, int y){
+    public void replaceExcel(String modelPath, int x, int y, String type){
 //    	String[] arr = modelPath.split("\\.");
 //    	String copyPath = "";
 //    	for(int i=0;i<arr.length -1;i++){
@@ -110,7 +114,7 @@ public class ExcelUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        replaceDate(x, y);
+        replaceDate(x, y, type);
         try {
             fis.close();
         } catch (Exception e) {
@@ -131,10 +135,11 @@ public class ExcelUtils {
 
     /**
      * 根据ID查询内容并替换
-     * @param x     随工单编号的横坐标
-     * @param y     随工单编号的纵坐标
+     * @param x         随工单编号的横坐标
+     * @param y         随工单编号的纵坐标
+     * @param type      哪张表单
      */
-    private void replaceDate(int x, int y){
+    private void replaceDate(int x, int y, String type){
         // 获取行数
         int rowNum = sheet.getLastRowNum();
         String id = null;
@@ -151,11 +156,53 @@ public class ExcelUtils {
                 if(i==x &&j==y){
                     id = cellValue;
                 }
-                if(cellValue.contains("#")){
-                    String string = cellValue.substring(1, cellValue.length());
-                    //String value = orderDao.selectOperater(id, process).getOperater();
-                    List<Order> list = orderDao.selectAll(id);
-                    for (Order order:list) {
+                String first = String.valueOf(cellValue.charAt(0));
+                String last = String.valueOf(cellValue.charAt(cellValue.length()));
+                if(first=="#"){
+                    String value = null;
+                    String string = cellValue.substring(1, cellValue.length()-1);
+                    switch (type){
+                        case "order":
+                            //Order order = orderDao.selectItem(id,string);
+                            switch (last){
+                                case "1":
+                                    value = order.getOperater();
+                                    break;
+                                case  "2":
+                                    value = order.getOther();
+                                    break;
+                                case  "3":
+                                    value = order.getPs();
+                                    break;
+                            }
+                            break;
+                        case  "memo":
+                            //Memo memo = yiqiDao.selectItem(id,string);
+                            switch (last){
+                                case "1":
+                                    value = memo.getNumber();
+                                    break;
+                                case "2":
+                                    value = memo.getBoardNum();
+                                    break;
+                                case  "3":
+                                    value = memo.getWeld();
+                                    break;
+                                case  "4":
+                                    value = memo.getDebug();
+                                    break;
+                                case "5":
+                                    value = memo.getTest();
+                                    break;
+                                case "6":
+                                    value = memo.getVersion();
+                                    break;
+                                case "7":
+                                    value = memo.getPs();
+                                    break;
+                            }
+                            break;
+                        case "aging":
 
                     }
                     setCellStrValue(i, j, value);
