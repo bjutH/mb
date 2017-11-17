@@ -57,10 +57,17 @@ public class DebugController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/selectdebug")
+    @RequestMapping(value = "/selectdebugall")
     @ResponseBody
     public String selectDebug(Model model, @RequestParam(value = "orderNum") String orderNum){
-        List<Debug> agingList = debugService.selectDebug(orderNum);
+        List<Debug> debugList = debugService.selectDebug(orderNum);
+        return null;
+    }
+
+    @RequestMapping(value = "/selectdebug")
+    @ResponseBody
+    public String selectDebug(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+        Debug debug = debugService.selectDebug(orderNum, process);
         return null;
     }
 

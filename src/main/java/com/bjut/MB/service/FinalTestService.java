@@ -23,6 +23,20 @@ public class FinalTestService {
     @Autowired
     private FinalTestDao finalTestDao;
 
+    /**
+     *
+     * @param orderNum          仪器编号
+     * @param process           名称
+     * @param machineType       仪器型号
+     * @param lable             内部标记
+     * @param check             检验结果
+     * @param checker           检验员
+     * @param date              检验日期
+     * @param finalChecker      核验人
+     * @param finalDate         核验放行日期
+     * @param result            确认数量、检验结果合格-不合格
+     * @return                  返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
     public Map<String,String> addFinalTest(String orderNum, String process, String machineType, String lable, String check,
                                            String checker, Date date, String finalChecker, Date finalDate, String result){
         Map<String, String> map = new HashMap<String, String>();
@@ -47,6 +61,20 @@ public class FinalTestService {
         return map;
     }
 
+    /**
+     *
+     * @param orderNum          仪器编号
+     * @param process           名称
+     * @param machineType       仪器型号
+     * @param lable             内部标记
+     * @param check             检验结果
+     * @param checker           检验员
+     * @param date              检验日期
+     * @param finalChecker      核验人
+     * @param finalDate         核验放行日期
+     * @param result            确认数量、检验结果合格-不合格
+     * @return                  返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
     public Map<String, String> updateFinalTest(String orderNum, String process, String machineType, String lable, String check,
                                                String checker, Date date, String finalChecker, Date finalDate, String result){
         Map<String, String> map = new HashMap<String, String>();
@@ -80,6 +108,15 @@ public class FinalTestService {
         return finalTestDao.selectAll(orderNum);
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @param process   名称
+     * @return          返回一个FinalTest对象
+     */
+    public FinalTest selectFinalTest(String orderNum, String process){
+        return finalTestDao.selectItem(orderNum, process);
+    }
     /**
      *
      * @param orderNum  产品编号

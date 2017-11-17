@@ -56,10 +56,17 @@ public class OrderController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/selectorder")
+    @RequestMapping(value = "/selectorderall")
     @ResponseBody
     public String selectOrder(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<Order> orderList = orderService.selectOrder(orderNum);
+        return null;
+    }
+
+    @RequestMapping(value = "/selectorder")
+    @ResponseBody
+    public String selectOrder(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+        Order order = orderService.selectOrder(orderNum, process);
         return null;
     }
 

@@ -59,10 +59,17 @@ public class AgingController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/selectaging")
+    @RequestMapping(value = "/selectagingall")
     @ResponseBody
     public String selectAging(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<Aging> agingList = agingService.selectAging(orderNum);
+        return null;
+    }
+
+    @RequestMapping(value = "/selectaging")
+    @ResponseBody
+    public String selectAging(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+        Aging aging = agingService.selectAging(orderNum, process);
         return null;
     }
 

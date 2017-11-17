@@ -94,6 +94,15 @@ public class MachineTestService {
     /**
      *
      * @param orderNum  产品编号
+     * @param process   检测要求
+     * @return          返回一个MachineTest对象
+     */
+    public MachineTest selectMachineTest(String orderNum, String process){
+        return machineTestDao.selectItem(orderNum, process);
+    }
+    /**
+     *
+     * @param orderNum  产品编号
      * @return  返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
     public Map<String, String> deleteMachineTest(String orderNum){

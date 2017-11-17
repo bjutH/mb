@@ -1,9 +1,7 @@
 package com.bjut.MB.Utils;
 
-import com.bjut.MB.dao.OrderDao;
-import com.bjut.MB.dao.YiqiDao;
-import com.bjut.MB.model.Memo;
-import com.bjut.MB.model.Order;
+import com.bjut.MB.dao.*;
+import com.bjut.MB.model.*;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -29,15 +27,31 @@ public class ExcelUtils {
     private OrderDao orderDao;
     @Autowired
     private YiqiDao yiqiDao;
-
+    @Autowired
+    private AgingDao agingDao;
+    @Autowired
+    private DebugDao debugDao;
+    @Autowired
+    private ProcessTestDao processTestDao;
+    @Autowired
+    private MachineTestDao machineTestDao;
+    @Autowired
+    private ProductTestDao productTestDao;
+    @Autowired
+    private SphygmomanometerDao sphygmomanometerDao;
+    @Autowired
+    private PerformTestDao performTestDao;
+    @Autowired
+    private FinalTestDao finalTestDao;
 
     /**
      *
-     * @param modelPath  EXCEL文件路径
-     * @param x			随工单编号的横坐标
-     * @param y			随工单编号的纵坐标
+     * @param modelPath EXCEL文件路径
+     * @param x			  随工单编号的横坐标
+     * @param y			  随工单编号的纵坐标
+     * @param type       哪张表单
      */
-    public void importExcel(String modelPath,int x,int y){
+    public void importExcel(String modelPath, int x, int y, String type){
         File file = new File(modelPath);
         FileInputStream fis = null;
         try {
@@ -72,7 +86,38 @@ public class ExcelUtils {
                 }
                 if(cellValue.contains("$")){
                     process = cellValue.substring(1, cellValue.length());
-                    orderDao.addItem(id, process);
+                    switch (type){
+                        case "order":
+                            orderDao.addItem(id,process);
+                            break;
+                        case  "memo":
+                            yiqiDao.addItem(id,process);
+                            break;
+                        case "aging":
+                            agingDao.addItem(id,process);
+                            break;
+                        case "debug":
+                            debugDao.addItem(id,process);
+                            break;
+                        case "processTest":
+                            processTestDao.addItem(id,process);
+                            break;
+                        case "machineTest":
+                            machineTestDao.addItem(id,process);
+                            break;
+                        case "productTest":
+                            processTestDao.addItem(id,process);
+                            break;
+                        case "sphygmomanometer":
+                            sphygmomanometerDao.addItem(id,process);
+                            break;
+                        case "performTest":
+                            performTestDao.addItem(id,process);
+                            break;
+                        case "finalTest":
+                            finalTestDao.addItem(id,process);
+                            break;
+                    }
                 }
             }
         }
@@ -203,7 +248,138 @@ public class ExcelUtils {
                             }
                             break;
                         case "aging":
-
+                            //Aging aging = agingDao.selectItem(id,string);
+                            switch (last) {
+                                case "1":
+                                    value = aging.getResult();
+                                    break;
+                                case "2":
+                                    value = aging.getDate().toString();
+                                    break;
+                                case "3":
+                                    value = aging.getPhenomenon();
+                                    break;
+                                case "4":
+                                    value = aging.getHandle();
+                                    break;
+                                case "5":
+                                    value = aging.getPs();
+                                    break;
+                                case "6":
+                                    value = aging.getOperater();
+                                    break;
+                            }
+                            break;
+                        case "debug":
+                            //Debug debug = debugDao.selsectItem(id,string);
+                            switch (last) {
+                                case "1":
+                                    value = debug.getData();
+                                    break;
+                                case "2":
+                                    value = debug.getResult();
+                                    break;
+                                case "3":
+                                    value = debug.getDetectionDevice();
+                                    break;
+                                case "4":
+                                    value = debug.getDeviceType();
+                                    break;
+                                case "5":
+                                    value = debug.getDeviceNum();
+                                    break;
+                                case "6":
+                                    value = debug.getPs();
+                                    break;
+                            }
+                            break;
+                        case "processTest":
+                           //ProcessTest processTest = processTestDao.selectItem(id,string);
+                            switch (last) {
+                                case "1":
+                                    value = processTest.getData();
+                                    break;
+                                case "2":
+                                    value = processTest.getResult();
+                                    break;
+                                case "3":
+                                    value = processTest.getDetectionDevice();
+                                    break;
+                                case "4":
+                                    value = processTest.getDeviceType();
+                                    break;
+                                case "5":
+                                    value = processTest.getDeviceNum();
+                                    break;
+                                case "6":
+                                    value = processTest.getPs();
+                                    break;
+                            }
+                            break;
+                        case "machineTest":
+                            //MachineTest machineTest = machineTestDao.selectItem(id,String);
+                            switch (last) {
+                                case "1":
+                                    value = machineTest.getData();
+                                    break;
+                                case "2":
+                                    value = machineTest.getResult();
+                                    break;
+                                case "3":
+                                    value = machineTest.getPs();
+                                    break;
+                            }
+                            break;
+                        case "productTest":
+                            //ProductTest productTest = productTestDao.selectItem(id,string);
+                            switch (last) {
+                                case "1":
+                                    value = productTest.getData();
+                                    break;
+                                case "2":
+                                    value = productTest.getResult();
+                                    break;
+                                case "3":
+                                    value = productTest.getPs();
+                                    break;
+                            }
+                            break;
+                        case "sphygmomanometer":
+                            //Sphygmomanometer sphygmomanometer = sphygmomanometerDao.selectItem(id,string);
+                            switch (last) {
+                                case "1":
+                                    value = sphygmomanometer.getData();
+                                    break;
+                                case "2":
+                                    value = sphygmomanometer.getResult();
+                                    break;
+                                case "3":
+                                    value = sphygmomanometer.getPs();
+                                    break;
+                            }
+                            break;
+                        case "performTest":
+                            //PerformTest performTest = performTestDao.selectItem(id,string);
+                            switch (last) {
+                                case "1":
+                                    value = performTest.getData();
+                                    break;
+                                case "2":
+                                    value = performTest.getResult();
+                                    break;
+                                case "3":
+                                    value = performTest.getPs();
+                                    break;
+                            }
+                            break;
+                        case "finalTest":
+                           // FinalTest finalTest = finalTestDao.selectItem(id,string);
+                            switch (last) {
+                                case "1":
+                                    value = finalTest.getResult();
+                                    break;
+                            }
+                            break;
                     }
                     setCellStrValue(i, j, value);
                 }

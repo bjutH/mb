@@ -56,10 +56,17 @@ public class ProductTestController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/selectproducttest")
+    @RequestMapping(value = "/selectproducttestall")
     @ResponseBody
     public String selectProductTest(Model model, @RequestParam(value = "orderNum") String orderNum){
-        List<ProductTest> agingList = productTestService.selectProductTest(orderNum);
+        List<ProductTest> productTestList = productTestService.selectProductTest(orderNum);
+        return null;
+    }
+
+    @RequestMapping(value = "/selectproducttest")
+    @ResponseBody
+    public String selectProductTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+        ProductTest productTest = productTestService.selectProductTest(orderNum, process);
         return null;
     }
 

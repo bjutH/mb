@@ -40,6 +40,7 @@ public class MemoController {
         }
         return map.toString();
     }
+
     @RequestMapping(value = "/updatememo")
     @ResponseBody
     public String updateMemo(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "name") String name,
@@ -57,10 +58,18 @@ public class MemoController {
         }
         return map.toString();
     }
-    @RequestMapping(value = "/selectmemo")
+
+    @RequestMapping(value = "/selectmemoall")
     @ResponseBody
     public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<Memo> memoList = memoService.selectMemo(orderNum);
+        return null;
+    }
+
+    @RequestMapping(value = "/selectmemo")
+    @ResponseBody
+    public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+        Memo memo = memoService.selectMemo(orderNum, process);
         return null;
     }
 

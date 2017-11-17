@@ -63,10 +63,17 @@ public class FianlTestController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/selectfinaltest")
+    @RequestMapping(value = "/selectfinaltestall")
     @ResponseBody
     public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum){
-        List<FinalTest> agingList = finalTestService.selectFinalTest(orderNum);
+        List<FinalTest> finalTestList = finalTestService.selectFinalTest(orderNum);
+        return null;
+    }
+
+    @RequestMapping(value = "/selectfinaltest")
+    @ResponseBody
+    public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+        FinalTest finalTest = finalTestService.selectFinalTest(orderNum,process);
         return null;
     }
 

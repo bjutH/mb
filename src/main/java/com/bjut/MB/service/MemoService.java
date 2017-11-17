@@ -25,23 +25,23 @@ public class MemoService {
     /**
      *
      * @param orderNum  产品编号
-     * @param name      备忘录名称
+     * @param process      备忘录名称
      * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
-    public Map<String,String> addMemo(String orderNum,String name){
+    public Map<String,String> addMemo(String orderNum,String process){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
             map.put("msg", "备忘录编号不能为空！");
             return map;
         }
-        if(StringUtils.isBlank(name)){
+        if(StringUtils.isBlank(process)){
             map.put("code","2");
             map.put("msg", "备忘录名称不能为空！");
             return map;
         }
         try {
-            yiqiDao.addItem(orderNum, name);
+            yiqiDao.addItem(orderNum, process);
             map.put("code","1");
         }
         catch (Exception e){
@@ -54,7 +54,7 @@ public class MemoService {
     /**
      *
      * @param orderNum  产品编号
-     * @param name      备忘录名称
+     * @param process      备忘录名称
      * @param number    编号
      * @param boardNum  板号
      * @param weld      焊接
@@ -64,7 +64,7 @@ public class MemoService {
      * @param ps         备注
      * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
-    public Map<String, String> updateMemo(String orderNum,String name,String number,String boardNum,
+    public Map<String, String> updateMemo(String orderNum,String process,String number,String boardNum,
                                           String weld,String debug,String test,String version,String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
@@ -72,13 +72,13 @@ public class MemoService {
             map.put("msg", "备忘录编号不能为空！");
             return map;
         }
-        if(StringUtils.isBlank(name)){
+        if(StringUtils.isBlank(process)){
             map.put("code","2");
             map.put("msg", "备忘录名称不能为空！");
             return map;
         }
         try {
-            yiqiDao.updateItem(orderNum, name, number, boardNum, weld, debug, test, version, ps);
+            yiqiDao.updateItem(orderNum, process, number, boardNum, weld, debug, test, version, ps);
             map.put("code","1");
         }
         catch (Exception e){
@@ -97,6 +97,15 @@ public class MemoService {
         return yiqiDao.selectAll(orderNum);
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @param process   备忘录名称
+     * @return          返回一个Memo对象
+     */
+    public Memo selectMemo(String orderNum, String process){
+        return yiqiDao.selectItem(orderNum, process);
+    }
     /**
      *
      * @param orderNum  产品编号

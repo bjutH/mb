@@ -95,6 +95,15 @@ public class PerformTestService {
     /**
      *
      * @param orderNum  产品编号
+     * @param process   序号
+     * @return           返回一个PerformTest对象
+     */
+    public PerformTest selectPerformTest(String orderNum, String process){
+        return performTestDao.selectItem(orderNum, process);
+    }
+    /**
+     *
+     * @param orderNum  产品编号
      * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
     public Map<String, String> deletePerformTest(String orderNum){
