@@ -208,7 +208,7 @@ public class ExcelUtils {
                     String string = cellValue.substring(1, cellValue.length()-1);
                     switch (type){
                         case "order":
-                            //Order order = orderDao.selectItem(id,string);
+                            Order order = orderDao.selectItem(id,string);
                             switch (last){
                                 case "1":
                                     value = order.getOperater();
@@ -222,7 +222,7 @@ public class ExcelUtils {
                             }
                             break;
                         case  "memo":
-                            //Memo memo = yiqiDao.selectItem(id,string);
+                            Memo memo = yiqiDao.selectItem(id,string);
                             switch (last){
                                 case "1":
                                     value = memo.getNumber();
@@ -248,7 +248,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "aging":
-                            //Aging aging = agingDao.selectItem(id,string);
+                            Aging aging = agingDao.selectItem(id,string);
                             switch (last) {
                                 case "1":
                                     value = aging.getResult();
@@ -271,7 +271,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "debug":
-                            //Debug debug = debugDao.selsectItem(id,string);
+                            Debug debug = debugDao.selsectItem(id,string);
                             switch (last) {
                                 case "1":
                                     value = debug.getData();
@@ -294,7 +294,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "processTest":
-                           //ProcessTest processTest = processTestDao.selectItem(id,string);
+                           ProcessTest processTest = processTestDao.selectItem(id,string);
                             switch (last) {
                                 case "1":
                                     value = processTest.getData();
@@ -317,7 +317,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "machineTest":
-                            //MachineTest machineTest = machineTestDao.selectItem(id,String);
+                            MachineTest machineTest = machineTestDao.selectItem(id,String);
                             switch (last) {
                                 case "1":
                                     value = machineTest.getData();
@@ -331,7 +331,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "productTest":
-                            //ProductTest productTest = productTestDao.selectItem(id,string);
+                            ProductTest productTest = productTestDao.selectItem(id,string);
                             switch (last) {
                                 case "1":
                                     value = productTest.getData();
@@ -345,7 +345,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "sphygmomanometer":
-                            //Sphygmomanometer sphygmomanometer = sphygmomanometerDao.selectItem(id,string);
+                            Sphygmomanometer sphygmomanometer = sphygmomanometerDao.selectItem(id,string);
                             switch (last) {
                                 case "1":
                                     value = sphygmomanometer.getData();
@@ -359,7 +359,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "performTest":
-                            //PerformTest performTest = performTestDao.selectItem(id,string);
+                            PerformTest performTest = performTestDao.selectItem(id,string);
                             switch (last) {
                                 case "1":
                                     value = performTest.getData();
@@ -373,7 +373,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "finalTest":
-                           // FinalTest finalTest = finalTestDao.selectItem(id,string);
+                            FinalTest finalTest = finalTestDao.selectItem(id,string);
                             switch (last) {
                                 case "1":
                                     value = finalTest.getResult();
