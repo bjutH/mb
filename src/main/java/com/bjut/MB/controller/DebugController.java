@@ -71,7 +71,7 @@ public class DebugController {
         return null;
     }
 
-    @RequestMapping(value = "/deleteorder")
+    @RequestMapping(value = "/deletedebug")
     @ResponseBody
     public String deleteDebug(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();
