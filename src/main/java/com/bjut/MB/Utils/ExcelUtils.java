@@ -95,7 +95,8 @@ public class ExcelUtils {
                     process = cellValue.substring(1, cellValue.length());
                     switch (process){
                         case "number":
-                            value =
+                            value = number;
+                            setCellStrValue(i, j, value);
                     }
                 }
                 if(cellValue.contains("$")){
