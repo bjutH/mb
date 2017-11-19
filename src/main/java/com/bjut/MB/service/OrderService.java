@@ -94,6 +94,15 @@ public class OrderService {
     /**
      *
      * @param orderNum  产品编号
+     * @param process   工序名称
+     * @return          返回一个Order对象
+     */
+    public Order selectOrder(String orderNum, String process){
+        return orderDao.selectItem(orderNum, process);
+    }
+    /**
+     *
+     * @param orderNum  产品编号
      * @return           返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
     public Map<String, String> deleteOrder(String orderNum){

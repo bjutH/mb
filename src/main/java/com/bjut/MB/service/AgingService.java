@@ -99,6 +99,16 @@ public class AgingService {
     /**
      *
      * @param orderNum  产品编号
+     * @param process   要求
+     * @return           返回一个Aging对象
+     */
+    public Aging selectAging(String orderNum, String process){
+        return agingDao.selectItem(orderNum, process);
+    }
+
+    /**
+     *
+     * @param orderNum  产品编号
      * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
     public Map<String, String> deleteAging(String orderNum){

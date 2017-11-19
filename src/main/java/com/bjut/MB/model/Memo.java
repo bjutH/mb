@@ -5,7 +5,7 @@ package com.bjut.MB.model;
  */
 public class Memo {
     private String orderNum;
-    private String name;
+    private String process;
     private String number;
     private String boardNum;
     private String weld;
@@ -22,12 +22,12 @@ public class Memo {
         this.orderNum = orderNum;
     }
 
-    public String getName() {
-        return name;
+    public String getProcess() {
+        return process;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProcess(String process) {
+        this.process = process;
     }
 
     public String getNumber() {

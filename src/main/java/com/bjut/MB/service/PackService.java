@@ -95,6 +95,15 @@ public class PackService {
     /**
      *
      * @param orderNum  产品编号
+     * @param process   名称
+     * @return           返回一个Pack对象
+     */
+    public Pack selectPack(String orderNum, String process){
+        return packDao.selectItem(orderNum, process);
+    }
+    /**
+     *
+     * @param orderNum  产品编号
      * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
     public Map<String, String> deletePack(String orderNum){

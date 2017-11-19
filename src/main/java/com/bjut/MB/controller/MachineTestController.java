@@ -56,10 +56,17 @@ public class MachineTestController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/selectmachinetest")
+    @RequestMapping(value = "/selectmachinetestall")
     @ResponseBody
     public String selectMachineTest(Model model, @RequestParam(value = "orderNum") String orderNum){
-        List<MachineTest> agingList = machineTestService.selectMachineTest(orderNum);
+        List<MachineTest> machineTestList = machineTestService.selectMachineTest(orderNum);
+        return null;
+    }
+
+    @RequestMapping(value = "/selectmachinetest")
+    @ResponseBody
+    public String selectMachineTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+        MachineTest machineTest = machineTestService.selectMachineTest(orderNum, process);
         return null;
     }
 

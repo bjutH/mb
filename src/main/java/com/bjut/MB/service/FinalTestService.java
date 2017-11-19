@@ -1,5 +1,6 @@
 package com.bjut.MB.service;
 
+import com.bjut.MB.dao.FinalTestDao;
 import com.bjut.MB.model.FinalTest;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +25,20 @@ public class FinalTestService {
 
     /**
      *
-     * @param orderNum  产品编号
-     * @param process   要求
-     * @return  返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @param orderNum          仪器编号
+     * @param process           名称
+     * @param machineType       仪器型号
+     * @param lable             内部标记
+     * @param check             检验结果
+     * @param checker           检验员
+     * @param date              检验日期
+     * @param finalChecker      核验人
+     * @param finalDate         核验放行日期
+     * @param result            确认数量、检验结果合格-不合格
+     * @return                  返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
-    public Map<String,String> addFinalTest(String orderNum, String process){
+    public Map<String,String> addFinalTest(String orderNum, String process, String machineType, String lable, String check,
+                                           String checker, Date date, String finalChecker, Date finalDate, String result){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -40,7 +51,7 @@ public class FinalTestService {
             return map;
         }
         try {
-            finalTestDao.addFinalTest(orderNum, process);
+            finalTestDao.addItem(orderNum, machineType, lable, check, checker, date, finalChecker, finalDate, process, result);
             map.put("code","1");
         }
         catch (Exception e){
@@ -52,17 +63,20 @@ public class FinalTestService {
 
     /**
      *
-     * @param orderNum  产品编号
-     * @param process   要求
-     * @param data      数据
-     * @param result    结果
-     * @param detectionDevice   检测设备
-     * @param deviceType    设备类型
-     * @param deviceNum     设备编号
-     * @param ps        备注
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @param orderNum          仪器编号
+     * @param process           名称
+     * @param machineType       仪器型号
+     * @param lable             内部标记
+     * @param check             检验结果
+     * @param checker           检验员
+     * @param date              检验日期
+     * @param finalChecker      核验人
+     * @param finalDate         核验放行日期
+     * @param result            确认数量、检验结果合格-不合格
+     * @return                  返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
-    public Map<String, String> updateFinalTest(String orderNum, String process, String data, String result, String detectionDevice, String deviceType, String deviceNum, String ps){
+    public Map<String, String> updateFinalTest(String orderNum, String process, String machineType, String lable, String check,
+                                               String checker, Date date, String finalChecker, Date finalDate, String result){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -75,7 +89,7 @@ public class FinalTestService {
             return map;
         }
         try {
-            finalTestDao.updateFinalTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            finalTestDao.updateItem(orderNum, machineType, lable, check, checker, date, finalChecker, finalDate, process, result);
             map.put("code","1");
         }
         catch (Exception e){
@@ -91,9 +105,18 @@ public class FinalTestService {
      * @return  返回一个LIST集合
      */
     public List<FinalTest> selectFinalTest(String orderNum){
-        return finalTestDao.selectFinalTest(orderNum);
+        return finalTestDao.selectAll(orderNum);
     }
 
+    /**
+     *
+     * @param orderNum  产品编号
+     * @param process   名称
+     * @return          返回一个FinalTest对象
+     */
+    public FinalTest selectFinalTest(String orderNum, String process){
+        return finalTestDao.selectItem(orderNum, process);
+    }
     /**
      *
      * @param orderNum  产品编号
@@ -107,7 +130,7 @@ public class FinalTestService {
             return map;
         }
         try {
-            finalTestDao.deleteFinalTest(orderNum);
+            finalTestDao.deleteAll(orderNum);
             map.put("code","1");
         }
         catch (Exception e){

@@ -95,6 +95,15 @@ public class SphygmomanometerService {
     /**
      *
      * @param orderNum  产品编号
+     * @param process   序号
+     * @return          返回一个Sphygmomanometer对象
+     */
+    public Sphygmomanometer selectSphygmomanometer(String orderNum,String process){
+        return sphygmomanometerDao.selectItem(orderNum, process);
+    }
+    /**
+     *
+     * @param orderNum  产品编号
      * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
     public Map<String, String> deleteSphygmomanometer(String orderNum){

@@ -55,10 +55,17 @@ public class PackController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/selectpack")
+    @RequestMapping(value = "/selectpackall")
     @ResponseBody
     public String selectPack(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<Pack> packList = packService.selectPack(orderNum);
+        return null;
+    }
+
+    @RequestMapping(value = "/selectpack")
+    @ResponseBody
+    public String selectPack(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+        Pack pack = packService.selectPack(orderNum, process);
         return null;
     }
 

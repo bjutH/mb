@@ -57,10 +57,17 @@ public class ProcessTestController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/selectprocesstest")
+    @RequestMapping(value = "/selectprocesstestall")
     @ResponseBody
     public String selectProcessTest(Model model, @RequestParam(value = "orderNum") String orderNum){
-        List<ProcessTest> agingList = processTestService.selectProcessTest(orderNum);
+        List<ProcessTest> processTestList = processTestService.selectProcessTest(orderNum);
+        return null;
+    }
+
+    @RequestMapping(value = "/selectprocesstest")
+    @ResponseBody
+    public String selectProcessTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+        ProcessTest processTest = processTestService.selectProcessTest(orderNum, process);
         return null;
     }
 

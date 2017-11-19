@@ -1,14 +1,21 @@
 package com.bjut.MB.model;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/11/6.
  */
 public class FinalTest {
     private String orderNum;
     private String process;
-    private String data;
+    private String machineType;
+    private String lable;
+    private String check;
+    private String checker;
+    private Date date;
+    private String finalChecker;
+    private Date finalDate;
     private String result;
-    private String ps;
 
     public String getOrderNum() {
         return orderNum;
@@ -26,12 +33,60 @@ public class FinalTest {
         this.process = process;
     }
 
-    public String getData() {
-        return data;
+    public String getMachineType() {
+        return machineType;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setMachineType(String machineType) {
+        this.machineType = machineType;
+    }
+
+    public String getLable() {
+        return lable;
+    }
+
+    public void setLable(String lable) {
+        this.lable = lable;
+    }
+
+    public String getCheck() {
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
+    }
+
+    public String getChecker() {
+        return checker;
+    }
+
+    public void setChecker(String checker) {
+        this.checker = checker;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getFinalChecker() {
+        return finalChecker;
+    }
+
+    public void setFinalChecker(String finalChecker) {
+        this.finalChecker = finalChecker;
+    }
+
+    public Date getFinalDate() {
+        return finalDate;
+    }
+
+    public void setFinalDate(Date finalDate) {
+        this.finalDate = finalDate;
     }
 
     public String getResult() {
@@ -40,13 +95,5 @@ public class FinalTest {
 
     public void setResult(String result) {
         this.result = result;
-    }
-
-    public String getPs() {
-        return ps;
-    }
-
-    public void setPs(String ps) {
-        this.ps = ps;
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +29,14 @@ public class FianlTestController {
 
     @RequestMapping(value = "/addfinaltest")
     @ResponseBody
-    public String addFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+    public String addFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                               @RequestParam(value = "machineType") String machineType, @RequestParam(value = "lable") String lable,
+                               @RequestParam(value = "check") String check, @RequestParam(value = "checker") String checker,
+                               @RequestParam(value = "date") Date date, @RequestParam(value = "finalChecker") String finalChecker,
+                               @RequestParam(value = "finalDate") Date finalDate, @RequestParam(value = "result") String result){
         Map<String,String> map = new HashMap<>();
         try {
-            map = finalTestService.addFinalTest(orderNum, process);
+            map = finalTestService.addFinalTest(orderNum, process, machineType, lable, check, checker, date, finalChecker, finalDate, result);
         }
         catch (Exception e){
             logger.error("添加最终检验单异常" + e.getMessage());
@@ -43,12 +48,13 @@ public class FianlTestController {
     @RequestMapping(value = "/updatefinaltest")
     @ResponseBody
     public String updateFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                              @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
-                              @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-                              @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+                                  @RequestParam(value = "machineType") String machineType, @RequestParam(value = "lable") String lable,
+                                  @RequestParam(value = "check") String check, @RequestParam(value = "checker") String checker,
+                                  @RequestParam(value = "date") Date date, @RequestParam(value = "finalChecker") String finalChecker,
+                                  @RequestParam(value = "finalDate") Date finalDate, @RequestParam(value = "result") String result){
         Map<String,String> map = new HashMap<>();
         try {
-            map = finalTestService.updateFinalTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
+            map = finalTestService.updateFinalTest(orderNum, process, machineType, lable, check, checker, date, finalChecker, finalDate, result);
         }
         catch (Exception e){
             logger.error("更新最终检验单异常" + e.getMessage());
@@ -57,10 +63,17 @@ public class FianlTestController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/selectfinaltest")
+    @RequestMapping(value = "/selectfinaltestall")
     @ResponseBody
     public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum){
-        List<FinalTest> agingList = finalTestService.selectFinalTest(orderNum);
+        List<FinalTest> finalTestList = finalTestService.selectFinalTest(orderNum);
+        return null;
+    }
+
+    @RequestMapping(value = "/selectfinaltest")
+    @ResponseBody
+    public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+        FinalTest finalTest = finalTestService.selectFinalTest(orderNum,process);
         return null;
     }
 

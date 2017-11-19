@@ -62,7 +62,7 @@ public class RemadeController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/selectmemo")
+    @RequestMapping(value = "/selectmemoall")
     @ResponseBody
     public String selectRemade(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<Remade> remadeList = remadeSercice.selectRemade(orderNum);

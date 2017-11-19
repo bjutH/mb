@@ -56,10 +56,17 @@ public class SphygmomanometerController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/selectsphygmomanometer")
+    @RequestMapping(value = "/selectsphygmomanometerall")
     @ResponseBody
     public String selectSphygmomanometer(Model model, @RequestParam(value = "orderNum") String orderNum){
-        List<Sphygmomanometer> agingList = sphygmomanometerService.selectSphygmomanometer(orderNum);
+        List<Sphygmomanometer> sphygmomanometerList = sphygmomanometerService.selectSphygmomanometer(orderNum);
+        return null;
+    }
+
+    @RequestMapping(value = "/selectsphygmomanometer")
+    @ResponseBody
+    public String selectSphygmomanometer(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+        Sphygmomanometer sphygmomanometer = sphygmomanometerService.selectSphygmomanometer(orderNum, process);
         return null;
     }
 
