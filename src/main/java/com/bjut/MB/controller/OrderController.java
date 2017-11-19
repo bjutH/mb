@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,16 +26,24 @@ public class OrderController {
     private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     @Autowired
+    private ExcelUtils excelUtils;
+    @Autowired
     private OrderService orderService;
 
-    @RequestMapping(path = {"/addorder"})
+    @RequestMapping(path = {"/add"})
+    public String add(){
+        return "testadd";
+    }
+    @RequestMapping(path = {"/update"})
+    public String update(){
+        return "testupdate";
+    }
+    @RequestMapping(path = "/addorder")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
-    public String addOrder(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
-        System.out.println(path+":   " + number);
+    public String addOrder( @RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            ExcelUtils excelUtils = new ExcelUtils();
             excelUtils.importExcel(path, number,"order");
             map.put("code","1");
         }
@@ -77,6 +82,24 @@ public class OrderController {
 //        Order order = orderService.selectOrder(orderNum, process);
 //        return null;
 //    }
+
+    @RequestMapping(path = "/updateorder")
+    @ResponseBody
+    public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                               @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
+                               @RequestParam(value = "ps") String ps){
+        Map<String,String> map = new HashMap<>();
+        try {
+            String path =orderService.selectPath(orderNum);
+            excelUtils.replaceExcel(path, orderNum,"order", process, operater, other, ps);
+            map.put("code","1");
+        } catch (Exception e) {
+            logger.error("更新随工单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
+    }
+
     @RequestMapping(path = "/selectorder")
     @ResponseBody
     public String selectOrder(Model model, @RequestParam(value = "orderNum") String orderNum){

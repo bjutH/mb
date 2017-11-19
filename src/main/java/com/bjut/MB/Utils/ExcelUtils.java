@@ -1,12 +1,16 @@
 package com.bjut.MB.Utils;
 
+import com.bjut.MB.dao.OrderDao;
 import com.bjut.MB.model.*;
 import com.bjut.MB.service.*;
+import org.apache.commons.lang.StringUtils;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,16 +20,18 @@ import java.util.Map;
 
 import static com.sun.corba.se.spi.activation.IIOP_CLEAR_TEXT.value;
 import static java.lang.System.out;
+import static java.lang.System.setOut;
 
 /**
  * Created by Administrator on 2017/11/14.
  */
+@Service
 public class ExcelUtils {
     private org.apache.poi.ss.usermodel.Sheet sheet;
     private Workbook wb;
 
     @Autowired
-    private OrderService orderService;
+    private OrderDao orderDao;
     @Autowired
     private MemoService memoService;
     @Autowired
@@ -56,7 +62,7 @@ public class ExcelUtils {
      * @param type       哪张表单
      */
     //public void importExcel(String modelPath, int x, int y,String number, String type){
-    public Map<String,String> importExcel(String modelPath, String number, String type){
+    public void importExcel(String modelPath, String number, String type){
         Map<String, String> map = new HashMap<String, String>();
         File file = new File(modelPath);
         FileInputStream fis = null;
@@ -87,6 +93,7 @@ public class ExcelUtils {
             }
             for (int j = 0; j < columnNum; j++) {
                 XSSFCell cell = (XSSFCell) sheet.getRow(i).getCell(j);
+                cell.setCellType(Cell.CELL_TYPE_STRING);
                 String cellValue = cell.getStringCellValue();
 //                if(i==x &&j==y){
 //                    id = cellValue;
@@ -103,31 +110,31 @@ public class ExcelUtils {
                     process = cellValue.substring(1, cellValue.length());
                     switch (type){
                         case "order":
-                            map = orderService.addOrder(id, process, modelPath);
+                            orderDao.addItem(id, process, modelPath);
                             break;
                         case  "memo":
-                            map = memoService.addMemo(id, process, modelPath);
+                            memoService.addMemo(id, process, modelPath);
                             break;
                         case "aging":
-                            map = agingService.addAging(id, process, modelPath);
+                            agingService.addAging(id, process, modelPath);
                             break;
                         case "pack":
-                            map = packService.addPack(id, process, modelPath);
+                            packService.addPack(id, process, modelPath);
                             break;
                         case "debug":
-                            map = debugService.addDebug(id, process, modelPath);
+                            debugService.addDebug(id, process, modelPath);
                             break;
                         case "processTest":
-                            map = processTestService.addProcessTest(id, process, modelPath);
+                            processTestService.addProcessTest(id, process, modelPath);
                             break;
                         case "machineTest":
-                            map = machineTestService.addMachineTest(id, process, modelPath);
+                            machineTestService.addMachineTest(id, process, modelPath);
                             break;
                         case "productTest":
-                            map = productTestService.addProductTest(id, process, modelPath);
+                            productTestService.addProductTest(id, process, modelPath);
                             break;
                         case "sphygmomanometer":
-                            map = sphygmomanometerService.addSphygmomanometer(id, process, modelPath);
+                            sphygmomanometerService.addSphygmomanometer(id, process, modelPath);
                             break;
                         case "performTest":
                             performTestService.addPerformTest(id, process, modelPath);
@@ -139,16 +146,26 @@ public class ExcelUtils {
                 }
             }
         }
-        return map;
+        try {
+            fis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        try {
+            wb.write(fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    /**
-     * 替换EXCEL文件内容
-     * @param modelPath EXCEL文件路径
-     * @param id       随工单编号
-     * @param type       哪张表单
-     */
-    public void replaceExcel(String modelPath, String id, String type){
+
+    public void replaceExcel(String modelPath, String id, String type,String process,String operater, String other,String ps){
 //    	String[] arr = modelPath.split("\\.");
 //    	String copyPath = "";
 //    	for(int i=0;i<arr.length -1;i++){
@@ -177,7 +194,7 @@ public class ExcelUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        replaceDate(id, type);
+        replaceDate(type, process, operater, other, ps);
         try {
             fis.close();
         } catch (Exception e) {
@@ -196,13 +213,10 @@ public class ExcelUtils {
         }
     }
 
-    /**
-     * 根据ID查询内容并替换
-     * @param id        随工单编号
-     * @param type      哪张表单
-     */
-    private void replaceDate(String id, String type){
+
+    private void replaceDate(String type,String process,String operater, String other,String ps){
         // 获取行数
+        String id = null;
         int rowNum = sheet.getLastRowNum();
         for (int i = 0; i <= rowNum; i++) {
             Row	row = sheet.getRow(i);
@@ -214,202 +228,205 @@ public class ExcelUtils {
             for (int j = 0; j < columnNum; j++) {
                 XSSFCell cell = (XSSFCell) sheet.getRow(i).getCell(j);
                 String cellValue = cell.getStringCellValue();
-                id = cellValue;
-                String first = String.valueOf(cellValue.charAt(0));
-                String last = String.valueOf(cellValue.charAt(cellValue.length()));
-                if(first=="#"){
-                    String value = null;
-                    String string = cellValue.substring(1, cellValue.length()-1);
-                    switch (type){
-                        case "order":
-                            Order order = orderService.selectOrder(id,string);
-                            switch (last){
-                                case "1":
-                                    value = order.getOperater();
+                if(!StringUtils.isBlank(cellValue)){
+                    String first = String.valueOf(cellValue.charAt(0));
+                    if(first.equals("#")) {
+                        String last = String.valueOf(cellValue.charAt(cellValue.length() - 1));
+                        String value = null;
+                        String string = cellValue.substring(1, cellValue.length() - 1);
+                        if (string.equals(process)) {
+                            switch (type) {
+                                case "order":
+                                    //Order order = orderDao.selectOne(id,string);
+                                    switch (last) {
+                                        case "1":
+                                            value = operater;
+                                            break;
+                                        case "2":
+                                            value = other;
+                                            break;
+                                        case "3":
+                                            value = ps;
+                                            break;
+                                    }
                                     break;
-                                case  "2":
-                                    value = order.getOther();
+                                case "memo":
+                                    Memo memo = memoService.selectMemo(id, string);
+                                    switch (last) {
+                                        case "1":
+                                            value = memo.getNumber();
+                                            break;
+                                        case "2":
+                                            value = memo.getBoardNum();
+                                            break;
+                                        case "3":
+                                            value = memo.getWeld();
+                                            break;
+                                        case "4":
+                                            value = memo.getDebug();
+                                            break;
+                                        case "5":
+                                            value = memo.getTest();
+                                            break;
+                                        case "6":
+                                            value = memo.getVersion();
+                                            break;
+                                        case "7":
+                                            value = memo.getPs();
+                                            break;
+                                    }
                                     break;
-                                case  "3":
-                                    value = order.getPs();
+                                case "aging":
+                                    Aging aging = agingService.selectAging(id, string);
+                                    switch (last) {
+                                        case "1":
+                                            value = aging.getResult();
+                                            break;
+                                        case "2":
+                                            value = aging.getDate().toString();
+                                            break;
+                                        case "3":
+                                            value = aging.getPhenomenon();
+                                            break;
+                                        case "4":
+                                            value = aging.getHandle();
+                                            break;
+                                        case "5":
+                                            value = aging.getPs();
+                                            break;
+                                        case "6":
+                                            value = aging.getOperater();
+                                            break;
+                                    }
+                                    break;
+                                case "pack":
+                                    Pack pack = packService.selectPack(id, string);
+                                    switch (last) {
+                                        case "1":
+                                            value = pack.getResult();
+                                            break;
+                                        case "2":
+                                            value = pack.getCheck();
+                                            break;
+                                        case "3":
+                                            value = pack.getOperater();
+                                            break;
+                                    }
+                                    break;
+                                case "debug":
+                                    Debug debug = debugService.selectDebug(id, string);
+                                    switch (last) {
+                                        case "1":
+                                            value = debug.getData();
+                                            break;
+                                        case "2":
+                                            value = debug.getResult();
+                                            break;
+                                        case "3":
+                                            value = debug.getDetectionDevice();
+                                            break;
+                                        case "4":
+                                            value = debug.getDeviceType();
+                                            break;
+                                        case "5":
+                                            value = debug.getDeviceNum();
+                                            break;
+                                        case "6":
+                                            value = debug.getPs();
+                                            break;
+                                    }
+                                    break;
+                                case "processTest":
+                                    ProcessTest processTest = processTestService.selectProcessTest(id, string);
+                                    switch (last) {
+                                        case "1":
+                                            value = processTest.getData();
+                                            break;
+                                        case "2":
+                                            value = processTest.getResult();
+                                            break;
+                                        case "3":
+                                            value = processTest.getDetectionDevice();
+                                            break;
+                                        case "4":
+                                            value = processTest.getDeviceType();
+                                            break;
+                                        case "5":
+                                            value = processTest.getDeviceNum();
+                                            break;
+                                        case "6":
+                                            value = processTest.getPs();
+                                            break;
+                                    }
+                                    break;
+                                case "machineTest":
+                                    MachineTest machineTest = machineTestService.selectMachineTest(id, string);
+                                    switch (last) {
+                                        case "1":
+                                            value = machineTest.getData();
+                                            break;
+                                        case "2":
+                                            value = machineTest.getResult();
+                                            break;
+                                        case "3":
+                                            value = machineTest.getPs();
+                                            break;
+                                    }
+                                    break;
+                                case "productTest":
+                                    ProductTest productTest = productTestService.selectProductTest(id, string);
+                                    switch (last) {
+                                        case "1":
+                                            value = productTest.getData();
+                                            break;
+                                        case "2":
+                                            value = productTest.getResult();
+                                            break;
+                                        case "3":
+                                            value = productTest.getPs();
+                                            break;
+                                    }
+                                    break;
+                                case "sphygmomanometer":
+                                    Sphygmomanometer sphygmomanometer = sphygmomanometerService.selectSphygmomanometer(id, string);
+                                    switch (last) {
+                                        case "1":
+                                            value = sphygmomanometer.getData();
+                                            break;
+                                        case "2":
+                                            value = sphygmomanometer.getResult();
+                                            break;
+                                        case "3":
+                                            value = sphygmomanometer.getPs();
+                                            break;
+                                    }
+                                    break;
+                                case "performTest":
+                                    PerformTest performTest = performTestService.selectPerformTest(id, string);
+                                    switch (last) {
+                                        case "1":
+                                            value = performTest.getData();
+                                            break;
+                                        case "2":
+                                            value = performTest.getResult();
+                                            break;
+                                        case "3":
+                                            value = performTest.getPs();
+                                            break;
+                                    }
+                                    break;
+                                case "finalTest":
+                                    FinalTest finalTest = finalTestService.selectFinalTest(id, string);
+                                    switch (last) {
+                                        case "1":
+                                            value = finalTest.getResult();
+                                            break;
+                                    }
                                     break;
                             }
-                            break;
-                        case  "memo":
-                            Memo memo = memoService.selectMemo(id,string);
-                            switch (last){
-                                case "1":
-                                    value = memo.getNumber();
-                                    break;
-                                case "2":
-                                    value = memo.getBoardNum();
-                                    break;
-                                case  "3":
-                                    value = memo.getWeld();
-                                    break;
-                                case  "4":
-                                    value = memo.getDebug();
-                                    break;
-                                case "5":
-                                    value = memo.getTest();
-                                    break;
-                                case "6":
-                                    value = memo.getVersion();
-                                    break;
-                                case "7":
-                                    value = memo.getPs();
-                                    break;
-                            }
-                            break;
-                        case "aging":
-                            Aging aging = agingService.selectAging(id,string);
-                            switch (last) {
-                                case "1":
-                                    value = aging.getResult();
-                                    break;
-                                case "2":
-                                    value = aging.getDate().toString();
-                                    break;
-                                case "3":
-                                    value = aging.getPhenomenon();
-                                    break;
-                                case "4":
-                                    value = aging.getHandle();
-                                    break;
-                                case "5":
-                                    value = aging.getPs();
-                                    break;
-                                case "6":
-                                    value = aging.getOperater();
-                                    break;
-                            }
-                            break;
-                        case "pack":
-                            Pack pack = packService.selectPack(id,string);
-                            switch (last) {
-                                case "1":
-                                    value = pack.getResult();
-                                    break;
-                                case "2":
-                                    value = pack.getCheck();
-                                    break;
-                                case "3":
-                                    value = pack.getOperater();
-                                    break;
-                            }
-                            break;
-                        case "debug":
-                            Debug debug = debugService.selectDebug(id,string);
-                            switch (last) {
-                                case "1":
-                                    value = debug.getData();
-                                    break;
-                                case "2":
-                                    value = debug.getResult();
-                                    break;
-                                case "3":
-                                    value = debug.getDetectionDevice();
-                                    break;
-                                case "4":
-                                    value = debug.getDeviceType();
-                                    break;
-                                case "5":
-                                    value = debug.getDeviceNum();
-                                    break;
-                                case "6":
-                                    value = debug.getPs();
-                                    break;
-                            }
-                            break;
-                        case "processTest":
-                           ProcessTest processTest = processTestService.selectProcessTest(id,string);
-                            switch (last) {
-                                case "1":
-                                    value = processTest.getData();
-                                    break;
-                                case "2":
-                                    value = processTest.getResult();
-                                    break;
-                                case "3":
-                                    value = processTest.getDetectionDevice();
-                                    break;
-                                case "4":
-                                    value = processTest.getDeviceType();
-                                    break;
-                                case "5":
-                                    value = processTest.getDeviceNum();
-                                    break;
-                                case "6":
-                                    value = processTest.getPs();
-                                    break;
-                            }
-                            break;
-                        case "machineTest":
-                            MachineTest machineTest = machineTestService.selectMachineTest(id,string);
-                            switch (last) {
-                                case "1":
-                                    value = machineTest.getData();
-                                    break;
-                                case "2":
-                                    value = machineTest.getResult();
-                                    break;
-                                case "3":
-                                    value = machineTest.getPs();
-                                    break;
-                            }
-                            break;
-                        case "productTest":
-                            ProductTest productTest = productTestService.selectProductTest(id,string);
-                            switch (last) {
-                                case "1":
-                                    value = productTest.getData();
-                                    break;
-                                case "2":
-                                    value = productTest.getResult();
-                                    break;
-                                case "3":
-                                    value = productTest.getPs();
-                                    break;
-                            }
-                            break;
-                        case "sphygmomanometer":
-                            Sphygmomanometer sphygmomanometer = sphygmomanometerService.selectSphygmomanometer(id,string);
-                            switch (last) {
-                                case "1":
-                                    value = sphygmomanometer.getData();
-                                    break;
-                                case "2":
-                                    value = sphygmomanometer.getResult();
-                                    break;
-                                case "3":
-                                    value = sphygmomanometer.getPs();
-                                    break;
-                            }
-                            break;
-                        case "performTest":
-                            PerformTest performTest = performTestService.selectPerformTest(id,string);
-                            switch (last) {
-                                case "1":
-                                    value = performTest.getData();
-                                    break;
-                                case "2":
-                                    value = performTest.getResult();
-                                    break;
-                                case "3":
-                                    value = performTest.getPs();
-                                    break;
-                            }
-                            break;
-                        case "finalTest":
-                            FinalTest finalTest = finalTestService.selectFinalTest(id,string);
-                            switch (last) {
-                                case "1":
-                                    value = finalTest.getResult();
-                                    break;
-                            }
-                            break;
+                            setCellStrValue(i, j, value);
+                        }
                     }
-                    setCellStrValue(i, j, value);
                 }
             }
         }

@@ -1,10 +1,6 @@
 package com.bjut.MB.dao;
 import com.bjut.MB.model.Order;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -15,8 +11,8 @@ import java.util.List;
 //随工单表
 @Mapper
 public interface OrderDao {
-    String TABLE_NAME = "order";
-    String INSERT_FIELDS = "product_num, process";
+    String TABLE_NAME = "`order`";
+    String INSERT_FIELDS = "`product_num`, `process`, `path`";
     String SELECT_FIELDS = "*";
 
     /**
@@ -25,8 +21,8 @@ public interface OrderDao {
      * @param process 工序名称
      * @param path 路径
      */
-    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{process}, #{path}"})
-    void addItem(String product_num,String process, String path);
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,") values (#{product_num},#{process},#{path})"})
+    void addItem(@Param("product_num") String product_num,@Param("process") String process,@Param("path") String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<Order> selectAll(String product_num);
@@ -52,7 +48,7 @@ public interface OrderDao {
      * @param ps 备注
      */
     @Update({"update ", TABLE_NAME, "set operater = #{operater}, other = #{other}, ps = #{ps} where product_num = #{product_num} and process = #{process}"})
-    void updateItem(String product_num, String operater, String process, String other, String ps);
+    void updateItem(@Param("product_num") String product_num,@Param("operater") String operater,@Param("process") String process,@Param("other") String other,@Param("ps") String ps);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);
