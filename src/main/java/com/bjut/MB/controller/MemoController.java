@@ -1,11 +1,14 @@
 package com.bjut.MB.controller;
 
+import com.bjut.MB.Utils.ExcelUtils;
 import com.bjut.MB.model.Memo;
 import com.bjut.MB.service.MemoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,10 +32,13 @@ public class MemoController {
 
     @RequestMapping(value = "/addmemo")
     @ResponseBody
-    public String addMemo(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "name") String name){
+    @Transactional(propagation= Propagation.REQUIRED)
+    public String addMemo(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            map = memoService.addMemo(orderNum, name);
+            ExcelUtils excelUtils = new ExcelUtils();
+            excelUtils.importExcel(path, number,"memo");
+            map.put("code","1");
         }
         catch (Exception e){
             logger.error("添加备忘录异常" + e.getMessage());
@@ -41,36 +47,42 @@ public class MemoController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/updatememo")
-    @ResponseBody
-    public String updateMemo(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "name") String name,
-                              @RequestParam(value = "number") String number, @RequestParam(value = "boardNum") String boardNum,
-                              @RequestParam(value = "weld") String weld, @RequestParam(value = "debug") String debug,
-                              @RequestParam(value = "test") String test, @RequestParam(value = "version") String version,
-                              @RequestParam(value = "ps") String ps){
-        Map<String,String> map = new HashMap<>();
-        try {
-            map = memoService.updateMemo(orderNum, name, number, boardNum, weld, debug, test, version, ps);
-        }
-        catch (Exception e){
-            logger.error("更新备忘录异常" + e.getMessage());
-            map.put("code","3");
-        }
-        return map.toString();
-    }
-
-    @RequestMapping(value = "/selectmemoall")
-    @ResponseBody
-    public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum){
-        List<Memo> memoList = memoService.selectMemo(orderNum);
-        return null;
-    }
-
+//    @RequestMapping(value = "/updatememo")
+//    @ResponseBody
+//    public String updateMemo(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "name") String name,
+//                              @RequestParam(value = "number") String number, @RequestParam(value = "boardNum") String boardNum,
+//                              @RequestParam(value = "weld") String weld, @RequestParam(value = "debug") String debug,
+//                              @RequestParam(value = "test") String test, @RequestParam(value = "version") String version,
+//                              @RequestParam(value = "ps") String ps){
+//        Map<String,String> map = new HashMap<>();
+//        try {
+//            map = memoService.updateMemo(orderNum, name, number, boardNum, weld, debug, test, version, ps);
+//        }
+//        catch (Exception e){
+//            logger.error("更新备忘录异常" + e.getMessage());
+//            map.put("code","3");
+//        }
+//        return map.toString();
+//    }
+//
+//    @RequestMapping(value = "/selectmemoall")
+//    @ResponseBody
+//    public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum){
+//        List<Memo> memoList = memoService.selectMemo(orderNum);
+//        return null;
+//    }
+//
+//    @RequestMapping(value = "/selectmemo")
+//    @ResponseBody
+//    public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+//        Memo memo = memoService.selectMemo(orderNum, process);
+//        return null;
+//    }
     @RequestMapping(value = "/selectmemo")
     @ResponseBody
-    public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-        Memo memo = memoService.selectMemo(orderNum, process);
-        return null;
+    public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum){
+        String path = memoService.selectPath(orderNum);
+        return path;
     }
 
     @RequestMapping(value = "/deletememo")

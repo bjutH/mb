@@ -1,6 +1,7 @@
 package com.bjut.MB.dao;
 
 import com.bjut.MB.model.FinalTest;
+import com.bjut.MB.model.Header;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;

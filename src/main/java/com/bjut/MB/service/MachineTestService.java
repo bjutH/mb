@@ -26,9 +26,10 @@ public class MachineTestService {
      *
      * @param orderNum  产品编号
      * @param process   检测要求
+     * @param path       文件路径
      * @return  返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
-    public Map<String,String> addMachineTest(String orderNum, String process){
+    public Map<String,String> addMachineTest(String orderNum, String process,String path){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -40,8 +41,13 @@ public class MachineTestService {
             map.put("msg", "整机检验报告单要求不能为空！");
             return map;
         }
+        if(StringUtils.isBlank(path)){
+            map.put("code","2");
+            map.put("msg", "整机检验报告单路径不能为空！");
+            return map;
+        }
         try {
-            machineTestDao.addItem(orderNum, process);
+            machineTestDao.addItem(orderNum, process, path);
             map.put("code","1");
         }
         catch (Exception e){
@@ -94,11 +100,20 @@ public class MachineTestService {
     /**
      *
      * @param orderNum  产品编号
+     * @return           返回地址
+     */
+    public String selectPath(String orderNum){
+        return machineTestDao.selectPath(orderNum);
+    }
+
+    /**
+     *
+     * @param orderNum  产品编号
      * @param process   检测要求
      * @return          返回一个MachineTest对象
      */
     public MachineTest selectMachineTest(String orderNum, String process){
-        return machineTestDao.selectItem(orderNum, process);
+        return machineTestDao.selectOne(orderNum, process);
     }
     /**
      *

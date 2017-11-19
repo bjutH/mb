@@ -26,9 +26,10 @@ public class PerformTestService {
      *
      * @param orderNum  产品编号
      * @param process   序号
+     * @param path      文件路径
      * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
-    public Map<String,String> addPerformTest(String orderNum, String process){
+    public Map<String,String> addPerformTest(String orderNum, String process, String path){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -40,8 +41,13 @@ public class PerformTestService {
             map.put("msg", "性能要求检验单内容不能为空！");
             return map;
         }
+        if(StringUtils.isBlank(path)){
+            map.put("code","2");
+            map.put("msg", "性能要求检验单路径不能为空！");
+            return map;
+        }
         try {
-            performTestDao.addItem(orderNum, process);
+            performTestDao.addItem(orderNum, process, path);
             map.put("code","1");
         }
         catch (Exception e){
@@ -99,8 +105,18 @@ public class PerformTestService {
      * @return           返回一个PerformTest对象
      */
     public PerformTest selectPerformTest(String orderNum, String process){
-        return performTestDao.selectItem(orderNum, process);
+        return performTestDao.selectOne(orderNum, process);
     }
+
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return           返回地址
+     */
+    public String selectPath(String orderNum){
+        return performTestDao.selectPath(orderNum);
+    }
+
     /**
      *
      * @param orderNum  产品编号

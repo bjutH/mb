@@ -1,11 +1,14 @@
 package com.bjut.MB.controller;
 
+import com.bjut.MB.Utils.ExcelUtils;
 import com.bjut.MB.model.PerformTest;
 import com.bjut.MB.service.PerformTestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,10 +31,13 @@ public class PerformTestController {
 
     @RequestMapping(value = "/addperformtest")
     @ResponseBody
-    public String addPerformTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+    @Transactional(propagation= Propagation.REQUIRED)
+    public String addPerformTest(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            map = performTestService.addPerformTest(orderNum, process);
+            ExcelUtils excelUtils = new ExcelUtils();
+            excelUtils.importExcel(path, number,"performtest");
+            map.put("code","1");
         }
         catch (Exception e){
             logger.error("添加性能要求检验单异常" + e.getMessage());
@@ -40,34 +46,40 @@ public class PerformTestController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/updateperformtest")
-    @ResponseBody
-    public String updatePerformTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                                     @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
-                                     @RequestParam(value = "ps") String ps){
-        Map<String,String> map = new HashMap<>();
-        try {
-            map = performTestService.updatePerformTest(orderNum, process, data, result, ps);
-        }
-        catch (Exception e){
-            logger.error("更新性能要求检验单异常" + e.getMessage());
-            map.put("code","3");
-        }
-        return map.toString();
-    }
-
-    @RequestMapping(value = "/selectperformtestall")
-    @ResponseBody
-    public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum){
-        List<PerformTest> performTestList = performTestService.selectPerformTest(orderNum);
-        return null;
-    }
-
+//    @RequestMapping(value = "/updateperformtest")
+//    @ResponseBody
+//    public String updatePerformTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+//                                     @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
+//                                     @RequestParam(value = "ps") String ps){
+//        Map<String,String> map = new HashMap<>();
+//        try {
+//            map = performTestService.updatePerformTest(orderNum, process, data, result, ps);
+//        }
+//        catch (Exception e){
+//            logger.error("更新性能要求检验单异常" + e.getMessage());
+//            map.put("code","3");
+//        }
+//        return map.toString();
+//    }
+//
+//    @RequestMapping(value = "/selectperformtestall")
+//    @ResponseBody
+//    public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum){
+//        List<PerformTest> performTestList = performTestService.selectPerformTest(orderNum);
+//        return null;
+//    }
+//
+//    @RequestMapping(value = "/selectperformtest")
+//    @ResponseBody
+//    public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+//        PerformTest performTest = performTestService.selectPerformTest(orderNum, process);
+//        return null;
+//    }
     @RequestMapping(value = "/selectperformtest")
     @ResponseBody
-    public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-        PerformTest performTest = performTestService.selectPerformTest(orderNum, process);
-        return null;
+    public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum){
+        String path = performTestService.selectPath(orderNum);
+        return path;
     }
 
     @RequestMapping(value = "/deleteperformtest")

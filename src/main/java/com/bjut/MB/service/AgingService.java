@@ -27,9 +27,10 @@ public class AgingService {
      *
      * @param orderNum 产品编号
      * @param process   要求
+     * @param path      文件路径
      * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
-    public Map<String,String> addAging(String orderNum, String process){
+    public Map<String,String> addAging(String orderNum, String process,String path){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -41,8 +42,13 @@ public class AgingService {
             map.put("msg", "老化观测表要求不能为空！");
             return map;
         }
+        if(StringUtils.isBlank(path)){
+            map.put("code","2");
+            map.put("msg", "老化观测表路径不能为空！");
+            return map;
+        }
         try {
-            agingDao.addItem(orderNum, process);
+            agingDao.addItem(orderNum, process, path);
             map.put("code","1");
         }
         catch (Exception e){
@@ -103,7 +109,16 @@ public class AgingService {
      * @return           返回一个Aging对象
      */
     public Aging selectAging(String orderNum, String process){
-        return agingDao.selectItem(orderNum, process);
+        return agingDao.selectOne(orderNum, process);
+    }
+
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return           返回地址
+     */
+    public String selectPath(String orderNum){
+        return agingDao.selectPath(orderNum);
     }
 
     /**

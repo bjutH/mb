@@ -26,9 +26,10 @@ public class ProcessTestService {
      *
      * @param orderNum  产品编号
      * @param process   理论数据
+     * @param path      文件路径
      * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
-    public Map<String,String> addProcessTest(String orderNum, String process){
+    public Map<String,String> addProcessTest(String orderNum, String process, String path){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -40,8 +41,13 @@ public class ProcessTestService {
             map.put("msg", "关键工序检验报告单要求不能为空！");
             return map;
         }
+        if(StringUtils.isBlank(path)){
+            map.put("code","2");
+            map.put("msg", "关键工序检验报告单路径不能为空！");
+            return map;
+        }
         try {
-            processTestDao.addItem(orderNum, process);
+            processTestDao.addItem(orderNum, process, path);
             map.put("code","1");
         }
         catch (Exception e){
@@ -102,8 +108,18 @@ public class ProcessTestService {
      * @return          返回一个ProcessTest对象
      */
     public ProcessTest selectProcessTest(String orderNum, String process){
-        return processTestDao.selectItem(orderNum, process);
+        return processTestDao.selectOne(orderNum, process);
     }
+
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return           返回地址
+     */
+    public String selectPath(String orderNum){
+        return processTestDao.selectPath(orderNum);
+    }
+
     /**
      *
      * @param orderNum  产品编号

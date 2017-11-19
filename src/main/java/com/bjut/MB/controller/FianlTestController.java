@@ -1,11 +1,14 @@
 package com.bjut.MB.controller;
 
+import com.bjut.MB.Utils.ExcelUtils;
 import com.bjut.MB.model.FinalTest;
 import com.bjut.MB.service.FinalTestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,14 +32,13 @@ public class FianlTestController {
 
     @RequestMapping(value = "/addfinaltest")
     @ResponseBody
-    public String addFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                               @RequestParam(value = "machineType") String machineType, @RequestParam(value = "lable") String lable,
-                               @RequestParam(value = "check") String check, @RequestParam(value = "checker") String checker,
-                               @RequestParam(value = "date") Date date, @RequestParam(value = "finalChecker") String finalChecker,
-                               @RequestParam(value = "finalDate") Date finalDate, @RequestParam(value = "result") String result){
+    @Transactional(propagation= Propagation.REQUIRED)
+    public String addFinalTest(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            map = finalTestService.addFinalTest(orderNum, process, machineType, lable, check, checker, date, finalChecker, finalDate, result);
+            ExcelUtils excelUtils = new ExcelUtils();
+            excelUtils.importExcel(path, number,"finaltest");
+            map.put("code","1");
         }
         catch (Exception e){
             logger.error("添加最终检验单异常" + e.getMessage());
@@ -45,36 +47,42 @@ public class FianlTestController {
         return map.toString();
     }
 
-    @RequestMapping(value = "/updatefinaltest")
-    @ResponseBody
-    public String updateFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                                  @RequestParam(value = "machineType") String machineType, @RequestParam(value = "lable") String lable,
-                                  @RequestParam(value = "check") String check, @RequestParam(value = "checker") String checker,
-                                  @RequestParam(value = "date") Date date, @RequestParam(value = "finalChecker") String finalChecker,
-                                  @RequestParam(value = "finalDate") Date finalDate, @RequestParam(value = "result") String result){
-        Map<String,String> map = new HashMap<>();
-        try {
-            map = finalTestService.updateFinalTest(orderNum, process, machineType, lable, check, checker, date, finalChecker, finalDate, result);
-        }
-        catch (Exception e){
-            logger.error("更新最终检验单异常" + e.getMessage());
-            map.put("code","3");
-        }
-        return map.toString();
-    }
-
-    @RequestMapping(value = "/selectfinaltestall")
-    @ResponseBody
-    public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum){
-        List<FinalTest> finalTestList = finalTestService.selectFinalTest(orderNum);
-        return null;
-    }
-
+//    @RequestMapping(value = "/updatefinaltest")
+//    @ResponseBody
+//    public String updateFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+//                                  @RequestParam(value = "machineType") String machineType, @RequestParam(value = "lable") String lable,
+//                                  @RequestParam(value = "check") String check, @RequestParam(value = "checker") String checker,
+//                                  @RequestParam(value = "date") Date date, @RequestParam(value = "finalChecker") String finalChecker,
+//                                  @RequestParam(value = "finalDate") Date finalDate, @RequestParam(value = "result") String result){
+//        Map<String,String> map = new HashMap<>();
+//        try {
+//            map = finalTestService.updateFinalTest(orderNum, process, machineType, lable, check, checker, date, finalChecker, finalDate, result);
+//        }
+//        catch (Exception e){
+//            logger.error("更新最终检验单异常" + e.getMessage());
+//            map.put("code","3");
+//        }
+//        return map.toString();
+//    }
+//
+//    @RequestMapping(value = "/selectfinaltestall")
+//    @ResponseBody
+//    public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum){
+//        List<FinalTest> finalTestList = finalTestService.selectFinalTest(orderNum);
+//        return null;
+//    }
+//
+//    @RequestMapping(value = "/selectfinaltest")
+//    @ResponseBody
+//    public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
+//        FinalTest finalTest = finalTestService.selectFinalTest(orderNum,process);
+//        return null;
+//    }
     @RequestMapping(value = "/selectfinaltest")
     @ResponseBody
-    public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-        FinalTest finalTest = finalTestService.selectFinalTest(orderNum,process);
-        return null;
+    public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum){
+        String path = finalTestService.selectPath(orderNum);
+        return path;
     }
 
     @RequestMapping(value = "/deletefinaltest")

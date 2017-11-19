@@ -1,7 +1,7 @@
 package com.bjut.MB.Utils;
 
-import com.bjut.MB.dao.*;
 import com.bjut.MB.model.*;
+import com.bjut.MB.service.*;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.sun.corba.se.spi.activation.IIOP_CLEAR_TEXT.value;
@@ -24,34 +25,37 @@ public class ExcelUtils {
     private Workbook wb;
 
     @Autowired
-    private OrderDao orderDao;
+    private OrderService orderService;
     @Autowired
-    private YiqiDao yiqiDao;
+    private MemoService memoService;
     @Autowired
-    private AgingDao agingDao;
+    private AgingService agingService;
     @Autowired
-    private DebugDao debugDao;
+    private PackService packService;
     @Autowired
-    private ProcessTestDao processTestDao;
+    private DebugService debugService;
     @Autowired
-    private MachineTestDao machineTestDao;
+    private ProcessTestService processTestService;
     @Autowired
-    private ProductTestDao productTestDao;
+    private MachineTestService machineTestService;
     @Autowired
-    private SphygmomanometerDao sphygmomanometerDao;
+    private ProductTestService productTestService;
     @Autowired
-    private PerformTestDao performTestDao;
+    private SphygmomanometerService sphygmomanometerService;
     @Autowired
-    private FinalTestDao finalTestDao;
+    private PerformTestService performTestService;
+    @Autowired
+    private FinalTestService finalTestService;
 
     /**
      *
      * @param modelPath EXCEL文件路径
-     * @param x			  随工单编号的横坐标
-     * @param y			  随工单编号的纵坐标
+     * @param number     随工单编号
      * @param type       哪张表单
      */
-    public void importExcel(String modelPath, int x, int y, String type){
+    //public void importExcel(String modelPath, int x, int y,String number, String type){
+    public Map<String,String> importExcel(String modelPath, String number, String type){
+        Map<String, String> map = new HashMap<String, String>();
         File file = new File(modelPath);
         FileInputStream fis = null;
         try {
@@ -68,7 +72,7 @@ public class ExcelUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String id = null;
+        String id = number;
         String process = null;
         int rowNum = sheet.getLastRowNum();
         for (int i = 0; i <= rowNum; i++) {
@@ -81,46 +85,50 @@ public class ExcelUtils {
             for (int j = 0; j < columnNum; j++) {
                 XSSFCell cell = (XSSFCell) sheet.getRow(i).getCell(j);
                 String cellValue = cell.getStringCellValue();
-                if(i==x &&j==y){
-                    id = cellValue;
-                }
+//                if(i==x &&j==y){
+//                    id = cellValue;
+//                }
                 if(cellValue.contains("$")){
                     process = cellValue.substring(1, cellValue.length());
                     switch (type){
                         case "order":
-                            orderDao.addItem(id,process);
+                            map = orderService.addOrder(id, process, modelPath);
                             break;
                         case  "memo":
-                            yiqiDao.addItem(id,process);
+                            map = memoService.addMemo(id, process, modelPath);
                             break;
                         case "aging":
-                            agingDao.addItem(id,process);
+                            map = agingService.addAging(id, process, modelPath);
+                            break;
+                        case "pack":
+                            map = packService.addPack(id, process, modelPath);
                             break;
                         case "debug":
-                            debugDao.addItem(id,process);
+                            map = debugService.addDebug(id, process, modelPath);
                             break;
                         case "processTest":
-                            processTestDao.addItem(id,process);
+                            map = processTestService.addProcessTest(id, process, modelPath);
                             break;
                         case "machineTest":
-                            machineTestDao.addItem(id,process);
+                            map = machineTestService.addMachineTest(id, process, modelPath);
                             break;
                         case "productTest":
-                            processTestDao.addItem(id,process);
+                            map = productTestService.addProductTest(id, process, modelPath);
                             break;
                         case "sphygmomanometer":
-                            sphygmomanometerDao.addItem(id,process);
+                            map = sphygmomanometerService.addSphygmomanometer(id, process, modelPath);
                             break;
                         case "performTest":
-                            performTestDao.addItem(id,process);
+                            performTestService.addPerformTest(id, process, modelPath);
                             break;
                         case "finalTest":
-                            finalTestDao.addItem(id,process);
+                            finalTestService.addFinalTest(id, process, modelPath);
                             break;
                     }
                 }
             }
         }
+        return map;
     }
 
     /**
@@ -208,7 +216,7 @@ public class ExcelUtils {
                     String string = cellValue.substring(1, cellValue.length()-1);
                     switch (type){
                         case "order":
-                            Order order = orderDao.selectItem(id,string);
+                            Order order = orderService.selectOrder(id,string);
                             switch (last){
                                 case "1":
                                     value = order.getOperater();
@@ -222,7 +230,7 @@ public class ExcelUtils {
                             }
                             break;
                         case  "memo":
-                            Memo memo = yiqiDao.selectItem(id,string);
+                            Memo memo = memoService.selectMemo(id,string);
                             switch (last){
                                 case "1":
                                     value = memo.getNumber();
@@ -248,7 +256,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "aging":
-                            Aging aging = agingDao.selectItem(id,string);
+                            Aging aging = agingService.selectAging(id,string);
                             switch (last) {
                                 case "1":
                                     value = aging.getResult();
@@ -270,8 +278,22 @@ public class ExcelUtils {
                                     break;
                             }
                             break;
+                        case "pack":
+                            Pack pack = packService.selectPack(id,string);
+                            switch (last) {
+                                case "1":
+                                    value = pack.getResult();
+                                    break;
+                                case "2":
+                                    value = pack.getCheck();
+                                    break;
+                                case "3":
+                                    value = pack.getOperater();
+                                    break;
+                            }
+                            break;
                         case "debug":
-                            Debug debug = debugDao.selsectItem(id,string);
+                            Debug debug = debugService.selectDebug(id,string);
                             switch (last) {
                                 case "1":
                                     value = debug.getData();
@@ -294,7 +316,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "processTest":
-                           ProcessTest processTest = processTestDao.selectItem(id,string);
+                           ProcessTest processTest = processTestService.selectProcessTest(id,string);
                             switch (last) {
                                 case "1":
                                     value = processTest.getData();
@@ -317,7 +339,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "machineTest":
-                            MachineTest machineTest = machineTestDao.selectItem(id,String);
+                            MachineTest machineTest = machineTestService.selectMachineTest(id,string);
                             switch (last) {
                                 case "1":
                                     value = machineTest.getData();
@@ -331,7 +353,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "productTest":
-                            ProductTest productTest = productTestDao.selectItem(id,string);
+                            ProductTest productTest = productTestService.selectProductTest(id,string);
                             switch (last) {
                                 case "1":
                                     value = productTest.getData();
@@ -345,7 +367,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "sphygmomanometer":
-                            Sphygmomanometer sphygmomanometer = sphygmomanometerDao.selectItem(id,string);
+                            Sphygmomanometer sphygmomanometer = sphygmomanometerService.selectSphygmomanometer(id,string);
                             switch (last) {
                                 case "1":
                                     value = sphygmomanometer.getData();
@@ -359,7 +381,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "performTest":
-                            PerformTest performTest = performTestDao.selectItem(id,string);
+                            PerformTest performTest = performTestService.selectPerformTest(id,string);
                             switch (last) {
                                 case "1":
                                     value = performTest.getData();
@@ -373,7 +395,7 @@ public class ExcelUtils {
                             }
                             break;
                         case "finalTest":
-                            FinalTest finalTest = finalTestDao.selectItem(id,string);
+                            FinalTest finalTest = finalTestService.selectFinalTest(id,string);
                             switch (last) {
                                 case "1":
                                     value = finalTest.getResult();
