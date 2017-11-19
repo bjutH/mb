@@ -17,6 +17,7 @@ public interface DebugDao {
     String TABLE_NAME = "debug";
     String INSERT_FIELDS = "product_num, theory_data";
     String SELECT_FIELDS = "*";
+    String SELECT_ONE_FIELDS = "product_num, theory_data";
 
     /**
      *
@@ -33,6 +34,15 @@ public interface DebugDao {
      */
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<Debug> selectAll(String product_num);
+
+    /**
+     *
+     * @param product_num 产品编号
+     * @param theory_data 理论数据
+     * @return
+     */
+    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and theory_data = #{theory}"})
+    List<Debug> selectOne(String product_num, String theory_data);
 
     /**
      *

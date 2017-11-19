@@ -17,6 +17,7 @@ public interface ProductTestDao {
     String TABLE_NAME = "product_test";
     String INSERT_FIELDS = "product_num, test_item";
     String SELECT_FIELDS = "*";
+    String SELECT_ONE_FIELDS = "product_num, test_item";
 
     /**
      *
@@ -29,6 +30,14 @@ public interface ProductTestDao {
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<ProductTest> selectAll(String product_num);
 
+    /**
+     *
+     * @param product_num 产品编号
+     * @param test_item 检验项目
+     * @return
+     */
+    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and test_item = #{test_item}"})
+    List<ProductTest> selectOne(String product_num, String test_item);
     /**
      *
      * @param product_num 产品编号

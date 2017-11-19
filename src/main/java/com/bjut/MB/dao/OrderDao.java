@@ -18,6 +18,7 @@ public interface OrderDao {
     String TABLE_NAME = "order";
     String INSERT_FIELDS = "product_num, process";
     String SELECT_FIELDS = "*";
+    String SELECT_ONE_FIELDS = "product_num, process";
 
     /**
      *
@@ -29,6 +30,15 @@ public interface OrderDao {
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<Order> selectAll(String product_num);
+
+    /**
+     *
+     * @param product_num 产品标号
+     * @param process 工序
+     * @return
+     */
+    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
+    List<Order> selectOne(String product_num, String process);
 
     /**
      *

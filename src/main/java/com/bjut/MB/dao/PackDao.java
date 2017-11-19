@@ -16,6 +16,7 @@ public interface PackDao {
     String TABLE_NAME = "pack";
     String INSERT_FIELDS = "product_num, item";
     String SELECT_FIELDS = "*";
+    String SELECT_ONE_FIELDS = "product_num, item";
 
     /**
      *
@@ -27,6 +28,16 @@ public interface PackDao {
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<Pack> selectAll(String product_num);
+
+
+    /**
+     *
+     * @param product_num 产品编号
+     * @param item 名称
+     * @return
+     */
+    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and item = #{item}"})
+    List<Pack> selectOne(String product_num, String item);
 
     /**
      *

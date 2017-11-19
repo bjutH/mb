@@ -17,6 +17,7 @@ public interface SphygmomanometerDao {
     String TABLE_NAME = "xueyaji";
     String INSERT_FIELDS = "product_num, process";
     String SELECT_FIELDS = "*";
+    String SELECT_ONE_FIELDS = "product_num, process";
 
     /**
      *
@@ -28,6 +29,15 @@ public interface SphygmomanometerDao {
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<Sphygmomanometer> selectAll(String product_num);
+
+    /**
+     *
+     * @param product_num 产品编号
+     * @param date 日期
+     * @return
+     */
+    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
+    List<Sphygmomanometer> selectOne(String product_num, String date);
 
     /**
      *

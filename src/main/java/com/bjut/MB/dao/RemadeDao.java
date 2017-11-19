@@ -17,6 +17,7 @@ public interface RemadeDao {
     String TABLE_NAME = "remade";
     String INSERT_FIELDS = "product_num, date, modify_num, soft_modify_des, handware_modify_des, struct_modify_des, modifyer, checker";
     String SELECT_FIELDS = "*";
+    String SELECT_ONE_FIELDS = "process_num, date";
 
     /**
      *
@@ -34,6 +35,15 @@ public interface RemadeDao {
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<Remade> selectAll(String product_num);
+
+    /**
+     *
+     * @param product_num 产品编号
+     * @param date 日期
+     * @return
+     */
+    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and date = #{date}"})
+    List<Remade> selectOne(String product_num, String date);
 
     /**
      *

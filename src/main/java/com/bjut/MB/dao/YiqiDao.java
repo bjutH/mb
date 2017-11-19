@@ -15,7 +15,7 @@ public interface YiqiDao {
     String TABLE_NAME = "yiqi_ps";
     String INSERT_FIELDS = "product_num, ps_name";
     String SELECT_FIELDS = "*";
-
+    String SELECT_ONE_FIELDS ="prodcut_num, ps_name";
     /**
      *
      * @param product_num 产品编号
@@ -26,6 +26,15 @@ public interface YiqiDao {
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<Memo> selectAll(String product_num);
+
+    /**
+     *
+     * @param product_num 产品编号
+     * @param ps_name 备忘录名称
+     * @return
+     */
+    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and ps_name = #{ps_name}"})
+    List<Memo> selectOne(String product_num, String ps_name);
 
     /**
      *

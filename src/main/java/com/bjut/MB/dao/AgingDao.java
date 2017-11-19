@@ -17,6 +17,7 @@ public interface AgingDao {
     String TABLE_NAME = "aging";
     String INSERT_FIELDS = "product_num, demand";
     String SELECT_FIELDS = "*";
+    String SELECT_ONE_FIELDS = "product_num, demand";
 
     /**
      *
@@ -33,6 +34,15 @@ public interface AgingDao {
      */
     @Select({"select ", SELECT_FIELDS, "from ", TABLE_NAME, "where product_num = #{product_num}"})
     List<Aging> selectAll(String product_num);
+
+    /**
+     *
+     * @param product_num 产品标号
+     * @param demand 要求
+     * @return
+     */
+    @Select({"select ", SELECT_ONE_FIELDS, "from ", TABLE_NAME, "where product_num = #{product_num} and demand = #{demand}"})
+    List<Aging> selectOne(String product_num, String demand);
 
     /**
      *

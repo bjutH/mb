@@ -17,6 +17,7 @@ public interface PerformTestDao {
     String TABLE_NAME = "perform_test";
     String INSERT_FIELDS = "product_num, serial_num";
     String SELECT_FIELDS = "*";
+    String SELECT_ONE_FIELDS = "product_num, serial_num";
 
     /**
      *
@@ -28,6 +29,9 @@ public interface PerformTestDao {
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<PerformTest> selectAll(String product_num);
+
+    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and serial_num = #{serial_num}"})
+    List<PerformTest> selectOne(String product_num, String serial_num);
 
     /**
      *
