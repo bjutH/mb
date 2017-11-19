@@ -17,7 +17,6 @@ public interface MachineTestDao {
     String TABLE_NAME = "machine_test";
     String INSERT_FIELDS = "product_num, test_demand";
     String SELECT_FIELDS = "*";
-    String SELECT_ONE_FIELDS = "product_num, test_demand";
 
     /**
      *
@@ -38,8 +37,8 @@ public interface MachineTestDao {
      * @param test_demand 检验要求
      * @return
      */
-    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and test_demand = #{test_demand}"})
-    List<MachineTest> selectOne(String product_num, String test_demand);
+    @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and test_demand = #{test_demand}"})
+    MachineTest selectOne(String product_num, String test_demand);
 
     /**
      *
@@ -48,9 +47,10 @@ public interface MachineTestDao {
      * @param test_result 检验结果
      * @param test_demand 检验要求
      * @param ps 备注
+     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set test_data = #{test_data}, test_result = #{test_result}, ps = #{ps} where product_num = #{product_num} and test_demand = #{test_demand}"})
-    void updateItem(String product_num, String test_data, String test_result, String test_demand, String ps);
+    @Update({"update ", TABLE_NAME, "set test_data = #{test_data}, test_result = #{test_result}, ps = #{ps}, path = #{path} where product_num = #{product_num} and test_demand = #{test_demand}"})
+    void updateItem(String product_num, String test_data, String test_result, String test_demand, String ps, String path);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);

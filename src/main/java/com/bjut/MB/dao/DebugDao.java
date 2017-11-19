@@ -17,7 +17,6 @@ public interface DebugDao {
     String TABLE_NAME = "debug";
     String INSERT_FIELDS = "product_num, theory_data";
     String SELECT_FIELDS = "*";
-    String SELECT_ONE_FIELDS = "product_num, theory_data";
 
     /**
      *
@@ -41,8 +40,8 @@ public interface DebugDao {
      * @param theory_data 理论数据
      * @return
      */
-    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and theory_data = #{theory}"})
-    List<Debug> selectOne(String product_num, String theory_data);
+    @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and theory_data = #{theory}"})
+    Debug selectOne(String product_num, String theory_data);
 
     /**
      *
@@ -54,9 +53,10 @@ public interface DebugDao {
      * @param machine_num 设备编号
      * @param ps 备注
      * @param theory_data 理论数据
+     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set observe_data = #{observe_data}, observe_result = #{observe_result}, test_machine = #{test_machine} ,machine_type= {machine_type}, machine_num = #{machine_num}, ps = #{ps}, where product_num = #{product_num} and theoryData = #{theory_data}"})
-    void updateItem(String product_num, String observe_data, String observe_result, String test_machine, String machine_type, String machine_num, String ps, String theory_data);
+    @Update({"update ", TABLE_NAME, "set observe_data = #{observe_data}, observe_result = #{observe_result}, test_machine = #{test_machine} ,machine_type= {machine_type}, machine_num = #{machine_num}, ps = #{ps}, path = #{path}, where product_num = #{product_num} and theoryData = #{theory_data}"})
+    void updateItem(String product_num, String observe_data, String observe_result, String test_machine, String machine_type, String machine_num, String ps, String theory_data, String path);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);

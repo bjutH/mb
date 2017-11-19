@@ -17,7 +17,6 @@ public interface SphygmomanometerDao {
     String TABLE_NAME = "xueyaji";
     String INSERT_FIELDS = "product_num, process";
     String SELECT_FIELDS = "*";
-    String SELECT_ONE_FIELDS = "product_num, process";
 
     /**
      *
@@ -36,8 +35,8 @@ public interface SphygmomanometerDao {
      * @param date 日期
      * @return
      */
-    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
-    List<Sphygmomanometer> selectOne(String product_num, String date);
+    @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
+    Sphygmomanometer selectOne(String product_num, String date);
 
     /**
      *
@@ -46,9 +45,10 @@ public interface SphygmomanometerDao {
      * @param conclusion 结论
      * @param serial_num 序号
      * @param ps 备注
+     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set real_data = #{real_data}, conclusion = #{conclusion}, ps = #{ps} where product_num = #{product_num} and serial_num = #{serial_num}"})
-    void updateItem(String product_num, String real_data, String conclusion, String serial_num, String ps);
+    @Update({"update ", TABLE_NAME, "set real_data = #{real_data}, conclusion = #{conclusion}, ps = #{ps} ,path = #{path}where product_num = #{product_num} and serial_num = #{serial_num}"})
+    void updateItem(String product_num, String real_data, String conclusion, String serial_num, String ps, String path);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);

@@ -18,7 +18,6 @@ public interface FinalTestDao {
     String TABLE_NAME = "final_test";
     String INSERT_FIELDS = "product_num, name";
     String SELECT_FIELDS = "*";
-    String SELECT_ONE_FIELDS = "product_num, name";
 
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{name})"})
@@ -34,11 +33,16 @@ public interface FinalTestDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and name = #{name}"})
-    List<FinalTest> selectOne(String product_num, String name);
+    FinalTest selectOne(String product_num, String name);
 
-
-    @Update({"update ", TABLE_NAME, "set name = #{name} where product_num = #{product_num}"})
-    void updateItem(String product_num,String name);
+    /**
+     *
+     * @param product_num 产品编码
+     * @param name 名称
+     * @param path 路径
+     */
+    @Update({"update ", TABLE_NAME, "set name = #{name}, check_result = #{check_result}, path = #{path} where product_num = #{product_num}"})
+    void updateItem(String product_num,String name, String path);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);

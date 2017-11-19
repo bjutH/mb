@@ -17,7 +17,6 @@ public interface PerformTestDao {
     String TABLE_NAME = "perform_test";
     String INSERT_FIELDS = "product_num, serial_num";
     String SELECT_FIELDS = "*";
-    String SELECT_ONE_FIELDS = "product_num, serial_num";
 
     /**
      *
@@ -30,8 +29,8 @@ public interface PerformTestDao {
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<PerformTest> selectAll(String product_num);
 
-    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and serial_num = #{serial_num}"})
-    List<PerformTest> selectOne(String product_num, String serial_num);
+    @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and serial_num = #{serial_num}"})
+    PerformTest selectOne(String product_num, String serial_num);
 
     /**
      *
@@ -40,9 +39,10 @@ public interface PerformTestDao {
      * @param real_data 实际数据
      * @param conclusion 结论
      * @param ps 备注
+     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set real_data = #{real_data}, conclusion = #{conclusion}, ps = #{ps} where product_num = #{product_num} and serial_num = #{serial_num}"})
-    void updateItem(String product_num, String serial_num, String real_data, String conclusion, String ps);
+    @Update({"update ", TABLE_NAME, "set real_data = #{real_data}, conclusion = #{conclusion}, ps = #{ps}, path = #{path} where product_num = #{product_num} and serial_num = #{serial_num}"})
+    void updateItem(String product_num, String serial_num, String real_data, String conclusion, String ps, String path);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);

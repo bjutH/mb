@@ -18,7 +18,6 @@ public interface OrderDao {
     String TABLE_NAME = "order";
     String INSERT_FIELDS = "product_num, process";
     String SELECT_FIELDS = "*";
-    String SELECT_ONE_FIELDS = "product_num, process";
 
     /**
      *
@@ -37,8 +36,8 @@ public interface OrderDao {
      * @param process 工序
      * @return
      */
-    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
-    List<Order> selectOne(String product_num, String process);
+    @Select({"select ", "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
+    Order selectOne(String product_num, String process);
 
     /**
      *
@@ -47,9 +46,10 @@ public interface OrderDao {
      * @param process 工序名称
      * @param other 其他内容说明
      * @param ps 备注
+     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set operater = #{operater}, other = #{other}, ps = #{ps} where product_num = #{product_num} and process = #{process}"})
-    void updateItem(String product_num, String operater, String process, String other, String ps);
+    @Update({"update ", TABLE_NAME, "set operater = #{operater}, other = #{other}, ps = #{ps}, path = #{path} where product_num = #{product_num} and process = #{process}"})
+    void updateItem(String product_num, String operater, String process, String other, String ps, String path);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);

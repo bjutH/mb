@@ -16,7 +16,6 @@ public interface PackDao {
     String TABLE_NAME = "pack";
     String INSERT_FIELDS = "product_num, item";
     String SELECT_FIELDS = "*";
-    String SELECT_ONE_FIELDS = "product_num, item";
 
     /**
      *
@@ -36,8 +35,8 @@ public interface PackDao {
      * @param item 名称
      * @return
      */
-    @Select({"select ", SELECT_ONE_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and item = #{item}"})
-    List<Pack> selectOne(String product_num, String item);
+    @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and item = #{item}"})
+    Pack selectOne(String product_num, String item);
 
     /**
      *
@@ -46,9 +45,10 @@ public interface PackDao {
      * @param packager 包装人
      * @param product_num 产品编号
      * @param item 名称
+     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set confirm = #{confirm}, self_check = #{self_check}, packager = #{packager} where product_num = #{product_num} and item = #{item}"})
-    void updateItem(String confirm, String self_check, String packager, String product_num, String item);
+    @Update({"update ", TABLE_NAME, "set confirm = #{confirm}, self_check = #{self_check}, packager = #{packager}, path = #{path} where product_num = #{product_num} and item = #{item}"})
+    void updateItem(String confirm, String self_check, String packager, String product_num, String item, String path);
 
     /**
      *

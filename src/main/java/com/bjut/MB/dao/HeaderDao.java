@@ -16,7 +16,6 @@ public interface HeaderDao {
     String TABLE_NAME = "header";
     String INSERT_FIELDS = "product_num, product_name, product_type, inner_label, debug_conclusion, debuger, debug_date, environment_temperature, relative_humidity, power, is_groud";
     String SELECT_FIELDS = "*";
-    String SELECT_ONE_FIELDS = "product_num";
 
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num})"})
@@ -31,7 +30,7 @@ public interface HeaderDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
-    List<Header> selectOne(String product_num);
+    Header selectOne(String product_num);
 
     /**
      *
@@ -46,9 +45,10 @@ public interface HeaderDao {
      * @param relative_humidity 相对湿度
      * @param power 供电电源
      * @param is_groud 是否有效接地
+     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set product_name = #{product_name}, product_type = #{product_type}, inner_label = #{inner_label}, debug_conclusion = #{debug_conclusion}, debuger = #{debuger}, debug_date = #{debug_date}, environment_temperature = #{environment_temperature}, relative_humidity = #{relative_humidity}, power = #{power}, is_groud = #{is_groud} where product_num = #{product_num}"})
-    void updateItem(String product_num, String product_name, String product_type, String inner_label, String  debug_conclusion, String debuger, Date debug_date, String environment_temperature, String relative_humidity, String power, String is_groud);
+    @Update({"update ", TABLE_NAME, "set product_name = #{product_name}, product_type = #{product_type}, inner_label = #{inner_label}, debug_conclusion = #{debug_conclusion}, debuger = #{debuger}, debug_date = #{debug_date}, environment_temperature = #{environment_temperature}, relative_humidity = #{relative_humidity}, power = #{power}, is_groud = #{is_groud}, path = #{path} where product_num = #{product_num}"})
+    void updateItem(String product_num, String product_name, String product_type, String inner_label, String  debug_conclusion, String debuger, Date debug_date, String environment_temperature, String relative_humidity, String power, String is_groud, String path);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);
