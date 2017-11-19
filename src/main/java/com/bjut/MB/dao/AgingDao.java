@@ -44,6 +44,10 @@ public interface AgingDao {
     @Select({"select ", SELECT_FIELDS, "from ", TABLE_NAME, "where product_num = #{product_num} and demand = #{demand}"})
     Aging selectOne(String product_num, String demand);
 
+    @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
+    String selectPath(String product_num);
+
+
     /**
      *
      * @param product_num 产品编号

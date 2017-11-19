@@ -40,6 +40,9 @@ public interface OrderDao {
     @Select({"select ", "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
     Order selectOne(String product_num, String process);
 
+
+    @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
+    String selectPath(String product_num);
     /**
      *
      * @param product_num 产品编号

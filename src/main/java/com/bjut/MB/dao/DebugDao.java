@@ -43,6 +43,9 @@ public interface DebugDao {
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and theory_data = #{theory}"})
     Debug selectOne(String product_num, String theory_data);
 
+
+    @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
+    String selectPath(String product_num);
     /**
      *
      * @param product_num 产品编号

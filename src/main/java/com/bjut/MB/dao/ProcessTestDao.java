@@ -39,6 +39,9 @@ public interface ProcessTestDao {
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and test_item = #{test_item}"})
     ProcessTest selectOne(String product_num, String test_item);
 
+
+    @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
+    String selectPath(String product_num);
     /**
      *
      * @param product_num 产品编号

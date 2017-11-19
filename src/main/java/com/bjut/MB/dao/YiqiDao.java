@@ -35,6 +35,9 @@ public interface YiqiDao {
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and ps_name = #{ps_name}"})
     Memo selectOne(String product_num, String ps_name);
 
+    @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
+    String selectPath(String product_num);
+
     /**
      *
      * @param product_num 产品编号

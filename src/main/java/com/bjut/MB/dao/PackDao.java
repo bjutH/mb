@@ -39,6 +39,9 @@ public interface PackDao {
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and item = #{item}"})
     Pack selectOne(String product_num, String item);
 
+
+    @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
+    String selectPath(String product_num);
     /**
      *
      * @param confirm 确认
