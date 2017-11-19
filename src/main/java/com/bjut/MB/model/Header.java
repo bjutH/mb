@@ -1,5 +1,7 @@
 package com.bjut.MB.model;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/11/19.
  */
@@ -10,7 +12,7 @@ public class Header {
     private String label;
     private String conclusion;
     private String debuger;
-    private String date;
+    private Date date;
     private String temperature;
     private String humidity;
     private String power;
@@ -64,11 +66,11 @@ public class Header {
         this.debuger = debuger;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

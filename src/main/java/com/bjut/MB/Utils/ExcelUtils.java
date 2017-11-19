@@ -46,6 +46,8 @@ public class ExcelUtils {
     private PerformTestService performTestService;
     @Autowired
     private FinalTestService finalTestService;
+    @Autowired
+    private HeaderService headerService;
 
     /**
      *
@@ -74,6 +76,7 @@ public class ExcelUtils {
         }
         String id = number;
         String process = null;
+        String value = null;
         int rowNum = sheet.getLastRowNum();
         for (int i = 0; i <= rowNum; i++) {
             Row row = sheet.getRow(i);
@@ -88,6 +91,13 @@ public class ExcelUtils {
 //                if(i==x &&j==y){
 //                    id = cellValue;
 //                }
+                if(cellValue.contains("@")){
+                    process = cellValue.substring(1, cellValue.length());
+                    switch (process){
+                        case "number":
+                            value =
+                    }
+                }
                 if(cellValue.contains("$")){
                     process = cellValue.substring(1, cellValue.length());
                     switch (type){
@@ -134,11 +144,10 @@ public class ExcelUtils {
     /**
      * 替换EXCEL文件内容
      * @param modelPath EXCEL文件路径
-     * @param x          随工单编号的横坐标
-     * @param y          随工单编号的纵坐标
+     * @param id       随工单编号
      * @param type       哪张表单
      */
-    public void replaceExcel(String modelPath, int x, int y, String type){
+    public void replaceExcel(String modelPath, String id, String type){
 //    	String[] arr = modelPath.split("\\.");
 //    	String copyPath = "";
 //    	for(int i=0;i<arr.length -1;i++){
@@ -167,7 +176,7 @@ public class ExcelUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        replaceDate(x, y, type);
+        replaceDate(id, type);
         try {
             fis.close();
         } catch (Exception e) {
@@ -188,14 +197,12 @@ public class ExcelUtils {
 
     /**
      * 根据ID查询内容并替换
-     * @param x         随工单编号的横坐标
-     * @param y         随工单编号的纵坐标
+     * @param id        随工单编号
      * @param type      哪张表单
      */
-    private void replaceDate(int x, int y, String type){
+    private void replaceDate(String id, String type){
         // 获取行数
         int rowNum = sheet.getLastRowNum();
-        String id = null;
         for (int i = 0; i <= rowNum; i++) {
             Row	row = sheet.getRow(i);
             // 获取行里面的总列数
@@ -206,9 +213,7 @@ public class ExcelUtils {
             for (int j = 0; j < columnNum; j++) {
                 XSSFCell cell = (XSSFCell) sheet.getRow(i).getCell(j);
                 String cellValue = cell.getStringCellValue();
-                if(i==x &&j==y){
-                    id = cellValue;
-                }
+                id = cellValue;
                 String first = String.valueOf(cellValue.charAt(0));
                 String last = String.valueOf(cellValue.charAt(cellValue.length()));
                 if(first=="#"){
