@@ -2,10 +2,7 @@ package com.bjut.MB.dao;
 
 import com.bjut.MB.model.FinalTest;
 import com.bjut.MB.model.Header;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
 /**
  * Created by Cheng on 2017/11/19.
  */
+@Mapper
 public interface HeaderDao {
     String TABLE_NAME = "header";
     String INSERT_FIELDS = "product_num, path";

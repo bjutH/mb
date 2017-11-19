@@ -31,7 +31,7 @@ public class RemadeController {
     @Autowired
     private RemadeSercice remadeSercice;
 
-    @RequestMapping(value = "/addremade")
+    @RequestMapping(path = "/addremade")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addRemade(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
@@ -47,7 +47,7 @@ public class RemadeController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updateremade")
+//    @RequestMapping(path = "/updateremade")
 //    @ResponseBody
 //    public String updateRemade(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "date") Date date,
 //                                @RequestParam(value = "number") String number, @RequestParam(value = "updateSoftware") String updateSoftware,
@@ -64,21 +64,21 @@ public class RemadeController {
 //        return map.toString();
 //    }
 //
-//    @RequestMapping(value = "/selectremadeall")
+//    @RequestMapping(path = "/selectremadeall")
 //    @ResponseBody
 //    public String selectRemade(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<Remade> remadeList = remadeSercice.selectRemade(orderNum);
 //        return null;
 //    }
 
-    @RequestMapping(value = "/selectremade")
+    @RequestMapping(path = "/selectremade")
     @ResponseBody
     public String selectRemade(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = remadeSercice.selectPath(orderNum);
         return path;
     }
 
-    @RequestMapping(value = "/deleteremade")
+    @RequestMapping(path = "/deleteremade")
     @ResponseBody
     public String deleteRemade(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

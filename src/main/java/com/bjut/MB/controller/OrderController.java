@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,10 +31,11 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping(value = "/addorder")
+    @RequestMapping(path = {"/addorder"})
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addOrder(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
+        System.out.println(path+":   " + number);
         Map<String,String> map = new HashMap<>();
         try {
             ExcelUtils excelUtils = new ExcelUtils();
@@ -47,7 +49,7 @@ public class OrderController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updateorder")
+//    @RequestMapping(path = "/updateorder")
 //    @ResponseBody
 //    public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "processes") String processes,
 //                               @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
@@ -62,27 +64,27 @@ public class OrderController {
 //        return map.toString();
 //    }
 //
-//    @RequestMapping(value = "/selectorderall")
+//    @RequestMapping(path = "/selectorderall")
 //    @ResponseBody
 //    public String selectOrder(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<Order> orderList = orderService.selectOrder(orderNum);
 //        return null;
 //    }
 //
-//    @RequestMapping(value = "/selectorder")
+//    @RequestMapping(path = "/selectorder")
 //    @ResponseBody
 //    public String selectOrder(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
 //        Order order = orderService.selectOrder(orderNum, process);
 //        return null;
 //    }
-    @RequestMapping(value = "/selectorder")
+    @RequestMapping(path = "/selectorder")
     @ResponseBody
     public String selectOrder(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = orderService.selectPath(orderNum);
         return path;
     }
 
-    @RequestMapping(value = "/deleteorder")
+    @RequestMapping(path = "/deleteorder")
     @ResponseBody
     public String deleteOrder(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

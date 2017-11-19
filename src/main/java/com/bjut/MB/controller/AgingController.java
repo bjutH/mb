@@ -31,7 +31,7 @@ public class AgingController {
     @Autowired
     private AgingService agingService;
 
-    @RequestMapping(value = "/addaging")
+    @RequestMapping(path = "/addaging")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addAging(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
@@ -48,44 +48,44 @@ public class AgingController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updateaging")
-//    @ResponseBody
-//    public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-//                              @RequestParam(value = "result") String result, @RequestParam(value = "date") Date date,
-//                              @RequestParam(value = "phenomenon") String phenomenon, @RequestParam(value = "handle") String handle,
-//                              @RequestParam(value = "ps") String ps, @RequestParam(value = "operater") String operater){
-//        Map<String,String> map = new HashMap<>();
-//        try {
-//            map = agingService.updateAging(orderNum, process, result, date, phenomenon, handle, ps, operater);
-//        }
-//        catch (Exception e){
-//            logger.error("更新老化观测表异常" + e.getMessage());
-//            map.put("code","3");
-//        }
-//        return map.toString();
-//    }
+    @RequestMapping(path = "/updateaging")
+    @ResponseBody
+    public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                              @RequestParam(value = "result") String result, @RequestParam(value = "date") Date date,
+                              @RequestParam(value = "phenomenon") String phenomenon, @RequestParam(value = "handle") String handle,
+                              @RequestParam(value = "ps") String ps, @RequestParam(value = "operater") String operater){
+        Map<String,String> map = new HashMap<>();
+        try {
+            map = agingService.updateAging(orderNum, process, result, date, phenomenon, handle, ps, operater);
+        }
+        catch (Exception e){
+            logger.error("更新老化观测表异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
+    }
 //
-//    @RequestMapping(value = "/selectagingall")
+//    @RequestMapping(path = "/selectagingall")
 //    @ResponseBody
 //    public String selectAging(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<Aging> agingList = agingService.selectAging(orderNum);
 //        return null;
 //    }
 //
-//    @RequestMapping(value = "/selectaging")
+//    @RequestMapping(path = "/selectaging")
 //    @ResponseBody
 //    public String selectAging(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
 //        Aging aging = agingService.selectAging(orderNum, process);
 //        return null;
 //    }
-    @RequestMapping(value = "/selectaging")
+    @RequestMapping(path = "/selectaging")
     @ResponseBody
     public String selectAging(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = agingService.selectPath(orderNum);
         return path;
     }
 
-    @RequestMapping(value = "/deleteaging")
+    @RequestMapping(path = "/deleteaging")
     @ResponseBody
     public String deleteAging(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

@@ -29,7 +29,7 @@ public class ProcessTestController {
     @Autowired
     private ProcessTestService processTestService;
 
-    @RequestMapping(value = "/addprocesstest")
+    @RequestMapping(path = "/addprocesstest")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addProcessTest(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
@@ -46,7 +46,7 @@ public class ProcessTestController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updateprocesstest")
+//    @RequestMapping(path = "/updateprocesstest")
 //    @ResponseBody
 //    public String updateProcessTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
 //                                    @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
@@ -63,14 +63,14 @@ public class ProcessTestController {
 //        return map.toString();
 //    }
 //
-//    @RequestMapping(value = "/selectprocesstestall")
+//    @RequestMapping(path = "/selectprocesstestall")
 //    @ResponseBody
 //    public String selectProcessTest(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<ProcessTest> processTestList = processTestService.selectProcessTest(orderNum);
 //        return null;
 //    }
 //
-//    @RequestMapping(value = "/selectprocesstest")
+//    @RequestMapping(path = "/selectprocesstest")
 //    @ResponseBody
 //    public String selectProcessTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
 //        ProcessTest processTest = processTestService.selectProcessTest(orderNum, process);
@@ -83,7 +83,7 @@ public class ProcessTestController {
         return path;
     }
 
-    @RequestMapping(value = "/deleteprocesstest")
+    @RequestMapping(path = "/deleteprocesstest")
     @ResponseBody
     public String deleteProcessTest(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

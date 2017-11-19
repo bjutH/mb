@@ -1,10 +1,7 @@
 package com.bjut.MB.dao;
 
 import com.bjut.MB.model.Remade;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
  * Created by Cheng on 2017/10/31.
  */
 //返工记录表
+@Mapper
 public interface RemadeDao {
     String TABLE_NAME = "remade";
     String INSERT_FIELDS = "product_num, date, modify_num, soft_modify_des, handware_modify_des, struct_modify_des, modifyer, checker, path";

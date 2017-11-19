@@ -32,7 +32,7 @@ public class CreatAllController {
      * @param number    随工单编号
      * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
-    @RequestMapping(value = "/addall")
+    @RequestMapping(path = "/addall")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addAging(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){

@@ -66,7 +66,7 @@ public class OrderService {
      * @param ps        备注
      * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
      */
-    public Map<String, String> updateOrder(String orderNum,String process,String operater,String other,String ps, String path){
+    public Map<String, String> updateOrder(String orderNum,String process,String operater,String other,String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
@@ -79,7 +79,7 @@ public class OrderService {
             return map;
         }
         try {
-            orderDao.updateItem(orderNum, operater, process, other, ps, path);
+            orderDao.updateItem(orderNum, operater, process, other, ps);
             map.put("code","1");
         }
         catch (Exception e){

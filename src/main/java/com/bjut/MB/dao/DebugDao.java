@@ -2,10 +2,7 @@ package com.bjut.MB.dao;
 
 import com.bjut.MB.model.Debug;
 import com.bjut.MB.model.Order;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -13,6 +10,7 @@ import java.util.List;
  * Created by Cheng on 2017/11/10.
  */
 //整机调试报告单
+@Mapper
 public interface DebugDao {
     String TABLE_NAME = "debug";
     String INSERT_FIELDS = "product_num, theory_data, path";

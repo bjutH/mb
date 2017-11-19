@@ -28,7 +28,7 @@ public class PackController {
     @Autowired
     private PackService packService;
 
-    @RequestMapping(value = "/addpack")
+    @RequestMapping(path = "/addpack")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addPack(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
@@ -45,7 +45,7 @@ public class PackController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updatepack")
+//    @RequestMapping(path = "/updatepack")
 //    @ResponseBody
 //    public String updatePack(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
 //                              @RequestParam(value = "result") String result, @RequestParam(value = "check") String check,
@@ -61,20 +61,20 @@ public class PackController {
 //        return map.toString();
 //    }
 //
-//    @RequestMapping(value = "/selectpackall")
+//    @RequestMapping(path = "/selectpackall")
 //    @ResponseBody
 //    public String selectPack(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<Pack> packList = packService.selectPack(orderNum);
 //        return null;
 //    }
 //
-//    @RequestMapping(value = "/selectpack")
+//    @RequestMapping(path = "/selectpack")
 //    @ResponseBody
 //    public String selectPack(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
 //        Pack pack = packService.selectPack(orderNum, process);
 //        return null;
 //    }
-    @RequestMapping(value = "/selectpack")
+    @RequestMapping(path = "/selectpack")
     @ResponseBody
     public String selectPack(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = packService.selectPath(orderNum);
@@ -82,7 +82,7 @@ public class PackController {
     }
 
 
-    @RequestMapping(value = "/deletepack")
+    @RequestMapping(path = "/deletepack")
     @ResponseBody
     public String deletePack(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

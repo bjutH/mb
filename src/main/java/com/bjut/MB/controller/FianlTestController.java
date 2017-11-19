@@ -30,7 +30,7 @@ public class FianlTestController {
     @Autowired
     private FinalTestService finalTestService;
 
-    @RequestMapping(value = "/addfinaltest")
+    @RequestMapping(path = "/addfinaltest")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addFinalTest(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
@@ -47,7 +47,7 @@ public class FianlTestController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updatefinaltest")
+//    @RequestMapping(path = "/updatefinaltest")
 //    @ResponseBody
 //    public String updateFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
 //                                  @RequestParam(value = "machineType") String machineType, @RequestParam(value = "lable") String lable,
@@ -65,27 +65,27 @@ public class FianlTestController {
 //        return map.toString();
 //    }
 //
-//    @RequestMapping(value = "/selectfinaltestall")
+//    @RequestMapping(path = "/selectfinaltestall")
 //    @ResponseBody
 //    public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<FinalTest> finalTestList = finalTestService.selectFinalTest(orderNum);
 //        return null;
 //    }
 //
-//    @RequestMapping(value = "/selectfinaltest")
+//    @RequestMapping(path = "/selectfinaltest")
 //    @ResponseBody
 //    public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
 //        FinalTest finalTest = finalTestService.selectFinalTest(orderNum,process);
 //        return null;
 //    }
-    @RequestMapping(value = "/selectfinaltest")
+    @RequestMapping(path = "/selectfinaltest")
     @ResponseBody
     public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = finalTestService.selectPath(orderNum);
         return path;
     }
 
-    @RequestMapping(value = "/deletefinaltest")
+    @RequestMapping(path = "/deletefinaltest")
     @ResponseBody
     public String deleteFinalTest(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

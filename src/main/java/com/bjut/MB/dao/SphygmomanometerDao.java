@@ -2,10 +2,7 @@ package com.bjut.MB.dao;
 
 import com.bjut.MB.model.Order;
 import com.bjut.MB.model.Sphygmomanometer;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -13,6 +10,7 @@ import java.util.List;
  * Created by Cheng on 2017/11/10.
  */
 //血压计鉴定报告单
+@Mapper
 public interface SphygmomanometerDao {
     String TABLE_NAME = "xueyaji";
     String INSERT_FIELDS = "product_num, process, path";

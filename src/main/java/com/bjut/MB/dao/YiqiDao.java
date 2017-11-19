@@ -1,16 +1,14 @@
 package com.bjut.MB.dao;
 
 import com.bjut.MB.model.Memo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 /**
  * Created by Cheng on 2017/10/31.
  */
+@Mapper
 public interface YiqiDao {
     String TABLE_NAME = "yiqi_ps";
     String INSERT_FIELDS = "product_num, ps_name, path";

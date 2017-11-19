@@ -29,7 +29,7 @@ public class SphygmomanometerController {
     @Autowired
     private SphygmomanometerService sphygmomanometerService;
 
-    @RequestMapping(value = "/addsphygmomanometer")
+    @RequestMapping(path = "/addsphygmomanometer")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addSphygmomanometer(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
@@ -46,7 +46,7 @@ public class SphygmomanometerController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updatesphygmomanometer")
+//    @RequestMapping(path = "/updatesphygmomanometer")
 //    @ResponseBody
 //    public String updateSphygmomanometer(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
 //                                          @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
@@ -62,28 +62,28 @@ public class SphygmomanometerController {
 //        return map.toString();
 //    }
 //
-//    @RequestMapping(value = "/selectsphygmomanometerall")
+//    @RequestMapping(path = "/selectsphygmomanometerall")
 //    @ResponseBody
 //    public String selectSphygmomanometer(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<Sphygmomanometer> sphygmomanometerList = sphygmomanometerService.selectSphygmomanometer(orderNum);
 //        return null;
 //    }
 //
-//    @RequestMapping(value = "/selectsphygmomanometer")
+//    @RequestMapping(path = "/selectsphygmomanometer")
 //    @ResponseBody
 //    public String selectSphygmomanometer(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
 //        Sphygmomanometer sphygmomanometer = sphygmomanometerService.selectSphygmomanometer(orderNum, process);
 //        return null;
 //    }
 
-    @RequestMapping(value = "/selectsphygmomanometer")
+    @RequestMapping(path = "/selectsphygmomanometer")
     @ResponseBody
     public String selectSphygmomanometer(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = sphygmomanometerService.selectPath(orderNum);
         return path;
     }
 
-    @RequestMapping(value = "/deletesphygmomanometer")
+    @RequestMapping(path = "/deletesphygmomanometer")
     @ResponseBody
     public String deleteSphygmomanometer(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

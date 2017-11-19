@@ -30,7 +30,7 @@ public class MemoController {
     @Autowired
     private MemoService memoService;
 
-    @RequestMapping(value = "/addmemo")
+    @RequestMapping(path = "/addmemo")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addMemo(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
@@ -47,7 +47,7 @@ public class MemoController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updatememo")
+//    @RequestMapping(path = "/updatememo")
 //    @ResponseBody
 //    public String updateMemo(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "name") String name,
 //                              @RequestParam(value = "number") String number, @RequestParam(value = "boardNum") String boardNum,
@@ -65,27 +65,27 @@ public class MemoController {
 //        return map.toString();
 //    }
 //
-//    @RequestMapping(value = "/selectmemoall")
+//    @RequestMapping(path = "/selectmemoall")
 //    @ResponseBody
 //    public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<Memo> memoList = memoService.selectMemo(orderNum);
 //        return null;
 //    }
 //
-//    @RequestMapping(value = "/selectmemo")
+//    @RequestMapping(path = "/selectmemo")
 //    @ResponseBody
 //    public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
 //        Memo memo = memoService.selectMemo(orderNum, process);
 //        return null;
 //    }
-    @RequestMapping(value = "/selectmemo")
+    @RequestMapping(path = "/selectmemo")
     @ResponseBody
     public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = memoService.selectPath(orderNum);
         return path;
     }
 
-    @RequestMapping(value = "/deletememo")
+    @RequestMapping(path = "/deletememo")
     @ResponseBody
     public String deleteMemo(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

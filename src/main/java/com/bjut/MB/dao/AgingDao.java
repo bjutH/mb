@@ -1,10 +1,7 @@
 package com.bjut.MB.dao;
 
 import com.bjut.MB.model.Aging;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
  * Created by Cheng on 2017/10/31.
  */
 //老化观测表
+@Mapper
 public interface AgingDao {
     String TABLE_NAME = "aging";
     String INSERT_FIELDS = "product_num, demand, path";

@@ -29,7 +29,7 @@ public class MachineTestController {
     @Autowired
     private MachineTestService machineTestService;
 
-    @RequestMapping(value = "/addmachinetest")
+    @RequestMapping(path = "/addmachinetest")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addMachineTest(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
@@ -46,7 +46,7 @@ public class MachineTestController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updatemachinetest")
+//    @RequestMapping(path = "/updatemachinetest")
 //    @ResponseBody
 //    public String updateMachineTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
 //                              @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
@@ -62,27 +62,27 @@ public class MachineTestController {
 //        return map.toString();
 //    }
 //
-//    @RequestMapping(value = "/selectmachinetestall")
+//    @RequestMapping(path = "/selectmachinetestall")
 //    @ResponseBody
 //    public String selectMachineTest(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<MachineTest> machineTestList = machineTestService.selectMachineTest(orderNum);
 //        return null;
 //    }
 //
-//    @RequestMapping(value = "/selectmachinetest")
+//    @RequestMapping(path = "/selectmachinetest")
 //    @ResponseBody
 //    public String selectMachineTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
 //        MachineTest machineTest = machineTestService.selectMachineTest(orderNum, process);
 //        return null;
 //    }
-    @RequestMapping(value = "/selectmachinetest")
+    @RequestMapping(path = "/selectmachinetest")
     @ResponseBody
     public String selectMachineTest(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = machineTestService.selectPath(orderNum);
         return path;
     }
 
-    @RequestMapping(value = "/deletemachinetest")
+    @RequestMapping(path = "/deletemachinetest")
     @ResponseBody
     public String deleteMachineTest(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

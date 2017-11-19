@@ -29,7 +29,7 @@ public class PerformTestController {
     @Autowired
     private PerformTestService performTestService;
 
-    @RequestMapping(value = "/addperformtest")
+    @RequestMapping(path = "/addperformtest")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addPerformTest(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
@@ -46,7 +46,7 @@ public class PerformTestController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updateperformtest")
+//    @RequestMapping(path = "/updateperformtest")
 //    @ResponseBody
 //    public String updatePerformTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
 //                                     @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
@@ -62,27 +62,27 @@ public class PerformTestController {
 //        return map.toString();
 //    }
 //
-//    @RequestMapping(value = "/selectperformtestall")
+//    @RequestMapping(path = "/selectperformtestall")
 //    @ResponseBody
 //    public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<PerformTest> performTestList = performTestService.selectPerformTest(orderNum);
 //        return null;
 //    }
 //
-//    @RequestMapping(value = "/selectperformtest")
+//    @RequestMapping(path = "/selectperformtest")
 //    @ResponseBody
 //    public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
 //        PerformTest performTest = performTestService.selectPerformTest(orderNum, process);
 //        return null;
 //    }
-    @RequestMapping(value = "/selectperformtest")
+    @RequestMapping(path = "/selectperformtest")
     @ResponseBody
     public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = performTestService.selectPath(orderNum);
         return path;
     }
 
-    @RequestMapping(value = "/deleteperformtest")
+    @RequestMapping(path = "/deleteperformtest")
     @ResponseBody
     public String deletePerformTest(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

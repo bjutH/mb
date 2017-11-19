@@ -29,7 +29,7 @@ public class ProductTestController {
     @Autowired
     private ProductTestService productTestService;
 
-    @RequestMapping(value = "/addproducttest")
+    @RequestMapping(path = "/addproducttest")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addProductTest(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
@@ -46,7 +46,7 @@ public class ProductTestController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updateproducttest")
+//    @RequestMapping(path = "/updateproducttest")
 //    @ResponseBody
 //    public String updateProductTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
 //                                     @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
@@ -62,28 +62,28 @@ public class ProductTestController {
 //        return map.toString();
 //    }
 //
-//    @RequestMapping(value = "/selectproducttestall")
+//    @RequestMapping(path = "/selectproducttestall")
 //    @ResponseBody
 //    public String selectProductTest(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<ProductTest> productTestList = productTestService.selectProductTest(orderNum);
 //        return null;
 //    }
 //
-//    @RequestMapping(value = "/selectproducttest")
+//    @RequestMapping(path = "/selectproducttest")
 //    @ResponseBody
 //    public String selectProductTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
 //        ProductTest productTest = productTestService.selectProductTest(orderNum, process);
 //        return null;
 //    }
 
-    @RequestMapping(value = "/selectproducttest")
+    @RequestMapping(path = "/selectproducttest")
     @ResponseBody
     public String selectProductTest(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = productTestService.selectPath(orderNum);
         return path;
     }
 
-    @RequestMapping(value = "/deleteproducttest")
+    @RequestMapping(path = "/deleteproducttest")
     @ResponseBody
     public String deleteProductTest(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

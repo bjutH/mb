@@ -29,7 +29,7 @@ public class DebugController {
     @Autowired
     private DebugService debugService;
 
-    @RequestMapping(value = "/adddebug")
+    @RequestMapping(path = "/adddebug")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
     public String addDebug(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
@@ -46,7 +46,7 @@ public class DebugController {
         return map.toString();
     }
 
-//    @RequestMapping(value = "/updatedebug")
+//    @RequestMapping(path = "/updatedebug")
 //    @ResponseBody
 //    public String updateDebug(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
 //                              @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
@@ -63,27 +63,27 @@ public class DebugController {
 //        return map.toString();
 //    }
 //
-//    @RequestMapping(value = "/selectdebugall")
+//    @RequestMapping(path = "/selectdebugall")
 //    @ResponseBody
 //    public String selectDebug(Model model, @RequestParam(value = "orderNum") String orderNum){
 //        List<Debug> debugList = debugService.selectDebug(orderNum);
 //        return null;
 //    }
 //
-//    @RequestMapping(value = "/selectdebug")
+//    @RequestMapping(path = "/selectdebug")
 //    @ResponseBody
 //    public String selectDebug(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
 //        Debug debug = debugService.selectDebug(orderNum, process);
 //        return null;
 //    }
-    @RequestMapping(value = "/selectdebug")
+    @RequestMapping(path = "/selectdebug")
     @ResponseBody
     public String selectDebug(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = debugService.selectPath(orderNum);
         return path;
     }
 
-    @RequestMapping(value = "/deletedebug")
+    @RequestMapping(path = "/deletedebug")
     @ResponseBody
     public String deleteDebug(@RequestParam(value = "orderNum") String orderNum){
         Map<String,String> map = new HashMap<>();

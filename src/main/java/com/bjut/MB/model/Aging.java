@@ -50,7 +50,7 @@ public class Aging {
     public String getPhenomenon() {
         return phenomenon;
     }
-
+    
     public void setPhenomenon(String phenomenon) {
         this.phenomenon = phenomenon;
     }
