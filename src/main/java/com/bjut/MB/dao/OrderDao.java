@@ -23,9 +23,10 @@ public interface OrderDao {
      *
      * @param product_num 产品编号
      * @param process 工序名称
+     * @param path 路径
      */
-    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{process}"})
-    void addItem(String product_num,String process);
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{process}, #{path}"})
+    void addItem(String product_num,String process, String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<Order> selectAll(String product_num);

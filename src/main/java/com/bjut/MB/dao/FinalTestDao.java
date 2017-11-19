@@ -16,12 +16,12 @@ import java.util.List;
 public interface FinalTestDao {
 
     String TABLE_NAME = "final_test";
-    String INSERT_FIELDS = "product_num, name";
+    String INSERT_FIELDS = "product_num, name, path";
     String SELECT_FIELDS = "*";
 
 
-    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{name})"})
-    void addItem(String product_num,String name);
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{name}, #{path})"})
+    void addItem(String product_num,String name, String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<FinalTest> selectAll(String product_num);
@@ -38,11 +38,11 @@ public interface FinalTestDao {
     /**
      *
      * @param product_num 产品编码
-     * @param name 名称
-     * @param path 路径
+     * @param name 名
+     * @param check_result 检测结果
      */
-    @Update({"update ", TABLE_NAME, "set name = #{name}, check_result = #{check_result}, path = #{path} where product_num = #{product_num}"})
-    void updateItem(String product_num,String name, String path);
+    @Update({"update ", TABLE_NAME, "set name = #{name}, check_result = #{check_result} where product_num = #{product_num}"})
+    void updateItem(String product_num,String name, String check_result);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);

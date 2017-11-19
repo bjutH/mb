@@ -15,7 +15,7 @@ import java.util.List;
 //整机调试报告单
 public interface DebugDao {
     String TABLE_NAME = "debug";
-    String INSERT_FIELDS = "product_num, theory_data";
+    String INSERT_FIELDS = "product_num, theory_data, path";
     String SELECT_FIELDS = "*";
 
     /**
@@ -23,8 +23,8 @@ public interface DebugDao {
      * @param product_num 产品编号
      * @param theory_data 理论数据
      */
-    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{theory_data}"})
-    void addItem(String product_num,String theory_data);
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{theory_data}, #{path}"})
+    void addItem(String product_num,String theory_data, String path);
 
     /**
      *
@@ -52,11 +52,10 @@ public interface DebugDao {
      * @param machine_type 设备型号
      * @param machine_num 设备编号
      * @param ps 备注
-     * @param theory_data 理论数据
-     * @param path 路径
+     * @param theory_data 理论数
      */
-    @Update({"update ", TABLE_NAME, "set observe_data = #{observe_data}, observe_result = #{observe_result}, test_machine = #{test_machine} ,machine_type= {machine_type}, machine_num = #{machine_num}, ps = #{ps}, path = #{path}, where product_num = #{product_num} and theoryData = #{theory_data}"})
-    void updateItem(String product_num, String observe_data, String observe_result, String test_machine, String machine_type, String machine_num, String ps, String theory_data, String path);
+    @Update({"update ", TABLE_NAME, "set observe_data = #{observe_data}, observe_result = #{observe_result}, test_machine = #{test_machine} ,machine_type= {machine_type}, machine_num = #{machine_num}, ps = #{ps},  where product_num = #{product_num} and theoryData = #{theory_data}"})
+    void updateItem(String product_num, String observe_data, String observe_result, String test_machine, String machine_type, String machine_num, String ps, String theory_data);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);

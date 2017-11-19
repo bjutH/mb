@@ -15,16 +15,17 @@ import java.util.List;
 //工序检验报告单
 public interface ProcessTestDao {
     String TABLE_NAME = "process_test";
-    String INSERT_FIELDS = "product_num, test_item";
+    String INSERT_FIELDS = "product_num, test_item, path";
     String SELECT_FIELDS = "*";
 
     /**
      *
      * @param product_num 产品编号
      * @param test_item 检验项目
+     * @param path 路径
      */
-    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{test_item}"})
-    void addItem(String product_num,String test_item);
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{test_item}, #{path}"})
+    void addItem(String product_num,String test_item, String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<ProcessTest> selectAll(String product_num);
@@ -48,10 +49,9 @@ public interface ProcessTestDao {
      * @param machine_type 设备类型
      * @param machine_no 设备编号
      * @param ps 备注
-     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set test_data = #{test_data}, test_result = #{test_result}, test_machine = #{test_machine}, machine_type = #{machine_type},machine_no = #{machine_no}, ps = #{ps}, path = #{path} where product_num = #{product_num} and test_item = #{test_item}"})
-    void updateItem(String product_num, String test_item, String test_data, String test_result, String test_machine, String machine_type, String machine_no, String ps, String path);
+    @Update({"update ", TABLE_NAME, "set test_data = #{test_data}, test_result = #{test_result}, test_machine = #{test_machine}, machine_type = #{machine_type},machine_no = #{machine_no}, ps = #{ps} where product_num = #{product_num} and test_item = #{test_item}"})
+    void updateItem(String product_num, String test_item, String test_data, String test_result, String test_machine, String machine_type, String machine_no, String ps);
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);
 }

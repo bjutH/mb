@@ -22,9 +22,10 @@ public interface MachineTestDao {
      *
      * @param product_num 产品编号
      * @param test_demand 检测要求
+     * @param path 路径
      */
-    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{test_demand}"})
-    void addItem(String product_num,String test_demand);
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{test_demand}, #{path}"})
+    void addItem(String product_num,String test_demand, String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<MachineTest> selectAll(String product_num);
@@ -47,10 +48,9 @@ public interface MachineTestDao {
      * @param test_result 检验结果
      * @param test_demand 检验要求
      * @param ps 备注
-     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set test_data = #{test_data}, test_result = #{test_result}, ps = #{ps}, path = #{path} where product_num = #{product_num} and test_demand = #{test_demand}"})
-    void updateItem(String product_num, String test_data, String test_result, String test_demand, String ps, String path);
+    @Update({"update ", TABLE_NAME, "set test_data = #{test_data}, test_result = #{test_result}, ps = #{ps} where product_num = #{product_num} and test_demand = #{test_demand}"})
+    void updateItem(String product_num, String test_data, String test_result, String test_demand, String ps);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
     void deleteAll(String product_num);

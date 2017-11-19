@@ -15,7 +15,7 @@ import java.util.List;
 //返工记录表
 public interface RemadeDao {
     String TABLE_NAME = "remade";
-    String INSERT_FIELDS = "product_num, date, modify_num, soft_modify_des, handware_modify_des, struct_modify_des, modifyer, checker";
+    String INSERT_FIELDS = "product_num, date, modify_num, soft_modify_des, handware_modify_des, struct_modify_des, modifyer, checker, path";
     String SELECT_FIELDS = "*";
 
     /**
@@ -28,9 +28,10 @@ public interface RemadeDao {
      * @param struct_modify_des 结构更改内容简述
      * @param modifyer 更改人
      * @param checker 检查人
+     * @param path 路径
      */
-    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{date}, #{modify_num}, #{soft_modify_des}, #{handware_modify_des}, #{struct_modify_des}, #{modifyer}, #{checker})"})
-    void addItem(String product_num,Date date, String modify_num, String soft_modify_des, String handware_modify_des, String struct_modify_des, String modifyer, String checker );
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{date}, #{modify_num}, #{soft_modify_des}, #{handware_modify_des}, #{struct_modify_des}, #{modifyer}, #{checker}, #{path})"})
+    void addItem(String product_num,Date date, String modify_num, String soft_modify_des, String handware_modify_des, String struct_modify_des, String modifyer, String checker, String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<Remade> selectAll(String product_num);
@@ -54,10 +55,9 @@ public interface RemadeDao {
      * @param struct_modify_des 结构更改简述
      * @param modifyer 更改人
      * @param checker 检查人
-     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set product_num = #{product_num}, date = #{date}, modify_num = #{modify_num}, soft_modify_des = #{soft_modify_des}, handware_modify_des = #{handware_modify_des}, struct_modify_des = #{struct_modify_des}, modifyer = #{modifyer}, checker = #{checker}, path = #{path} where product_num = #{product_num}"})
-    void updateItem(String product_num, Date date, String modify_num, String soft_modify_des, String handware_modify_des, String struct_modify_des, String modifyer, String checker,String path);
+    @Update({"update ", TABLE_NAME, "set product_num = #{product_num}, date = #{date}, modify_num = #{modify_num}, soft_modify_des = #{soft_modify_des}, handware_modify_des = #{handware_modify_des}, struct_modify_des = #{struct_modify_des}, modifyer = #{modifyer}, checker = #{checker} where product_num = #{product_num}"})
+    void updateItem(String product_num, Date date, String modify_num, String soft_modify_des, String handware_modify_des, String struct_modify_des, String modifyer, String checker);
 
     @Delete({"delete from", TABLE_NAME , "where product_num = #{product_num}"})
     void deleteAll(String product_num);

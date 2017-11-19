@@ -15,16 +15,17 @@ import java.util.List;
 //老化观测表
 public interface AgingDao {
     String TABLE_NAME = "aging";
-    String INSERT_FIELDS = "product_num, demand";
+    String INSERT_FIELDS = "product_num, demand, path";
     String SELECT_FIELDS = "*";
 
     /**
      *
      * @param product_num 产品编号
      * @param demand 要求
+     * @param path 路径
      */
-    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{demand})"})
-    void addItem(String product_num,String demand);
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{demand}, #{path})"})
+    void addItem(String product_num,String demand, String path);
 
     /**
      *
@@ -53,10 +54,9 @@ public interface AgingDao {
      * @param process_result 处理结果
      * @param ps 备注
      * @param debuger 调试员
-     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set result = #{result}, time = #{time}, phenomenon = #{phenomenon}, process_result = #{process_result}, ps = #{ps} ,debuger = #{debuger}, path = #{path} where product_num = #{product_num} and demand = #{demand}"})
-    void updateItem(String product_num, String demand, String result, Date time, String phenomenon, String process_result, String ps, String debuger, String path);
+    @Update({"update ", TABLE_NAME, "set result = #{result}, time = #{time}, phenomenon = #{phenomenon}, process_result = #{process_result}, ps = #{ps} ,debuger = #{debuger} where product_num = #{product_num} and demand = #{demand}"})
+    void updateItem(String product_num, String demand, String result, Date time, String phenomenon, String process_result, String ps, String debuger);
 
     /**
      *

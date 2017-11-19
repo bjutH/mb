@@ -14,16 +14,17 @@ import java.util.List;
 //装箱记录单
 public interface PackDao {
     String TABLE_NAME = "pack";
-    String INSERT_FIELDS = "product_num, item";
+    String INSERT_FIELDS = "product_num, item, path";
     String SELECT_FIELDS = "*";
 
     /**
      *
      * @param product_num 产品编号
      * @param item 名称
+     * @param path
      */
-    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{item})"})
-    void addItem(String product_num,String item);
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{item}, #{path})"})
+    void addItem(String product_num,String item, String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
     List<Pack> selectAll(String product_num);
@@ -45,10 +46,9 @@ public interface PackDao {
      * @param packager 包装人
      * @param product_num 产品编号
      * @param item 名称
-     * @param path 路径
      */
-    @Update({"update ", TABLE_NAME, "set confirm = #{confirm}, self_check = #{self_check}, packager = #{packager}, path = #{path} where product_num = #{product_num} and item = #{item}"})
-    void updateItem(String confirm, String self_check, String packager, String product_num, String item, String path);
+    @Update({"update ", TABLE_NAME, "set confirm = #{confirm}, self_check = #{self_check}, packager = #{packager} where product_num = #{product_num} and item = #{item}"})
+    void updateItem(String confirm, String self_check, String packager, String product_num, String item);
 
     /**
      *
