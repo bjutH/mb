@@ -91,6 +91,11 @@ public class OrderController {
         Map<String,String> map = new HashMap<>();
         try {
             String path =orderService.selectPath(orderNum);
+            if(path == null){
+                map.put("code","2");
+                map.put("msg","不存在");
+                return map.toString();
+            }
             excelUtils.replaceExcel(path, orderNum,"order", process, operater, other, ps);
             map.put("code","1");
         } catch (Exception e) {
