@@ -30,6 +30,10 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @RequestMapping(path = {"/home"})
+    public String home(){
+        return "homepage";
+    }
     @RequestMapping(path = {"/add"})
     public String add(){
         return "testadd";
