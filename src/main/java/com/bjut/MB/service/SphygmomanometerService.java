@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,10 +93,25 @@ public class SphygmomanometerService {
     /**
      *
      * @param orderNum  产品编号
-     * @return          返回一个LIST集合
+     * @return          返回一个Sphygmomanometer的List集合
      */
     public List<Sphygmomanometer> selectSphygmomanometer(String orderNum){
         return sphygmomanometerDao.selectAll(orderNum);
+    }
+
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return          返回一个Sphygmomanometer的process的List集合
+     */
+    public List<String> selectSphygmomanometerProcess(String orderNum){
+        List<Sphygmomanometer> sphygmomanometers = sphygmomanometerDao.selectAll(orderNum);
+        List<String> processes = new ArrayList<String>();
+        for(Sphygmomanometer sphygmomanometer : sphygmomanometers){
+            String string = sphygmomanometer.getProcess();
+            processes.add(string);
+        }
+        return processes;
     }
 
     /**

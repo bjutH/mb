@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/11/3.
@@ -96,7 +93,22 @@ public class AgingService {
     /**
      *
      * @param orderNum  产品编号
-     * @return          返回一个LIST集合
+     * @return          返回一个Aging的process的List集合
+     */
+    public List<String> selectAgingProcess(String orderNum){
+        List<Aging> agings = agingDao.selectAll(orderNum);
+        List<String> processes = new ArrayList<String>();
+        for(Aging aging : agings){
+            String string = aging.getProcess();
+            processes.add(string);
+        }
+        return processes;
+    }
+
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return          返回一个Aging的List集合
      */
     public List<Aging> selectAging(String orderNum){
         return agingDao.selectAll(orderNum);

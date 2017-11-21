@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/11/6.
@@ -86,10 +83,25 @@ public class FinalTestService {
     /**
      *
      * @param orderNum  产品编号
-     * @return  返回一个LIST集合
+     * @return  返回一个FinalTest的List集合
      */
     public List<FinalTest> selectFinalTest(String orderNum){
         return finalTestDao.selectAll(orderNum);
+    }
+
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return          返回一个FinalTest的process的List集合
+     */
+    public List<String> selectFinalTestProcess(String orderNum){
+        List<FinalTest> finalTests = finalTestDao.selectAll(orderNum);
+        List<String> processes = new ArrayList<String>();
+        for(FinalTest finalTest : finalTests){
+            String string = finalTest.getProcess();
+            processes.add(string);
+        }
+        return processes;
     }
 
     /**

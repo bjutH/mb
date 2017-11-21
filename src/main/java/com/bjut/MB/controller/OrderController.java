@@ -38,6 +38,10 @@ public class OrderController {
     public String update(){
         return "testupdate";
     }
+    @RequestMapping(path = {"/select"})
+    public String select(){
+        return "testselect";
+    }
     @RequestMapping(path = "/addorder")
     @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED)
@@ -85,6 +89,13 @@ public class OrderController {
     public String selectOrder(Model model, @RequestParam(value = "orderNum") String orderNum){
         String path = orderService.selectPath(orderNum);
         return path;
+    }
+
+    @RequestMapping(path = "/selectorderprocess")
+    @ResponseBody
+    public String selectOrderProcess(Model model, @RequestParam(value = "orderNum") String orderNum){
+        List<String> strings = orderService.selectOrderProcess(orderNum);
+        return strings.toString();
     }
 
     @RequestMapping(path = "/deleteorder")

@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/11/3.
@@ -104,7 +101,7 @@ public class RemadeSercice {
     /**
      *
      * @param orderNum  产品编号
-     * @return          返回一个LIST集合
+     * @return          返回一个Remade的List集合
      */
     public List<Remade> selectRemade(String orderNum){
         return remadeDao.selectAll(orderNum);

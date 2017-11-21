@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,10 +98,25 @@ public class MemoService {
     /**
      *
      * @param orderNum  产品编号
-     * @return          返回一个LIST集合
+     * @return          返回一个Memo的List集合
      */
     public List<Memo> selectMemo(String orderNum){
         return yiqiDao.selectAll(orderNum);
+    }
+
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return          返回一个Memo的process的List集合
+     */
+    public List<String> selectMemoProcess(String orderNum){
+        List<Memo> memos = yiqiDao.selectAll(orderNum);
+        List<String> processes = new ArrayList<String>();
+        for(Memo memo : memos){
+            String string = memo.getProcess();
+            processes.add(string);
+        }
+        return processes;
     }
 
     /**

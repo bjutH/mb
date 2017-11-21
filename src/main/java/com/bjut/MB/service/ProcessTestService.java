@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,10 +96,25 @@ public class ProcessTestService {
     /**
      *
      * @param orderNum  产品编号
-     * @return           返回一个LIST集合
+     * @return           返回一个ProcessTest的List集合
      */
     public List<ProcessTest> selectProcessTest(String orderNum){
         return processTestDao.selectAll(orderNum);
+    }
+
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return          返回一个ProcessTest的process的List集合
+     */
+    public List<String> selectProcessTestProcess(String orderNum){
+        List<ProcessTest> processTests = processTestDao.selectAll(orderNum);
+        List<String> processes = new ArrayList<String>();
+        for(ProcessTest processTest : processTests){
+            String string = processTest.getProcess();
+            processes.add(string);
+        }
+        return processes;
     }
 
     /**
