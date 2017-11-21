@@ -9,7 +9,7 @@
 
 .dropdown {
     position: absolute;
-    display: inline-block;
+    /*display: inline-block;*/
 }
 
 .dropdown-content {
@@ -29,7 +29,7 @@
     display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {background-color: #edf0f1}
 
 .dropdown:hover .dropdown-content {
     display: block;

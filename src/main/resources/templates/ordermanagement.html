@@ -105,19 +105,21 @@
 
     <!--搜索的action-->
     <script type="text/javascript">
-        function searchToggle(obj, evt){
+        function searchToggle(obj, evt) {
             var container = $(obj).closest('.search-wrapper');
 
-            if(!container.hasClass('active')){
+            if (!container.hasClass('active')) {
                 container.addClass('active');
                 evt.preventDefault();
             }
-            else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+            else if (container.hasClass('active') && $(obj).closest('.input-holder').length == 0) {
                 container.removeClass('active');
                 // clear input
                 container.find('.search-input').val('');
                 // clear and hide result container when we press close
-                container.find('.result-container').fadeOut(100, function(){$(this).empty();});
+                container.find('.result-container').fadeOut(100, function () {
+                    $(this).empty();
+                });
             }
         }
     </script>
@@ -146,40 +148,18 @@
     </nav> <!-- .cd-primary-nav -->
 </header> <!-- .cd-auto-hide-header -->
 
-<section class="cd-hero">
+<section class="cd-hero" >
+    <img src="../static/img/img-order/cd-hero-background.jpg" alt="背景" style="height :100%; width :100%; margin-top: 0px;">
+
     <div class="cd-hero-content">
         <!-- your content here -->
     </div>
 </section> <!-- .cd-hero -->
 
 <nav class="cd-secondary-nav">
-    <!--中间搜索-->
 
-    <!--搜索-->
-    <!--右侧操作，选择表-->
-    <div style="position: relative;left: 1200px">
-        <div class="dropdown">
-            <a class="dropbtn">选择随工单类型</a>
-            <div class="dropdown-content">
-                <a id="ct1" href="#" onclick="chosetable()">老化观测表</a>
-                <a href="#">整机调试报告单</a>
-                <a href="#">最终检验报告单</a>
-                <a href="#">整机检验报告单</a>
-                <a href="#">仪器备忘录</a>
-                <a href="#">随工单表</a>
-                <a href="#">装箱记录单</a>
-                <a href="#">性能要求检验单</a>
-                <a href="#">工序检验报告单</a>
-                <a href="#">成品检验报告单</a>
-                <a href="#">返工记录表</a>
-                <a href="#">血压计检定报告单</a>
-                <a href="#">+添加新的表+</a>
-
-            </div>
-        </div>
-    </div>
     <!--左侧操作，增/删/改-->
-    <div>
+    <div style="display: inline;width: 100px">
         <div>
             <ul>
                 <li style="float: left"><a href="#0" id="edit">修改</a></li>
@@ -189,7 +169,42 @@
             </ul>
         </div>
     </div>
+
+    <!--中间搜索-->
+    <div style="display: inline;width: 300px">
+        <div class="search-wrapper">
+            <div class="input-holder">
+                <form action="searchorder" method="get">
+                    <input type="text" name="orderNum" class="search-input" placeholder="请输入单号"/>
+                    <input type="button" class="search-icon" onclick="searchToggle(this,event)" value="搜索"
+                           style="color: #25283b;font-size: 15px"/>
+                </form>
+            </div>
+            <span class="close" onclick="searchToggle(this, event);"></span>
+        </div>
+    </div>
+    <!--搜索-->
+    <!--右侧操作，选择表-->
+    <div class="dropdown" style="position: absolute; top: 0px;left: 1200px">
+        <a class="dropbtn">选择随工单类型</a>
+        <div class="dropdown-content">
+            <a id="ct1" href="#" onclick="chosetable()">老化观测表</a>
+            <a href="#">整机调试报告单</a>
+            <a href="#">最终检验报告单</a>
+            <a href="#">整机检验报告单</a>
+            <a href="#">仪器备忘录</a>
+            <a href="#">随工单表</a>
+            <a href="#">装箱记录单</a>
+            <a href="#">性能要求检验单</a>
+            <a href="#">工序检验报告单</a>
+            <a href="#">成品检验报告单</a>
+            <a href="#">返工记录表</a>
+            <a href="#">血压计检定报告单</a>
+            <a href="#">+添加新的表+</a>
+        </div>
+    </div>
 </nav> <!-- .cd-secondary-nav -->
+
 
 <!--添加块-->
 <div id="divadd" style="width: 390px;
@@ -220,8 +235,8 @@
         <form action="deletorder" method="get">
             <!--输入删除的随单表号码-->
             <p style="color: #a8a9b1">
-            随工单编号：<input name="name" type="text"/>
-            <input type="submit" value="确定"/>
+                随工单编号：<input name="name" type="text"/>
+                <input type="submit" value="确定"/>
             </p>
         </form>
     </div>
