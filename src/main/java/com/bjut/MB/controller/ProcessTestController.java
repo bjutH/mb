@@ -2,6 +2,7 @@ package com.bjut.MB.controller;
 
 import com.bjut.MB.Utils.ExcelUtils;
 import com.bjut.MB.model.ProcessTest;
+import com.bjut.MB.model.ProductTest;
 import com.bjut.MB.service.ProcessTestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,8 @@ public class ProcessTestController {
     private static final Logger logger = LoggerFactory.getLogger(ProcessTestController.class);
 
     @Autowired
+    private ExcelUtils excelUtils;
+    @Autowired
     private ProcessTestService processTestService;
 
     @RequestMapping(path = "/addprocesstest")
@@ -35,7 +38,6 @@ public class ProcessTestController {
     public String addProcessTest(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            ExcelUtils excelUtils = new ExcelUtils();
             excelUtils.importExcel(path, number,"processtest");
             map.put("code","1");
         }
@@ -46,36 +48,36 @@ public class ProcessTestController {
         return map.toString();
     }
 
-//    @RequestMapping(path = "/updateprocesstest")
-//    @ResponseBody
-//    public String updateProcessTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-//                                    @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
-//                                    @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-//                                    @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
-//        Map<String,String> map = new HashMap<>();
-//        try {
-//            map = processTestService.updateProcessTest(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
-//        }
-//        catch (Exception e){
-//            logger.error("更新关键工序检验报告单异常" + e.getMessage());
-//            map.put("code","3");
-//        }
-//        return map.toString();
-//    }
-//
-//    @RequestMapping(path = "/selectprocesstestall")
-//    @ResponseBody
-//    public String selectProcessTest(Model model, @RequestParam(value = "orderNum") String orderNum){
-//        List<ProcessTest> processTestList = processTestService.selectProcessTest(orderNum);
-//        return null;
-//    }
-//
-//    @RequestMapping(path = "/selectprocesstest")
-//    @ResponseBody
-//    public String selectProcessTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-//        ProcessTest processTest = processTestService.selectProcessTest(orderNum, process);
-//        return null;
-//    }
+    @RequestMapping(path = "/updateprocesstest")
+    @ResponseBody
+    public String updateProcessTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                                    @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
+                                    @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
+                                    @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+        Map<String,String> map = new HashMap<>();
+        try {
+            String path =processTestService.selectPath(orderNum);
+            ProcessTest processTest = new ProcessTest();
+            processTest.setData(data);
+            processTest.setResult(result);
+            processTest.setDetectionDevice(detectionDevice);
+            processTest.setDeviceType(deviceType);
+            processTest.setDeviceNum(deviceNum);
+            processTest.setPs(ps);
+            if(path == null){
+                map.put("code","2");
+                map.put("msg","不存在");
+                return map.toString();
+            }
+            map = excelUtils.replaceExcel(path,"order", process, processTest);
+        }
+        catch (Exception e){
+            logger.error("更新关键工序检验报告单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
+    }
+
     @RequestMapping(value = "/selectprocesstest")
     @ResponseBody
     public String selectProcessTest(Model model, @RequestParam(value = "orderNum") String orderNum){

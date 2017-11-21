@@ -27,6 +27,8 @@ public class SphygmomanometerController {
     private static final Logger logger = LoggerFactory.getLogger(SphygmomanometerController.class);
 
     @Autowired
+    private ExcelUtils excelUtils;
+    @Autowired
     private SphygmomanometerService sphygmomanometerService;
 
     @RequestMapping(path = "/addsphygmomanometer")
@@ -35,7 +37,6 @@ public class SphygmomanometerController {
     public String addSphygmomanometer(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            ExcelUtils excelUtils = new ExcelUtils();
             excelUtils.importExcel(path, number,"sphygmomanometer");
             map.put("code","1");
         }
@@ -46,35 +47,31 @@ public class SphygmomanometerController {
         return map.toString();
     }
 
-//    @RequestMapping(path = "/updatesphygmomanometer")
-//    @ResponseBody
-//    public String updateSphygmomanometer(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-//                                          @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
-//                                          @RequestParam(value = "ps") String ps){
-//        Map<String,String> map = new HashMap<>();
-//        try {
-//            map = sphygmomanometerService.updateSphygmomanometer(orderNum, process, data, result, ps);
-//        }
-//        catch (Exception e){
-//            logger.error("更新血压计检定报告单异常" + e.getMessage());
-//            map.put("code","3");
-//        }
-//        return map.toString();
-//    }
-//
-//    @RequestMapping(path = "/selectsphygmomanometerall")
-//    @ResponseBody
-//    public String selectSphygmomanometer(Model model, @RequestParam(value = "orderNum") String orderNum){
-//        List<Sphygmomanometer> sphygmomanometerList = sphygmomanometerService.selectSphygmomanometer(orderNum);
-//        return null;
-//    }
-//
-//    @RequestMapping(path = "/selectsphygmomanometer")
-//    @ResponseBody
-//    public String selectSphygmomanometer(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-//        Sphygmomanometer sphygmomanometer = sphygmomanometerService.selectSphygmomanometer(orderNum, process);
-//        return null;
-//    }
+    @RequestMapping(path = "/updatesphygmomanometer")
+    @ResponseBody
+    public String updateSphygmomanometer(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                                          @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
+                                          @RequestParam(value = "ps") String ps){
+        Map<String,String> map = new HashMap<>();
+        try {
+            String path =sphygmomanometerService.selectPath(orderNum);
+            Sphygmomanometer sphygmomanometer = new Sphygmomanometer();
+            sphygmomanometer.setData(data);
+            sphygmomanometer.setResult(result);
+            sphygmomanometer.setPs(ps);
+            if(path == null){
+                map.put("code","2");
+                map.put("msg","不存在");
+                return map.toString();
+            }
+            map = excelUtils.replaceExcel(path,"order", process, sphygmomanometer);
+        }
+        catch (Exception e){
+            logger.error("更新血压计检定报告单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
+    }
 
     @RequestMapping(path = "/selectsphygmomanometer")
     @ResponseBody

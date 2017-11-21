@@ -53,22 +53,7 @@ public class RemadeController {
 //                                @RequestParam(value = "number") String number, @RequestParam(value = "updateSoftware") String updateSoftware,
 //                                @RequestParam(value = "updateHardware") String updateHardware, @RequestParam(value = "updateContent") String updateContent,
 //                                @RequestParam(value = "updatePeople") String updatePeople, @RequestParam(value = "testPeople") String testPeople){
-//        Map<String,String> map = new HashMap<>();
-//        try {
-//            map = remadeSercice.updateRemade(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
-//        }
-//        catch (Exception e){
-//            logger.error("更新返工记录表异常" + e.getMessage());
-//            map.put("code","3");
-//        }
-//        return map.toString();
-//    }
 //
-//    @RequestMapping(path = "/selectremadeall")
-//    @ResponseBody
-//    public String selectRemade(Model model, @RequestParam(value = "orderNum") String orderNum){
-//        List<Remade> remadeList = remadeSercice.selectRemade(orderNum);
-//        return null;
 //    }
 
     @RequestMapping(path = "/selectremade")

@@ -28,6 +28,8 @@ public class MemoController {
     private static final Logger logger = LoggerFactory.getLogger(MemoController.class);
 
     @Autowired
+    private ExcelUtils excelUtils;
+    @Autowired
     private MemoService memoService;
 
     @RequestMapping(path = "/addmemo")
@@ -36,7 +38,6 @@ public class MemoController {
     public String addMemo(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            ExcelUtils excelUtils = new ExcelUtils();
             excelUtils.importExcel(path, number,"memo");
             map.put("code","1");
         }
@@ -47,37 +48,38 @@ public class MemoController {
         return map.toString();
     }
 
-//    @RequestMapping(path = "/updatememo")
-//    @ResponseBody
-//    public String updateMemo(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "name") String name,
-//                              @RequestParam(value = "number") String number, @RequestParam(value = "boardNum") String boardNum,
-//                              @RequestParam(value = "weld") String weld, @RequestParam(value = "debug") String debug,
-//                              @RequestParam(value = "test") String test, @RequestParam(value = "version") String version,
-//                              @RequestParam(value = "ps") String ps){
-//        Map<String,String> map = new HashMap<>();
-//        try {
-//            map = memoService.updateMemo(orderNum, name, number, boardNum, weld, debug, test, version, ps);
-//        }
-//        catch (Exception e){
-//            logger.error("更新备忘录异常" + e.getMessage());
-//            map.put("code","3");
-//        }
-//        return map.toString();
-//    }
-//
-//    @RequestMapping(path = "/selectmemoall")
-//    @ResponseBody
-//    public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum){
-//        List<Memo> memoList = memoService.selectMemo(orderNum);
-//        return null;
-//    }
-//
-//    @RequestMapping(path = "/selectmemo")
-//    @ResponseBody
-//    public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-//        Memo memo = memoService.selectMemo(orderNum, process);
-//        return null;
-//    }
+    @RequestMapping(path = "/updatememo")
+    @ResponseBody
+    public String updateMemo(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                              @RequestParam(value = "number") String number, @RequestParam(value = "boardNum") String boardNum,
+                              @RequestParam(value = "weld") String weld, @RequestParam(value = "debug") String debug,
+                              @RequestParam(value = "test") String test, @RequestParam(value = "version") String version,
+                              @RequestParam(value = "ps") String ps){
+        Map<String,String> map = new HashMap<>();
+        try {
+            String path = memoService.selectPath(orderNum);
+            Memo memo = new Memo();
+            memo.setNumber(number);
+            memo.setBoardNum(boardNum);
+            memo.setWeld(weld);
+            memo.setDebug(debug);
+            memo.setTest(test);
+            memo.setVersion(version);
+            memo.setPs(ps);
+            if (path == null) {
+                map.put("code", "2");
+                map.put("msg", "不存在");
+                return map.toString();
+            }
+            map = excelUtils.replaceExcel(path, "memo", process, memo);
+        }
+        catch (Exception e){
+            logger.error("更新备忘录异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
+    }
+
     @RequestMapping(path = "/selectmemo")
     @ResponseBody
     public String selectMemo(Model model, @RequestParam(value = "orderNum") String orderNum){

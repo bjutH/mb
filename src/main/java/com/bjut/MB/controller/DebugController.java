@@ -27,6 +27,8 @@ public class DebugController {
     private static final Logger logger = LoggerFactory.getLogger(DebugController.class);
 
     @Autowired
+    private ExcelUtils excelUtils;
+    @Autowired
     private DebugService debugService;
 
     @RequestMapping(path = "/adddebug")
@@ -35,7 +37,6 @@ public class DebugController {
     public String addDebug(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            ExcelUtils excelUtils = new ExcelUtils();
             excelUtils.importExcel(path, number,"debug");
             map.put("code","1");
         }
@@ -46,36 +47,36 @@ public class DebugController {
         return map.toString();
     }
 
-//    @RequestMapping(path = "/updatedebug")
-//    @ResponseBody
-//    public String updateDebug(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-//                              @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
-//                              @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
-//                              @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
-//        Map<String,String> map = new HashMap<>();
-//        try {
-//            map = debugService.updateDebug(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
-//        }
-//        catch (Exception e){
-//            logger.error("更新整机调试报告单异常" + e.getMessage());
-//            map.put("code","3");
-//        }
-//        return map.toString();
-//    }
-//
-//    @RequestMapping(path = "/selectdebugall")
-//    @ResponseBody
-//    public String selectDebug(Model model, @RequestParam(value = "orderNum") String orderNum){
-//        List<Debug> debugList = debugService.selectDebug(orderNum);
-//        return null;
-//    }
-//
-//    @RequestMapping(path = "/selectdebug")
-//    @ResponseBody
-//    public String selectDebug(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-//        Debug debug = debugService.selectDebug(orderNum, process);
-//        return null;
-//    }
+    @RequestMapping(path = "/updatedebug")
+    @ResponseBody
+    public String updateDebug(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                              @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
+                              @RequestParam(value = "detectionDevice") String detectionDevice, @RequestParam(value = "deviceType") String deviceType,
+                              @RequestParam(value = "deviceNum") String deviceNum, @RequestParam(value = "ps") String ps){
+        Map<String,String> map = new HashMap<>();
+        try {
+            String path =debugService.selectPath(orderNum);
+            Debug debug = new Debug();
+            debug.setData(data);
+            debug.setResult(result);
+            debug.setDetectionDevice(detectionDevice);
+            debug.setDeviceType(deviceType);
+            debug.setDeviceNum(deviceNum);
+            debug.setPs(ps);
+            if(path == null){
+                map.put("code","2");
+                map.put("msg","不存在");
+                return map.toString();
+            }
+            map = excelUtils.replaceExcel(path,"order", process, debug);
+        }
+        catch (Exception e){
+            logger.error("更新整机调试报告单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
+    }
+
     @RequestMapping(path = "/selectdebug")
     @ResponseBody
     public String selectDebug(Model model, @RequestParam(value = "orderNum") String orderNum){

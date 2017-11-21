@@ -26,6 +26,8 @@ public class PackController {
     private static final Logger logger = LoggerFactory.getLogger(AgingController.class);
 
     @Autowired
+    private ExcelUtils excelUtils;
+    @Autowired
     private PackService packService;
 
     @RequestMapping(path = "/addpack")
@@ -34,7 +36,6 @@ public class PackController {
     public String addPack(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            ExcelUtils excelUtils = new ExcelUtils();
             excelUtils.importExcel(path, number,"pack");
             map.put("code","1");
         }
@@ -45,35 +46,32 @@ public class PackController {
         return map.toString();
     }
 
-//    @RequestMapping(path = "/updatepack")
-//    @ResponseBody
-//    public String updatePack(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-//                              @RequestParam(value = "result") String result, @RequestParam(value = "check") String check,
-//                              @RequestParam(value = "operater") String operater){
-//        Map<String,String> map = new HashMap<>();
-//        try {
-//            map = packService.updatePack(orderNum, process, result, check, operater);
-//        }
-//        catch (Exception e){
-//            logger.error("更新装箱记录单异常" + e.getMessage());
-//            map.put("code","3");
-//        }
-//        return map.toString();
-//    }
-//
-//    @RequestMapping(path = "/selectpackall")
-//    @ResponseBody
-//    public String selectPack(Model model, @RequestParam(value = "orderNum") String orderNum){
-//        List<Pack> packList = packService.selectPack(orderNum);
-//        return null;
-//    }
-//
-//    @RequestMapping(path = "/selectpack")
-//    @ResponseBody
-//    public String selectPack(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-//        Pack pack = packService.selectPack(orderNum, process);
-//        return null;
-//    }
+    @RequestMapping(path = "/updatepack")
+    @ResponseBody
+    public String updatePack(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                              @RequestParam(value = "result") String result, @RequestParam(value = "check") String check,
+                              @RequestParam(value = "operater") String operater){
+        Map<String,String> map = new HashMap<>();
+        try {
+            String path =packService.selectPath(orderNum);
+            Pack pack = new Pack();
+            pack.setResult(result);
+            pack.setCheck(check);
+            pack.setOperater(operater);
+            if(path == null){
+                map.put("code","2");
+                map.put("msg","不存在");
+                return map.toString();
+            }
+            map = excelUtils.replaceExcel(path,"order", process, pack);
+        }
+        catch (Exception e){
+            logger.error("更新装箱记录单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
+    }
+
     @RequestMapping(path = "/selectpack")
     @ResponseBody
     public String selectPack(Model model, @RequestParam(value = "orderNum") String orderNum){

@@ -1,6 +1,6 @@
 package com.bjut.MB.Utils;
 
-import com.bjut.MB.dao.OrderDao;
+import com.bjut.MB.dao.*;
 import com.bjut.MB.model.*;
 import com.bjut.MB.service.*;
 import org.apache.commons.lang.StringUtils;
@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.sun.corba.se.spi.activation.IIOP_CLEAR_TEXT.value;
 import static java.lang.System.out;
@@ -33,27 +34,27 @@ public class ExcelUtils {
     @Autowired
     private OrderDao orderDao;
     @Autowired
-    private MemoService memoService;
+    private YiqiDao yiqiDao;
     @Autowired
-    private AgingService agingService;
+    private AgingDao agingDao;
     @Autowired
-    private PackService packService;
+    private PackDao packDao;
     @Autowired
-    private DebugService debugService;
+    private DebugDao debugDao;
     @Autowired
-    private ProcessTestService processTestService;
+    private ProcessTestDao processTestDao;
     @Autowired
-    private MachineTestService machineTestService;
+    private MachineTestDao machineTestDao;
     @Autowired
-    private ProductTestService productTestService;
+    private ProductTestDao productTestDao;
     @Autowired
-    private SphygmomanometerService sphygmomanometerService;
+    private SphygmomanometerDao sphygmomanometerDao;
     @Autowired
-    private PerformTestService performTestService;
+    private PerformTestDao performTestDao;
     @Autowired
-    private FinalTestService finalTestService;
+    private FinalTestDao finalTestDao;
     @Autowired
-    private HeaderService headerService;
+    private HeaderDao headerDao;
 
     /**
      *
@@ -104,6 +105,9 @@ public class ExcelUtils {
                         case "number":
                             value = number;
                             setCellStrValue(i, j, value);
+                        case "lable":
+                            value = number;
+                            setCellStrValue(i, j, value);
                     }
                 }
                 if(cellValue.contains("$")){
@@ -113,34 +117,34 @@ public class ExcelUtils {
                             orderDao.addItem(id, process, modelPath);
                             break;
                         case  "memo":
-                            memoService.addMemo(id, process, modelPath);
+                            yiqiDao.addItem(id, process, modelPath);
                             break;
                         case "aging":
-                            agingService.addAging(id, process, modelPath);
+                            agingDao.addItem(id, process, modelPath);
                             break;
                         case "pack":
-                            packService.addPack(id, process, modelPath);
+                            packDao.addItem(id, process, modelPath);
                             break;
                         case "debug":
-                            debugService.addDebug(id, process, modelPath);
+                            debugDao.addItem(id, process, modelPath);
                             break;
                         case "processTest":
-                            processTestService.addProcessTest(id, process, modelPath);
+                            processTestDao.addItem(id, process, modelPath);
                             break;
                         case "machineTest":
-                            machineTestService.addMachineTest(id, process, modelPath);
+                            machineTestDao.addItem(id, process, modelPath);
                             break;
                         case "productTest":
-                            productTestService.addProductTest(id, process, modelPath);
+                            processTestDao.addItem(id, process, modelPath);
                             break;
                         case "sphygmomanometer":
-                            sphygmomanometerService.addSphygmomanometer(id, process, modelPath);
+                            sphygmomanometerDao.addItem(id, process, modelPath);
                             break;
                         case "performTest":
-                            performTestService.addPerformTest(id, process, modelPath);
+                            performTestDao.addItem(id, process, modelPath);
                             break;
                         case "finalTest":
-                            finalTestService.addFinalTest(id, process, modelPath);
+                            finalTestDao.addItem(id, process, modelPath);
                             break;
                     }
                 }
@@ -164,8 +168,15 @@ public class ExcelUtils {
         }
     }
 
-
-    public void replaceExcel(String modelPath, String id, String type,String process,String operater, String other,String ps){
+    /**
+     * 替换随工单内容读写操作
+     * @param modelPath 随工单路径
+     * @param type      随工单类型
+     * @param Process   随工单工序内容
+     * @param object    随工单具体对象
+     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里
+     */
+    public Map<String,String> replaceExcel(String modelPath, String type, String Process, Object object){
 //    	String[] arr = modelPath.split("\\.");
 //    	String copyPath = "";
 //    	for(int i=0;i<arr.length -1;i++){
@@ -178,43 +189,68 @@ public class ExcelUtils {
 //		} catch (IOException e2) {
 //			e2.printStackTrace();
 //		}
+        Map<String,String> map = new HashMap<>();
         File file = new File(modelPath);
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(file);
         } catch (Exception e1) {
             e1.printStackTrace();
+            map.put("code","2");
+            map.put("msg","文件无法读取！");
+            return map;
         }
         try {
             if(!file.exists()){
-                out.println("模板文件:"+modelPath+"不存在!");
+                map.put("code","2");
+                map.put("msg","文件不存在！");
+                return map;
             }
             wb=new XSSFWorkbook(fis);
             sheet = wb.getSheet("Sheet1");
         } catch (Exception e) {
             e.printStackTrace();
+            map.put("code","2");
+            map.put("msg","文件不存在！");
+            return map;
         }
-        replaceDate(type, process, operater, other, ps);
+        replaceDate(type, Process, object);
         try {
             fis.close();
         } catch (Exception e) {
             e.printStackTrace();
+            map.put("code","2");
+            map.put("msg","文件无法关闭！");
+            return map;
         }
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(file);
         } catch (Exception e1) {
             e1.printStackTrace();
+            map.put("code","2");
+            map.put("msg","文件无法写入！");
+            return map;
         }
         try {
             wb.write(fos);
         } catch (Exception e) {
             e.printStackTrace();
+            map.put("code","2");
+            map.put("msg","文件无法写入！");
+            return map;
         }
+        map.put("code","1");
+        return map;
     }
 
-
-    private void replaceDate(String type,String process,String operater, String other,String ps){
+    /**
+     * 替换EXCEL内容
+     * @param type      随工单表格类型
+     * @param process   随工单工序内容
+     * @param object    随工单具体对象
+     */
+    private void replaceDate(String type, String process, Object object){
         // 获取行数
         String id = null;
         int rowNum = sheet.getLastRowNum();
@@ -237,189 +273,182 @@ public class ExcelUtils {
                         if (string.equals(process)) {
                             switch (type) {
                                 case "order":
-                                    //Order order = orderDao.selectOne(id,string);
                                     switch (last) {
                                         case "1":
-                                            value = operater;
+                                            value = ((Order) object).getOperater();
                                             break;
                                         case "2":
-                                            value = other;
+                                            value = ((Order) object).getOther();
                                             break;
                                         case "3":
-                                            value = ps;
+                                            value = ((Order) object).getPs();
                                             break;
                                     }
                                     break;
                                 case "memo":
-                                    Memo memo = memoService.selectMemo(id, string);
                                     switch (last) {
                                         case "1":
-                                            value = memo.getNumber();
+                                            value = ((Memo) object).getNumber();
                                             break;
                                         case "2":
-                                            value = memo.getBoardNum();
+                                            value = ((Memo) object).getBoardNum();
                                             break;
                                         case "3":
-                                            value = memo.getWeld();
+                                            value = ((Memo) object).getWeld();
                                             break;
                                         case "4":
-                                            value = memo.getDebug();
+                                            value = ((Memo) object).getDebug();
                                             break;
                                         case "5":
-                                            value = memo.getTest();
+                                            value = ((Memo) object).getTest();
                                             break;
                                         case "6":
-                                            value = memo.getVersion();
+                                            value = ((Memo) object).getVersion();
                                             break;
                                         case "7":
-                                            value = memo.getPs();
+                                            value = ((Memo) object).getPs();
                                             break;
                                     }
                                     break;
                                 case "aging":
-                                    Aging aging = agingService.selectAging(id, string);
                                     switch (last) {
                                         case "1":
-                                            value = aging.getResult();
+                                            value = ((Aging) object).getResult();
                                             break;
                                         case "2":
-                                            value = aging.getDate().toString();
+                                            value = ((Aging) object).getDate().toString();
                                             break;
                                         case "3":
-                                            value = aging.getPhenomenon();
+                                            value = ((Aging) object).getPhenomenon();
                                             break;
                                         case "4":
-                                            value = aging.getHandle();
+                                            value = ((Aging) object).getHandle();
                                             break;
                                         case "5":
-                                            value = aging.getPs();
+                                            value = ((Aging) object).getPs();
                                             break;
                                         case "6":
-                                            value = aging.getOperater();
+                                            value = ((Aging) object).getOperater();
                                             break;
                                     }
                                     break;
                                 case "pack":
-                                    Pack pack = packService.selectPack(id, string);
                                     switch (last) {
                                         case "1":
-                                            value = pack.getResult();
+                                            value = ((Pack) object).getResult();
                                             break;
                                         case "2":
-                                            value = pack.getCheck();
+                                            value = ((Pack) object).getCheck();
                                             break;
                                         case "3":
-                                            value = pack.getOperater();
+                                            value = ((Pack) object).getOperater();
                                             break;
                                     }
                                     break;
                                 case "debug":
-                                    Debug debug = debugService.selectDebug(id, string);
                                     switch (last) {
                                         case "1":
-                                            value = debug.getData();
+                                            value = ((Debug) object).getData();
                                             break;
                                         case "2":
-                                            value = debug.getResult();
+                                            value = ((Debug) object).getResult();
                                             break;
                                         case "3":
-                                            value = debug.getDetectionDevice();
+                                            value = ((Debug) object).getDetectionDevice();
                                             break;
                                         case "4":
-                                            value = debug.getDeviceType();
+                                            value = ((Debug) object).getDeviceType();
                                             break;
                                         case "5":
-                                            value = debug.getDeviceNum();
+                                            value = ((Debug) object).getDeviceNum();
                                             break;
                                         case "6":
-                                            value = debug.getPs();
+                                            value = ((Debug) object).getPs();
                                             break;
                                     }
                                     break;
                                 case "processTest":
-                                    ProcessTest processTest = processTestService.selectProcessTest(id, string);
                                     switch (last) {
                                         case "1":
-                                            value = processTest.getData();
+                                            value = ((ProcessTest) object).getData();
                                             break;
                                         case "2":
-                                            value = processTest.getResult();
+                                            value = ((ProcessTest) object).getResult();
                                             break;
                                         case "3":
-                                            value = processTest.getDetectionDevice();
+                                            value = ((ProcessTest) object).getDetectionDevice();
                                             break;
                                         case "4":
-                                            value = processTest.getDeviceType();
+                                            value = ((ProcessTest) object).getDeviceType();
                                             break;
                                         case "5":
-                                            value = processTest.getDeviceNum();
+                                            value = ((ProcessTest) object).getDeviceNum();
                                             break;
                                         case "6":
-                                            value = processTest.getPs();
+                                            value = ((ProcessTest) object).getPs();
                                             break;
                                     }
                                     break;
                                 case "machineTest":
-                                    MachineTest machineTest = machineTestService.selectMachineTest(id, string);
                                     switch (last) {
                                         case "1":
-                                            value = machineTest.getData();
+                                            value = ((MachineTest) object).getData();
                                             break;
                                         case "2":
-                                            value = machineTest.getResult();
+                                            value = ((MachineTest) object).getResult();
                                             break;
                                         case "3":
-                                            value = machineTest.getPs();
+                                            value = ((MachineTest) object).getPs();
                                             break;
                                     }
                                     break;
                                 case "productTest":
-                                    ProductTest productTest = productTestService.selectProductTest(id, string);
                                     switch (last) {
                                         case "1":
-                                            value = productTest.getData();
+                                            value = ((ProductTest) object).getData();
                                             break;
                                         case "2":
-                                            value = productTest.getResult();
+                                            value = ((ProductTest) object).getResult();
                                             break;
                                         case "3":
-                                            value = productTest.getPs();
+                                            value = ((ProductTest) object).getPs();
                                             break;
                                     }
                                     break;
                                 case "sphygmomanometer":
-                                    Sphygmomanometer sphygmomanometer = sphygmomanometerService.selectSphygmomanometer(id, string);
                                     switch (last) {
                                         case "1":
-                                            value = sphygmomanometer.getData();
+                                            value = ((Sphygmomanometer) object).getData();
                                             break;
                                         case "2":
-                                            value = sphygmomanometer.getResult();
+                                            value = ((Sphygmomanometer) object).getResult();
                                             break;
                                         case "3":
-                                            value = sphygmomanometer.getPs();
+                                            value = ((Sphygmomanometer) object).getPs();
                                             break;
                                     }
                                     break;
                                 case "performTest":
-                                    PerformTest performTest = performTestService.selectPerformTest(id, string);
                                     switch (last) {
                                         case "1":
-                                            value = performTest.getData();
+                                            value = ((PerformTest) object).getData();
                                             break;
                                         case "2":
-                                            value = performTest.getResult();
+                                            value = ((PerformTest) object).getResult();
                                             break;
                                         case "3":
-                                            value = performTest.getPs();
+                                            value = ((PerformTest) object).getPs();
                                             break;
                                     }
                                     break;
                                 case "finalTest":
-                                    FinalTest finalTest = finalTestService.selectFinalTest(id, string);
+                                    String[] strings = ((FinalTest) object).getResult().split("|");
                                     switch (last) {
                                         case "1":
-                                            value = finalTest.getResult();
+                                            value = strings[0];
+                                            break;
+                                        case "2":
+                                            value = strings[1];
                                             break;
                                     }
                                     break;

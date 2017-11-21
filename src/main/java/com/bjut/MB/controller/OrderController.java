@@ -54,35 +54,6 @@ public class OrderController {
         return map.toString();
     }
 
-//    @RequestMapping(path = "/updateorder")
-//    @ResponseBody
-//    public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "processes") String processes,
-//                               @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
-//                               @RequestParam(value = "ps") String ps){
-//        Map<String,String> map = new HashMap<>();
-//        try {
-//            map = orderService.updateOrder(orderNum, processes, operater, other, ps);
-//        } catch (Exception e) {
-//            logger.error("更新随工单异常" + e.getMessage());
-//            map.put("code","3");
-//        }
-//        return map.toString();
-//    }
-//
-//    @RequestMapping(path = "/selectorderall")
-//    @ResponseBody
-//    public String selectOrder(Model model, @RequestParam(value = "orderNum") String orderNum){
-//        List<Order> orderList = orderService.selectOrder(orderNum);
-//        return null;
-//    }
-//
-//    @RequestMapping(path = "/selectorder")
-//    @ResponseBody
-//    public String selectOrder(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-//        Order order = orderService.selectOrder(orderNum, process);
-//        return null;
-//    }
-
     @RequestMapping(path = "/updateorder")
     @ResponseBody
     public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
@@ -91,14 +62,18 @@ public class OrderController {
         Map<String,String> map = new HashMap<>();
         try {
             String path =orderService.selectPath(orderNum);
+            Order order = new Order();
+            order.setOperater(operater);
+            order.setOther(other);
+            order.setPs(ps);
             if(path == null){
                 map.put("code","2");
                 map.put("msg","不存在");
                 return map.toString();
             }
-            excelUtils.replaceExcel(path, orderNum,"order", process, operater, other, ps);
-            map.put("code","1");
-        } catch (Exception e) {
+            map = excelUtils.replaceExcel(path,"order", process, order);
+        }
+        catch (Exception e) {
             logger.error("更新随工单异常" + e.getMessage());
             map.put("code","3");
         }
