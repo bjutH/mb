@@ -27,6 +27,8 @@ public class MachineTestController {
     private static final Logger logger = LoggerFactory.getLogger(DebugController.class);
 
     @Autowired
+    private ExcelUtils excelUtils;
+    @Autowired
     private MachineTestService machineTestService;
 
     @RequestMapping(path = "/addmachinetest")
@@ -35,7 +37,6 @@ public class MachineTestController {
     public String addMachineTest(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            ExcelUtils excelUtils = new ExcelUtils();
             excelUtils.importExcel(path, number,"machinetest");
             map.put("code","1");
         }
@@ -46,35 +47,32 @@ public class MachineTestController {
         return map.toString();
     }
 
-//    @RequestMapping(path = "/updatemachinetest")
-//    @ResponseBody
-//    public String updateMachineTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-//                              @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
-//                              @RequestParam(value = "ps") String ps){
-//        Map<String,String> map = new HashMap<>();
-//        try {
-//            map = machineTestService.updateMachineTest(orderNum, process, data, result, ps);
-//        }
-//        catch (Exception e){
-//            logger.error("更新整机检验报告单异常" + e.getMessage());
-//            map.put("code","3");
-//        }
-//        return map.toString();
-//    }
-//
-//    @RequestMapping(path = "/selectmachinetestall")
-//    @ResponseBody
-//    public String selectMachineTest(Model model, @RequestParam(value = "orderNum") String orderNum){
-//        List<MachineTest> machineTestList = machineTestService.selectMachineTest(orderNum);
-//        return null;
-//    }
-//
-//    @RequestMapping(path = "/selectmachinetest")
-//    @ResponseBody
-//    public String selectMachineTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-//        MachineTest machineTest = machineTestService.selectMachineTest(orderNum, process);
-//        return null;
-//    }
+    @RequestMapping(path = "/updatemachinetest")
+    @ResponseBody
+    public String updateMachineTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                              @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
+                              @RequestParam(value = "ps") String ps){
+        Map<String,String> map = new HashMap<>();
+        try {
+            String path =machineTestService.selectPath(orderNum);
+            MachineTest machineTest = new MachineTest();
+            machineTest.setData(data);
+            machineTest.setResult(result);
+            machineTest.setPs(ps);
+            if(path == null){
+                map.put("code","2");
+                map.put("msg","不存在");
+                return map.toString();
+            }
+            map = excelUtils.replaceExcel(path,"order", process, machineTest);
+        }
+        catch (Exception e){
+            logger.error("更新整机检验报告单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
+    }
+
     @RequestMapping(path = "/selectmachinetest")
     @ResponseBody
     public String selectMachineTest(Model model, @RequestParam(value = "orderNum") String orderNum){

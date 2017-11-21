@@ -27,6 +27,8 @@ public class PerformTestController {
     private static final Logger logger = LoggerFactory.getLogger(PerformTestController.class);
 
     @Autowired
+    private ExcelUtils excelUtils;
+    @Autowired
     private PerformTestService performTestService;
 
     @RequestMapping(path = "/addperformtest")
@@ -35,7 +37,6 @@ public class PerformTestController {
     public String addPerformTest(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            ExcelUtils excelUtils = new ExcelUtils();
             excelUtils.importExcel(path, number,"performtest");
             map.put("code","1");
         }
@@ -46,35 +47,32 @@ public class PerformTestController {
         return map.toString();
     }
 
-//    @RequestMapping(path = "/updateperformtest")
-//    @ResponseBody
-//    public String updatePerformTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-//                                     @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
-//                                     @RequestParam(value = "ps") String ps){
-//        Map<String,String> map = new HashMap<>();
-//        try {
-//            map = performTestService.updatePerformTest(orderNum, process, data, result, ps);
-//        }
-//        catch (Exception e){
-//            logger.error("更新性能要求检验单异常" + e.getMessage());
-//            map.put("code","3");
-//        }
-//        return map.toString();
-//    }
-//
-//    @RequestMapping(path = "/selectperformtestall")
-//    @ResponseBody
-//    public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum){
-//        List<PerformTest> performTestList = performTestService.selectPerformTest(orderNum);
-//        return null;
-//    }
-//
-//    @RequestMapping(path = "/selectperformtest")
-//    @ResponseBody
-//    public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-//        PerformTest performTest = performTestService.selectPerformTest(orderNum, process);
-//        return null;
-//    }
+    @RequestMapping(path = "/updateperformtest")
+    @ResponseBody
+    public String updatePerformTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                                     @RequestParam(value = "data") String data, @RequestParam(value = "result") String result,
+                                     @RequestParam(value = "ps") String ps){
+        Map<String,String> map = new HashMap<>();
+        try {
+            String path =performTestService.selectPath(orderNum);
+            PerformTest performTest = new PerformTest();
+            performTest.setData(data);
+            performTest.setResult(result);
+            performTest.setPs(ps);
+            if(path == null){
+                map.put("code","2");
+                map.put("msg","不存在");
+                return map.toString();
+            }
+            map = excelUtils.replaceExcel(path,"order", process, performTest);
+        }
+        catch (Exception e){
+            logger.error("更新性能要求检验单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
+    }
+
     @RequestMapping(path = "/selectperformtest")
     @ResponseBody
     public String selectPerformTest(Model model, @RequestParam(value = "orderNum") String orderNum){

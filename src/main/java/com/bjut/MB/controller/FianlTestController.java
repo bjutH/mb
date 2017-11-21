@@ -28,6 +28,8 @@ public class FianlTestController {
     private static final Logger logger = LoggerFactory.getLogger(FianlTestController.class);
 
     @Autowired
+    private ExcelUtils excelUtils;
+    @Autowired
     private FinalTestService finalTestService;
 
     @RequestMapping(path = "/addfinaltest")
@@ -36,7 +38,6 @@ public class FianlTestController {
     public String addFinalTest(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            ExcelUtils excelUtils = new ExcelUtils();
             excelUtils.importExcel(path, number,"finaltest");
             map.put("code","1");
         }
@@ -47,37 +48,29 @@ public class FianlTestController {
         return map.toString();
     }
 
-//    @RequestMapping(path = "/updatefinaltest")
-//    @ResponseBody
-//    public String updateFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-//                                  @RequestParam(value = "machineType") String machineType, @RequestParam(value = "lable") String lable,
-//                                  @RequestParam(value = "check") String check, @RequestParam(value = "checker") String checker,
-//                                  @RequestParam(value = "date") Date date, @RequestParam(value = "finalChecker") String finalChecker,
-//                                  @RequestParam(value = "finalDate") Date finalDate, @RequestParam(value = "result") String result){
-//        Map<String,String> map = new HashMap<>();
-//        try {
-//            map = finalTestService.updateFinalTest(orderNum, process, machineType, lable, check, checker, date, finalChecker, finalDate, result);
-//        }
-//        catch (Exception e){
-//            logger.error("更新最终检验单异常" + e.getMessage());
-//            map.put("code","3");
-//        }
-//        return map.toString();
-//    }
-//
-//    @RequestMapping(path = "/selectfinaltestall")
-//    @ResponseBody
-//    public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum){
-//        List<FinalTest> finalTestList = finalTestService.selectFinalTest(orderNum);
-//        return null;
-//    }
-//
-//    @RequestMapping(path = "/selectfinaltest")
-//    @ResponseBody
-//    public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-//        FinalTest finalTest = finalTestService.selectFinalTest(orderNum,process);
-//        return null;
-//    }
+    @RequestMapping(path = "/updatefinaltest")
+    @ResponseBody
+    public String updateFinalTest(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                                  @RequestParam(value = "result") String result){
+        Map<String,String> map = new HashMap<>();
+        try {
+            String path =finalTestService.selectPath(orderNum);
+            FinalTest finalTest = new FinalTest();
+            finalTest.setResult(result);
+            if(path == null){
+                map.put("code","2");
+                map.put("msg","不存在");
+                return map.toString();
+            }
+            map = excelUtils.replaceExcel(path,"order", process, finalTest);
+        }
+        catch (Exception e){
+            logger.error("更新最终检验单异常" + e.getMessage());
+            map.put("code","3");
+        }
+        return map.toString();
+    }
+
     @RequestMapping(path = "/selectfinaltest")
     @ResponseBody
     public String selectFinalTest(Model model, @RequestParam(value = "orderNum") String orderNum){

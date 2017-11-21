@@ -29,6 +29,8 @@ public class AgingController {
     private static final Logger logger = LoggerFactory.getLogger(AgingController.class);
 
     @Autowired
+    private ExcelUtils excelUtils;
+    @Autowired
     private AgingService agingService;
 
     @RequestMapping(path = "/addaging")
@@ -37,7 +39,6 @@ public class AgingController {
     public String addAging(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
         Map<String,String> map = new HashMap<>();
         try {
-            ExcelUtils excelUtils = new ExcelUtils();
             excelUtils.importExcel(path, number,"aging");
             map.put("code","1");
         }
@@ -56,7 +57,20 @@ public class AgingController {
                               @RequestParam(value = "ps") String ps, @RequestParam(value = "operater") String operater){
         Map<String,String> map = new HashMap<>();
         try {
-            map = agingService.updateAging(orderNum, process, result, date, phenomenon, handle, ps, operater);
+            String path =agingService.selectPath(orderNum);
+            Aging aging = new Aging();
+            aging.setResult(result);
+            aging.setDate(date);
+            aging.setPhenomenon(phenomenon);
+            aging.setHandle(handle);
+            aging.setPs(ps);
+            aging.setOperater(operater);
+            if(path == null){
+                map.put("code","2");
+                map.put("msg","不存在");
+                return map.toString();
+            }
+            map = excelUtils.replaceExcel(path,"order", process, aging);
         }
         catch (Exception e){
             logger.error("更新老化观测表异常" + e.getMessage());
@@ -64,20 +78,7 @@ public class AgingController {
         }
         return map.toString();
     }
-//
-//    @RequestMapping(path = "/selectagingall")
-//    @ResponseBody
-//    public String selectAging(Model model, @RequestParam(value = "orderNum") String orderNum){
-//        List<Aging> agingList = agingService.selectAging(orderNum);
-//        return null;
-//    }
-//
-//    @RequestMapping(path = "/selectaging")
-//    @ResponseBody
-//    public String selectAging(Model model, @RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process){
-//        Aging aging = agingService.selectAging(orderNum, process);
-//        return null;
-//    }
+
     @RequestMapping(path = "/selectaging")
     @ResponseBody
     public String selectAging(Model model, @RequestParam(value = "orderNum") String orderNum){
