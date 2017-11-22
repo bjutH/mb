@@ -30,7 +30,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/home")
+    @GetMapping("/login")
     public String home(){
         return "login";
     }
