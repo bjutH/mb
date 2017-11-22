@@ -12,7 +12,12 @@
 //设置保存页面
     poCtrl.setSaveFilePage("SaveFile.jsp");
 //打开Word文档
-    poCtrl.webOpen("F:\\MB\\src\\main\\resources\\EXCEL\\随工单.xlsx",OpenModeType.xlsNormalEdit,"张佚名");
+    if(session.getAttribute("OpenModeType").equals("OpenModeType.xlsNormalEdit")) {
+        poCtrl.webOpen(session.getAttribute("path").toString(), OpenModeType.xlsNormalEdit, "麦邦光电");
+    }
+    else {
+        poCtrl.webOpen(session.getAttribute("path").toString(), OpenModeType.xlsReadOnly, "麦邦光电");
+    }
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -42,8 +47,8 @@
 
     }
 </script>
-<div style="position:absolute;left:5px;top:10px; width:1100px; height:100px;"><img src="../images/oa1.png" /></div>
-<div style="position:absolute;left:5px;top:66px;width:1175px; height:670px;">
+<%--<div style="position:absolute;left:5px;top:10px; width:1100px; height:100px;"><img src="../images/oa1.png" /></div>--%>
+<div style="position:absolute;left:5px;top:5px;width:1175px; height:670px;">
     <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 </div>
 

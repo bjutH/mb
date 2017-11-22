@@ -30,19 +30,13 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/login")
-    public String home(){
-        return "login";
-    }
     @RequestMapping(path = {"/add"})
     public String add(){
-        //xxx
-        //path
-        return "Word";
+        return "add";
     }
     @RequestMapping(path = {"/update"})
     public String update(){
-        return "homepage";
+        return "update";
     }
     @RequestMapping(path = {"/select"})
     public String select(){
