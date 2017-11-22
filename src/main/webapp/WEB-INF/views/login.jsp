@@ -13,7 +13,7 @@
 	poCtrl.setJsFunction_AfterDocumentOpened("AfterDocumentOpened");
 	poCtrl.addCustomToolButton("保存","Save",1);
 	poCtrl.setSaveFilePage("SaveFile.jsp");
-	poCtrl.webOpen("F:\\study\\project\\mb\\src\\main\\resources\\EXCEL\\随工单.xlsx", OpenModeType.xlsNormalEdit, "张佚名");
+	poCtrl.webOpen("F:\\MB\\src\\main\\resources\\EXCEL\\随工单.xlsx", OpenModeType.xlsNormalEdit, "张佚名");
 	out.println();
 
 %>
@@ -33,7 +33,7 @@
 	</form>
 	<a href="javascript:POBrowser.openWindow('/add?id=xxx','width=1200px;height=800px;');">open</a>
 	<div style=" width:auto; height:700px;" id="divDocView">
-		<%--<%= poCtrl.getHtmlCode("PageOfficeCtrl1")%>--%>
+		<%= poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 	</div>
 
 	<script type="text/javascript">

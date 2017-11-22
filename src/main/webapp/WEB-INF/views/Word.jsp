@@ -12,7 +12,7 @@
 //设置保存页面
     poCtrl.setSaveFilePage("SaveFile.jsp");
 //打开Word文档
-    poCtrl.webOpen("F:\\study\\project\\mb\\src\\main\\resources\\EXCEL\\随工单.xlsx",OpenModeType.xlsNormalEdit,"张佚名");
+    poCtrl.webOpen("F:\\MB\\src\\main\\resources\\EXCEL\\随工单.xlsx",OpenModeType.xlsNormalEdit,"张佚名");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
