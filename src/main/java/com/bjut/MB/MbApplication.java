@@ -7,12 +7,8 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 
 @SpringBootApplication
-public class MbApplication extends SpringBootServletInitializer {
+public class MbApplication   {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(MbApplication.class);
-	}
 	public static void main(String[] args) {
 		SpringApplication.run(MbApplication.class, args);
 	}

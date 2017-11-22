@@ -23,8 +23,27 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.7</java.version>
 	</properties>
-
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<name>Team Nexus Repository</name>
+			<url>http://172.18.8.224:8081/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<name>Team Nexus Repository</name>
+			<url>http://172.18.8.224:8081/nexus/content/groups/public</url>
+		</pluginRepository>
+	</pluginRepositories>
 	<dependencies>
+		<!--卓正-->
+		<dependency>
+			<groupId>bjut</groupId>
+			<artifactId>zhuozhengsoft</artifactId>
+			<version>4.0.0.1</version>
+		</dependency>
 		<!-- 配置springboot jsp功能 -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>

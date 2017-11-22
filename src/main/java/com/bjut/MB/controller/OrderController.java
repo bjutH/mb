@@ -36,11 +36,13 @@ public class OrderController {
     }
     @RequestMapping(path = {"/add"})
     public String add(){
-        return "testadd";
+        //xxx
+        //path
+        return "Word";
     }
     @RequestMapping(path = {"/update"})
     public String update(){
-        return "testupdate";
+        return "homepage";
     }
     @RequestMapping(path = {"/select"})
     public String select(){
