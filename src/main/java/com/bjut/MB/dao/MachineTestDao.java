@@ -12,8 +12,8 @@ import java.util.List;
 //整机检验报告单
 @Mapper
 public interface MachineTestDao {
-    String TABLE_NAME = "machine_test";
-    String INSERT_FIELDS = "product_num, test_demand";
+    String TABLE_NAME = "`machine_test`";
+    String INSERT_FIELDS = "`product_num`, `test_demand`, 'PATH`";
     String SELECT_FIELDS = "*";
 
     /**
@@ -23,10 +23,10 @@ public interface MachineTestDao {
      * @param path 路径
      */
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{test_demand}, #{path}"})
-    void addItem(String product_num,String test_demand, String path);
+    void addItem(@Param("product_num") String product_num,@Param("test_demand") String test_demand, @Param("path") String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
-    List<MachineTest> selectAll(String product_num);
+    List<MachineTest> selectAll(@Param("product_num") String product_num);
 
 
 
@@ -37,10 +37,10 @@ public interface MachineTestDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and test_demand = #{test_demand}"})
-    MachineTest selectOne(String product_num, String test_demand);
+    MachineTest selectOne(@Param("product_num") String product_num, @Param("test_demand") String test_demand);
 
     @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
-    String selectPath(String product_num);
+    String selectPath(@Param("product_num") String product_num);
     /**
      *
      * @param product_num 产品编号
@@ -50,8 +50,8 @@ public interface MachineTestDao {
      * @param ps 备注
      */
     @Update({"update ", TABLE_NAME, "set test_data = #{test_data}, test_result = #{test_result}, ps = #{ps} where product_num = #{product_num} and test_demand = #{test_demand}"})
-    void updateItem(String product_num, String test_data, String test_result, String test_demand, String ps);
+    void updateItem(@Param("product_num") String product_num, @Param("test_data") String test_data, @Param("test_result") String test_result, @Param("test_demand") String test_demand, @Param("ps") String ps);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
-    void deleteAll(String product_num);
+    void deleteAll(@Param("product_num") String product_num);
 }

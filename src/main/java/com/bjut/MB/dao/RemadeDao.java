@@ -12,8 +12,8 @@ import java.util.List;
 //返工记录表
 @Mapper
 public interface RemadeDao {
-    String TABLE_NAME = "remade";
-    String INSERT_FIELDS = "product_num, date, modify_num, soft_modify_des, handware_modify_des, struct_modify_des, modifyer, checker, path";
+    String TABLE_NAME = "`remade`";
+    String INSERT_FIELDS = "`product_num`, `date`, `modify_num`, `soft_modify_des`, `handware_modify_des`, `struct_modify_des`, `modifyer`, `checker`, `path`";
     String SELECT_FIELDS = "*";
 
     /**
@@ -29,10 +29,10 @@ public interface RemadeDao {
      * @param path 路径
      */
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{date}, #{modify_num}, #{soft_modify_des}, #{handware_modify_des}, #{struct_modify_des}, #{modifyer}, #{checker}, #{path})"})
-    void addItem(String product_num,Date date, String modify_num, String soft_modify_des, String handware_modify_des, String struct_modify_des, String modifyer, String checker, String path);
+    void addItem(@Param("product_num") String product_num,@Param("date") Date date, @Param("modify_num") String modify_num, @Param("soft_modify_des") String soft_modify_des, @Param("handware_modify_des") String handware_modify_des, @Param("struct_modify_des") String struct_modify_des, @Param("modifyer") String modifyer, @Param("checker") String checker, @Param("path") String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
-    List<Remade> selectAll(String product_num);
+    List<Remade> selectAll(@Param("product_num") String product_num);
 
     /**
      *
@@ -41,11 +41,11 @@ public interface RemadeDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and date = #{date}"})
-    Remade selectOne(String product_num, String date);
+    Remade selectOne(@Param("product_num") String product_num, @Param("date") String date);
 
 
     @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
-    String selectPath(String product_num);
+    String selectPath(@Param("product_num") String product_num);
 
     /**
      *
@@ -59,9 +59,9 @@ public interface RemadeDao {
      * @param checker 检查人
      */
     @Update({"update ", TABLE_NAME, "set product_num = #{product_num}, date = #{date}, modify_num = #{modify_num}, soft_modify_des = #{soft_modify_des}, handware_modify_des = #{handware_modify_des}, struct_modify_des = #{struct_modify_des}, modifyer = #{modifyer}, checker = #{checker} where product_num = #{product_num}"})
-    void updateItem(String product_num, Date date, String modify_num, String soft_modify_des, String handware_modify_des, String struct_modify_des, String modifyer, String checker);
+    void updateItem(@Param("product_num") String product_num, @Param("date") Date date, @Param("modify_num") String modify_num, @Param("soft_modify_des") String soft_modify_des, @Param("handware_modify_des") String handware_modify_des, @Param("struct_modify_des") String struct_modify_des, @Param("modifyer") String modifyer, @Param("checker") String checker);
 
     @Delete({"delete from", TABLE_NAME , "where product_num = #{product_num}"})
-    void deleteAll(String product_num);
+    void deleteAll(@Param("product_num") String product_num);
 
 }

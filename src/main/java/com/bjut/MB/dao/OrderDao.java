@@ -25,7 +25,7 @@ public interface OrderDao {
     void addItem(@Param("product_num") String product_num,@Param("process") String process,@Param("path") String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
-    List<Order> selectAll(String product_num);
+    List<Order> selectAll(@Param("product_num") String product_num);
 
     /**
      *
@@ -34,11 +34,11 @@ public interface OrderDao {
      * @return
      */
     @Select({"select ", "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
-    Order selectOne(String product_num, String process);
+    Order selectOne(@Param("product_num") String product_num, @Param("process") String process);
 
 
     @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
-    String selectPath(String product_num);
+    String selectPath(@Param("product_num") String product_num);
     /**
      *
      * @param product_num 产品编号
@@ -51,6 +51,6 @@ public interface OrderDao {
     void updateItem(@Param("product_num") String product_num,@Param("operater") String operater,@Param("process") String process,@Param("other") String other,@Param("ps") String ps);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
-    void deleteAll(String product_num);
+    void deleteAll(@Param("product_num") String product_num);
 
 }

@@ -13,15 +13,15 @@ import java.util.List;
 @Mapper
 public interface HeaderDao {
     String TABLE_NAME = "header";
-    String INSERT_FIELDS = "product_num, path";
+    String INSERT_FIELDS = "'product_num', 'path'";
     String SELECT_FIELDS = "*";
 
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{path})"})
-    void addItem(String product_num, String path);
+    void addItem(@Param("product_num") String product_num, @Param("path") String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
-    List<Header> selectAll(String product_num);
+    List<Header> selectAll(@Param("product_num") String product_num);
 
     /**
      *
@@ -29,11 +29,11 @@ public interface HeaderDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
-    Header selectOne(String product_num);
+    Header selectOne(@Param("product_num") String product_num);
 
 
     @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
-    String selectPath(String product_num);
+    String selectPath(@Param("product_num") String product_num);
     /**
      *
      * @param product_num 产品编号
@@ -49,8 +49,8 @@ public interface HeaderDao {
      * @param is_groud 是否有效接地
      */
     @Update({"update ", TABLE_NAME, "set product_name = #{product_name}, product_type = #{product_type}, inner_label = #{inner_label}, debug_conclusion = #{debug_conclusion}, debuger = #{debuger}, debug_date = #{debug_date}, environment_temperature = #{environment_temperature}, relative_humidity = #{relative_humidity}, power = #{power}, is_groud = #{is_groud} where product_num = #{product_num}"})
-    void updateItem(String product_num, String product_name, String product_type, String inner_label, String  debug_conclusion, String debuger, Date debug_date, String environment_temperature, String relative_humidity, String power, String is_groud);
+    void updateItem(@Param("product_num") String product_num, @Param("product_name") String product_name, @Param("product_type") String product_type, @Param("inner_label") String inner_label, @Param("debug_conclusion") String  debug_conclusion, @Param("debuger") String debuger, @Param("debug_date") Date debug_date, @Param("environment_temperature") String environment_temperature, @Param("relative_humidity") String relative_humidity, @Param("power") String power, @Param("is_groud") String is_groud);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
-    void deleteAll(String product_num);
+    void deleteAll(@Param("product_num") String product_num);
 }
