@@ -9,12 +9,12 @@
 
 	PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
 	//设置服务器页面
-	poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");
-	poCtrl.setJsFunction_AfterDocumentOpened("AfterDocumentOpened");
-	poCtrl.addCustomToolButton("保存","Save",1);
-	poCtrl.setSaveFilePage("SaveFile.jsp");
-	poCtrl.webOpen("F:\\MB\\src\\main\\resources\\EXCEL\\随工单.xlsx", OpenModeType.xlsNormalEdit, "张佚名");
-	out.println();
+//	poCtrl.setServerPage(request.getContextPath() + "/poserver.zz");
+//	poCtrl.setJsFunction_AfterDocumentOpened("AfterDocumentOpened");
+//	poCtrl.addCustomToolButton("保存","Save",1);
+//	poCtrl.setSaveFilePage("SaveFile.jsp");
+//	poCtrl.webOpen("F:\\MB\\src\\main\\resources\\EXCEL\\随工单.xlsx", OpenModeType.xlsNormalEdit, "张佚名");
+//	out.println();
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -32,9 +32,9 @@
 		<input type="submit" value="ok">
 	</form>
 	<a href="javascript:POBrowser.openWindow('/add?id=xxx','width=1200px;height=800px;');">open</a>
-	<div style=" width:auto; height:700px;" id="divDocView">
-		<%= poCtrl.getHtmlCode("PageOfficeCtrl1")%>
-	</div>
+	<%--<div style=" width:auto; height:700px;" id="divDocView">--%>
+		<%--<%= poCtrl.getHtmlCode("PageOfficeCtrl1")%>--%>
+	<%--</div>--%>
 
 	<script type="text/javascript">
 
