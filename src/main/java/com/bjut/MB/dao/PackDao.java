@@ -11,8 +11,8 @@ import java.util.List;
 //装箱记录单
 @Mapper
 public interface PackDao {
-    String TABLE_NAME = "pack";
-    String INSERT_FIELDS = "product_num, item, path";
+    String TABLE_NAME = "`pack`";
+    String INSERT_FIELDS = "`product_num`, `item`, `path`";
     String SELECT_FIELDS = "*";
 
     /**
@@ -22,10 +22,10 @@ public interface PackDao {
      * @param path
      */
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{item}, #{path})"})
-    void addItem(String product_num,String item, String path);
+    void addItem(@Param("product_num") String product_num,@Param("item") String item, @Param("path") String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
-    List<Pack> selectAll(String product_num);
+    List<Pack> selectAll(@Param("product_num") String product_num);
 
 
     /**
@@ -35,11 +35,11 @@ public interface PackDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and item = #{item}"})
-    Pack selectOne(String product_num, String item);
+    Pack selectOne(@Param("product_num") String product_num, @Param("item") String item);
 
 
     @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
-    String selectPath(String product_num);
+    String selectPath(@Param("product_num") String product_num);
     /**
      *
      * @param confirm 确认
@@ -49,12 +49,12 @@ public interface PackDao {
      * @param item 名称
      */
     @Update({"update ", TABLE_NAME, "set confirm = #{confirm}, self_check = #{self_check}, packager = #{packager} where product_num = #{product_num} and item = #{item}"})
-    void updateItem(String confirm, String self_check, String packager, String product_num, String item);
+    void updateItem(@Param("confirm") String confirm, @Param("self_check") String self_check, @Param("packager") String packager, @Param("product_num") String product_num, @Param("item") String item);
 
     /**
      *
      * @param product_num
      */
     @Delete({"delete from", TABLE_NAME, "where product_num = #{product_num}"})
-    void deleteAll(String product_num);
+    void deleteAll(@Param("product_num") String product_num);
 }

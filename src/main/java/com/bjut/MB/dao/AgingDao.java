@@ -12,8 +12,8 @@ import java.util.List;
 //老化观测表
 @Mapper
 public interface AgingDao {
-    String TABLE_NAME = "aging";
-    String INSERT_FIELDS = "product_num, demand, path";
+    String TABLE_NAME = "`aging`";
+    String INSERT_FIELDS = "`product_num`, `demand`, `path`";
     String SELECT_FIELDS = "*";
 
     /**
@@ -23,7 +23,7 @@ public interface AgingDao {
      * @param path 路径
      */
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{demand}, #{path})"})
-    void addItem(String product_num,String demand, String path);
+    void addItem(@Param("product_num") String product_num,@Param("demand") String demand, @Param("path") String path);
 
     /**
      *
@@ -31,7 +31,7 @@ public interface AgingDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, "from ", TABLE_NAME, "where product_num = #{product_num}"})
-    List<Aging> selectAll(String product_num);
+    List<Aging> selectAll(@Param("product_num") String product_num);
 
     /**
      *
@@ -40,10 +40,10 @@ public interface AgingDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, "from ", TABLE_NAME, "where product_num = #{product_num} and demand = #{demand}"})
-    Aging selectOne(String product_num, String demand);
+    Aging selectOne(@Param("product_num") String product_num, @Param("demand") String demand);
 
     @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
-    String selectPath(String product_num);
+    String selectPath(@Param("product_num") String product_num);
 
 
     /**
@@ -58,7 +58,7 @@ public interface AgingDao {
      * @param debuger 调试员
      */
     @Update({"update ", TABLE_NAME, "set result = #{result}, time = #{time}, phenomenon = #{phenomenon}, process_result = #{process_result}, ps = #{ps} ,debuger = #{debuger} where product_num = #{product_num} and demand = #{demand}"})
-    void updateItem(String product_num, String demand, String result, Date time, String phenomenon, String process_result, String ps, String debuger);
+    void updateItem(@Param("product_num") String product_num, @Param("demand") String demand, @Param("result") String result, @Param("time") Date time, @Param("phenomenon") String phenomenon, @Param("process_result") String process_result, @Param("ps") String ps, @Param("debuger") String debuger);
 
     /**
      *

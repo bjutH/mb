@@ -12,8 +12,8 @@ import java.util.List;
 //整机调试报告单
 @Mapper
 public interface DebugDao {
-    String TABLE_NAME = "debug";
-    String INSERT_FIELDS = "product_num, theory_data, path";
+    String TABLE_NAME = "`debug`";
+    String INSERT_FIELDS = "`product_num`, `theory_data`, `path`";
     String SELECT_FIELDS = "*";
 
     /**
@@ -22,7 +22,7 @@ public interface DebugDao {
      * @param theory_data 理论数据
      */
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{product_num}, #{theory_data}, #{path}"})
-    void addItem(String product_num,String theory_data, String path);
+    void addItem(@Param("product_num") String product_num,@Param("theory_data") String theory_data, @Param("path") String path);
 
     /**
      *
@@ -30,7 +30,7 @@ public interface DebugDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
-    List<Debug> selectAll(String product_num);
+    List<Debug> selectAll(@Param("product_num") String product_num);
 
     /**
      *
@@ -39,11 +39,11 @@ public interface DebugDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and theory_data = #{theory}"})
-    Debug selectOne(String product_num, String theory_data);
+    Debug selectOne(@Param("product_num") String product_num, @Param("theory_data") String theory_data);
 
 
     @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
-    String selectPath(String product_num);
+    String selectPath(@Param("product_num") String product_num);
     /**
      *
      * @param product_num 产品编号
@@ -56,9 +56,9 @@ public interface DebugDao {
      * @param theory_data 理论数
      */
     @Update({"update ", TABLE_NAME, "set observe_data = #{observe_data}, observe_result = #{observe_result}, test_machine = #{test_machine} ,machine_type= {machine_type}, machine_num = #{machine_num}, ps = #{ps},  where product_num = #{product_num} and theoryData = #{theory_data}"})
-    void updateItem(String product_num, String observe_data, String observe_result, String test_machine, String machine_type, String machine_num, String ps, String theory_data);
+    void updateItem(@Param("product_num") String product_num, @Param("observe_data") String observe_data, @Param("observe_result") String observe_result, @Param("test_machine") String test_machine, @Param("machine_type") String machine_type, @Param("machine_num") String machine_num, @Param("ps") String ps, @Param("theory_data") String theory_data);
 
     @Delete({"delete from ", TABLE_NAME, "where product_num = #{product_num}"})
-    void deleteAll(String product_num);
+    void deleteAll(@Param("product_num") String product_num);
 
 }
