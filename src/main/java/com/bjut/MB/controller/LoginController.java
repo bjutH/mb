@@ -17,7 +17,7 @@ import javax.sound.midi.Soundbank;
 public class LoginController {
     @RequestMapping(path = {"/login"})
     public String home(){
-        return "login";
+        return "login01";
     }
     @RequestMapping(path = {"/word"})
     public String add(@RequestParam(value = "user") String user, HttpSession session){
