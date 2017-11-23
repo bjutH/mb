@@ -335,6 +335,8 @@
         </div>
     </div>
     <!--添加块-->
+    <%--添加文件夹--%>
+    <%--Json，弹出窗口--%>
     <div id="divadd" style="width: 390px;
     height: 80px;
     background-color: #25283b;
@@ -342,7 +344,7 @@
     /*border-bottom-right-radius:10px;*/
     display: none;
     box-shadow: 5px 5px 10px #888888">
-        <div style="text-align:center;">
+        <div style="text-align:left;">
             <form action="addorder" method="get">
                 <p style="color:#a8a9b1 ">选择路径: <input type="file" name="path"/></p>
                 <p style="color:#a8a9b1 ">选择名称: <input type="text" name="number"/></p>
@@ -352,6 +354,7 @@
     </div>
 
     <!--删除块-->
+    <%--Json，弹出窗口--%>
     <div id="divdelet" style="width: 390px;
     height: 30px;
     background-color: #25283b;
@@ -371,6 +374,7 @@
     </div>
 
     <!--上传块-->
+    <%--Json，弹出窗口--%>
     <div id="divupdata" style="width: 450px;
     height: 140px;
     background-color: #25283b;
@@ -391,6 +395,7 @@
     </div>
 
     <!--搜索-->
+    <%--Json，弹出窗口--%>
     <div id="divsearch" style="width: 530px;
     height: 40px;
     background-color: #25283b;
@@ -401,7 +406,8 @@
         <div style="text-align:right; width: 300px">
             <form action="searchorder" method="get">
                 <input type="text" name="orderNum" class="search-input" placeholder="请输入单号"/>
-                <input type="submit" class="search-icon"  value="搜索" style="color: #25283b;font-size: 15px"/>
+                <a href="javascript:POBrowser.openWindow('/selectorder','width=1200px;height=800px;');">open</a>
+                <%--<input type="submit" class="search-icon"  value="搜索" style="color: #25283b;font-size: 15px"/>--%>
             </form>
         </div>
     </div>
