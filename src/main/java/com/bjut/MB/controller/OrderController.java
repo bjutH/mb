@@ -98,12 +98,25 @@ public class OrderController {
 
     @RequestMapping(path = "/searchorder")
     public String selectOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session){
+//        String user = session.getAttribute("name").toString();
+//        if(user.equals("admin"))
+//            session.setAttribute("OpenModeType" , "OpenModeType.xlsNormalEdit");
+//        else
+//            session.setAttribute("OpenModeType" , "OpenModeType.xlsReadOnly");
+//        String path = orderService.selectPath(orderNum);
+//        session.setAttribute("path",path);
+        session.setAttribute("orderNum",orderNum);
+        return "ordermanagement";
+    }
+
+    @RequestMapping(path = "/show")
+    public String selectOrder(HttpSession session){
         String user = session.getAttribute("name").toString();
         if(user.equals("admin"))
             session.setAttribute("OpenModeType" , "OpenModeType.xlsNormalEdit");
         else
             session.setAttribute("OpenModeType" , "OpenModeType.xlsReadOnly");
-        String path = orderService.selectPath(orderNum);
+        String path = orderService.selectPath(session.getAttribute("orderNum").toString());
         session.setAttribute("path",path);
         return "word";
     }
