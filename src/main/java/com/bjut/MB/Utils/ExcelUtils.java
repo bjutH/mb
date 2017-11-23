@@ -99,7 +99,7 @@ public class ExcelUtils {
 //                if(i==x &&j==y){
 //                    id = cellValue;
 //                }
-                if(cellValue.contains("!")){
+                if(cellValue.contains("*")){
                     process = cellValue.substring(1, cellValue.length());
                     switch (process){
                         case "number":

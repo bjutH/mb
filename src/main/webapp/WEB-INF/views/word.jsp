@@ -10,7 +10,7 @@
     poCtrl.addCustomToolButton("全屏/还原", "IsFullScreen()", 4);
     poCtrl.addCustomToolButton("关闭", "CloseFile()", 21);
 //设置保存页面
-    poCtrl.setSaveFilePage("SaveFile.jsp");
+    poCtrl.setSaveFilePage("savefile");
 //打开Word文档
     if(session.getAttribute("OpenModeType").equals("OpenModeType.xlsNormalEdit")) {
         poCtrl.webOpen(session.getAttribute("path").toString(), OpenModeType.xlsNormalEdit, "麦邦光电");
