@@ -406,8 +406,8 @@
         <div style="text-align:right; width: 300px">
             <form action="searchorder" method="get">
                 <input type="text" name="orderNum" class="search-input" placeholder="请输入单号"/>
-                <a href="javascript:POBrowser.openWindow('/selectorder','width=1200px;height=800px;');">open</a>
-                <%--<input type="submit" class="search-icon"  value="搜索" style="color: #25283b;font-size: 15px"/>--%>
+                <input type="submit" class="search-icon" value="搜索" style="color: #25283b;font-size: 15px"/>
+                <%--<a href="javascript:POBrowser.openWindow('/selectorder?','width=1200px;height=800px;');">open</a>--%>
             </form>
         </div>
     </div>
@@ -424,7 +424,7 @@
         </header>
         <div align="center" style="height: 600px;position: relative">
             插件操作：
-            <a href="javascript:POBrowser.openWindow('/selectorder','width=1200px;height=800px;');">open</a>
+            <a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');">open</a>
             <!--<iframe id="pageEditor" src="files/tempe2h.html" width=80% height=100% scrolling="yes"-->
             <!--frameborder="0"></iframe>-->
         </div>
