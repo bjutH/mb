@@ -96,8 +96,7 @@ public class OrderController {
         return map.toString();
     }
 
-    @RequestMapping(path = "/selectorder")
-    @ResponseBody
+    @RequestMapping(path = "/searchorder")
     public String selectOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session){
         String user = session.getAttribute("name").toString();
         if(user.equals("admin"))
