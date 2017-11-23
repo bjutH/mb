@@ -363,7 +363,7 @@
     display: none;
     box-shadow: 5px 5px 10px #888888">
         <div style="text-align:center;">
-            <form action="deletorder" method="get">
+            <form action="deleteorder" method="get">
                 <!--输入删除的随单表号码-->
                 <p style="color: #a8a9b1">
                     随工单编号：<input name="name" type="text"/>

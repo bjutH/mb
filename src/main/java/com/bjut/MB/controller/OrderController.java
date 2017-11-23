@@ -35,13 +35,17 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @RequestMapping(path = {"/test"})
+    public String test(){
+        return "updateexcel";
+    }
+
     @RequestMapping(path = {"/ordermanagement"})
     public String homepage(){
         return "ordermanagement";
     }
 
     @RequestMapping(path = "/addorder")
-    @ResponseBody
     @Transactional(propagation= Propagation.REQUIRED )
     public String addOrder(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number) throws IOException {
 //        Calendar cal = Calendar.getInstance();
@@ -67,7 +71,7 @@ public class OrderController {
             logger.error("添加随工单异常" + e.getMessage());
             map.put("code","3");
         }
-        return map.toString();
+        return "ordermanagement";
     }
 
     @RequestMapping(path = "/updateorder")
@@ -93,7 +97,7 @@ public class OrderController {
             logger.error("更新随工单异常" + e.getMessage());
             map.put("code","3");
         }
-        return map.toString();
+        return "succes";
     }
 
     @RequestMapping(path = "/searchorder")
@@ -122,15 +126,13 @@ public class OrderController {
     }
 
     @RequestMapping(path = "/selectorderprocess")
-    @ResponseBody
     public String selectOrderProcess(Model model, @RequestParam(value = "orderNum") String orderNum){
         List<String> strings = orderService.selectOrderProcess(orderNum);
-        return strings.toString();
+        return "ordermanagement";
     }
 
     @RequestMapping(path = "/deleteorder")
-    @ResponseBody
-    public String deleteOrder(@RequestParam(value = "orderNum") String orderNum){
+    public String deleteOrder(@RequestParam(value = "name") String orderNum){
         Map<String,String> map = new HashMap<>();
         try {
             map = orderService.deleteOrder(orderNum);
@@ -138,6 +140,6 @@ public class OrderController {
             logger.error("删除随工单异常" + e.getMessage());
             map.put("code","3");
         }
-        return map.toString();
+        return "ordermanagement";
     }
 }
