@@ -344,7 +344,7 @@
     box-shadow: 5px 5px 10px #888888">
         <div style="text-align:center;">
             <form action="addorder" method="get">
-                <p style="color:#a8a9b1 ">选择路径: <input type="text" name="path"/></p>
+                <p style="color:#a8a9b1 ">选择路径: <input type="file" name="path"/></p>
                 <p style="color:#a8a9b1 ">选择名称: <input type="text" name="number"/></p>
                 <input type="submit" value="Submit"/>
             </form>
@@ -418,7 +418,7 @@
         </header>
         <div align="center" style="height: 600px;position: relative">
             插件操作：
-            <a href="javascript:POBrowser.openWindow('/word?user=<% session.getAttribute("name");%>','width=1200px;height=800px;');">open</a>
+            <a href="javascript:POBrowser.openWindow('/selectorder','width=1200px;height=800px;');">open</a>
             <!--<iframe id="pageEditor" src="files/tempe2h.html" width=80% height=100% scrolling="yes"-->
             <!--frameborder="0"></iframe>-->
         </div>
