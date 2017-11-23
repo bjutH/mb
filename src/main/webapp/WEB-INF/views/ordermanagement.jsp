@@ -344,7 +344,7 @@
     box-shadow: 5px 5px 10px #888888">
         <div style="text-align:center;">
             <form action="addorder" method="get">
-                <p style="color:#a8a9b1 ">选择路径: <input type="file" name="path"/></p>
+                <p style="color:#a8a9b1 ">选择路径: <input type="text" name="path"/></p>
                 <p style="color:#a8a9b1 ">选择名称: <input type="text" name="number"/></p>
                 <input type="submit" value="Submit"/>
             </form>
