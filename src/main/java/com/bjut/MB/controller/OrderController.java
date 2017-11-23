@@ -10,11 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+
+import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
 
 /**
  * Created by Administrator on 2017/10/31.
@@ -30,22 +34,29 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping(path = {"/add"})
-    public String add(){
-        return "add";
+    @RequestMapping(path = {"/ordermanagement"})
+    public String homepage(){
+        return "ordermanagement";
     }
-    @RequestMapping(path = {"/update"})
-    public String update(){
-        return "update";
-    }
-    @RequestMapping(path = {"/select"})
-    public String select(){
-        return "testselect";
-    }
-    @RequestMapping(path = "/addorder")
+
+    @RequestMapping(path = "/addorder",method = RequestMethod.POST)
     @ResponseBody
-    @Transactional(propagation= Propagation.REQUIRED)
-    public String addOrder( @RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
+    @Transactional(propagation= Propagation.REQUIRED )
+    public String addOrder(MultipartFile multipartFile, @RequestParam(value = "number") String number) throws IOException {
+        Calendar cal = Calendar.getInstance();
+        int month = cal.get(Calendar.MONTH) + 1;
+        int year = cal.get(Calendar.YEAR);
+        String filePath= ClassUtils.getDefaultClassLoader().getResource("").getPath()+year+month+"/";
+        File dir=new File(filePath);
+        if(!dir.isDirectory())
+            dir.mkdir();
+
+        String fileOriginalName=multipartFile.getOriginalFilename();
+        String newFileName= UUID.randomUUID()+fileOriginalName.substring(fileOriginalName.lastIndexOf("."));
+        File file=new File(filePath+newFileName);
+        String path = file.getAbsolutePath();
+        //文件写入磁盘
+        multipartFile.transferTo(file);
         Map<String,String> map = new HashMap<>();
         try {
             excelUtils.importExcel(path, number,"order");
