@@ -34,25 +34,25 @@
             <li><a href="#0">登录</a></li>
             <li><a href="#0">添加用户</a></li>
         </ul>
-
+<%--登录form--%>
         <div id="cd-login"> <!-- log in form -->
-            <form class="cd-form">
+            <form class="cd-form" action="login" method="get">
                 <p class="fieldset">
                     <label class="image-replace cd-email" for="signin-email">帐号</label>
-                    <input class="full-width has-padding has-border" id="signin-email" type="text" placeholder="帐号">
+                    <input name="name" class="full-width has-padding has-border" id="signin-email" type="text" placeholder="帐号">
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
                 <p class="fieldset">
-                    <label class="image-replace cd-password" for="signin-password">Password</label>
-                    <input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password">
-                    <a href="#0" class="hide-password">Hide</a>
+                    <label class="image-replace cd-password" for="signin-password">密码</label>
+                    <input name="passward" class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="密码">
+                    <a href="#0" class="hide-password">隐藏</a>
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
 
                 <p class="fieldset">
-                    <input class="full-width" type="submit" value="登录" onclick="javascript:window.location.href='homepage.jsp'">
+                    <input class="full-width" type="submit" value="登录" hrf="homepage.jsp">
                 </p>
             </form>
 
@@ -61,10 +61,11 @@
         </div> <!-- cd-login -->
 
         <div id="cd-signup"> <!-- sign up form -->
-            <form class="cd-form">
+            <%--注册form--%>
+            <form class="cd-form" action="" method="get">
                 <p class="fieldset">
-                    <label class="image-replace cd-username" for="signup-username">Username</label>
-                    <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username">
+                    <label class="image-replace cd-username" for="signup-username">帐号</label>
+                    <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="帐号">
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
@@ -75,19 +76,14 @@
                 </p>
 
                 <p class="fieldset">
-                    <label class="image-replace cd-password" for="signup-password">Password</label>
-                    <input class="full-width has-padding has-border" id="signup-password" type="text"  placeholder="Password">
-                    <a href="#0" class="hide-password">Hide</a>
+                    <label class="image-replace cd-password" for="signup-password">密码</label>
+                    <input class="full-width has-padding has-border" id="signup-password" type="text"  placeholder="密码">
+                    <a href="#0" class="hide-password">隐藏</a>
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
                 <p class="fieldset">
-                    <input type="checkbox" id="accept-terms">
-                    <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
-                </p>
-
-                <p class="fieldset">
-                    <input class="full-width has-padding" type="submit" value="Create account">
+                    <input class="full-width has-padding" type="submit" value="添加用户">
                 </p>
             </form>
 
