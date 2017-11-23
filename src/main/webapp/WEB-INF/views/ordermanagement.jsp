@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="../css/css-search/search-form.css"/>
     <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="../js/js-order/main.js"></script> <!-- Resource jQuery -->
+    <script type="text/javascript" src="../../pageoffice.js" id="po_js_main"></script>
     <!--没找到-->
     <%--<script type="text/javascript" src="../pageoffice.js" id="po_js_main"></script>--%>
 
@@ -41,14 +42,20 @@
             });
             //测试点击删除隐藏块
             $('#add').click(function (event) {
-                if (!$('#divdelet').is(":hidden")) {
+                if(!$('#divdelet').is(":hidden")){
                     $('#divdelet').toggle('slow');
                 }
             })
 
             $('#add').click(function (event) {
-                if (!$('#divupdata').is(":hidden")) {
+                if(!$('#divupdata').is(":hidden")){
                     $('#divupdata').toggle('slow');
+                }
+            })
+
+            $('#add').click(function (event) {
+                if(!$('#divsearch').is(":hidden")){
+                    $('#divsearch').toggle('slow');
                 }
             })
 
@@ -77,14 +84,20 @@
             });
 
             $('#delet').click(function (event) {
-                if (!$('#divadd').is(":hidden")) {
+                if(!$('#divadd').is(":hidden")){
                     $('#divadd').toggle('slow');
                 }
             })
 
             $('#delet').click(function (event) {
-                if (!$('#divupdata').is(":hidden")) {
+                if(!$('#divupdata').is(":hidden")){
                     $('#divupdata').toggle('slow');
+                }
+            })
+
+            $('#delet').click(function (event) {
+                if(!$('#divsearch').is(":hidden")){
+                    $('#divsearch').toggle('slow');
                 }
             })
         })
@@ -122,6 +135,55 @@
                     $('#divdelet').toggle('slow')
                 }
             })
+
+            $('#updata').click(function (event) {
+                if (!$('#divsearch').is(":hidden")) {
+                    $('#divsearch').toggle('slow')
+                }
+            })
+        })
+    </script>
+
+    <!--divsearch伸缩-->
+    <script type="text/javascript">
+        $(function () {
+            $('#search').click(function (event) {
+                //取消事件冒泡
+                event.stopPropagation();
+                //设置弹出层的位置
+                var offset = $(event.target).offset();
+                $('#divsearch').css({top: offset.top + $(event.target).height() + "px", left: offset.left});
+                //按钮的toggle,如果div是可见的,点击按钮切换为隐藏的;如果是隐藏的,切换为可见的。
+                $('#divsearch').toggle('slow');
+            });
+            //点击空白处或者自身隐藏弹出层，下面分别为滑动和淡出效果。
+            $(document).click(function (event) {
+                $('#divsearch').slideUp('slow')
+            });
+            $('#divsearch').click(function (event) {
+                //$(this).fadeOut(1000)
+                event.stopPropagation();
+            });
+
+            $('#search').click(function (event) {
+                if (!$('#divadd').is(":hidden")) {
+                    $('#divadd').toggle('slow');
+                }
+            })
+
+            $('#search').click(function (event) {
+                if (!$('#divdelet').is(":hidden")) {
+                    $('#divdelet').toggle('slow')
+                }
+            })
+
+            $('#search').click(function (event) {
+                if (!$('#divupdata').is(":hidden")) {
+                    $('#divupdata').toggle('slow')
+                }
+            })
+
+
         })
     </script>
 
@@ -187,10 +249,11 @@
 
     <!--Page-office-->
     <script type="text/javascript">
+
+
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
         }
-
         function AfterDocumentOpened() {
 
             $("#btn1").removeAttr("disabled");
@@ -199,12 +262,13 @@
 
         function OpenDocument(strUrl) {
             //使打开按钮变灰
-            $('#btn1').attr('disabled', 'true');
+            $('#btn1').attr('disabled','true');
             //使用post请求打开文档的action
-            $.post(strUrl, {param2: "456"}, function (data) {
+            $.post(strUrl,{ param2: "456"},function(data){
                 $("#divDocView").html(data);
             });
         }
+
     </script>
 
 
@@ -232,26 +296,27 @@
                 <li style="float: left"><a href="#0" id="add">添加表</a></li>
                 <li style="float: left"><a href="#0" id="delet">删除表</a></li>
                 <li style="float: left"><a href="#0" id="updata">上传表</a></li>
+                <li style="float: left"><a href="#0" id="search">搜索表</a></li>
             </ul>
         </div>
     </div>
 
     <!--中间搜索-->
-    <div style="display: inline;width: 300px">
-        <div class="search-wrapper">
-            <div class="input-holder">
-                <form action="searchorder" method="get">
-                    <input type="text" name="orderNum" class="search-input" placeholder="请输入单号"/>
-                    <input type="submit" class="search-icon" onclick="searchToggle(this,event)" value="搜索"
-                           style="color: #25283b;font-size: 15px"/>
-                </form>
-            </div>
-            <span class="close" onclick="searchToggle(this, event);"></span>
-        </div>
-    </div>
+    <%--<div style="display: inline;width: 300px">--%>
+        <%--<div class="search-wrapper">--%>
+            <%--<div class="input-holder">--%>
+                <%--<form action="searchorder" method="get">--%>
+                    <%--<input type="text" name="orderNum" class="search-input" placeholder="请输入单号"/>--%>
+                    <%--<input type="submit" class="search-icon" onclick="searchToggle(this,event)" value="搜索"--%>
+                           <%--style="color: #25283b;font-size: 15px"/>--%>
+                <%--</form>--%>
+            <%--</div>--%>
+            <%--<span class="close" onclick="searchToggle(this, event);"></span>--%>
+        <%--</div>--%>
+    <%--</div>--%>
     <!--搜索-->
     <!--右侧操作，选择表-->
-    <div class="dropdown" style="position: absolute; top: 0px;left: 1200px">
+    <div class="dropdown" style="position: absolute; top: 0px;left: 80%">
         <a class="dropbtn">选择随工单类型</a>
         <div class="dropdown-content">
             <a id="ct1" href="#" onclick="chosetable()">老化观测表</a>
@@ -324,6 +389,22 @@
             </form>
         </div>
     </div>
+
+    <!--搜索-->
+    <div id="divsearch" style="width: 530px;
+    height: 40px;
+    background-color: #25283b;
+    overflow: hidden;
+    /*border-bottom-right-radius:10px;*/
+    display: none;
+    box-shadow: 5px 5px 10px #888888">
+        <div style="text-align:right; width: 300px">
+            <form action="searchorder" method="get">
+                <input type="text" name="orderNum" class="search-input" placeholder="请输入单号"/>
+                <input type="submit" class="search-icon"  value="搜索" style="color: #25283b;font-size: 15px"/>
+            </form>
+        </div>
+    </div>
 </nav> <!-- .cd-secondary-nav -->
 
 
@@ -337,8 +418,7 @@
         </header>
         <div align="center" style="height: 600px;position: relative">
             插件操作：
-            <input type="button" value="打开文档" id="btn1" onclick="OpenDocument('Word.jsp?param1=123')"/>
-            <div style=" width:auto; height:700px;" id="divDocView"></div>
+            <a href="javascript:POBrowser.openWindow('/word?user=<% session.getAttribute("name");%>','width=1200px;height=800px;');">open</a>
             <!--<iframe id="pageEditor" src="files/tempe2h.html" width=80% height=100% scrolling="yes"-->
             <!--frameborder="0"></iframe>-->
         </div>
