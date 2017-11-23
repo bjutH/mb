@@ -1,6 +1,7 @@
 package com.bjut.MB.controller;
 
 import com.bjut.MB.Utils.ExcelUtils;
+import com.bjut.MB.dao.OrderDao;
 import com.bjut.MB.model.Order;
 import com.bjut.MB.service.OrderService;
 import org.slf4j.Logger;
@@ -93,6 +94,7 @@ public class OrderController {
                 return map.toString();
             }
             map = excelUtils.replaceExcel(path,"order", process, order);
+            orderService.updateOrder(orderNum,process,operater,other,ps);
         }
         catch (Exception e) {
             logger.error("更新随工单异常" + e.getMessage());
