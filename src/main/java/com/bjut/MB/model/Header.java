@@ -17,6 +17,11 @@ public class Header {
     private String humidity;
     private String power;
     private String groud;
+    private String checkMachineName;
+    private String checkMachineType;
+    private String checkMachineNum;
+    private String checker;
+    private Date checkerDate;
 
     public String getOrderNum() {
         return orderNum;
@@ -104,5 +109,45 @@ public class Header {
 
     public void setGroud(String groud) {
         this.groud = groud;
+    }
+
+    public String getCheckMachineName() {
+        return checkMachineName;
+    }
+
+    public void setCheckMachineName(String checkMachineName) {
+        this.checkMachineName = checkMachineName;
+    }
+
+    public String getCheckMachineType() {
+        return checkMachineType;
+    }
+
+    public void setCheckMachineType(String checkMachineType) {
+        this.checkMachineType = checkMachineType;
+    }
+
+    public String getCheckMachineNum() {
+        return checkMachineNum;
+    }
+
+    public void setCheckMachineNum(String checkMachineNum) {
+        this.checkMachineNum = checkMachineNum;
+    }
+
+    public String getChecker() {
+        return checker;
+    }
+
+    public void setChecker(String checker) {
+        this.checker = checker;
+    }
+
+    public Date getCheckerDate() {
+        return checkerDate;
+    }
+
+    public void setCheckerDate(Date checkerDate) {
+        this.checkerDate = checkerDate;
     }
 }

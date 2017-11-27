@@ -46,25 +46,48 @@ public class HeaderService {
             map.put("code","1");
         }
         catch (Exception e){
-            logger.error("添加老化观测表DAO异常" + e.getMessage());
+            logger.error("添加表头DAO异常" + e.getMessage());
             map.put("code","0");
         }
         return map;
     }
-    public Map<String, String> updateHeader(String orderNum, String name, String type,String label, String conclusion,String debuger,
-                                            Date date, String temperature, String humidity, String power, String groud){
+
+    /**
+     *
+ * @param orderNum               产品编号/仪器序号
+     * @param name                  产品名称
+     * @param type                  产品类型/仪器型号
+     * @param label                 内部标记
+     * @param conclusion            调试结论
+     * @param debuger               调试人员/检验员
+     * @param date                  调试日期
+     * @param temperature           环境温度
+     * @param humidity              相对湿度
+     * @param power                 供电电源
+     * @param groud                 是否有效接地
+     * @param checkMachineName      检测设备名称
+     * @param checkMachineType      检测设备类型
+     * @param checkMachineNum       检测设备编号
+     * @param checker               核验/放行人
+     * @param checkerDate           核验/放行日期
+     * @return                      返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     */
+    public Map<String, String> updateHeader(String orderNum, String name, String type, String label, String conclusion,String debuger,
+                                            Date date, String temperature, String humidity, String power, String groud ,String checkMachineName,
+                                            String checkMachineType,String checkMachineNum, String checker, Date checkerDate){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
             map.put("code","2");
-            map.put("msg", "老化观测表编号不能为空！");
+            map.put("msg", "表头编号不能为空！");
             return map;
         }
         try {
-            headerDao.updateItem(orderNum, name, type, label, conclusion, debuger, date, temperature, humidity, power, groud);
+            headerDao.updateItem(orderNum, name, type, label, conclusion, debuger, date, temperature, humidity,
+                                power, groud ,checkMachineName, checkMachineType, checkMachineNum, checker, checkerDate);
             map.put("code","1");
         }
         catch (Exception e){
-            logger.error("更新老化观测表DAO异常" + e.getMessage());
+            logger.error("更新表头表DAO异常" + e.getMessage());
             map.put("code","0");
         }
         return map;
@@ -73,7 +96,7 @@ public class HeaderService {
     /**
      *
      * @param orderNum  产品编号
-     * @return          返回一个LIST集合
+     * @return          返回一个Header的LIST集合
      */
     public List<Header> selectHeaderAll(String orderNum){
         return headerDao.selectAll(orderNum);
@@ -82,7 +105,7 @@ public class HeaderService {
     /**
      *
      * @param orderNum  产品编号
-     * @return           返回一个Aging对象
+     * @return           返回一个Header对象
      */
     public Header selectHeader(String orderNum){
         return headerDao.selectOne(orderNum);

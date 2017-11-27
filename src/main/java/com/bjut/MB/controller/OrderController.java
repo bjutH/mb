@@ -79,7 +79,8 @@ public class OrderController {
             if (!file.isEmpty()) {
                 try {
                     byte[] bytes = file.getBytes();
-                    String path = request.getSession().getServletContext().getRealPath("/excel/" + file.getOriginalFilename());
+                    String name = UUID.randomUUID().toString();
+                    String path = request.getSession().getServletContext().getRealPath("/excel/" + name);
                     stream = new BufferedOutputStream(new FileOutputStream(new File(path)));
                     stream.write(bytes);
                     stream.close();
