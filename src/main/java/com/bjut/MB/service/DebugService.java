@@ -16,6 +16,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/11/6.
  */
+//整机调试报告单
 @Service
 public class DebugService {
     private static final Logger logger = LoggerFactory.getLogger(DebugService.class);

@@ -13,6 +13,7 @@ import java.util.*;
 /**
  * Created by Administrator on 2017/11/6.
  */
+//最终检验报告单
 @Service
 public class FinalTestService {
     private static final Logger logger = LoggerFactory.getLogger(FinalTestService.class);

@@ -16,6 +16,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/11/6.
  */
+//整机检验报告单
 @Service
 public class MachineTestService {
     private static final Logger logger = LoggerFactory.getLogger(MachineTestService.class);

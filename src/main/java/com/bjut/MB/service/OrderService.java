@@ -17,6 +17,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/10/31.
  */
+//随工单表
 @Service
 public class OrderService {
     private static final Logger logger = LoggerFactory.getLogger(OrderService.class);

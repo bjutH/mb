@@ -16,6 +16,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/11/3.
  */
+//装箱记录单
 @Service
 public class PackService {
     private static final Logger logger = LoggerFactory.getLogger(PackService.class);

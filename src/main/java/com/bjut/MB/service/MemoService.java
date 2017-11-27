@@ -16,6 +16,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/11/3.
  */
+//仪器备忘录
 @Service
 public class MemoService {
     private static final Logger logger = LoggerFactory.getLogger(MemoService.class);

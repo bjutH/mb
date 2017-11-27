@@ -22,80 +22,79 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/11/3.
  */
-
-//老化观测表
-@Controller
-public class AgingController {
-    private static final Logger logger = LoggerFactory.getLogger(AgingController.class);
-
-    @Autowired
-    private ExcelUtils excelUtils;
-    @Autowired
-    private AgingService agingService;
-
-    @RequestMapping(path = "/addaging")
-    @ResponseBody
-    @Transactional(propagation= Propagation.REQUIRED)
-    public String addAging(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
-        Map<String,String> map = new HashMap<>();
-        try {
-            excelUtils.importExcel(path, number,"aging");
-            map.put("code","1");
-        }
-        catch (Exception e){
-            logger.error("添加老化观测表异常" + e.getMessage());
-            map.put("code","3");
-        }
-        return map.toString();
-    }
-
-    @RequestMapping(path = "/updateaging")
-    @ResponseBody
-    public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                              @RequestParam(value = "result") String result, @RequestParam(value = "date") Date date,
-                              @RequestParam(value = "phenomenon") String phenomenon, @RequestParam(value = "handle") String handle,
-                              @RequestParam(value = "ps") String ps, @RequestParam(value = "operater") String operater){
-        Map<String,String> map = new HashMap<>();
-        try {
-            String path =agingService.selectPath(orderNum);
-            Aging aging = new Aging();
-            aging.setResult(result);
-            aging.setDate(date);
-            aging.setPhenomenon(phenomenon);
-            aging.setHandle(handle);
-            aging.setPs(ps);
-            aging.setOperater(operater);
-            if(path == null){
-                map.put("code","2");
-                map.put("msg","不存在");
-                return map.toString();
-            }
-            map = excelUtils.replaceExcel(path,"order", process, aging);
-        }
-        catch (Exception e){
-            logger.error("更新老化观测表异常" + e.getMessage());
-            map.put("code","3");
-        }
-        return map.toString();
-    }
-
-    @RequestMapping(path = "/selectaging")
-    @ResponseBody
-    public String selectAging(Model model, @RequestParam(value = "orderNum") String orderNum){
-        String path = agingService.selectPath(orderNum);
-        return path;
-    }
-
-    @RequestMapping(path = "/deleteaging")
-    @ResponseBody
-    public String deleteAging(@RequestParam(value = "orderNum") String orderNum){
-        Map<String,String> map = new HashMap<>();
-        try {
-            map = agingService.deleteAging(orderNum);
-        } catch (Exception e) {
-            logger.error("删除老化观测表异常" + e.getMessage());
-            map.put("code","3");
-        }
-        return map.toString();
-    }
-}
+//
+//@Controller
+//public class AgingController {
+//    private static final Logger logger = LoggerFactory.getLogger(AgingController.class);
+//
+//    @Autowired
+//    private ExcelUtils excelUtils;
+//    @Autowired
+//    private AgingService agingService;
+//
+//    @RequestMapping(path = "/addaging")
+//    @ResponseBody
+//    @Transactional(propagation= Propagation.REQUIRED)
+//    public String addAging(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
+//        Map<String,String> map = new HashMap<>();
+//        try {
+//            excelUtils.importExcel(path, number,"aging");
+//            map.put("code","1");
+//        }
+//        catch (Exception e){
+//            logger.error("添加老化观测表异常" + e.getMessage());
+//            map.put("code","3");
+//        }
+//        return map.toString();
+//    }
+//
+//    @RequestMapping(path = "/updateaging")
+//    @ResponseBody
+//    public String updateAging(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+//                              @RequestParam(value = "result") String result, @RequestParam(value = "date") Date date,
+//                              @RequestParam(value = "phenomenon") String phenomenon, @RequestParam(value = "handle") String handle,
+//                              @RequestParam(value = "ps") String ps, @RequestParam(value = "operater") String operater){
+//        Map<String,String> map = new HashMap<>();
+//        try {
+//            String path =agingService.selectPath(orderNum);
+//            Aging aging = new Aging();
+//            aging.setResult(result);
+//            aging.setDate(date);
+//            aging.setPhenomenon(phenomenon);
+//            aging.setHandle(handle);
+//            aging.setPs(ps);
+//            aging.setOperater(operater);
+//            if(path == null){
+//                map.put("code","2");
+//                map.put("msg","不存在");
+//                return map.toString();
+//            }
+//            map = excelUtils.replaceExcel(path,"order", process, aging);
+//        }
+//        catch (Exception e){
+//            logger.error("更新老化观测表异常" + e.getMessage());
+//            map.put("code","3");
+//        }
+//        return map.toString();
+//    }
+//
+//    @RequestMapping(path = "/selectaging")
+//    @ResponseBody
+//    public String selectAging(Model model, @RequestParam(value = "orderNum") String orderNum){
+//        String path = agingService.selectPath(orderNum);
+//        return path;
+//    }
+//
+//    @RequestMapping(path = "/deleteaging")
+//    @ResponseBody
+//    public String deleteAging(@RequestParam(value = "orderNum") String orderNum){
+//        Map<String,String> map = new HashMap<>();
+//        try {
+//            map = agingService.deleteAging(orderNum);
+//        } catch (Exception e) {
+//            logger.error("删除老化观测表异常" + e.getMessage());
+//            map.put("code","3");
+//        }
+//        return map.toString();
+//    }
+//}

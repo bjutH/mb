@@ -22,57 +22,56 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/11/3.
  */
-
-//返工记录表
-@Controller
-public class RemadeController {
-    private static final Logger logger = LoggerFactory.getLogger(RemadeController.class);
-
-    @Autowired
-    private RemadeSercice remadeSercice;
-
-    @RequestMapping(path = "/addremade")
-    @ResponseBody
-    @Transactional(propagation= Propagation.REQUIRED)
-    public String addRemade(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
-        Map<String,String> map = new HashMap<>();
-        try {
-            remadeSercice.addRemade(number,null,null,null,null,null,null,null, path);
-            map.put("code","1");
-        }
-        catch (Exception e){
-            logger.error("添加返工记录表异常" + e.getMessage());
-            map.put("code","3");
-        }
-        return map.toString();
-    }
-
-//    @RequestMapping(path = "/updateremade")
-//    @ResponseBody
-//    public String updateRemade(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "date") Date date,
-//                                @RequestParam(value = "number") String number, @RequestParam(value = "updateSoftware") String updateSoftware,
-//                                @RequestParam(value = "updateHardware") String updateHardware, @RequestParam(value = "updateContent") String updateContent,
-//                                @RequestParam(value = "updatePeople") String updatePeople, @RequestParam(value = "testPeople") String testPeople){
 //
+//@Controller
+//public class RemadeController {
+//    private static final Logger logger = LoggerFactory.getLogger(RemadeController.class);
+//
+//    @Autowired
+//    private RemadeSercice remadeSercice;
+//
+//    @RequestMapping(path = "/addremade")
+//    @ResponseBody
+//    @Transactional(propagation= Propagation.REQUIRED)
+//    public String addRemade(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number){
+//        Map<String,String> map = new HashMap<>();
+//        try {
+//            remadeSercice.addRemade(number,null,null,null,null,null,null,null, path);
+//            map.put("code","1");
+//        }
+//        catch (Exception e){
+//            logger.error("添加返工记录表异常" + e.getMessage());
+//            map.put("code","3");
+//        }
+//        return map.toString();
 //    }
-
-    @RequestMapping(path = "/selectremade")
-    @ResponseBody
-    public String selectRemade(Model model, @RequestParam(value = "orderNum") String orderNum){
-        String path = remadeSercice.selectPath(orderNum);
-        return path;
-    }
-
-    @RequestMapping(path = "/deleteremade")
-    @ResponseBody
-    public String deleteRemade(@RequestParam(value = "orderNum") String orderNum){
-        Map<String,String> map = new HashMap<>();
-        try {
-            map = remadeSercice.deleteRemade(orderNum);
-        } catch (Exception e) {
-            logger.error("删除返工记录表异常" + e.getMessage());
-            map.put("code","3");
-        }
-        return map.toString();
-    }
-}
+//
+////    @RequestMapping(path = "/updateremade")
+////    @ResponseBody
+////    public String updateRemade(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "date") Date date,
+////                                @RequestParam(value = "number") String number, @RequestParam(value = "updateSoftware") String updateSoftware,
+////                                @RequestParam(value = "updateHardware") String updateHardware, @RequestParam(value = "updateContent") String updateContent,
+////                                @RequestParam(value = "updatePeople") String updatePeople, @RequestParam(value = "testPeople") String testPeople){
+////
+////    }
+//
+//    @RequestMapping(path = "/selectremade")
+//    @ResponseBody
+//    public String selectRemade(Model model, @RequestParam(value = "orderNum") String orderNum){
+//        String path = remadeSercice.selectPath(orderNum);
+//        return path;
+//    }
+//
+//    @RequestMapping(path = "/deleteremade")
+//    @ResponseBody
+//    public String deleteRemade(@RequestParam(value = "orderNum") String orderNum){
+//        Map<String,String> map = new HashMap<>();
+//        try {
+//            map = remadeSercice.deleteRemade(orderNum);
+//        } catch (Exception e) {
+//            logger.error("删除返工记录表异常" + e.getMessage());
+//            map.put("code","3");
+//        }
+//        return map.toString();
+//    }
+//}

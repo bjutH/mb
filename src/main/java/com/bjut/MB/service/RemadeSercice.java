@@ -13,6 +13,7 @@ import java.util.*;
 /**
  * Created by Administrator on 2017/11/3.
  */
+//返工记录表
 @Service
 public class RemadeSercice {
     private static final Logger logger = LoggerFactory.getLogger(RemadeSercice.class);

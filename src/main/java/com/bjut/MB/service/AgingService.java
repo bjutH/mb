@@ -13,6 +13,7 @@ import java.util.*;
 /**
  * Created by Administrator on 2017/11/3.
  */
+//老化观测表
 @Service
 public class AgingService {
     private static final Logger logger = LoggerFactory.getLogger(AgingService.class);
