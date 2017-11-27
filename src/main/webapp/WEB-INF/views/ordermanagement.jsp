@@ -318,19 +318,31 @@
     <div class="dropdown" style="position: absolute; top: 0px;left: 80%">
         <a class="dropbtn">选择随工单类型</a>
         <div class="dropdown-content">
-            <a id="ct1" href="#" onclick="chosetable()">老化观测表</a>
-            <a href="#">整机调试报告单</a>
-            <a href="#">最终检验报告单</a>
-            <a href="#">整机检验报告单</a>
-            <a href="#">仪器备忘录</a>
-            <a href="#">随工单表</a>
-            <a href="#">装箱记录单</a>
-            <a href="#">性能要求检验单</a>
-            <a href="#">工序检验报告单</a>
-            <a href="#">成品检验报告单</a>
-            <a href="#">返工记录表</a>
-            <a href="#">血压计检定报告单</a>
-            <a href="#">+添加新的表+</a>
+            <%--<a id="ct1" href="#" onclick="chosetable()">老化观测表</a>--%>
+            <%--<a href="#">整机调试报告单</a>--%>
+            <%--<a href="#">最终检验报告单</a>--%>
+            <%--<a href="#">整机检验报告单</a>--%>
+            <%--<a href="#">仪器备忘录</a>--%>
+            <%--<a href="#">随工单表</a>--%>
+            <%--<a href="#">装箱记录单</a>--%>
+            <%--<a href="#">性能要求检验单</a>--%>
+            <%--<a href="#">工序检验报告单</a>--%>
+            <%--<a href="#">成品检验报告单</a>--%>
+            <%--<a href="#">返工记录表</a>--%>
+            <%--<a href="#">血压计检定报告单</a>--%>
+            <%--<a href="#">+添加新的表+</a>--%>
+            <a id="ct1" href="#" onclick="chosetable()">随工单表</a><%--order--%>
+            <a href="#">仪器备忘录</a><%--memo--%>
+            <a href="#">返工记录表</a><%--remade--%>
+            <a href="#">老化观测表</a><%--aging--%>
+            <a href="#">装箱记录单</a><%--pack--%>
+            <a href="#">整机调试报告单</a><%--debug--%>
+            <a href="#">工序检验报告单</a><%--processTest--%>
+            <a href="#">整机检验报告单</a><%--machineTest--%>
+            <a href="#">成品检验报告单</a><%--productTest--%>
+            <a href="#">血压计检定报告单</a><%--sphygmomanometer--%>
+            <a href="#">性能要求检验单</a><%--performTest--%>
+            <a href="#">最终检验报告单</a><%--finalTest--%><%--上传到selectordertype--%>
         </div>
     </div>
     <!--添加块-->
