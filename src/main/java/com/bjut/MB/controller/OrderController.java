@@ -15,10 +15,15 @@ import org.springframework.ui.Model;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
@@ -38,33 +43,54 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    /**
+     * 模拟平板上传的页面
+     * @return
+     */
     @RequestMapping(path = {"/test"})
     public String test(){
         return "updateexcel";
     }
 
+    /**
+     * 随工单管理主页面
+     * @return
+     */
     @RequestMapping(path = {"/ordermanagement"})
     public String homepage(){
         return "ordermanagement";
     }
 
-    @RequestMapping(path = "/addorder")
+    /**
+     * 添加随工单
+     * @param request
+     * @param number        随工单编号
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(path = "/addorder" , method = RequestMethod.POST)
     @Transactional(propagation= Propagation.REQUIRED )
-    public String addOrder(@RequestParam(value = "path") String path, @RequestParam(value = "number") String number) throws IOException {
-//        Calendar cal = Calendar.getInstance();
-//        int month = cal.get(Calendar.MONTH) + 1;
-//        int year = cal.get(Calendar.YEAR);
-//        String filePath= ClassUtils.getDefaultClassLoader().getResource("").getPath()+year+month+"/";
-//        File dir=new File(filePath);
-//        if(!dir.isDirectory())
-//            dir.mkdir();
-//
-//        String fileOriginalName=multipartFile.getOriginalFilename();
-//        String newFileName= UUID.randomUUID()+fileOriginalName.substring(fileOriginalName.lastIndexOf("."));
-//        File file=new File(filePath+newFileName);
-//        String path = file.getAbsolutePath();
-//        //文件写入磁盘
-//        multipartFile.transferTo(file);
+    public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number) throws IOException {
+        List<MultipartFile> files = request.getFiles("uploadfile");
+        MultipartFile file = null;
+        BufferedOutputStream stream = null;
+        for (int i = 0; i < files.size(); ++i) {
+            file = files.get(i);
+            if (!file.isEmpty()) {
+                try {
+                    byte[] bytes = file.getBytes();
+                    String path = request.getSession().getServletContext().getRealPath("/excel/" + file.getOriginalFilename());
+                    stream = new BufferedOutputStream(new FileOutputStream(new File(path)));
+                    stream.write(bytes);
+                    stream.close();
+                } catch (Exception e) {
+                    stream = null;
+                    return "文件 " + i + "上传失败 " + e.getMessage();
+                }
+            } else {
+                return "文件 " + i + " 为空，上传失败";
+            }
+        }
         Map<String,String> map = new HashMap<>();
         try {
             excelUtils.importExcel(path, number,"order");
@@ -77,6 +103,15 @@ public class OrderController {
         return "ordermanagement";
     }
 
+    /**
+     * 模拟平板上传
+     * @param orderNum
+     * @param process
+     * @param operater
+     * @param other
+     * @param ps
+     * @return
+     */
     @RequestMapping(path = "/updateorder")
     @ResponseBody
     public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
@@ -129,11 +164,6 @@ public class OrderController {
         return "word";
     }
 
-    @RequestMapping(path = "/selectorderprocess")
-    public String selectOrderProcess(Model model, @RequestParam(value = "orderNum") String orderNum){
-        List<String> strings = orderService.selectOrderProcess(orderNum);
-        return "ordermanagement";
-    }
 
     @RequestMapping(path = "/deleteorder")
     public String deleteOrder(@RequestParam(value = "name") String orderNum){
@@ -144,6 +174,12 @@ public class OrderController {
             logger.error("删除随工单异常" + e.getMessage());
             map.put("code","3");
         }
+        return "ordermanagement";
+    }
+
+    @RequestMapping(path = "/selectordertype")
+    public String selectOrderType(@RequestParam(value = "orderType") String orderType, HttpSession session){
+        session.setAttribute("orderType", orderType);
         return "ordermanagement";
     }
 }
