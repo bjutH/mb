@@ -42,19 +42,19 @@
             });
             //测试点击删除隐藏块
             $('#add').click(function (event) {
-                if(!$('#divdelet').is(":hidden")){
+                if (!$('#divdelet').is(":hidden")) {
                     $('#divdelet').toggle('slow');
                 }
             })
 
             $('#add').click(function (event) {
-                if(!$('#divupdata').is(":hidden")){
+                if (!$('#divupdata').is(":hidden")) {
                     $('#divupdata').toggle('slow');
                 }
             })
 
             $('#add').click(function (event) {
-                if(!$('#divsearch').is(":hidden")){
+                if (!$('#divsearch').is(":hidden")) {
                     $('#divsearch').toggle('slow');
                 }
             })
@@ -84,19 +84,19 @@
             });
 
             $('#delet').click(function (event) {
-                if(!$('#divadd').is(":hidden")){
+                if (!$('#divadd').is(":hidden")) {
                     $('#divadd').toggle('slow');
                 }
             })
 
             $('#delet').click(function (event) {
-                if(!$('#divupdata').is(":hidden")){
+                if (!$('#divupdata').is(":hidden")) {
                     $('#divupdata').toggle('slow');
                 }
             })
 
             $('#delet').click(function (event) {
-                if(!$('#divsearch').is(":hidden")){
+                if (!$('#divsearch').is(":hidden")) {
                     $('#divsearch').toggle('slow');
                 }
             })
@@ -253,6 +253,7 @@
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
         }
+
         function AfterDocumentOpened() {
 
             $("#btn1").removeAttr("disabled");
@@ -261,9 +262,9 @@
 
         function OpenDocument(strUrl) {
             //使打开按钮变灰
-            $('#btn1').attr('disabled','true');
+            $('#btn1').attr('disabled', 'true');
             //使用post请求打开文档的action
-            $.post(strUrl,{ param2: "456"},function(data){
+            $.post(strUrl, {param2: "456"}, function (data) {
                 $("#divDocView").html(data);
             });
         }
@@ -271,9 +272,10 @@
     </script>
 
 
+
 </head>
 <body>
-<%@include file="header.jsp"%>
+<%@include file="header.jsp" %>
 <section class="cd-hero">
     <img src="../img/img-order/cd-hero-background.jpg" alt="背景"
          style="height :100%; width :100%; margin-top: 0px;"/>
@@ -302,16 +304,16 @@
 
     <!--中间搜索-->
     <%--<div style="display: inline;width: 300px">--%>
-        <%--<div class="search-wrapper">--%>
-            <%--<div class="input-holder">--%>
-                <%--<form action="searchorder" method="get">--%>
-                    <%--<input type="text" name="orderNum" class="search-input" placeholder="请输入单号"/>--%>
-                    <%--<input type="submit" class="search-icon" onclick="searchToggle(this,event)" value="搜索"--%>
-                           <%--style="color: #25283b;font-size: 15px"/>--%>
-                <%--</form>--%>
-            <%--</div>--%>
-            <%--<span class="close" onclick="searchToggle(this, event);"></span>--%>
-        <%--</div>--%>
+    <%--<div class="search-wrapper">--%>
+    <%--<div class="input-holder">--%>
+    <%--<form action="searchorder" method="get">--%>
+    <%--<input type="text" name="orderNum" class="search-input" placeholder="请输入单号"/>--%>
+    <%--<input type="submit" class="search-icon" onclick="searchToggle(this,event)" value="搜索"--%>
+    <%--style="color: #25283b;font-size: 15px"/>--%>
+    <%--</form>--%>
+    <%--</div>--%>
+    <%--<span class="close" onclick="searchToggle(this, event);"></span>--%>
+    <%--</div>--%>
     <%--</div>--%>
     <!--搜索-->
     <!--右侧操作，选择表-->
@@ -331,18 +333,55 @@
             <%--<a href="#">返工记录表</a>--%>
             <%--<a href="#">血压计检定报告单</a>--%>
             <%--<a href="#">+添加新的表+</a>--%>
-            <a id="ct1" href="#" onclick="chosetable()">随工单表</a><%--order--%>
-            <a href="#">仪器备忘录</a><%--memo--%>
-            <a href="#">返工记录表</a><%--remade--%>
-            <a href="#">老化观测表</a><%--aging--%>
-            <a href="#">装箱记录单</a><%--pack--%>
-            <a href="#">整机调试报告单</a><%--debug--%>
-            <a href="#">工序检验报告单</a><%--processTest--%>
-            <a href="#">整机检验报告单</a><%--machineTest--%>
-            <a href="#">成品检验报告单</a><%--productTest--%>
-            <a href="#">血压计检定报告单</a><%--sphygmomanometer--%>
-            <a href="#">性能要求检验单</a><%--performTest--%>
-            <a href="#">最终检验报告单</a><%--finalTest--%><%--上传到selectordertype--%>
+            <form id="selectorder" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="order"/>
+                <a href="#" id="order" onclick="document.getElementById('selectorder').submit();">随工单表</a><%--order--%>
+            </form>
+            <form id="selectmemo" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="memo"/>
+                <a href="#" id="memo" onclick="document.getElementById('selectmemo').submit();">仪器备忘录</a><%--memo--%>
+            </form>
+            <form id="selectremade" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="remade"/>
+                <a href="#" id="remade" onclick="document.getElementById('selectremade').submit();">返工记录表</a><%--remade--%>
+            </form>
+            <form id="selectaging" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="aging"/>
+                <a href="#" id="aging" onclick="document.getElementById('selectaging').submit();">老化观测表</a><%--aging--%>
+            </form>
+            <form id="selectpack" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="pack"/>
+                <a href="#" id="pack" onclick="document.getElementById('selectpack').submit();">装箱记录单</a><%--pack--%>
+            </form>
+            <form id="selectdebug" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="debug"/>
+                <a href="#" id="debug" onclick="document.getElementById('selectdebug').submit();">整机调试报告单</a><%--debug--%>
+            </form>
+            <form id="selectprocessTest" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="processTest"/>
+                <a href="#" id="processTest" onclick="document.getElementById('selectprocessTest').submit();">工序检验报告单</a><%--processTest--%>
+            </form>
+            <form id="selectmachineTest" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="machineTest"/>
+                <a href="#" id="machineTest" onclick="document.getElementById('selectmachineTest').submit();">整机检验报告单</a><%--machineTest--%>
+            </form>
+            <form id="selectproductTest" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="progressTest"/>
+                <a href="#" id="productTest" onclick="document.getElementById('selectproductTest').submit();">成品检验报告单</a><%--productTest--%>
+            </form>
+            <form id="selectsphygmomanometer" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="sphygmomanometer"/>
+                <a href="#" id="sphygmomanometer" onclick="document.getElementById('selectsphygmomanometer').submit();">血压计检定报告单</a><%--sphygmomanometer--%>
+            </form>
+            <form id="selectperformTest" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="pergormTest"/>
+                <a href="#" id="performTest" onclick="document.getElementById('selectperformTest').submit();">性能要求检验单</a><%--performTest--%>
+            </form>
+            <form id="selectfinalTest" action="selectordertype" method="post">
+                <input type="hidden" name="orderType" value="finalTest"/>
+                <a href="#" id="finalTest"
+                   onclick="document.getElementById('selectfinalTest').submit();">最终检验报告单</a><%--finalTest--%><%--上传到selectordertype--%>
+            </form>
         </div>
     </div>
     <!--添加块-->
@@ -418,7 +457,6 @@
             <form action="searchorder" method="get">
                 <input type="text" name="orderNum" class="search-input" placeholder="请输入单号"/>
                 <input type="submit" class="search-icon" value="搜索" style="color: #25283b;font-size: 15px"/>
-                <%--<a href="javascript:POBrowser.openWindow('/selectorder?','width=1200px;height=800px;');">open</a>--%>
             </form>
         </div>
     </div>
@@ -428,17 +466,22 @@
 <main class="cd-main-content sub-nav-hero">
     <div>
         <header class="htmleaf-header">
-            <h1>随工单管理 <span>something in here</span></h1>
+            <h1>随工单管理</h1>
             <div class="htmleaf-demo center">
-                <a href="ordermanagement.html" class="current">显示当前类名</a>
+                <a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');">打开当前选择的文件</a>
             </div>
+            <h1><span>页面说明：当前页面可对随工单进行增删改查操作</span></h1>
         </header>
-        <div align="center" style="height: 600px;position: relative">
-            插件操作：
-            <a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');">open</a>
-            <!--<iframe id="pageEditor" src="files/tempe2h.html" width=80% height=100% scrolling="yes"-->
-            <!--frameborder="0"></iframe>-->
-        </div>
+        <%--<div id="uploader" class="wu-example">--%>
+            <%--<!--用来存放文件信息-->--%>
+            <%--<div id="thelist" class="uploader-list"></div>--%>
+            <%--<div class="btns">--%>
+                <%--<button id="picker" class="btn btn-default">选择文件</button>--%>
+
+                <%--&lt;%&ndash;<div id="picker">选择文件</div>&ndash;%&gt;--%>
+                <%--<button id="ctlBtn" class="btn btn-default">开始上传</button>--%>
+            <%--</div>--%>
+        <%--</div>--%>
     </div>
 </main> <!-- .cd-main-content -->
 </body>
