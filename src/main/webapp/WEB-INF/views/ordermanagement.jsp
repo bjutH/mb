@@ -472,6 +472,7 @@
             </div>
             <h1><span>页面说明：当前页面可对随工单进行增删改查操作</span></h1>
         </header>
+
         <%--<div id="uploader" class="wu-example">--%>
             <%--<!--用来存放文件信息-->--%>
             <%--<div id="thelist" class="uploader-list"></div>--%>
@@ -482,6 +483,7 @@
                 <%--<button id="ctlBtn" class="btn btn-default">开始上传</button>--%>
             <%--</div>--%>
         <%--</div>--%>
+
     </div>
 </main> <!-- .cd-main-content -->
 </body>
