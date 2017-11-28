@@ -261,57 +261,7 @@
 
     </script>
 
-    <%--form加iframe,避免更新，--%>
-    <script type="text/javascript">
-        function displayorder() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("order").innerText;
-        };
-
-        function displaymemo() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("memo").innerText;
-        };
-
-        function displayremade() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("remade").innerText;
-        };
-
-        function displayaging() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("aging").innerText;
-        };
-
-        function displaypack() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("pack").innerText;
-        };
-
-        function displaydebug() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("debug").innerText;
-        };
-
-        function displayprocessTest() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("processTest").innerText;
-        };
-
-        function displaymachineTest() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("machineTest").innerText;
-        };
-
-        function displayproductTest() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("productTest").innerText;
-        };
-
-        function displaysphygmomanometer() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("sphygmomanometer").innerText;
-        };
-
-        function displayperformTest() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("performTest").innerText;
-        };
-
-        function displayfinalTest() {
-            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("finalTest").innerText;
-        };
-    </script>
-
+    <%--为空提示--%>
     <script type="text/javascript">
         function checkform1(){
            var orderType = ${sessionScope.get("orderType")};
@@ -405,8 +355,6 @@
 </section> <!-- .cd-hero -->
 
 <nav class="cd-secondary-nav">
-    <%--避免刷新，不能接收返回--%>
-    <iframe name='hidden_frame' id="hidden_frame" style="display:none"></iframe>
     <!--左侧操作，增/删/改-->
     <div style="display: inline;width: 100px">
         <div>
@@ -428,60 +376,60 @@
     <div class="dropdown" style="position: absolute; top: 0px; right: 0px">
         <a id="test1" class="dropbtn">${sessionScope.get("orderType")}</a>
         <div class="dropdown-content" style="position: absolute;bottom: 100%">
-            <form id="selectorder" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectorder" action="selectordertype" method="post" >
                 <input type="hidden" name="orderType" value="order"/>
                 <a href="javascript:displayorder();" id="order"
                    onclick="document.getElementById('selectorder').submit();">随工单</a><%--order--%>
             </form>
-            <form id="selectmemo" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectmemo" action="selectordertype" method="post" >
                 <input type="hidden" name="orderType" value="memo"/>
                 <a href="javascript:displaymemo();" id="memo" onclick="document.getElementById('selectmemo').submit();">仪器备忘录</a><%--memo--%>
             </form>
-            <form id="selectremade" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectremade" action="selectordertype" method="post" >
                 <input type="hidden" name="orderType" value="remade"/>
                 <a href="javascript:displayremade();" id="remade"
                    onclick="document.getElementById('selectremade').submit();">返工记录表</a><%--remade--%>
             </form>
-            <form id="selectaging" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectaging" action="selectordertype" method="post">
                 <input type="hidden" name="orderType" value="aging"/>
                 <a href="javascript:displayaging();" id="aging"
                    onclick="document.getElementById('selectaging').submit();">老化观测表</a><%--aging--%>
             </form>
-            <form id="selectpack" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectpack" action="selectordertype" method="post">
                 <input type="hidden" name="orderType" value="pack"/>
                 <a href="javascript:displaypack();" id="pack" onclick="document.getElementById('selectpack').submit();">装箱记录单</a><%--pack--%>
             </form>
-            <form id="selectdebug" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectdebug" action="selectordertype" method="post" >
                 <input type="hidden" name="orderType" value="debug"/>
                 <a href="javascript:displaydebug();" id="debug"
                    onclick="document.getElementById('selectdebug').submit();">整机调试报告单</a><%--debug--%>
             </form>
-            <form id="selectprocessTest" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectprocessTest" action="selectordertype" method="post" >
                 <input type="hidden" name="orderType" value="processTest"/>
                 <a href="javascript:displayprocessTest();" id="processTest"
                    onclick="document.getElementById('selectprocessTest').submit();">工序检验报告单</a><%--processTest--%>
             </form>
-            <form id="selectmachineTest" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectmachineTest" action="selectordertype" method="post">
                 <input type="hidden" name="orderType" value="machineTest"/>
                 <a href="javascript:displaymachineTest();" id="machineTest"
                    onclick="document.getElementById('selectmachineTest').submit();">整机检验报告单</a><%--machineTest--%>
             </form>
-            <form id="selectproductTest" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectproductTest" action="selectordertype" method="post" >
                 <input type="hidden" name="orderType" value="progressTest"/>
                 <a href="javascript:displayproductTest();" id="productTest"
                    onclick="document.getElementById('selectproductTest').submit();">成品检验报告单</a><%--productTest--%>
             </form>
-            <form id="selectsphygmomanometer" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectsphygmomanometer" action="selectordertype" method="post" >
                 <input type="hidden" name="orderType" value="sphygmomanometer"/>
                 <a href="javascript:displaysphygmomanometer();" id="sphygmomanometer"
                    onclick="document.getElementById('selectsphygmomanometer').submit();">血压计检定报告单</a><%--sphygmomanometer--%>
             </form>
-            <form id="selectperformTest" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectperformTest" action="selectordertype" method="post" >
                 <input type="hidden" name="orderType" value="pergormTest"/>
                 <a href="javascript:displayperformTest();" id="performTest"
                    onclick="document.getElementById('selectperformTest').submit();">性能要求检验单</a><%--performTest--%>
             </form>
-            <form id="selectfinalTest" action="selectordertype" method="post" target="hidden_frame">
+            <form id="selectfinalTest" action="selectordertype" method="post" >
                 <input type="hidden" name="orderType" value="finalTest"/>
                 <a href="javascript:displayfinalTest();" id="finalTest"
                    onclick="document.getElementById('selectfinalTest').submit();">最终检验报告单</a><%--finalTest--%><%--上传到selectordertype--%>
