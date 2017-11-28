@@ -102,106 +102,146 @@ public class OrderController {
         catch (NullPointerException e){
             return "ordermanagement";
         }
+        Map<String,String> map = new HashMap<>();
         switch (orderType) {
             case "order":
                 if (orderService.selectOrder(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
             case  "memo":
                 if (memoService.selectMemo(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
             case  "remade":
                 if (remadeSercice.selectRemade(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
             case "aging":
                 if (agingService.selectAging(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
             case "pack":
                 if (packService.selectPack(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
             case "debug":
                 if (debugService.selectDebug(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
             case "processTest":
                 if (processTestService.selectPath(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
             case "machineTest":
                 if (machineTestService.selectPath(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
             case "productTest":
                 if (processTestService.selectPath(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
             case "sphygmomanometer":
                 if (sphygmomanometerService.selectPath(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
             case "performTest":
                 if (performTestService.selectPath(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
             case "finalTest":
                 if (finalTestService.selectPath(number) != null) {
-                    model.addAttribute("add", "已存在！");
+                    map.put("code","3");
+                    map.put("msg", "已存在！");
+                    model.addAllAttributes(map);
                     return "ordermanagement";
                 }
                 break;
         }
-        Map<String,String> map = new HashMap<>();
         List<MultipartFile> files = request.getFiles("uploadfile");
         MultipartFile file = null;
         BufferedOutputStream stream = null;
+        String path = null;
         for (int i = 0; i < files.size(); ++i) {
             file = files.get(i);
             if (!file.isEmpty()) {
                 try {
                     byte[] bytes = file.getBytes();
                     String name = UUID.randomUUID().toString();
-                    String path = request.getSession().getServletContext().getRealPath("/excel/" + name + ".xlsx");
+                    path = request.getSession().getServletContext().getRealPath("/excel/" + name + ".xlsx");
                     stream = new BufferedOutputStream(new FileOutputStream(new File(path)));
                     stream.write(bytes);
                     stream.close();
-                    orderType = request.getSession().getAttribute("orderType").toString();
-                    excelUtils.importExcel(path, number,orderType);
                 } catch (Exception e) {
-                    stream = null;
                     logger.error("文件上传失败：" + e.getMessage());
-                    return "文件 " + i + "上传失败 " + e.getMessage();
+                    map.put("code","3");
+                    map.put("msg","文件 " + i + "上传失败 ");
+                    model.addAllAttributes(map);
+                    return "ordermanagement";
 
                 }
             } else {
-                return "文件 " + i + " 为空，上传失败";
+                map.put("code","3");
+                map.put("msg","文件 " + i + "上传失败 ");
+                model.addAllAttributes(map);
+                return "ordermanagement";
             }
         }
+        try {
+            orderType = request.getSession().getAttribute("orderType").toString();
+            excelUtils.importExcel(path, number,orderType);
+        }
+        catch (Exception e){
+            map.put("code","3");
+            map.put("msg","添加文件失败");
+            model.addAllAttributes(map);
+            return "ordermanagement";
+        }
+        map.put("code","1");
+        model.addAttribute(map);
         return "ordermanagement";
     }
 
@@ -218,7 +258,7 @@ public class OrderController {
     @ResponseBody
     public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                                @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
-                               @RequestParam(value = "ps") String ps){
+                               @RequestParam(value = "ps") String ps, Model model){
         Map<String,String> map = new HashMap<>();
         try {
             String path =orderService.selectPath(orderNum);
@@ -229,7 +269,8 @@ public class OrderController {
             if(path == null){
                 map.put("code","2");
                 map.put("msg","不存在");
-                return map.toString();
+                model.addAllAttributes(map);
+                return "succes";
             }
             map = excelUtils.replaceExcel(path,"order", process, order);
             orderService.updateOrder(orderNum,process,operater,other,ps);
@@ -238,6 +279,7 @@ public class OrderController {
             logger.error("更新随工单异常" + e.getMessage());
             map.put("code","3");
         }
+        model.addAllAttributes(map);
         return "succes";
     }
 
@@ -313,7 +355,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping(path = "/deleteorderone")
-    public String deleteOrderOne(@RequestParam(value = "name") String orderNum, HttpSession session){
+    public String deleteOrderOne(@RequestParam(value = "name") String orderNum, HttpSession session, Model model){
         String orderType = session.getAttribute("orderType").toString();
         if(StringUtils.isBlank(orderType))
             return "ordermanagement";
@@ -360,7 +402,12 @@ public class OrderController {
         } catch (Exception e) {
             logger.error("删除随工单异常" + e.getMessage());
             map.put("code","3");
+            map.put("msg","删除失败");
+            model.addAllAttributes(map);
+            return "ordermanagement";
         }
+        map.put("code","1");
+        model.addAllAttributes(map);
         return "ordermanagement";
     }
 
@@ -371,7 +418,7 @@ public class OrderController {
      */
     @RequestMapping(path = "/deleteorderall")
     @Transactional(propagation= Propagation.REQUIRED )
-    public String deleteOrderAll(@RequestParam(value = "name") String orderNum){
+    public String deleteOrderAll(@RequestParam(value = "name") String orderNum, Model model){
         Map<String,String> map = new HashMap<>();
         try {
                 orderService.deleteOrder(orderNum);
@@ -390,7 +437,12 @@ public class OrderController {
          catch (Exception e) {
             logger.error("删除随工单异常" + e.getMessage());
             map.put("code","3");
+            map.put("msg","删除失败");
+            model.addAllAttributes(map);
+            return "ordermanagement";
         }
+        map.put("code","1");
+        model.addAllAttributes(map);
         return "ordermanagement";
     }
 
