@@ -94,10 +94,88 @@ public class OrderController {
      */
     @RequestMapping(path = "/addorder" , method = RequestMethod.POST)
     @Transactional(propagation= Propagation.REQUIRED )
-    public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number) throws IOException {
-        String orderType = request.getSession().getAttribute("orderType").toString();
-        if(StringUtils.isBlank(orderType))
+    public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number, Model model) throws IOException {
+        String orderType = null;
+        try {
+            orderType = request.getSession().getAttribute("orderType").toString();
+        }
+        catch (NullPointerException e){
             return "ordermanagement";
+        }
+        switch (orderType) {
+            case "order":
+                if (orderService.selectOrder(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+            case  "memo":
+                if (memoService.selectMemo(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+            case  "remade":
+                if (remadeSercice.selectRemade(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+            case "aging":
+                if (agingService.selectAging(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+            case "pack":
+                if (packService.selectPack(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+            case "debug":
+                if (debugService.selectDebug(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+            case "processTest":
+                if (processTestService.selectPath(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+            case "machineTest":
+                if (machineTestService.selectPath(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+            case "productTest":
+                if (processTestService.selectPath(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+            case "sphygmomanometer":
+                if (sphygmomanometerService.selectPath(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+            case "performTest":
+                if (performTestService.selectPath(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+            case "finalTest":
+                if (finalTestService.selectPath(number) != null) {
+                    model.addAttribute("add", "已存在！");
+                    return "ordermanagement";
+                }
+                break;
+        }
         Map<String,String> map = new HashMap<>();
         List<MultipartFile> files = request.getFiles("uploadfile");
         MultipartFile file = null;

@@ -99,14 +99,14 @@ public class RemadeSercice {
         return map;
     }
 
-//    /**
-//     *
-//     * @param orderNum  产品编号
-//     * @return          返回一个Remade的List集合
-//     */
-//    public List<Remade> selectRemade(String orderNum){
-//        return remadeDao.selectAll(orderNum);
-//    }
+    /**
+     *
+     * @param orderNum  产品编号
+     * @return          返回一个Remade的List集合
+     */
+    public List<Remade> selectRemade(String orderNum){
+        return remadeDao.selectAll(orderNum);
+    }
 
     /**
      *
