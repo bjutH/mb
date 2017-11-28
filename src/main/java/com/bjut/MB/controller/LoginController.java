@@ -24,6 +24,7 @@ public class LoginController {
     @RequestMapping(path = {"/homepage"})
     public String homepage(@RequestParam(value = "name") String user, @RequestParam(value = "password") String password, HttpSession session){
         session.setAttribute("name",user);
+        session.setAttribute("orderType","选择表类型");
         return "homepage";
     }
 }

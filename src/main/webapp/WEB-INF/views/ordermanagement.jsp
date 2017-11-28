@@ -313,19 +313,22 @@
     </script>
 
     <script type="text/javascript">
-        function checkform(){
+        function checkform1(){
+           var orderType = ${sessionScope.get("orderType")};
+            if(orderType =="选择表类型"){
+                alert('请选择随工单类型！');
+                return false;
+            }
             if(document.getElementById('inp1').value.length==0){
                 alert('路径为空！');
                 document.getElementById('ipt1').focus();
                 return false;
             }
             if(document.getElementById('inp1').value=="请输入搜索内容"){
-                alert('输入为空！');
+                alert('路径为空！');
                 document.getElementById('ipt1').focus();
                 return false;
             }
-        }
-        function checkform(){
             if(document.getElementById('inp2').value.length==0){
                 alert('输入为空！');
                 document.getElementById('ipt2').focus();
@@ -336,8 +339,26 @@
                 document.getElementById('ipt2').focus();
                 return false;
             }
+            return true;
         }
-        function checkform(){
+//        function checkform1(){
+//            if(document.getElementById('inp2').value.length==0){
+//                alert('输入为空！');
+//                document.getElementById('ipt2').focus();
+//                return false;
+//            }
+//            if(document.getElementById('inp2').value=="请输入搜索内容"){
+//                alert('输入为空！');
+//                document.getElementById('ipt2').focus();
+//                return false;
+//            }
+//        }
+        function checkform2(){
+            var orderType = ${sessionScope.get("orderType")};
+            if(orderType =="选择表类型"){
+                alert('请选择随工单类型！');
+                return false;
+            }
             if(document.getElementById('inp3').value.length==0){
                 alert('输入为空！');
                 document.getElementById('ipt3').focus();
@@ -348,8 +369,14 @@
                 document.getElementById('ipt3').focus();
                 return false;
             }
+            return true;
         }
-        function checkform(){
+        function checkform3(){
+            var orderType = ${sessionScope.get("orderType")};
+            if(orderType =="选择表类型"){
+                alert('请选择随工单类型！');
+                return false;
+            }
             if(document.getElementById('inp4').value.length==0){
                 alert('输入为空！');
                 document.getElementById('ipt4').focus();
@@ -360,6 +387,7 @@
                 document.getElementById('ipt4').focus();
                 return false;
             }
+            return true;
         }
     </script>
 
@@ -398,7 +426,7 @@
 
         <%--右侧下拉菜单，改上拉--%>
     <div class="dropdown" style="position: absolute; top: 0px; right: 0px">
-        <a id="test1" class="dropbtn">选择表类型</a>
+        <a id="test1" class="dropbtn">${sessionScope.get("orderType")}</a>
         <div class="dropdown-content" style="position: absolute;bottom: 100%">
             <form id="selectorder" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="order"/>
@@ -474,7 +502,7 @@
             <form action="addorder" method="post" enctype="multipart/form-data">
                 <p style="color:#a8a9b1 ">选择路径: <input id="inp1" type="file" name="uploadfile"/></p>
                 <p style="color:#a8a9b1 ">选择名称: <input id="inp2" type="text" name="number"/></p>
-                <input type="submit" value="Submit" onclick="checkform()"/>
+                <input type="submit" value="Submit" onclick="checkform1()"/>
             </form>
         </div>
     </div>
@@ -493,7 +521,7 @@
                 <!--输入删除的随单表号码-->
                 <p style="color: #a8a9b1">
                     随工单编号：<input id="inp3" name="name" type="text"/>
-                    <input type="submit" value="确定" onclick="checkform()" />
+                    <input type="submit" value="确定" onclick="checkform2()" />
                 </p>
             </form>
         </div>
@@ -532,7 +560,7 @@
         <div style="text-align:right; width: 300px">
             <form action="searchorder" method="get">
                 <input type="text" name="orderNum" class="search-input" placeholder="请输入单号" id="inp4"/>
-                <input type="submit" class="search-icon" value="搜索" style="color: #25283b;font-size: 15px" onclick="checkform()"/>
+                <input type="submit" class="search-icon" value="搜索" style="color: #25283b;font-size: 15px" onclick="checkform3()"/>
             </form>
         </div>
     </div>

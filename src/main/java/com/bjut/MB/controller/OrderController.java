@@ -95,17 +95,13 @@ public class OrderController {
     @RequestMapping(path = "/addorder" , method = RequestMethod.POST)
     @Transactional(propagation= Propagation.REQUIRED )
     public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number, Model model) throws IOException {
-        String orderType = null;
-        try {
-            orderType = request.getSession().getAttribute("orderType").toString();
-        }
-        catch (NullPointerException e){
+        String orderType = (request.getSession().getAttribute("orderType").toString());
+        if(orderType =="选择表类型")
             return "ordermanagement";
-        }
         Map<String,String> map = new HashMap<>();
         switch (orderType) {
             case "order":
-                if (orderService.selectOrder(number) != null) {
+                if (orderService.selectOrder(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -113,7 +109,7 @@ public class OrderController {
                 }
                 break;
             case  "memo":
-                if (memoService.selectMemo(number) != null) {
+                if (memoService.selectMemo(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -121,7 +117,7 @@ public class OrderController {
                 }
                 break;
             case  "remade":
-                if (remadeSercice.selectRemade(number) != null) {
+                if (remadeSercice.selectRemade(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -129,7 +125,7 @@ public class OrderController {
                 }
                 break;
             case "aging":
-                if (agingService.selectAging(number) != null) {
+                if (agingService.selectAging(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -137,7 +133,7 @@ public class OrderController {
                 }
                 break;
             case "pack":
-                if (packService.selectPack(number) != null) {
+                if (packService.selectPack(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -145,7 +141,7 @@ public class OrderController {
                 }
                 break;
             case "debug":
-                if (debugService.selectDebug(number) != null) {
+                if (debugService.selectDebug(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -153,7 +149,7 @@ public class OrderController {
                 }
                 break;
             case "processTest":
-                if (processTestService.selectPath(number) != null) {
+                if (processTestService.selectProcessTest(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -161,7 +157,7 @@ public class OrderController {
                 }
                 break;
             case "machineTest":
-                if (machineTestService.selectPath(number) != null) {
+                if (machineTestService.selectMachineTest(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -169,7 +165,7 @@ public class OrderController {
                 }
                 break;
             case "productTest":
-                if (processTestService.selectPath(number) != null) {
+                if (productTestService.selectProductTest(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -177,7 +173,7 @@ public class OrderController {
                 }
                 break;
             case "sphygmomanometer":
-                if (sphygmomanometerService.selectPath(number) != null) {
+                if (sphygmomanometerService.selectSphygmomanometer(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -185,7 +181,7 @@ public class OrderController {
                 }
                 break;
             case "performTest":
-                if (performTestService.selectPath(number) != null) {
+                if (performTestService.selectPerformTest(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -193,7 +189,7 @@ public class OrderController {
                 }
                 break;
             case "finalTest":
-                if (finalTestService.selectPath(number) != null) {
+                if (finalTestService.selectFinalTest(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
@@ -296,8 +292,8 @@ public class OrderController {
      */
     @RequestMapping(path = "/show")
     public String selectOrder(HttpSession session){
-        String orderType = session.getAttribute("orderType").toString();
-        if(StringUtils.isBlank(orderType))
+        String orderType = (session.getAttribute("orderType").toString());
+        if(orderType =="选择表类型")
             return "ordermanagement";
         String user = session.getAttribute("name").toString();
         String path = null;
@@ -356,8 +352,8 @@ public class OrderController {
      */
     @RequestMapping(path = "/deleteorderone")
     public String deleteOrderOne(@RequestParam(value = "name") String orderNum, HttpSession session, Model model){
-        String orderType = session.getAttribute("orderType").toString();
-        if(StringUtils.isBlank(orderType))
+        String orderType = (session.getAttribute("orderType").toString());
+        if(orderType =="选择表类型")
             return "ordermanagement";
         Map<String,String> map = new HashMap<>();
         try {
