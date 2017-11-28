@@ -1,3 +1,4 @@
+<%@ page import="sun.org.mozilla.javascript.internal.Function" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!--本地用引用路径-->
+    <!--引用路径-->
     <link href="https://fonts.googleapis.com/css?family=David+Libre|Hind:400,700" rel="stylesheet"/>
     <link rel="stylesheet" href="../css/css-order/reset.css"/> <!-- CSS reset -->
     <link rel="stylesheet" type="text/css" href="../css/css-order/htmleaf-demo.css"/>
@@ -16,10 +17,7 @@
     <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="../js/js-order/main.js"></script> <!-- Resource jQuery -->
     <script type="text/javascript" src="../../pageoffice.js" id="po_js_main"></script>
-    <!--没找到-->
-    <%--<script type="text/javascript" src="../pageoffice.js" id="po_js_main"></script>--%>
 
-    <!--myjs-->
     <!--divaddt伸缩-->
     <script type="text/javascript">
         $(function () {
@@ -217,14 +215,6 @@
         }
     </script>
 
-    <!--选择不同的表-->
-    <script type="text/javascript">
-        function chosetable() {
-            var content;
-            content = $("#this").text();
-        }
-    </script>
-
     <!--搜索的action-->
     <script type="text/javascript">
         function searchToggle(obj, evt) {
@@ -271,7 +261,55 @@
 
     </script>
 
+    <script type="text/javascript">
+        function displayorder() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("order").innerText;
+        };
 
+        function displaymemo() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("memo").innerText;
+        };
+
+        function displayremade() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("remade").innerText;
+        };
+
+        function displayaging() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("aging").innerText;
+        };
+
+        function displaypack() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("pack").innerText;
+        };
+
+        function displaydebug() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("debug").innerText;
+        };
+
+        function displayprocessTest() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("processTest").innerText;
+        };
+
+        function displaymachineTest() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("machineTest").innerText;
+        };
+
+        function displayproductTest() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("productTest").innerText;
+        };
+
+        function displaysphygmomanometer() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("sphygmomanometer").innerText;
+        };
+
+        function displayperformTest() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("performTest").innerText;
+        };
+
+        function displayfinalTest() {
+            document.getElementById("test1").innerText = "当前类型：" + document.getElementById("finalTest").innerText;
+        };
+    </script>
 
 </head>
 <body>
@@ -287,7 +325,8 @@
 </section> <!-- .cd-hero -->
 
 <nav class="cd-secondary-nav">
-
+    <%--避免刷新，不能接收返回--%>
+    <iframe name='hidden_frame' id="hidden_frame" style="display:none"></iframe>
     <!--左侧操作，增/删/改-->
     <div style="display: inline;width: 100px">
         <div>
@@ -301,85 +340,70 @@
             </ul>
         </div>
     </div>
+        <div style="position: relative; text-align: center ;max-height: 50px; min-width: 100px;top: -70px;">
+            <a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');">打开当前选择的文件</a>
+        </div>
 
-    <!--中间搜索-->
-    <%--<div style="display: inline;width: 300px">--%>
-    <%--<div class="search-wrapper">--%>
-    <%--<div class="input-holder">--%>
-    <%--<form action="searchorder" method="get">--%>
-    <%--<input type="text" name="orderNum" class="search-input" placeholder="请输入单号"/>--%>
-    <%--<input type="submit" class="search-icon" onclick="searchToggle(this,event)" value="搜索"--%>
-    <%--style="color: #25283b;font-size: 15px"/>--%>
-    <%--</form>--%>
-    <%--</div>--%>
-    <%--<span class="close" onclick="searchToggle(this, event);"></span>--%>
-    <%--</div>--%>
-    <%--</div>--%>
-    <!--搜索-->
-    <!--右侧操作，选择表-->
-    <div class="dropdown" style="position: absolute; top: 0px;left: 80%">
-        <a class="dropbtn">选择随工单类型</a>
-        <div class="dropdown-content">
-            <%--<a id="ct1" href="#" onclick="chosetable()">老化观测表</a>--%>
-            <%--<a href="#">整机调试报告单</a>--%>
-            <%--<a href="#">最终检验报告单</a>--%>
-            <%--<a href="#">整机检验报告单</a>--%>
-            <%--<a href="#">仪器备忘录</a>--%>
-            <%--<a href="#">随工单表</a>--%>
-            <%--<a href="#">装箱记录单</a>--%>
-            <%--<a href="#">性能要求检验单</a>--%>
-            <%--<a href="#">工序检验报告单</a>--%>
-            <%--<a href="#">成品检验报告单</a>--%>
-            <%--<a href="#">返工记录表</a>--%>
-            <%--<a href="#">血压计检定报告单</a>--%>
-            <%--<a href="#">+添加新的表+</a>--%>
-            <form id="selectorder" action="selectordertype" method="post">
+        <%--右侧下拉菜单，改上拉--%>
+    <div class="dropdown" style="position: absolute; top: 0px; right: 0px">
+        <a id="test1" class="dropbtn">选择表类型</a>
+        <div class="dropdown-content" style="position: absolute;bottom: 100%">
+            <form id="selectorder" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="order"/>
-                <a href="#" id="order" onclick="document.getElementById('selectorder').submit();">随工单表</a><%--order--%>
+                <a href="javascript:displayorder();" id="order"
+                   onclick="document.getElementById('selectorder').submit();">随工单</a><%--order--%>
             </form>
-            <form id="selectmemo" action="selectordertype" method="post">
+            <form id="selectmemo" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="memo"/>
-                <a href="#" id="memo" onclick="document.getElementById('selectmemo').submit();">仪器备忘录</a><%--memo--%>
+                <a href="javascript:displaymemo();" id="memo" onclick="document.getElementById('selectmemo').submit();">仪器备忘录</a><%--memo--%>
             </form>
-            <form id="selectremade" action="selectordertype" method="post">
+            <form id="selectremade" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="remade"/>
-                <a href="#" id="remade" onclick="document.getElementById('selectremade').submit();">返工记录表</a><%--remade--%>
+                <a href="javascript:displayremade();" id="remade"
+                   onclick="document.getElementById('selectremade').submit();">返工记录表</a><%--remade--%>
             </form>
-            <form id="selectaging" action="selectordertype" method="post">
+            <form id="selectaging" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="aging"/>
-                <a href="#" id="aging" onclick="document.getElementById('selectaging').submit();">老化观测表</a><%--aging--%>
+                <a href="javascript:displayaging();" id="aging"
+                   onclick="document.getElementById('selectaging').submit();">老化观测表</a><%--aging--%>
             </form>
-            <form id="selectpack" action="selectordertype" method="post">
+            <form id="selectpack" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="pack"/>
-                <a href="#" id="pack" onclick="document.getElementById('selectpack').submit();">装箱记录单</a><%--pack--%>
+                <a href="javascript:displaypack();" id="pack" onclick="document.getElementById('selectpack').submit();">装箱记录单</a><%--pack--%>
             </form>
-            <form id="selectdebug" action="selectordertype" method="post">
+            <form id="selectdebug" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="debug"/>
-                <a href="#" id="debug" onclick="document.getElementById('selectdebug').submit();">整机调试报告单</a><%--debug--%>
+                <a href="javascript:displaydebug();" id="debug"
+                   onclick="document.getElementById('selectdebug').submit();">整机调试报告单</a><%--debug--%>
             </form>
-            <form id="selectprocessTest" action="selectordertype" method="post">
+            <form id="selectprocessTest" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="processTest"/>
-                <a href="#" id="processTest" onclick="document.getElementById('selectprocessTest').submit();">工序检验报告单</a><%--processTest--%>
+                <a href="javascript:displayprocessTest();" id="processTest"
+                   onclick="document.getElementById('selectprocessTest').submit();">工序检验报告单</a><%--processTest--%>
             </form>
-            <form id="selectmachineTest" action="selectordertype" method="post">
+            <form id="selectmachineTest" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="machineTest"/>
-                <a href="#" id="machineTest" onclick="document.getElementById('selectmachineTest').submit();">整机检验报告单</a><%--machineTest--%>
+                <a href="javascript:displaymachineTest();" id="machineTest"
+                   onclick="document.getElementById('selectmachineTest').submit();">整机检验报告单</a><%--machineTest--%>
             </form>
-            <form id="selectproductTest" action="selectordertype" method="post">
+            <form id="selectproductTest" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="progressTest"/>
-                <a href="#" id="productTest" onclick="document.getElementById('selectproductTest').submit();">成品检验报告单</a><%--productTest--%>
+                <a href="javascript:displayproductTest();" id="productTest"
+                   onclick="document.getElementById('selectproductTest').submit();">成品检验报告单</a><%--productTest--%>
             </form>
-            <form id="selectsphygmomanometer" action="selectordertype" method="post">
+            <form id="selectsphygmomanometer" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="sphygmomanometer"/>
-                <a href="#" id="sphygmomanometer" onclick="document.getElementById('selectsphygmomanometer').submit();">血压计检定报告单</a><%--sphygmomanometer--%>
+                <a href="javascript:displaysphygmomanometer();" id="sphygmomanometer"
+                   onclick="document.getElementById('selectsphygmomanometer').submit();">血压计检定报告单</a><%--sphygmomanometer--%>
             </form>
-            <form id="selectperformTest" action="selectordertype" method="post">
+            <form id="selectperformTest" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="pergormTest"/>
-                <a href="#" id="performTest" onclick="document.getElementById('selectperformTest').submit();">性能要求检验单</a><%--performTest--%>
+                <a href="javascript:displayperformTest();" id="performTest"
+                   onclick="document.getElementById('selectperformTest').submit();">性能要求检验单</a><%--performTest--%>
             </form>
-            <form id="selectfinalTest" action="selectordertype" method="post">
+            <form id="selectfinalTest" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="finalTest"/>
-                <a href="#" id="finalTest"
+                <a href="javascript:displayfinalTest();" id="finalTest"
                    onclick="document.getElementById('selectfinalTest').submit();">最终检验报告单</a><%--finalTest--%><%--上传到selectordertype--%>
             </form>
         </div>
@@ -404,7 +428,7 @@
     </div>
 
     <!--删除块-->
-    <%--Json，弹出窗口--%>
+    <%--map，弹出窗口--%>
     <div id="divdelet" style="width: 390px;
     height: 30px;
     background-color: #25283b;
@@ -424,8 +448,8 @@
     </div>
 
     <!--上传块-->
-    <%--Json，弹出窗口--%>
-    <div id="divupdata" style="width: 450px;
+    <%--map，弹出窗口--%>
+    <div id="divupdata" style="width: 390px;
     height: 140px;
     background-color: #25283b;
     overflow: hidden;
@@ -446,7 +470,7 @@
 
     <!--搜索-->
     <%--Json，弹出窗口--%>
-    <div id="divsearch" style="width: 530px;
+    <div id="divsearch" style="width: 390px;
     height: 40px;
     background-color: #25283b;
     overflow: hidden;
@@ -466,25 +490,50 @@
 <main class="cd-main-content sub-nav-hero">
     <div>
         <header class="htmleaf-header">
+            <%--<div id="ordertype" class="htmleaf-demo center">--%>
+                <%--<a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');">打开当前选择的文件</a>--%>
+            <%--</div>--%>
             <h1>随工单管理</h1>
-            <div class="htmleaf-demo center">
-                <a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');">打开当前选择的文件</a>
-            </div>
             <h1><span>页面说明：当前页面可对随工单进行增删改查操作</span></h1>
         </header>
-
-        <%--<div id="uploader" class="wu-example">--%>
-            <%--<!--用来存放文件信息-->--%>
-            <%--<div id="thelist" class="uploader-list"></div>--%>
-            <%--<div class="btns">--%>
-                <%--<button id="picker" class="btn btn-default">选择文件</button>--%>
-
-                <%--&lt;%&ndash;<div id="picker">选择文件</div>&ndash;%&gt;--%>
-                <%--<button id="ctlBtn" class="btn btn-default">开始上传</button>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
+        <p>
+            dasfjfkhjndjnklnklmkmm,mf
+        </p>
     </div>
-</main> <!-- .cd-main-content -->
+</main>
+<!-- .cd-main-content -->
 </body>
 </html>
