@@ -100,15 +100,16 @@ public class OrderController {
             return "ordermanagement";
         Map<String,String> map = new HashMap<>();
         switch (orderType) {
-            case "order":
+            case "随工单":
                 if (orderService.selectOrder(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
+                    request.getSession().setAttribute("msg","已存在！");
                     return "ordermanagement";
                 }
                 break;
-            case  "memo":
+            case  "仪器备忘录":
                 if (memoService.selectMemo(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
@@ -116,7 +117,7 @@ public class OrderController {
                     return "ordermanagement";
                 }
                 break;
-            case  "remade":
+            case  "返工记录表":
                 if (remadeSercice.selectRemade(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
@@ -124,7 +125,7 @@ public class OrderController {
                     return "ordermanagement";
                 }
                 break;
-            case "aging":
+            case "老化观测表":
                 if (agingService.selectAging(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
@@ -132,7 +133,7 @@ public class OrderController {
                     return "ordermanagement";
                 }
                 break;
-            case "pack":
+            case "装箱记录单":
                 if (packService.selectPack(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
@@ -140,7 +141,7 @@ public class OrderController {
                     return "ordermanagement";
                 }
                 break;
-            case "debug":
+            case "整机调试报告单":
                 if (debugService.selectDebug(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
@@ -148,7 +149,7 @@ public class OrderController {
                     return "ordermanagement";
                 }
                 break;
-            case "processTest":
+            case "工序检验报告单":
                 if (processTestService.selectProcessTest(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
@@ -156,7 +157,7 @@ public class OrderController {
                     return "ordermanagement";
                 }
                 break;
-            case "machineTest":
+            case "整机检验报告单":
                 if (machineTestService.selectMachineTest(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
@@ -164,7 +165,7 @@ public class OrderController {
                     return "ordermanagement";
                 }
                 break;
-            case "productTest":
+            case "成品检验报告单":
                 if (productTestService.selectProductTest(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
@@ -172,7 +173,7 @@ public class OrderController {
                     return "ordermanagement";
                 }
                 break;
-            case "sphygmomanometer":
+            case "血压计检定报告单":
                 if (sphygmomanometerService.selectSphygmomanometer(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
@@ -180,7 +181,7 @@ public class OrderController {
                     return "ordermanagement";
                 }
                 break;
-            case "performTest":
+            case "性能要求检验单":
                 if (performTestService.selectPerformTest(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
@@ -188,7 +189,7 @@ public class OrderController {
                     return "ordermanagement";
                 }
                 break;
-            case "finalTest":
+            case "最终检验报告单":
                 if (finalTestService.selectFinalTest(number).size() != 0) {
                     map.put("code","3");
                     map.put("msg", "已存在！");
@@ -303,40 +304,40 @@ public class OrderController {
             session.setAttribute("OpenModeType" , "OpenModeType.xlsReadOnly");
         String orderNum = session.getAttribute("orderNum").toString();
         switch (orderType){
-            case "order":
+            case "随工单":
                 path = orderService.selectPath(orderNum);
                 break;
-            case  "memo":
+            case  "仪器备忘录":
                 path = memoService.selectPath(orderNum);
                 break;
-            case  "remade":
+            case  "返工记录表":
                 path = remadeSercice.selectPath(orderNum);
                 break;
-            case "aging":
+            case "老化观测表":
                 path = agingService.selectPath(orderNum);
                 break;
-            case "pack":
+            case "装箱记录单":
                 path = packService.selectPath(orderNum);
                 break;
-            case "debug":
+            case "整机调试报告单":
                 path = debugService.selectPath(orderNum);
                 break;
-            case "processTest":
+            case "工序检验报告单":
                 path = processTestService.selectPath(orderNum);
                 break;
-            case "machineTest":
+            case "整机检验报告单":
                 path = machineTestService.selectPath(orderNum);
                 break;
-            case "productTest":
+            case "成品检验报告单":
                 path = productTestService.selectPath(orderNum);
                 break;
-            case "sphygmomanometer":
+            case "血压计检定报告单":
                 path = sphygmomanometerService.selectPath(orderNum);
                 break;
-            case "performTest":
+            case "性能要求检验单":
                 path = performTestService.selectPath(orderNum);
                 break;
-            case "finalTest":
+            case "最终检验报告单":
                 path = finalTestService.selectPath(orderNum);
                 break;
         }

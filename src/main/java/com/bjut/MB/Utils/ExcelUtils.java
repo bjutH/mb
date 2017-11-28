@@ -39,6 +39,8 @@ public class ExcelUtils {
     @Autowired
     private YiqiDao yiqiDao;
     @Autowired
+    private RemadeDao remadeDao;
+    @Autowired
     private AgingDao agingDao;
     @Autowired
     private PackDao packDao;
@@ -116,37 +118,37 @@ public class ExcelUtils {
                 if(cellValue.contains("$")){
                     process = cellValue.substring(1, cellValue.length());
                     switch (type){
-                        case "order":
+                        case "随工单":
                             orderDao.addItem(id, process, modelPath);
                             break;
-                        case  "memo":
+                        case  "仪器备忘录":
                             yiqiDao.addItem(id, process, modelPath);
                             break;
-                        case "aging":
+                        case "老化观测表":
                             agingDao.addItem(id, process, modelPath);
                             break;
-                        case "pack":
+                        case "装箱记录单":
                             packDao.addItem(id, process, modelPath);
                             break;
-                        case "debug":
+                        case "整机调试报告单":
                             debugDao.addItem(id, process, modelPath);
                             break;
-                        case "processTest":
+                        case "工序检验报告单":
                             processTestDao.addItem(id, process, modelPath);
                             break;
-                        case "machineTest":
+                        case "整机检验报告单":
                             machineTestDao.addItem(id, process, modelPath);
                             break;
-                        case "productTest":
-                            processTestDao.addItem(id, process, modelPath);
+                        case "成品检验报告单":
+                            productTestDao.addItem(id, process, modelPath);
                             break;
-                        case "sphygmomanometer":
+                        case "血压计检定报告单":
                             sphygmomanometerDao.addItem(id, process, modelPath);
                             break;
-                        case "performTest":
+                        case "性能要求检验单":
                             performTestDao.addItem(id, process, modelPath);
                             break;
-                        case "finalTest":
+                        case "最终检验报告单":
                             finalTestDao.addItem(id, process, modelPath);
                             break;
                     }
@@ -275,7 +277,7 @@ public class ExcelUtils {
                         String string = cellValue.substring(1, cellValue.length() - 1);
                         if (string.equals(process)) {
                             switch (type) {
-                                case "order":
+                                case "随工单":
                                     switch (last) {
                                         case "1":
                                             value = ((Order) object).getOperater();
@@ -288,7 +290,7 @@ public class ExcelUtils {
                                             break;
                                     }
                                     break;
-                                case "memo":
+                                case "仪器备忘录":
                                     switch (last) {
                                         case "1":
                                             value = ((Memo) object).getNumber();
@@ -313,7 +315,7 @@ public class ExcelUtils {
                                             break;
                                     }
                                     break;
-                                case "aging":
+                                case "老化观测表":
                                     switch (last) {
                                         case "1":
                                             value = ((Aging) object).getResult();
@@ -335,7 +337,7 @@ public class ExcelUtils {
                                             break;
                                     }
                                     break;
-                                case "pack":
+                                case "装箱记录单":
                                     switch (last) {
                                         case "1":
                                             value = ((Pack) object).getResult();
@@ -348,7 +350,7 @@ public class ExcelUtils {
                                             break;
                                     }
                                     break;
-                                case "debug":
+                                case "整机调试报告单":
                                     switch (last) {
                                         case "1":
                                             value = ((Debug) object).getData();
@@ -370,7 +372,7 @@ public class ExcelUtils {
                                             break;
                                     }
                                     break;
-                                case "processTest":
+                                case "工序检验报告单":
                                     switch (last) {
                                         case "1":
                                             value = ((ProcessTest) object).getData();
@@ -392,7 +394,7 @@ public class ExcelUtils {
                                             break;
                                     }
                                     break;
-                                case "machineTest":
+                                case "整机检验报告单":
                                     switch (last) {
                                         case "1":
                                             value = ((MachineTest) object).getData();
@@ -405,7 +407,7 @@ public class ExcelUtils {
                                             break;
                                     }
                                     break;
-                                case "productTest":
+                                case "成品检验报告单":
                                     switch (last) {
                                         case "1":
                                             value = ((ProductTest) object).getData();
@@ -418,7 +420,7 @@ public class ExcelUtils {
                                             break;
                                     }
                                     break;
-                                case "sphygmomanometer":
+                                case "血压计检定报告单":
                                     switch (last) {
                                         case "1":
                                             value = ((Sphygmomanometer) object).getData();
@@ -431,7 +433,7 @@ public class ExcelUtils {
                                             break;
                                     }
                                     break;
-                                case "performTest":
+                                case "性能要求检验单":
                                     switch (last) {
                                         case "1":
                                             value = ((PerformTest) object).getData();
@@ -444,7 +446,7 @@ public class ExcelUtils {
                                             break;
                                     }
                                     break;
-                                case "finalTest":
+                                case "最终检验报告单":
                                     String[] strings = ((FinalTest) object).getResult().split("|");
                                     switch (last) {
                                         case "1":

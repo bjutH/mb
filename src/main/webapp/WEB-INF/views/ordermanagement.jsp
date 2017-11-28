@@ -1,4 +1,5 @@
 <%@ page import="sun.org.mozilla.javascript.internal.Function" %>
+<%@ page import="org.springframework.ui.Model" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,7 +18,6 @@
     <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="../js/js-order/main.js"></script> <!-- Resource jQuery -->
     <script type="text/javascript" src="../../pageoffice.js" id="po_js_main"></script>
-
     <!--divaddt伸缩-->
     <script type="text/javascript">
         $(function () {
@@ -314,7 +314,7 @@
 
     <script type="text/javascript">
         function checkform1(){
-           var orderType = ${sessionScope.get("orderType")};
+           var orderType = "${sessionScope.get("orderType")}";
             if(orderType =="选择表类型"){
                 alert('请选择随工单类型！');
                 return false;
@@ -354,7 +354,7 @@
 //            }
 //        }
         function checkform2(){
-            var orderType = ${sessionScope.get("orderType")};
+            var orderType = "${sessionScope.get("orderType")}";
             if(orderType =="选择表类型"){
                 alert('请选择随工单类型！');
                 return false;
@@ -372,7 +372,7 @@
             return true;
         }
         function checkform3(){
-            var orderType = ${sessionScope.get("orderType")};
+            var orderType = "${sessionScope.get("orderType")}";
             if(orderType =="选择表类型"){
                 alert('请选择随工单类型！');
                 return false;
@@ -429,61 +429,61 @@
         <a id="test1" class="dropbtn">${sessionScope.get("orderType")}</a>
         <div class="dropdown-content" style="position: absolute;bottom: 100%">
             <form id="selectorder" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="order"/>
-                <a href="javascript:displayorder();" id="order"
+                <input type="hidden" name="orderType" value="随工单"/>
+                <a href="selectordertype?orderType=随工单;" id="order"
                    onclick="document.getElementById('selectorder').submit();">随工单</a><%--order--%>
             </form>
             <form id="selectmemo" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="memo"/>
-                <a href="javascript:displaymemo();" id="memo" onclick="document.getElementById('selectmemo').submit();">仪器备忘录</a><%--memo--%>
+                <input type="hidden" name="orderType" value="仪器备忘录"/>
+                <a href="selectordertype?orderType=仪器备忘录;" id="memo" onclick="document.getElementById('selectmemo').submit();">仪器备忘录</a><%--memo--%>
             </form>
             <form id="selectremade" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="remade"/>
-                <a href="javascript:displayremade();" id="remade"
+                <input type="hidden" name="orderType" value="返工记录表"/>
+                <a href="selectordertype?orderType=返工记录表;" id="remade"
                    onclick="document.getElementById('selectremade').submit();">返工记录表</a><%--remade--%>
             </form>
             <form id="selectaging" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="aging"/>
-                <a href="javascript:displayaging();" id="aging"
+                <input type="hidden" name="orderType" value="老化观测表"/>
+                <a href="selectordertype?orderType=老化观测表;" id="aging"
                    onclick="document.getElementById('selectaging').submit();">老化观测表</a><%--aging--%>
             </form>
             <form id="selectpack" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="pack"/>
-                <a href="javascript:displaypack();" id="pack" onclick="document.getElementById('selectpack').submit();">装箱记录单</a><%--pack--%>
+                <input type="hidden" name="orderType" value="装箱记录单"/>
+                <a href="selectordertype?orderType=装箱记录单;" id="pack" onclick="document.getElementById('selectpack').submit();">装箱记录单</a><%--pack--%>
             </form>
             <form id="selectdebug" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="debug"/>
-                <a href="javascript:displaydebug();" id="debug"
+                <input type="hidden" name="orderType" value="整机调试报告单"/>
+                <a href="selectordertype?orderType=整机调试报告单;" id="debug"
                    onclick="document.getElementById('selectdebug').submit();">整机调试报告单</a><%--debug--%>
             </form>
             <form id="selectprocessTest" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="processTest"/>
-                <a href="javascript:displayprocessTest();" id="processTest"
+                <input type="hidden" name="orderType" value="工序检验报告单"/>
+                <a href="selectordertype?orderType=工序检验报告单;" id="processTest"
                    onclick="document.getElementById('selectprocessTest').submit();">工序检验报告单</a><%--processTest--%>
             </form>
             <form id="selectmachineTest" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="machineTest"/>
-                <a href="javascript:displaymachineTest();" id="machineTest"
+                <input type="hidden" name="orderType" value="整机检验报告单"/>
+                <a href="selectordertype?orderType=整机检验报告单;" id="machineTest"
                    onclick="document.getElementById('selectmachineTest').submit();">整机检验报告单</a><%--machineTest--%>
             </form>
             <form id="selectproductTest" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="progressTest"/>
-                <a href="javascript:displayproductTest();" id="productTest"
+                <input type="hidden" name="orderType" value="成品检验报告单"/>
+                <a href="selectordertype?orderType=成品检验报告单;" id="productTest"
                    onclick="document.getElementById('selectproductTest').submit();">成品检验报告单</a><%--productTest--%>
             </form>
             <form id="selectsphygmomanometer" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="sphygmomanometer"/>
-                <a href="javascript:displaysphygmomanometer();" id="sphygmomanometer"
+                <input type="hidden" name="orderType" value="血压计检定报告单"/>
+                <a href="selectordertype?orderType=血压计检定报告单;" id="sphygmomanometer"
                    onclick="document.getElementById('selectsphygmomanometer').submit();">血压计检定报告单</a><%--sphygmomanometer--%>
             </form>
             <form id="selectperformTest" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="pergormTest"/>
-                <a href="javascript:displayperformTest();" id="performTest"
+                <input type="hidden" name="orderType" value="性能要求检验单"/>
+                <a href="selectordertype?orderType=性能要求检验单;" id="performTest"
                    onclick="document.getElementById('selectperformTest').submit();">性能要求检验单</a><%--performTest--%>
             </form>
             <form id="selectfinalTest" action="selectordertype" method="post" target="hidden_frame">
-                <input type="hidden" name="orderType" value="finalTest"/>
-                <a href="javascript:displayfinalTest();" id="finalTest"
+                <input type="hidden" name="orderType" value="最终检验报告单"/>
+                <a href="selectordertype?orderType=最终检验报告单;" id="finalTest"
                    onclick="document.getElementById('selectfinalTest').submit();">最终检验报告单</a><%--finalTest--%><%--上传到selectordertype--%>
             </form>
         </div>
