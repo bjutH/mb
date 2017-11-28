@@ -261,6 +261,7 @@
 
     </script>
 
+    <%--form加iframe,避免更新，--%>
     <script type="text/javascript">
         function displayorder() {
             document.getElementById("test1").innerText = "当前类型：" + document.getElementById("order").innerText;
@@ -311,6 +312,57 @@
         };
     </script>
 
+    <script type="text/javascript">
+        function checkform(){
+            if(document.getElementById('inp1').value.length==0){
+                alert('路径为空！');
+                document.getElementById('ipt1').focus();
+                return false;
+            }
+            if(document.getElementById('inp1').value=="请输入搜索内容"){
+                alert('输入为空！');
+                document.getElementById('ipt1').focus();
+                return false;
+            }
+        }
+        function checkform(){
+            if(document.getElementById('inp2').value.length==0){
+                alert('输入为空！');
+                document.getElementById('ipt2').focus();
+                return false;
+            }
+            if(document.getElementById('inp2').value=="请输入搜索内容"){
+                alert('输入为空！');
+                document.getElementById('ipt2').focus();
+                return false;
+            }
+        }
+        function checkform(){
+            if(document.getElementById('inp3').value.length==0){
+                alert('输入为空！');
+                document.getElementById('ipt3').focus();
+                return false;
+            }
+            if(document.getElementById('inp3').value=="请输入搜索内容"){
+                alert('输入为空！');
+                document.getElementById('ipt3').focus();
+                return false;
+            }
+        }
+        function checkform(){
+            if(document.getElementById('inp4').value.length==0){
+                alert('输入为空！');
+                document.getElementById('ipt4').focus();
+                return false;
+            }
+            if(document.getElementById('inp4').value=="请输入搜索内容"){
+                alert('输入为空！');
+                document.getElementById('ipt4').focus();
+                return false;
+            }
+        }
+    </script>
+
 </head>
 <body>
 <%@include file="header.jsp" %>
@@ -340,9 +392,9 @@
             </ul>
         </div>
     </div>
-        <div style="position: relative; text-align: center ;max-height: 50px; min-width: 100px;top: -70px;">
-            <a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');">打开当前选择的文件</a>
-        </div>
+        <%--<div style="position: relative; text-align: center ;max-height: 50px; min-width: 100px;top: -70px;">--%>
+            <%--<a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');">打开当前选择的文件</a>--%>
+        <%--</div>--%>
 
         <%--右侧下拉菜单，改上拉--%>
     <div class="dropdown" style="position: absolute; top: 0px; right: 0px">
@@ -420,9 +472,9 @@
     box-shadow: 5px 5px 10px #888888">
         <div style="text-align:left;">
             <form action="addorder" method="post" enctype="multipart/form-data">
-                <p style="color:#a8a9b1 ">选择路径: <input type="file" name="uploadfile"/></p>
-                <p style="color:#a8a9b1 ">选择名称: <input type="text" name="number"/></p>
-                <input type="submit" value="Submit"/>
+                <p style="color:#a8a9b1 ">选择路径: <input id="inp1" type="file" name="uploadfile"/></p>
+                <p style="color:#a8a9b1 ">选择名称: <input id="inp2" type="text" name="number"/></p>
+                <input type="submit" value="Submit" onclick="checkform()"/>
             </form>
         </div>
     </div>
@@ -440,8 +492,8 @@
             <form action="deleteorder" method="get">
                 <!--输入删除的随单表号码-->
                 <p style="color: #a8a9b1">
-                    随工单编号：<input name="name" type="text"/>
-                    <input type="submit" value="确定"/>
+                    随工单编号：<input id="inp3" name="name" type="text"/>
+                    <input type="submit" value="确定" onclick="checkform()" />
                 </p>
             </form>
         </div>
@@ -479,8 +531,8 @@
     box-shadow: 5px 5px 10px #888888">
         <div style="text-align:right; width: 300px">
             <form action="searchorder" method="get">
-                <input type="text" name="orderNum" class="search-input" placeholder="请输入单号"/>
-                <input type="submit" class="search-icon" value="搜索" style="color: #25283b;font-size: 15px"/>
+                <input type="text" name="orderNum" class="search-input" placeholder="请输入单号" id="inp4"/>
+                <input type="submit" class="search-icon" value="搜索" style="color: #25283b;font-size: 15px" onclick="checkform()"/>
             </form>
         </div>
     </div>
@@ -490,48 +542,12 @@
 <main class="cd-main-content sub-nav-hero">
     <div>
         <header class="htmleaf-header">
-            <%--<div id="ordertype" class="htmleaf-demo center">--%>
-                <%--<a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');">打开当前选择的文件</a>--%>
-            <%--</div>--%>
+            <div id="ordertype" class="htmleaf-demo center">
+                <a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');">打开当前选择的文件</a>
+            </div>
             <h1>随工单管理</h1>
             <h1><span>页面说明：当前页面可对随工单进行增删改查操作</span></h1>
         </header>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
-        <p>
-            dasfjfkhjndjnklnklmkmm,mf
-        </p>
     </div>
 </main>
 <!-- .cd-main-content -->
