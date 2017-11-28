@@ -292,11 +292,11 @@
     <div style="display: inline;width: 100px">
         <div>
             <ul>
-                <li style="float: left"><a href="#0" id="edit">修改</a></li>
-                <li style="float: left"><a href="#0" id="save">保存</a></li>
+                <%--<li style="float: left"><a href="#0" id="edit">修改</a></li>--%>
+                <%--<li style="float: left"><a href="#0" id="save">保存</a></li>--%>
                 <li style="float: left"><a href="#0" id="add">添加表</a></li>
                 <li style="float: left"><a href="#0" id="delet">删除表</a></li>
-                <li style="float: left"><a href="#0" id="updata">上传表</a></li>
+                <%--<li style="float: left"><a href="#0" id="updata">上传表</a></li>--%>
                 <li style="float: left"><a href="#0" id="search">搜索表</a></li>
             </ul>
         </div>

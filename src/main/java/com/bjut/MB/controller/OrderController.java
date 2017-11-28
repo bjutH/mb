@@ -95,6 +95,9 @@ public class OrderController {
     @RequestMapping(path = "/addorder" , method = RequestMethod.POST)
     @Transactional(propagation= Propagation.REQUIRED )
     public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number) throws IOException {
+        String orderType = request.getSession().getAttribute("orderType").toString();
+        if(StringUtils.isBlank(orderType))
+            return "ordermanagement";
         Map<String,String> map = new HashMap<>();
         List<MultipartFile> files = request.getFiles("uploadfile");
         MultipartFile file = null;
@@ -109,7 +112,7 @@ public class OrderController {
                     stream = new BufferedOutputStream(new FileOutputStream(new File(path)));
                     stream.write(bytes);
                     stream.close();
-                    String orderType = request.getSession().getAttribute("orderType").toString();
+                    orderType = request.getSession().getAttribute("orderType").toString();
                     excelUtils.importExcel(path, number,orderType);
                 } catch (Exception e) {
                     stream = null;
@@ -173,15 +176,15 @@ public class OrderController {
      */
     @RequestMapping(path = "/show")
     public String selectOrder(HttpSession session){
+        String orderType = session.getAttribute("orderType").toString();
+        if(StringUtils.isBlank(orderType))
+            return "ordermanagement";
         String user = session.getAttribute("name").toString();
         String path = null;
         if(user.equals("admin"))
             session.setAttribute("OpenModeType" , "OpenModeType.xlsNormalEdit");
         else
             session.setAttribute("OpenModeType" , "OpenModeType.xlsReadOnly");
-        String orderType = session.getAttribute("orderType").toString();
-        if(StringUtils.isBlank(orderType))
-            orderType = "order";
         String orderNum = session.getAttribute("orderNum").toString();
         switch (orderType){
             case "order":
@@ -233,11 +236,11 @@ public class OrderController {
      */
     @RequestMapping(path = "/deleteorderone")
     public String deleteOrderOne(@RequestParam(value = "name") String orderNum, HttpSession session){
+        String orderType = session.getAttribute("orderType").toString();
+        if(StringUtils.isBlank(orderType))
+            return "ordermanagement";
         Map<String,String> map = new HashMap<>();
         try {
-            String orderType = session.getAttribute("orderType").toString();
-            if(StringUtils.isBlank(orderType))
-                orderType = "order";
             switch (orderType){
                 case "order":
                     map = orderService.deleteOrder(orderNum);
