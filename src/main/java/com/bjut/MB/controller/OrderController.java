@@ -359,48 +359,48 @@ public class OrderController {
         Map<String,String> map = new HashMap<>();
         try {
             switch (orderType){
-                case "order":
+                case "随工单":
                     map = orderService.deleteOrder(orderNum);
                     break;
-                case  "memo":
+                case  "仪器备忘录":
                     map = memoService.deleteMemo(orderNum);
                     break;
-                case  "remade":
+                case  "返工记录表":
                     map = remadeSercice.deleteRemade(orderNum);
                     break;
-                case "aging":
+                case "老化观测表":
                     map = agingService.deleteAging(orderNum);
                     break;
-                case "pack":
+                case "装箱记录单":
                     map = packService.deletePack(orderNum);
                     break;
-                case "debug":
+                case "整机调试报告单":
                     map = debugService.deleteDebug(orderNum);
                     break;
-                case "processTest":
+                case "工序检验报告单":
                     map = processTestService.deleteProcessTest(orderNum);
                     break;
-                case "machineTest":
+                case "整机检验报告单":
                     map = machineTestService.deleteMachineTest(orderNum);
                     break;
-                case "productTest":
+                case "成品检验报告单":
                     map = productTestService.deleteProductTest(orderNum);
                     break;
-                case "sphygmomanometer":
+                case "血压计检定报告单":
                     map = sphygmomanometerService.deleteSphygmomanometer(orderNum);
                     break;
-                case "performTest":
+                case "性能要求检验单":
                     map = performTestService.deletePerformTest(orderNum);
                     break;
-                case "finalTest":
+                case "最终检验报告单":
                     map = finalTestService.deleteFinalTest(orderNum);
                     break;
             }
         } catch (Exception e) {
-            logger.error("删除随工单异常" + e.getMessage());
-            map.put("code","3");
-            map.put("msg","删除失败");
-            model.addAllAttributes(map);
+//            logger.error("删除随工单异常" + e.getMessage());
+//            map.put("code","3");
+//            map.put("msg","删除失败");
+//            model.addAllAttributes(map);
             return "ordermanagement";
         }
         map.put("code","1");
@@ -432,10 +432,10 @@ public class OrderController {
                 finalTestService.deleteFinalTest(orderNum);
             }
          catch (Exception e) {
-            logger.error("删除随工单异常" + e.getMessage());
-            map.put("code","3");
-            map.put("msg","删除失败");
-            model.addAllAttributes(map);
+//            logger.error("删除随工单异常" + e.getMessage());
+//            map.put("code","3");
+//            map.put("msg","删除失败");
+//            model.addAllAttributes(map);
             return "ordermanagement";
         }
         map.put("code","1");

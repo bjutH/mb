@@ -1,5 +1,5 @@
-<%@ page import="sun.org.mozilla.javascript.internal.Function" %>
-<%@ page import="org.springframework.ui.Model" %>
+<%--<%@ page import="sun.org.mozilla.javascript.internal.Function" %>--%>
+<%--<%@ page import="org.springframework.ui.Model" %>--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -518,7 +518,7 @@
     display: none;
     box-shadow: 5px 5px 10px #888888">
         <div style="text-align:center;">
-            <form action="deleteorder" method="get">
+            <form action="deleteorderone" method="get">
                 <!--输入删除的随单表号码-->
                 <p style="color: #a8a9b1">
                     随工单编号：<input id="inp3" name="name" type="text"/>
