@@ -267,16 +267,15 @@ public class OrderController {
                 map.put("code","2");
                 map.put("msg","不存在");
                 model.addAllAttributes(map);
-                return "succes";
+                return "flase";
             }
-            map = excelUtils.replaceExcel(path,"order", process, order);
+            map = excelUtils.replaceExcel(path,"随工单", process, order);
             orderService.updateOrder(orderNum,process,operater,other,ps);
         }
         catch (Exception e) {
             logger.error("更新随工单异常" + e.getMessage());
             map.put("code","3");
         }
-        model.addAllAttributes(map);
         return "succes";
     }
 
