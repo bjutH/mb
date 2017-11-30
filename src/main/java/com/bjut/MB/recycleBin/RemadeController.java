@@ -1,4 +1,4 @@
-package com.bjut.MB.controller;
+package com.bjut.MB.recycleBin;
 
 import com.bjut.MB.Utils.ExcelUtils;
 import com.bjut.MB.model.Remade;
