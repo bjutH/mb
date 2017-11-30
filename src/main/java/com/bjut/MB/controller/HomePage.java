@@ -1,30 +1,25 @@
 package com.bjut.MB.controller;
 
 import com.bjut.MB.service.OrderService;
-import com.sun.deploy.net.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.sound.midi.Soundbank;
 
 /**
- * Created by Administrator on 2017/11/22 0022.
+ * Created by Administrator on 2017/11/30 0030.
  */
-
 @Controller
-public class LoginController {
+public class HomePage {
     private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
 
-    @RequestMapping(path = {"/login"})
-    public String login(){
-        return "login01";
+    @RequestMapping(path = {"/homepage"})
+    public String homepage(@RequestParam(value = "name") String user, @RequestParam(value = "password") String password, HttpSession session){
+        session.setAttribute("name",user);
+        session.setAttribute("orderType","选择表类型");
+        return "homepage";
     }
-
-
 }
