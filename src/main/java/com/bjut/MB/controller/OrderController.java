@@ -396,10 +396,10 @@ public class OrderController {
                     break;
             }
         } catch (Exception e) {
-//            logger.error("删除随工单异常" + e.getMessage());
-//            map.put("code","3");
-//            map.put("msg","删除失败");
-//            model.addAllAttributes(map);
+            logger.error("删除单个随工单异常" + e.getMessage());
+            map.put("code","3");
+            map.put("msg","删除单个失败");
+            model.addAllAttributes(map);
             return "ordermanagement";
         }
         map.put("code","1");
@@ -431,10 +431,10 @@ public class OrderController {
                 finalTestService.deleteFinalTest(orderNum);
             }
          catch (Exception e) {
-//            logger.error("删除随工单异常" + e.getMessage());
-//            map.put("code","3");
-//            map.put("msg","删除失败");
-//            model.addAllAttributes(map);
+            logger.error("删除全部随工单异常" + e.getMessage());
+            map.put("code","3");
+            map.put("msg","删除全部随工单失败");
+            model.addAllAttributes(map);
             return "ordermanagement";
         }
         map.put("code","1");
