@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -94,7 +95,7 @@ public class OrderController {
      */
     @RequestMapping(path = "/addorder" , method = RequestMethod.POST)
     @Transactional(propagation= Propagation.REQUIRED )
-    public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number, Model model) throws IOException {
+    public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number, ModelMap model) throws IOException {
         String orderType = (request.getSession().getAttribute("orderType").toString());
         if(orderType =="选择表类型")
             return "ordermanagement";
@@ -255,7 +256,7 @@ public class OrderController {
     @ResponseBody
     public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                                @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
-                               @RequestParam(value = "ps") String ps, Model model){
+                               @RequestParam(value = "ps") String ps, ModelMap model){
         Map<String,String> map = new HashMap<>();
         try {
             String path =orderService.selectPath(orderNum);
@@ -351,7 +352,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping(path = "/deleteorderone")
-    public String deleteOrderOne(@RequestParam(value = "name") String orderNum, HttpSession session, Model model){
+    public String deleteOrderOne(@RequestParam(value = "name") String orderNum, HttpSession session, ModelMap model){
         String orderType = (session.getAttribute("orderType").toString());
         if(orderType =="选择表类型")
             return "ordermanagement";
@@ -414,7 +415,7 @@ public class OrderController {
      */
     @RequestMapping(path = "/deleteorderall")
     @Transactional(propagation= Propagation.REQUIRED )
-    public String deleteOrderAll(@RequestParam(value = "name") String orderNum, Model model){
+    public String deleteOrderAll(@RequestParam(value = "name") String orderNum, ModelMap model){
         Map<String,String> map = new HashMap<>();
         try {
                 orderService.deleteOrder(orderNum);

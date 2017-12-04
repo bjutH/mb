@@ -19,7 +19,7 @@ import javax.sound.midi.Soundbank;
 
 @Controller
 public class LoginController {
-    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @RequestMapping(path = {"/login"})
     public String login(){

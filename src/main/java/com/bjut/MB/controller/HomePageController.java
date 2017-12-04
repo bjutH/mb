@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
  * Created by Administrator on 2017/11/30 0030.
  */
 @Controller
-public class HomePage {
-    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+public class HomePageController {
+    private static final Logger logger = LoggerFactory.getLogger(HomePageController.class);
 
     @RequestMapping(path = {"/homepage"})
     public String homepage(@RequestParam(value = "name") String user, @RequestParam(value = "password") String password, HttpSession session){
