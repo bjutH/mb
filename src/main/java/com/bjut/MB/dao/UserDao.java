@@ -1,6 +1,7 @@
 package com.bjut.MB.dao;
 
 import com.bjut.MB.model.Pack;
+import com.bjut.MB.model.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface UserDao {
     void addUser(@Param("num") String num, @Param("name") String name, @Param("password") String password, @Param("salt") String salt, @Param("power") String power);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where num = #{num}"})
-    List<Pack> selectOne(@Param("num") String num);
+    List<User> selectOne(@Param("num") String num);
 
 
     /**
