@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class HomePageController {
-    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+    private static final Logger logger = LoggerFactory.getLogger(HomePageController.class);
 
     @RequestMapping(path = {"/homepage"})
     public String homepage(@RequestParam(value = "name") String user, @RequestParam(value = "password") String password, HttpSession session){
