@@ -1,6 +1,5 @@
 package com.bjut.MB.dao;
 
-import com.bjut.MB.model.Pack;
 import com.bjut.MB.model.User;
 import org.apache.ibatis.annotations.*;
 
