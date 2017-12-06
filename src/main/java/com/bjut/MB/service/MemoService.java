@@ -29,32 +29,32 @@ public class MemoService {
      * @param orderNum      产品编号
      * @param process       备忘录名称
      * @param path           文件路径
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String,String> addMemo(String orderNum,String process, String path){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "备忘录编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(process)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "备忘录名称不能为空！");
             return map;
         }
         if(StringUtils.isBlank(path)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "备忘录路径不能为空！");
             return map;
         }
         try {
             yiqiDao.addItem(orderNum, process, path);
-            map.put("code","1");
+            map.put("code","0");
         }
         catch (Exception e){
             logger.error("添加备忘录DAO异常" + e.getMessage());
-            map.put("code","0");
+            map.put("code","1");
         }
         return map;
     }
@@ -70,28 +70,28 @@ public class MemoService {
      * @param test      检验
      * @param version   软件版本号
      * @param ps         备注
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String, String> updateMemo(String orderNum,String process,String number,String boardNum,
                                           String weld,String debug,String test,String version,String ps){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "备忘录编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(process)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "备忘录名称不能为空！");
             return map;
         }
         try {
             yiqiDao.updateItem(orderNum, process, number, boardNum, weld, debug, test, version, ps);
-            map.put("code","1");
+            map.put("code","0");
         }
         catch (Exception e){
             logger.error("更新备忘录DAO异常" + e.getMessage());
-            map.put("code","0");
+            map.put("code","1");
         }
         return map;
     }
@@ -142,22 +142,22 @@ public class MemoService {
     /**
      *
      * @param orderNum  产品编号
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String, String> deleteMemo(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "备忘录编号不能为空！");
             return map;
         }
         try {
             yiqiDao.deleteAll(orderNum);
-            map.put("code","1");
+            map.put("code","0");
         }
         catch (Exception e){
             logger.error("删除备忘录DAO异常" + e.getMessage());
-            map.put("code","0");
+            map.put("code","1");
         }
         return map;
     }

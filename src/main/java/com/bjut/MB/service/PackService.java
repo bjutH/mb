@@ -29,32 +29,32 @@ public class PackService {
      * @param orderNum  产品编号
      * @param process   名称
      * @param path       文件路径
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String,String> addPack(String orderNum, String process, String path){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "装箱记录单编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(process)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "装箱记录单名称不能为空！");
             return map;
         }
         if(StringUtils.isBlank(path)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "装箱记录单路径不能为空！");
             return map;
         }
         try {
             packDao.addItem(orderNum, process, path);
-            map.put("code","1");
+            map.put("code","0");
         }
         catch (Exception e){
             logger.error("添加装箱记录单DAO异常" + e.getMessage());
-            map.put("code","0");
+            map.put("code","1");
         }
         return map;
     }
@@ -66,27 +66,27 @@ public class PackService {
      * @param check     确认
      * @param result    自检项目
      * @param operater  包装人
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String, String> updatePack(String orderNum,String process, String check, String result, String operater){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "装箱记录单编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(process)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "装箱记录单名称不能为空！");
             return map;
         }
         try {
             packDao.updateItem(check, result, operater, orderNum, process);
-            map.put("code","1");
+            map.put("code","0");
         }
         catch (Exception e){
             logger.error("更新装箱记录单DAO异常" + e.getMessage());
-            map.put("code","0");
+            map.put("code","1");
         }
         return map;
     }
@@ -137,22 +137,22 @@ public class PackService {
     /**
      *
      * @param orderNum  产品编号
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String, String> deletePack(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "装箱记录单编号不能为空！");
             return map;
         }
         try {
             packDao.deleteAll(orderNum);
-            map.put("code","1");
+            map.put("code","0");
         }
         catch (Exception e){
             logger.error("删除装箱记录单DAO异常" + e.getMessage());
-            map.put("code","0");
+            map.put("code","1");
         }
         return map;
     }

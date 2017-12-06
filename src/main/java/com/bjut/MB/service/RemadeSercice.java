@@ -32,23 +32,23 @@ public class RemadeSercice {
      * @param updatePeople      更改人
      * @param testPeople        检查人
      * @param path              文件路径
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String,String> addRemade(String orderNum, Date date,String number,String updateSoftware,String updateHardware,
                                         String updateContent,String updatePeople,String testPeople, String path){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "返工记录表编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(date.toString())){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "返工记录表时间不能为空！");
             return map;
         }
         if(StringUtils.isBlank(path)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "返工记录表路径不能为空！");
             return map;
         }
@@ -73,28 +73,28 @@ public class RemadeSercice {
      * @param updateContent     结构更改内容简述
      * @param updatePeople      更改人
      * @param testPeople        检查人
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String, String> updateRemade(String orderNum, Date date, String number, String updateSoftware, String updateHardware,
                                             String updateContent, String updatePeople, String testPeople){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "返工记录表编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(date.toString())){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "返工记录表时间不能为空！");
             return map;
         }
         try {
             remadeDao.updateItem(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
-            map.put("code","1");
+            map.put("code","0");
         }
         catch (Exception e){
             logger.error("更新返工记录表DAO异常" + e.getMessage());
-            map.put("code","0");
+            map.put("code","1");
         }
         return map;
     }
@@ -120,22 +120,22 @@ public class RemadeSercice {
     /**
      *
      * @param orderNum  产品编号
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String, String> deleteRemade(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "返工记录表编号不能为空！");
             return map;
         }
         try {
             remadeDao.deleteAll(orderNum);
-            map.put("code","1");
+            map.put("code","0");
         }
         catch (Exception e){
             logger.error("删除返工记录表DAO异常" + e.getMessage());
-            map.put("code","0");
+            map.put("code","1");
         }
         return map;
     }

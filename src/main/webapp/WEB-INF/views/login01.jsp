@@ -207,7 +207,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-                    <form action="homepage.action" method="get" class="form-horizontal">
+                    <form action="login.action" method="get" class="form-horizontal">
                         <span class="heading">登录</span>
                         <div class="form-group">
                             <input name="name" type="text" class="form-control" id="inputEmail3" placeholder="账户">

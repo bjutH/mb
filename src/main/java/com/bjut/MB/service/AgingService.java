@@ -26,32 +26,32 @@ public class AgingService {
      * @param orderNum 产品编号
      * @param process   要求
      * @param path      文件路径
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String,String> addAging(String orderNum, String process,String path){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "老化观测表编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(process)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "老化观测表要求不能为空！");
             return map;
         }
         if(StringUtils.isBlank(path)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "老化观测表路径不能为空！");
             return map;
         }
         try {
             agingDao.addItem(orderNum, process, path);
-            map.put("code","1");
+            map.put("code","0");
         }
         catch (Exception e){
             logger.error("添加老化观测表DAO异常" + e.getMessage());
-            map.put("code","0");
+            map.put("code","1");
         }
         return map;
     }
@@ -66,27 +66,27 @@ public class AgingService {
      * @param handle    处理结果
      * @param ps        备注
      * @param operater  调试员
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String, String> updateAging(String orderNum, String process, String result, Date date, String phenomenon, String handle,String ps, String operater){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "老化观测表编号不能为空！");
             return map;
         }
         if(StringUtils.isBlank(process)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "老化观测表要求不能为空！");
             return map;
         }
         try {
             agingDao.updateItem(orderNum, process, result, date, phenomenon, handle, ps, operater);
-            map.put("code","1");
+            map.put("code","0");
         }
         catch (Exception e){
             logger.error("更新老化观测表DAO异常" + e.getMessage());
-            map.put("code","0");
+            map.put("code","1");
         }
         return map;
     }
@@ -137,22 +137,22 @@ public class AgingService {
     /**
      *
      * @param orderNum  产品编号
-     * @return          返回一个map，key:code时，value为1则正常；为2说明参数有错，并把信息放到msg的key里；为0说明数据库操作出错
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String, String> deleteAging(String orderNum){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(orderNum)){
-            map.put("code","2");
+            map.put("code","1");
             map.put("msg", "老化观测表编号不能为空！");
             return map;
         }
         try {
             agingDao.deleteAll(orderNum);
-            map.put("code","1");
+            map.put("code","0");
         }
         catch (Exception e){
             logger.error("删除老化观测表DAO异常" + e.getMessage());
-            map.put("code","0");
+            map.put("code","1");
         }
         return map;
     }

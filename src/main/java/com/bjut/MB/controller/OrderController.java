@@ -103,7 +103,7 @@ public class OrderController {
         switch (orderType) {
             case "随工单":
                 if (orderService.selectOrder(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     request.getSession().setAttribute("msg","已存在！");
@@ -112,7 +112,7 @@ public class OrderController {
                 break;
             case  "仪器备忘录":
                 if (memoService.selectMemo(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     return "ordermanagement";
@@ -120,7 +120,7 @@ public class OrderController {
                 break;
             case  "返工记录表":
                 if (remadeSercice.selectRemade(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     return "ordermanagement";
@@ -128,7 +128,7 @@ public class OrderController {
                 break;
             case "老化观测表":
                 if (agingService.selectAging(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     return "ordermanagement";
@@ -136,7 +136,7 @@ public class OrderController {
                 break;
             case "装箱记录单":
                 if (packService.selectPack(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     return "ordermanagement";
@@ -144,7 +144,7 @@ public class OrderController {
                 break;
             case "整机调试报告单":
                 if (debugService.selectDebug(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     return "ordermanagement";
@@ -152,7 +152,7 @@ public class OrderController {
                 break;
             case "工序检验报告单":
                 if (processTestService.selectProcessTest(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     return "ordermanagement";
@@ -160,7 +160,7 @@ public class OrderController {
                 break;
             case "整机检验报告单":
                 if (machineTestService.selectMachineTest(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     return "ordermanagement";
@@ -168,7 +168,7 @@ public class OrderController {
                 break;
             case "成品检验报告单":
                 if (productTestService.selectProductTest(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     return "ordermanagement";
@@ -176,7 +176,7 @@ public class OrderController {
                 break;
             case "血压计检定报告单":
                 if (sphygmomanometerService.selectSphygmomanometer(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     return "ordermanagement";
@@ -184,7 +184,7 @@ public class OrderController {
                 break;
             case "性能要求检验单":
                 if (performTestService.selectPerformTest(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     return "ordermanagement";
@@ -192,7 +192,7 @@ public class OrderController {
                 break;
             case "最终检验报告单":
                 if (finalTestService.selectFinalTest(number).size() != 0) {
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg", "已存在！");
                     model.addAllAttributes(map);
                     return "ordermanagement";
@@ -215,14 +215,14 @@ public class OrderController {
                     stream.close();
                 } catch (Exception e) {
                     logger.error("文件上传失败：" + e.getMessage());
-                    map.put("code","3");
+                    map.put("code","1");
                     map.put("msg","文件 " + i + "上传失败 ");
                     model.addAllAttributes(map);
                     return "ordermanagement";
 
                 }
             } else {
-                map.put("code","3");
+                map.put("code","1");
                 map.put("msg","文件 " + i + "上传失败 ");
                 model.addAllAttributes(map);
                 return "ordermanagement";
@@ -233,12 +233,12 @@ public class OrderController {
             excelUtils.importExcel(path, number,orderType);
         }
         catch (Exception e){
-            map.put("code","3");
+            map.put("code","1");
             map.put("msg","添加文件失败");
             model.addAllAttributes(map);
             return "ordermanagement";
         }
-        map.put("code","1");
+        map.put("code","0");
         model.addAttribute(map);
         return "ordermanagement";
     }
@@ -265,7 +265,7 @@ public class OrderController {
             order.setOther(other);
             order.setPs(ps);
             if(path == null){
-                map.put("code","2");
+                map.put("code","1");
                 map.put("msg","不存在");
                 model.addAllAttributes(map);
                 return "flase";
@@ -275,7 +275,7 @@ public class OrderController {
         }
         catch (Exception e) {
             logger.error("更新随工单异常" + e.getMessage());
-            map.put("code","3");
+            map.put("code","1");
         }
         return "succes";
     }
@@ -398,12 +398,12 @@ public class OrderController {
             }
         } catch (Exception e) {
             logger.error("删除单个随工单异常" + e.getMessage());
-            map.put("code","3");
+            map.put("code","1");
             map.put("msg","删除单个失败");
             model.addAllAttributes(map);
             return "ordermanagement";
         }
-        map.put("code","1");
+        map.put("code","0");
         model.addAllAttributes(map);
         return "ordermanagement";
     }
@@ -433,12 +433,12 @@ public class OrderController {
             }
          catch (Exception e) {
             logger.error("删除全部随工单异常" + e.getMessage());
-            map.put("code","3");
+            map.put("code","1");
             map.put("msg","删除全部随工单失败");
             model.addAllAttributes(map);
             return "ordermanagement";
         }
-        map.put("code","1");
+        map.put("code","0");
         model.addAllAttributes(map);
         return "ordermanagement";
     }

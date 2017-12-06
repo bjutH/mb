@@ -2,6 +2,7 @@ package com.bjut.MB.controller;
 
 import com.bjut.MB.service.OrderService;
 import com.sun.deploy.net.HttpResponse;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,9 +22,18 @@ import javax.sound.midi.Soundbank;
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    @RequestMapping(path = {"/login"})
-    public String login(){
+    @RequestMapping(path = {"/index"})
+    public String index( ){
         return "login01";
+    }
+
+    @RequestMapping(path = {"/login"})
+    public String login(@RequestParam("name") String name, @RequestParam("password") String password, @RequestParam(value = "remerberme" ,
+                        defaultValue = "0") int remerberme){
+        if(StringUtils.isBlank(name)){
+
+        }
+        return "homepage";
     }
 
 
