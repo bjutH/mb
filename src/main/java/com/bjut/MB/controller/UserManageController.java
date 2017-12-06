@@ -29,10 +29,12 @@ public class UserManageController {
         userDao.deleteAll(num);
         return "manageUser";
     }
-    @RequestMapping(path = "/adduser")
-    public String addUser(@RequestParam(value = "num") String num, @RequestParam(value = "name") String name, @RequestParam(value = "password") String password, @RequestParam(value = "salt") String salt, @RequestParam(value = "power") String power){
-        userDao.addUser(num, name,password,salt, power);
+
+    @RequestMapping(path = "/query")
+    public String addUser(@RequestParam(value = "num") String num){
+        userDao.selectOne(num);
         return "manageUser";
     }
+
 
 }
