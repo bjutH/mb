@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
  * Created by Administrator on 2017/11/30 0030.
  */
 @Controller
-public class HomePageController {
+public class  HomePageController {
     private static final Logger logger = LoggerFactory.getLogger(HomePageController.class);
 
     @RequestMapping(path = {"/homepage"})
