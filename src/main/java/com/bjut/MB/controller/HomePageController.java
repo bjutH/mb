@@ -13,13 +13,11 @@ import javax.servlet.http.HttpSession;
  * Created by Administrator on 2017/11/30 0030.
  */
 @Controller
-public class  HomePageController {
+public class HomePageController {
     private static final Logger logger = LoggerFactory.getLogger(HomePageController.class);
 
     @RequestMapping(path = {"/homepage"})
-    public String homepage(@RequestParam(value = "name") String user, @RequestParam(value = "password") String password, HttpSession session){
-        session.setAttribute("name",user);
-        session.setAttribute("orderType","选择表类型");
+    public String homepage( ){
         return "homepage";
     }
 }

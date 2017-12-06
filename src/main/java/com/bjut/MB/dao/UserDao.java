@@ -1,6 +1,5 @@
 package com.bjut.MB.dao;
 
-import com.bjut.MB.model.Pack;
 import com.bjut.MB.model.User;
 import org.apache.ibatis.annotations.*;
 
@@ -9,6 +8,7 @@ import java.util.List;
 /**
  * Created by Cheng on 2017/12/6.
  */
+@Mapper
 public interface UserDao {
     String TABLE_NAME = "`user`";
     String INSERT_FIELDS = "`num`,`name`, `password`, `salt`, `power`";
