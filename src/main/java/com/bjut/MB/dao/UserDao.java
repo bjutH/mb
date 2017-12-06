@@ -47,4 +47,5 @@ public interface UserDao {
      */
     @Delete({"delete from", TABLE_NAME, "where num = #{num}"})
     void deleteAll(@Param("num") String num);
+
 }
