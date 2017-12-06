@@ -53,7 +53,6 @@ public class LoginController {
         }
         try {
 
-            map.put("code","0");
         }catch (Exception e){
             map.put("code","1");
             model.addAttribute(map);
