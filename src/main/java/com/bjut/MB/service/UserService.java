@@ -27,18 +27,40 @@ public class UserService {
     @Autowired
     private LoginTicketDAO loginTicketDAO;
 
-    public Map<String,String> addUser(String name, String password, String salt, String power){
+    public Map<String,String> reg(String name, String password){
         Map<String,String> map = new HashMap<>();
+        if(StringUtils.isBlank(name)){
+            map.put("code","1");
+            map.put("msg","用户名不能为空!");
+            return map;
+        }
+        if(StringUtils.isBlank(password)){
+            map.put("code","1");
+            map.put("msg","密码不能为空!");
+            return map;
+        }
+        User user = userDao.selectByName(name);
+        if (user != null) {
+            map.put("code","1");
+            map.put("msg", "用户名已存在");
+            return map;
+        }
+        String salt = UUID.randomUUID().toString().substring(0, 5);
+        password = PasswordUtils.MD5(password+user.getSalt());
         try {
-            userDao.addUser(null,name,password,salt,power);
+            userDao.addUser(null,name,password,salt,"游客");
+            user = userDao.selectByName(name);
             map.put("code","0");
+            String ticket = addLoginTicket(user.getId());
+            map.put("ticket", ticket);
         }catch (Exception e){
+            logger.error("注册DAO异常" + e.getMessage());
             map.put("code","1");
         }
         return map;
     }
 
-    public Map<String,String> selectUserByName(String name, String password){
+    public Map<String,String> login(String name, String password){
         Map<String,String>  map = new HashMap<>();
         if(StringUtils.isBlank(name)){
             map.put("code","1");
@@ -60,7 +82,7 @@ public class UserService {
             map.put("msg", "密码不正确");
             return map;
         }
-        String ticket = addLoginTicket(user.getNum());
+        String ticket = addLoginTicket(user.getId());
         map.put("ticket", ticket);
         return map;
     }
