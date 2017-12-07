@@ -12,6 +12,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -36,8 +38,9 @@ public class LoginController {
     }
 
     @RequestMapping(path = {"/login"})
-    public String login(@RequestParam("name") String name, @RequestParam("password") String password, @RequestParam(value = "remerberme" ,
-                        defaultValue = "0") int remerberme, HttpSession session, ModelMap model) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public String login(@RequestParam("name") String name, @RequestParam("password") String password, @RequestParam(value = "rememberme" ,
+                        defaultValue = "0") boolean rememberme, HttpSession session, HttpServletResponse response, ModelMap model)
+                        throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Map<String,String> map = new HashMap<>();
         if(StringUtils.isBlank(name)){
             map.put("code","1");
@@ -52,7 +55,15 @@ public class LoginController {
             return "login01";
         }
         try {
-
+            map = userService.selectUserByName(name,password);
+            if (map.containsKey("ticket")) {
+                Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
+                cookie.setPath("/");
+                if (rememberme) {
+                    cookie.setMaxAge(3600 * 24 * 5);
+                }
+                response.addCookie(cookie);
+            }
         }catch (Exception e){
             map.put("code","1");
             model.addAttribute(map);

@@ -28,8 +28,8 @@ public interface UserDao {
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where num = #{num}"})
     List<User> selectOne(@Param("num") String num);
 
-    @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where name = #{name} and password = #{password}"})
-    List<User> selectByName(@Param("name") String name,@Param("password") String password);
+    @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where name = #{name}"})
+    User selectByName(@Param("name") String name);
 
 
     /**

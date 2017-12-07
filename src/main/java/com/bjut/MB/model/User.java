@@ -4,10 +4,19 @@ package com.bjut.MB.model;
  * Created by Administrator on 2017/12/6.
  */
 public class User {
+    private int num;
     private String name;
     private String password;
     private String salt;
     private String power;
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
 
     public String getName() {
         return name;
