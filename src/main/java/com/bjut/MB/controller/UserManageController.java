@@ -14,26 +14,30 @@ public class UserManageController {
     @Autowired
     private UserDao userDao;
 
+    @RequestMapping(path = "/staffmanagement")
+    public String index(){
+        return "staffmanagement";
+    }
     @RequestMapping(path = "/updatepower")
     public String updatePower(@RequestParam(value = "num")String num, @RequestParam(value = "power") String power){
         userDao.updatePower(power, num);
-        return "manageUser";
+        return "staffmanagement";
     }
     @RequestMapping(path = "/updatepassword")
     public String updatePassword(@RequestParam(value = "num") String num, @RequestParam(value = "pass") String pass){
         userDao.updatePassword(pass, num);
-        return "manageUser";
+        return "staffmanagement";
     }
     @RequestMapping(path = "/deleteuser")
     public String deleteUser(@RequestParam(value = "num") String num){
         userDao.deleteAll(num);
-        return "manageUser";
+        return "staffmanagement";
     }
 
     @RequestMapping(path = "/query")
     public String addUser(@RequestParam(value = "num") String num){
         userDao.selectOne(num);
-        return "manageUser";
+        return "staffmanagement";
     }
 
 
