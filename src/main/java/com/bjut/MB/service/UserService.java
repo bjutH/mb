@@ -99,4 +99,8 @@ public class UserService {
         loginTicketDAO.addTicket(ticket);
         return ticket.getTicket();
     }
+
+    public void logout(String tikcet){
+        loginTicketDAO.updateStatus(tikcet,1);
+    }
 }
