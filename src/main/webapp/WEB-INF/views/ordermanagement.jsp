@@ -7,14 +7,12 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!--引用路径-->
     <link href="https://fonts.googleapis.com/css?family=David+Libre|Hind:400,700" rel="stylesheet"/>
     <link rel="stylesheet" href="../css/css-order/reset.css"/> <!-- CSS reset -->
     <link rel="stylesheet" type="text/css" href="../css/css-order/htmleaf-demo.css"/>
     <link rel="stylesheet" href="../css/css-order/style.css"/> <!-- Resource style -->
     <link rel="stylesheet" href="../css/mycss.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/css-search/search-form.css"/>
     <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="../js/js-order/main.js"></script> <!-- Resource jQuery -->
     <script type="text/javascript" src="../../pageoffice.js" id="po_js_main"></script>
@@ -186,57 +184,6 @@
         })
     </script>
 
-    <!--打开/关闭编辑模式-->
-    <script>
-        function startEdit() {
-            var editor = document.getElementById("pageEditor");
-            Element.contenteditable = "ture"
-            editor.contentWindow.document.designMode = "on";
-        }
-
-        function stopEdit() {
-            var editor = document.getElementById("pageEditor");
-            editor.contentWindow.document.designMode = "off";
-            var editedHTML = document.getElementById("editedHTML");
-            editedHTML.innerHTML = "<html>" + editor.contentWindow.document.head.innerHTML + editor.contentWindow.document.body.innerHTML + "</html>";
-            // document.getElementById("edit edHTML").innerHTML(editedHTML.textContent);
-        }
-
-        <!--获取iframe中的内容-->
-
-        function getIframeContent(frameId) {
-            var frameObj = document.getElementById(frameId);
-            var frameContent = frameObj.contentWindow.document.body.innerHTML;
-            var fso = new ActiveXObject("Scripting.FileSystemObject");
-            var file = fso.createTextFile("/Applications/ab/tempe2h.html", true);
-            //   file.write(frameContent);
-            // file.close();
-            alert("frame content : " + frameContent);
-            //	return frameContent;
-        }
-    </script>
-
-    <!--搜索的action-->
-    <script type="text/javascript">
-        function searchToggle(obj, evt) {
-            var container = $(obj).closest('.search-wrapper');
-
-            if (!container.hasClass('active')) {
-                container.addClass('active');
-                evt.preventDefault();
-            }
-            else if (container.hasClass('active') && $(obj).closest('.input-holder').length == 0) {
-                container.removeClass('active');
-                // clear input
-                container.find('.search-input').val('');
-                // clear and hide result container when we press close
-                container.find('.result-container').fadeOut(100, function () {
-                    $(this).empty();
-                });
-            }
-        }
-    </script>
-
     <!--Page-office-->
     <script type="text/javascript">
 
@@ -398,7 +345,6 @@
 <section class="cd-hero">
     <img src="../img/img-order/cd-hero-background.jpg" alt="背景"
          style="height :100%; width :100%; margin-top: 0px;"/>
-    <!--<img src="../img/img-order/cd-hero-background.jpg" alt="背景" style="height :100%; width :100%; margin-top: 0px;"/>-->
 
     <div class="cd-hero-content">
         <!-- your content here -->
@@ -427,8 +373,8 @@
 
         <%--右侧下拉菜单，改上拉--%>
     <div class="dropdown" style="position: absolute; top: 0px; right: 0px">
-        <a id="test1" class="dropbtn">${sessionScope.get("orderType")}</a>
-        <div class="dropdown-content" style="position: absolute;bottom: 100%">
+        <a id="test1" class="dropbtn">选择：${sessionScope.get("orderType")}</a>
+        <div class="dropdown-content" style="position: absolute;bottom: 100%;f">
             <form id="selectorder" action="selectordertype" method="post" target="hidden_frame">
                 <input type="hidden" name="orderType" value="随工单"/>
                 <a href="selectordertype?orderType=随工单;" id="order"
