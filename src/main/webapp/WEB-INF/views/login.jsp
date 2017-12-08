@@ -31,7 +31,7 @@
 		密码：<input type="text"	name="passWord"><br>  	
 		<input type="submit" value="ok">
 	</form>
-	<a href="javascript:POBrowser.openWindow('/word?user=admin','width=1200px;height=800px;');">open</a>
+	<a href="javascript:POBrowser.openWindow('/word?user=<% session.getAttribute("name");%>','width=1200px;height=800px;');" style="">open</a>
 	<%--<div style=" width:auto; height:700px;" id="divDocView">--%>
 		<%--<%= poCtrl.getHtmlCode("PageOfficeCtrl1")%>--%>
 	<%--</div>--%>
