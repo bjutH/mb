@@ -70,6 +70,11 @@ public class LoginController {
                 }
                 response.addCookie(cookie);
             }
+            else {
+                map.put("code","1");
+                map.put("msg","用户名或密码错误!");
+                return "login01";
+            }
         }catch (Exception e){
             logger.error("登陆异常" + e.getMessage());
             map.put("code","1");
