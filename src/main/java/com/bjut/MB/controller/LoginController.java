@@ -1,7 +1,6 @@
 package com.bjut.MB.controller;
 
 
-import com.bjut.MB.Utils.PasswordUtils;
 import com.bjut.MB.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -19,7 +18,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Created by Administrator on 2017/11/22 0022.
@@ -71,9 +69,9 @@ public class LoginController {
                 response.addCookie(cookie);
             }
             else {
-//                map.put("code","1");
-//                map.put("msg","用户名或密码错误!");
-//                return "login01";
+                map.put("code","1");
+                map.put("msg","用户名或密码错误!");
+                return "login01";
             }
         }catch (Exception e){
             logger.error("登陆异常" + e.getMessage());
