@@ -79,6 +79,7 @@ public class UserService {
             return map;
         }
         if (!PasswordUtils.MD5(password+user.getSalt()).equals(user.getPassword())) {
+            map.put("code","1");
             map.put("msg", "密码不正确");
             return map;
         }
