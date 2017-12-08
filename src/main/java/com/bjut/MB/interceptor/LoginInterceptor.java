@@ -3,13 +3,11 @@ package com.bjut.MB.interceptor;
 import com.bjut.MB.dao.LoginTicketDAO;
 import com.bjut.MB.dao.UserDao;
 import com.bjut.MB.model.HostHolder;
-import com.bjut.MB.model.LoginTicket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

@@ -2,7 +2,6 @@ package com.bjut.MB.Utils;
 
 import com.bjut.MB.dao.*;
 import com.bjut.MB.model.*;
-import com.bjut.MB.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,11 +18,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-import static com.sun.corba.se.spi.activation.IIOP_CLEAR_TEXT.value;
 import static java.lang.System.out;
-import static java.lang.System.setOut;
 
 /**
  * Created by Administrator on 2017/11/14.

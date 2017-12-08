@@ -1,7 +1,6 @@
 package com.bjut.MB.controller;
 
 import com.bjut.MB.model.HostHolder;
-import com.bjut.MB.model.User;
 import com.bjut.MB.service.SystemService;
 import com.bjut.MB.service.UserService;
 import org.slf4j.Logger;
