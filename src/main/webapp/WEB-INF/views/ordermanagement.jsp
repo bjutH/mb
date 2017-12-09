@@ -128,7 +128,9 @@
 </head>
 <body>
 <%@include file="head.jsp" %>
-
+<%--避免刷新--%>
+<iframe name='hidden_frame' id="hidden_frame">
+    <p>返回信息</p></iframe>
 <div class="container" style="position: absolute;left: 15%;top: 15%">
     <div class="list-group" style="width: 230px;float: left">
         <a class="list-group-item active" id="test1">当前选择:${sessionScope.get("orderType")}</a>
@@ -212,21 +214,21 @@
             <div class="tab-pane fade in active" id="home"
                  style="position: relative;width: 100%;height: 160px;background-color: #437ab2;color: white;border-radius: 0 5px 5px 5px">
                 <div class="container" style="width: 60%">
-                    <form action="addorder" method="post" enctype="multipart/form-data">
+                    <form action="addorder" method="post" enctype="multipart/form-data" target="hidden_frame">
                         选择路径:<input class="form-control" id="inp1" type="file" name="uploadfile"/>
                         选择名称:<input class="form-control" id="inp2" type="text" name="number" placeholder="请输入名称"/>
-                        <input class="btn btn-default" type="submit" value="添加" onclick="checkform1()"
-                               style="float: right"/>
+                        <input id="updt" class="btn btn-default" type="submit" value="添加" onclick="checkform1()"
+                               style="float: right" data-toggle="modal" data-target="#myModal"/>
                     </form>
                 </div>
             </div>
             <div class="tab-pane fade" id="ios"
                  style="position: relative;background-color: #437ab2;height: 100px;color: white;border-radius: 0 5px 5px 5px">
                 <div class="container" style="width: 60%">
-                    <form action="deleteorderone" method="get">
+                    <form action="deleteorderone" method="get" target="hidden_frame">
                         <!--输入删除的随单表号码-->
                         随工单编号：<input class="form-control" id="inp3" name="name" type="text" placeholder="请输入单号"/>
-                        <input class="btn btn-default" type="submit" value="确定" onclick="checkform2()"
+                        <input id="deletest" class="btn btn-default" type="submit" value="确定" onclick="checkform2()"
                                style="float: right"/>
                     </form>
                 </div>
@@ -234,7 +236,7 @@
             <div class="tab-pane fade" id="java"
                  style="position: relative;background-color: #437ab2;height: 320px;color: white;border-radius: 0 5px 5px 5px">
                 <div class="container" style="width: 60%">
-                    <form action="updateorder" method="get">
+                    <form action="updateorder" method="get" target="hidden_frame">
                         随工单编号: <input class="form-control" type="text" name="orderNum" placeholder="请输入单号"/>
                         工序: <input class="form-control" type="text" name="process" placeholder="请输入工序"/>
                         操作者: <input class="form-control" type="text" name="operater" placeholder="请输入操作者"/>
@@ -257,13 +259,41 @@
                         <input class="btn btn-default" type="submit" class="search-icon" value="搜索"
                                onclick="checkform3()" style="float: right"/>
                     </form>
-                        <a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');" style="color: white;float: right">打开</a>
+                    <a href="javascript:POBrowser.openWindow('/show','width=1200px;height=800px;');"
+                       style="color: white;float: right">打开</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    提示
+                </h4>
+            </div>
+            <div class="modal-body">
+                <h1>session返回信息+${sessionScope.get("msg")}</h1>
+                <h1>model返回信息+${msg}</h1>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 </body>
 </html>
+<script>
+    $(function () {
+        $("[data-toggle='popover']").popover();
+    });
+</script>
