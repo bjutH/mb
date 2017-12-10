@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -22,7 +23,12 @@
 <div class="panel panel-default" style="height: 40%;width: 97%;margin: 0 auto;">
     <div class="panel-heading">
         <h3 class="panel-title">
-            当前用户信息
+        欢迎您，<c:if test="${not empty name}">
+                ${name}
+        </c:if>
+            <c:if test="${empty name}">
+                游客
+            </c:if>!
         </h3>
     </div>
     <div class="panel-body">

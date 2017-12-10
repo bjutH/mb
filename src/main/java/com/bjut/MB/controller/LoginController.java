@@ -35,7 +35,7 @@ public class LoginController {
     @Autowired
     private HostHolder hostHolder;
 
-    @RequestMapping(path = {"/","index"})
+    @RequestMapping(path = {"/index"})
     public String index( ){
         return "login01";
     }
@@ -54,13 +54,13 @@ public class LoginController {
         if(StringUtils.isBlank(name)){
             map.put("code","1");
             map.put("msg","用户名不能为空!");
-            model.addAttribute(map);
+            model.addAttribute("msg","用户名不能为空!");
             return "login01";
         }
         if(StringUtils.isBlank(password)){
             map.put("code","1");
             map.put("msg","密码不能为空!");
-            model.addAttribute(map);
+            model.addAttribute("msg","用户名不能为空!");
             return "login01";
         }
         try {
@@ -76,6 +76,7 @@ public class LoginController {
             else {
                 map.put("code","1");
                 map.put("msg","用户名或密码错误!");
+                model.addAttribute("msg","用户名或密码错误!");
                 return "login01";
             }
         }catch (Exception e){
@@ -84,9 +85,7 @@ public class LoginController {
             model.addAttribute(map);
             return "login01";
         }
-        session.setAttribute("name",name);
-        session.setAttribute("orderType","选择表类型");
-        return "homepage";
+        return "redirect:/homepage";
     }
 
     /**
@@ -103,13 +102,13 @@ public class LoginController {
         if(StringUtils.isBlank(name)){
             map.put("code","1");
             map.put("msg","用户名不能为空!");
-            model.addAttribute(map);
+            model.addAttribute("msg","用户名不能为空!");
             return "login01";
         }
         if(StringUtils.isBlank(password)){
             map.put("code","1");
             map.put("msg","密码不能为空!");
-            model.addAttribute(map);
+            model.addAttribute("msg","密码不能为空!");
             return "login01";
         }
         try {
@@ -128,6 +127,6 @@ public class LoginController {
             model.addAttribute(map);
             return "login01";
         }
-        return "homepage";
+        return "redirect:/homepage";
     }
 }

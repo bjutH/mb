@@ -73,6 +73,7 @@
                         </form>
                     </div>
                 </div>
+                ${msg}
             </div>
         </div>
     </div>

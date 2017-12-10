@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomePageController {
     private static final Logger logger = LoggerFactory.getLogger(HomePageController.class);
 
-    @RequestMapping(path = {"/homepage"})
+    @RequestMapping(path = {"/","/homepage"})
     public String homepage( ){
         return "homepage";
     }

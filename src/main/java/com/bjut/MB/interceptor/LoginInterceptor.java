@@ -29,7 +29,7 @@ public class LoginInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         if(hostHolder.getUser() ==null){
-            httpServletResponse.sendRedirect("/");
+            httpServletResponse.sendRedirect("/index");
         }
         if(httpServletRequest.getSession().getAttribute("orderType") ==null){
             httpServletRequest.getSession().setAttribute("orderType","请选择随工单类型");
