@@ -6,14 +6,13 @@
     <meta charset="UTF-8"/>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>员工管理</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <!-- bootbox -->
-    <script src="https://cdn.bootcss.com/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
     <!-- bootstrap-table -->
-    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+    <link href="../css/bootstrap-table.css" rel="stylesheet">
+    <script src="../js/bootstrap-table.js" type="text/javascript"></script>
+    <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
 
     <link href="../css/index.css" rel="stylesheet">
     <script type="text/javascript" src="../js/index.js"></script>
@@ -53,13 +52,13 @@
     </div>
 
     <div id="toolbar" class="btn-group">
-        <button id="btn_add" type="button" class="btn btn-default">
+        <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalTable">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
         </button>
-        <button id="btn_edit" type="button" class="btn btn-default">
+        <button id="btn_edit" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalTablev">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
         </button>
-        <button id="btn_delete" type="button" class="btn btn-default">
+        <button id="btn_delete" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalTabled">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
         </button>
     </div>
@@ -68,6 +67,94 @@
     </div>
 </div>
 </div>
+
+    <!-- 新增模态框（Modal） -->
+    <div class="modal fade" id="modalTable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">新增</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="get">
+                        姓名:<input class="form-control" name="" type="text" placeholder="请输入姓名">
+                        职位:<input class="form-control" name="" type="text" placeholder="请输入职位">
+                        <input class="btn btn-default" type="submit" value="提交">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+<!-- 修改模态框（Modal） -->
+<div class="modal fade" id="modalTablev" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="get">
+                    <p>姓名:<input class="form-control" name="" type="text" placeholder="请输入姓名"></p>
+                    <p>职位:<input class="form-control" name="" type="text" placeholder="请输入职位"></p>
+                    <input class="btn btn-default" type="submit" value="提交">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- 删除模态框（Modal） -->
+<div class="modal fade" id="modalTabled" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="get">
+                    姓名:<input class="form-control" name="" type="text" placeholder="请输入姓名">
+                    <input class="btn btn-default" type="submit" value="提交">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    var $table = $('#table');
+    $(function () {
+        $('#modalTable').on('shown.bs.modal', function () {
+            $table.bootstrapTable('resetView');
+        });
+    });
+    var $table = $('#table');
+    $(function () {
+        $('#modalTablev').on('shown.bs.modal', function () {
+            $table.bootstrapTable('resetView');
+        });
+    });
+    var $table = $('#table');
+    $(function () {
+        $('#modalTabled').on('shown.bs.modal', function () {
+            $table.bootstrapTable('resetView');
+        });
+    });
+</script>
 </body>
 </html>
 
