@@ -46,7 +46,7 @@ public class UserService {
             return map;
         }
         String salt = UUID.randomUUID().toString().substring(0, 5);
-        password = PasswordUtils.MD5(password+user.getSalt());
+        password = PasswordUtils.MD5(password+salt);
         try {
             userDao.addUser(null,name,password,salt,"游客");
             user = userDao.selectByName(name);

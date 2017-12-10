@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-<%@include file="head.jsp" %>
+<%@include file="header.jsp" %>
 <div class="panel panel-default" style="height: 40%;width: 97%;margin: 0 auto;">
     <div class="panel-heading">
         <h3 class="panel-title">
