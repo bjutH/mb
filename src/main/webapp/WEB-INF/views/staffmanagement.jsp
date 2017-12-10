@@ -15,7 +15,7 @@
     <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
 
     <link href="../css/index.css" rel="stylesheet">
-    <script type="text/javascript" src="../js/staff.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
     <style>
         body{
             width: 100%;
@@ -27,7 +27,7 @@
 
 </head>
 <body>
-<%@include file="header.jsp"%>
+<%@include file="head.jsp"%>
 <div style="position: absolute;top: 80px;width: 100%">
 <div class="panel-body" style="padding-bottom:0px;">
     <div class="panel panel-default">

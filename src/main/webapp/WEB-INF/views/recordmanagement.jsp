@@ -14,15 +14,42 @@
     <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
 
     <style>
-        body{
+        body {
             width: 100%;
-            height:100%;
-            background:url("../img/img-order/cd-hero-background.jpg") no-repeat;
+            height: 100%;
+            background: url("../img/img-order/cd-hero-background.jpg") no-repeat;
             background-size: cover;
         }
     </style>
+    <script>
+        $.extend($.fn.bootstrapTable.defaults, {
+//            method: 'post',
+            pagination: true,
+            sidePagination: 'server',
+//            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            showRefresh: true
+        });
+        $.extend($.fn.bootstrapTable.columnDefaults, {
+            align: 'center',
+            valign: 'middle'
+        });
+    </script>
 </head>
 <body>
-<%@include file="header.jsp"%>
+<%@include file="head.jsp" %>
+<div class="container">
+    <table id="table"
+           data-toggle="table"
+           data-url="../json/data2.json">
+        <thead>
+        <tr>
+            <th data-field="id">ID</th>
+            <th data-field="name">Item Name</th>
+            <th data-field="price">Item Price</th>
+        </tr>
+        </thead>
+    </table>
+</div>
 </body>
 </html>
+

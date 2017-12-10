@@ -6,7 +6,7 @@
     <title>登陆界面</title>
 
     <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
 
     <style>
@@ -43,7 +43,7 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <form action="login.action" method="post">
+                        <form action="login.action" method="get">
                             用户名：<input name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>
                             密码：<input name="password" class="form-control" type="password" placeholder="请输入密码">
@@ -64,7 +64,7 @@
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <form action="reg.action" method="post">
+                        <form action="reg.action" method="get">
                             用户名：<input name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>
                             密码：<input name="password" class="form-control" type="password" placeholder="请输入密码">
