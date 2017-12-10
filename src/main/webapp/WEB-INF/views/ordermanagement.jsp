@@ -280,8 +280,7 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <h1>session返回信息+${sessionScope.get("msg")}</h1>
-                <h1>model返回信息+${msg}</h1>
+                <h1>${msg}</h1>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
