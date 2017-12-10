@@ -1,7 +1,9 @@
 package com.bjut.MB.controller;
 
 import com.bjut.MB.Utils.ExcelUtils;
+import com.bjut.MB.model.HostHolder;
 import com.bjut.MB.model.Order;
+import com.bjut.MB.model.User;
 import com.bjut.MB.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,15 +61,8 @@ public class OrderController {
     private FinalTestService finalTestService;
     @Autowired
     private HeaderService headerService;
-
-    /**
-     * 模拟平板上传的页面
-     * @return
-     */
-    @RequestMapping(path = {"/test"})
-    public String test(){
-        return "updateexcel";
-    }
+    @Autowired
+    private HostHolder hostHolder;
 
     /**
      * 随工单管理主页面
@@ -87,11 +82,17 @@ public class OrderController {
      */
     @RequestMapping(path = "/homepage/ordermanagement/addorder" , method = RequestMethod.POST)
     @Transactional(propagation= Propagation.REQUIRED )
-    public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number, ModelMap model) throws IOException {
+    public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number, ModelMap model, HttpSession session) throws IOException {
         String orderType = (request.getSession().getAttribute("orderType").toString());
-        if(orderType =="选择表类型")
-            return "ordermanagement";
         Map<String,String> map = new HashMap<>();
+        if(orderType =="请选择随工单类型") {
+            map.put("code","1");
+            map.put("msg","请选择随工单类型");
+            model.addAttribute(map);
+            session.setAttribute("code","1");
+            session.setAttribute("msg","请选择随工单类型");
+            return "ordermanagement";
+        }
         switch (orderType) {
             case "随工单":
                 if (orderService.selectOrder(number).size() != 0) {
@@ -232,6 +233,7 @@ public class OrderController {
         }
         map.put("code","0");
         model.addAttribute(map);
+        session.setAttribute("msg",map);
         return "ordermanagement";
     }
 
@@ -274,8 +276,11 @@ public class OrderController {
 
     @RequestMapping(path = "/homepage/ordermanagement/searchorder")
     public String selectOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session){
+        String orderType = (session.getAttribute("orderType").toString());
+        if(orderType =="请选择随工单类型")
+            return "ordermanagement";
         session.setAttribute("orderNum",orderNum);
-        return "ordermanagement";
+        return "redirect:/homepage/ordermanagement";
     }
 
     /**
@@ -286,11 +291,11 @@ public class OrderController {
     @RequestMapping(path = "/homepage/ordermanagement/show")
     public String selectOrder(HttpSession session){
         String orderType = (session.getAttribute("orderType").toString());
-        if(orderType =="选择表类型")
+        if(orderType =="请选择随工单类型")
             return "ordermanagement";
-        String user = session.getAttribute("name").toString();
+        User user = hostHolder.getUser();
         String path = null;
-        if(user.equals("admin"))
+        if(user.getName().equals("admin"))
             session.setAttribute("OpenModeType" , "OpenModeType.xlsNormalEdit");
         else
             session.setAttribute("OpenModeType" , "OpenModeType.xlsReadOnly");
@@ -346,7 +351,7 @@ public class OrderController {
     @RequestMapping(path = "/homepage/ordermanagement/deleteorderone")
     public String deleteOrderOne(@RequestParam(value = "name") String orderNum, HttpSession session, ModelMap model){
         String orderType = (session.getAttribute("orderType").toString());
-        if(orderType =="选择表类型")
+        if(orderType =="请选择随工单类型")
             return "ordermanagement";
         Map<String,String> map = new HashMap<>();
         try {
@@ -442,8 +447,8 @@ public class OrderController {
      * @return
      */
     @RequestMapping(path = "/homepage/ordermanagement/selectordertype")
-    public String selectOrderType(@RequestParam(value = "orderType") String orderType, HttpSession session){
+    public String selectOrderType(@RequestParam(value = "orderType") String orderType, HttpSession session, ModelMap model){
         session.setAttribute("orderType", orderType);
-        return "ordermanagement";
+        return "redirect:/homepage/ordermanagement";
     }
 }

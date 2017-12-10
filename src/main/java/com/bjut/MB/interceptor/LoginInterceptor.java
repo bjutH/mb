@@ -31,6 +31,9 @@ public class LoginInterceptor implements HandlerInterceptor{
         if(hostHolder.getUser() ==null){
             httpServletResponse.sendRedirect("/");
         }
+        if(httpServletRequest.getSession().getAttribute("orderType") ==null){
+            httpServletRequest.getSession().setAttribute("orderType","请选择随工单类型");
+        }
         return true;
     }
 

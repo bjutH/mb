@@ -1,6 +1,8 @@
 package com.bjut.MB.controller;
 
 
+import com.bjut.MB.model.HostHolder;
+import com.bjut.MB.model.User;
 import com.bjut.MB.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -30,7 +32,10 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(path = {"/"})
+    @Autowired
+    private HostHolder hostHolder;
+
+    @RequestMapping(path = {"/","index"})
     public String index( ){
         return "login01";
     }
@@ -92,7 +97,7 @@ public class LoginController {
      */
     @RequestMapping(path = {"/reg"})
     public String reg(@RequestParam("name") String name, @RequestParam("password") String password, @RequestParam(value = "rememberme" ,
-            defaultValue = "false") boolean rememberme, HttpSession session, HttpServletResponse response, ModelMap model)
+            defaultValue = "false") boolean rememberme, HttpServletResponse response, ModelMap model)
             throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Map<String,String> map = new HashMap<>();
         if(StringUtils.isBlank(name)){
@@ -123,8 +128,6 @@ public class LoginController {
             model.addAttribute(map);
             return "login01";
         }
-        session.setAttribute("name",name);
-        session.setAttribute("orderType","选择表类型");
         return "homepage";
     }
 }

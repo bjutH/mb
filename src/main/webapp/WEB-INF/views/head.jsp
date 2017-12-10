@@ -7,9 +7,9 @@
         </div>
         <div>
             <ul class="nav navbar-nav navbar-right" >
-                <li><a href="#0" onclick="javascript:window.location.href='ordermanagement'">随工单管理</a></li>
-                <li><a href="#0" onclick="javascript:window.location.href='staffmanagement'">人员管理</a></li>
-                <li><a href="#0" onclick="javascript:window.location.href='recordmanagement'">录音管理</a></li>
+                <li><a href="#0" onclick="javascript:window.location.href='/homepage/ordermanagement'">随工单管理</a></li>
+                <li><a href="#0" onclick="javascript:window.location.href='/homepage/staffmanagement'">人员管理</a></li>
+                <li><a href="#0" onclick="javascript:window.location.href='/homepage/recordmanagement'">录音管理</a></li>
             </ul>
         </div>
     </div>

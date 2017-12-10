@@ -24,8 +24,8 @@ public class UserManageController {
         return "staffmanagement";
     }
     @RequestMapping(path = "/homepage/staffmanagement/updatepassword")
-    public String updatePassword(@RequestParam(value = "num") String num, @RequestParam(value = "pass") String pass){
-        userDao.updatePassword(pass, num);
+    public String updatePassword(@RequestParam(value = "name") String name, @RequestParam(value = "pass") String pass){
+        userDao.updatePassword(pass, name);
         return "staffmanagement";
     }
     @RequestMapping(path = "/homepage/staffmanagement/deleteuser")

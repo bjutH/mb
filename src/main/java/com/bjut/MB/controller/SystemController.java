@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 /**
  * Created by Administrator on 2017/12/8.
  */
@@ -28,21 +31,16 @@ public class SystemController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(path = {"/homepage/systemmanagement"})
-    public String index( ){
-        return "systemmanagement";
-    }
-
-    @RequestMapping(path = {"/homepage/systemmanagement/updatepassword"})
-    public String updatePassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newpassword") String newPassword,
+    @RequestMapping(path = {"/homepage/updatepassword"})
+    public String updatePassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword,
                                  ModelMap modelMap){
         systemService.UpdatePassword(hostHolder.getUser().getName(),oldPassword,newPassword);
-        return "systemmanagement";
+        return "homepage";
     }
 
-    @RequestMapping(path = {"/homepage/systemmanagement/logout"})
-    public String logout(@CookieValue("ticket") String ticket){
+    @RequestMapping(path = {"/homepage/logout"})
+    public String logout(@CookieValue("ticket") String ticket, HttpServletResponse httpServletResponse) throws IOException {
         userService.logout(ticket);
-        return "login01";
+        return "redirect:/";
     }
 }

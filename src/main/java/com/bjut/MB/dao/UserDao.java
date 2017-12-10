@@ -38,11 +38,11 @@ public interface UserDao {
     /**
      *
      * @param password 密码
-     * @param num 工号
+     * @param id
      */
 
-    @Update({"update ", TABLE_NAME, "set password = #{password} where num = #{num}"})
-    void updatePassword(@Param("password") String password, @Param("num") String num);
+    @Update({"update ", TABLE_NAME, "set password = #{password} where name = #{name}"})
+    void updatePassword(@Param("password") String password, @Param("name") String name);
 
 
     @Update({"update ", TABLE_NAME, "set power = #{power} where num = #{num}"})

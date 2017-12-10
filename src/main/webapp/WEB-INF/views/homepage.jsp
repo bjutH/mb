@@ -31,12 +31,12 @@
 </div>
 <div style="position: relative;left: 1.5%;top: 1.5%">
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">修改密码</button>
-    <form action="logout" method="get">
+    <form action="homepage/logout" method="get">
     <button type="submit" class="btn btn-warning btn-lg">退出登录</button>
     </form>
 </div>
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="/homepage/logout" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -47,11 +47,11 @@
                     修改密码
                 </h4>
             </div>
-            <form class="form-inline" role="form" action="updatepassword" method="get">
+            <form class="form-inline" role="form" action="/homepage/updatepassword" method="post">
                 <div class="modal-body">
                     原始密码：<input type="text" name="oldPassword" class="form-control" placeholder="请输入原密码">
                     <br/>
-                    修改密码：<input type="text" name="newpassword" class="form-control" placeholder="请输入新密码">
+                    修改密码：<input type="text" name="newPassword" class="form-control" placeholder="请输入新密码">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

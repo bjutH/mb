@@ -32,7 +32,7 @@ public class SystemService {
         }
         else {
             try {
-                userDao.updatePassword(PasswordUtils.MD5(newPassword+user.getSalt()),user.getNum());
+                userDao.updatePassword(PasswordUtils.MD5(newPassword+user.getSalt()),user.getName());
                 map.put("code","0");
             }catch (Exception e){
                 logger.error("注册DAO异常" + e.getMessage());

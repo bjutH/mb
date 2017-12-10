@@ -90,7 +90,7 @@ public class UserService {
 
     private String addLoginTicket(int userId) {
         LoginTicket ticket = new LoginTicket();
-        ticket.setNum(userId);
+         ticket.setNum(userId);
         Date date = new Date();
         date.setTime(date.getTime() + 1000*3600*24);
         ticket.setDate(date);
