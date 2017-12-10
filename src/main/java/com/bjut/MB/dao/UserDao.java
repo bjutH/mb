@@ -22,7 +22,7 @@ public interface UserDao {
      * @param salt
      * @param power 级别
      */
-    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{num}. #{name}, #{password}, #{salt}, #{power})"})
+    @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{num}, #{name}, #{password}, #{salt}, #{power})"})
     void addUser(@Param("num") String num, @Param("name") String name, @Param("password") String password, @Param("salt") String salt, @Param("power") String power);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where num = #{num}"})

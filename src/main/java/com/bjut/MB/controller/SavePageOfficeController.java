@@ -22,7 +22,7 @@ public class SavePageOfficeController {
 
     private static final Logger logger = LoggerFactory.getLogger(SavePageOfficeController.class);
 
-    @RequestMapping(path = {"/savefile"})
+    @RequestMapping(path = {"/homepage/ordermanagement/savefile"})
     public void saveToFile(String name, HttpServletRequest request, HttpServletResponse response)
                             throws ServletException,java.io.IOException,java.lang.Exception{
         FileSaver fs = new FileSaver(request,response);

@@ -27,7 +27,7 @@
 
 </head>
 <body>
-<%@include file="head.jsp"%>
+<%@include file="header.jsp"%>
 <div style="position: absolute;top: 80px;width: 100%">
 <div class="panel-body" style="padding-bottom:0px;">
     <div class="panel panel-default">

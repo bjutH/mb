@@ -29,7 +29,7 @@ public class LoginInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         if(hostHolder.getUser() ==null){
-            httpServletResponse.sendRedirect("login01");
+            httpServletResponse.sendRedirect("/");
         }
         return true;
     }

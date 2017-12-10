@@ -14,27 +14,27 @@ public class UserManageController {
     @Autowired
     private UserDao userDao;
 
-    @RequestMapping(path = "/staffmanagement")
+    @RequestMapping(path = "/homepage/staffmanagement")
     public String index(){
         return "staffmanagement";
     }
-    @RequestMapping(path = "/updatepower")
+    @RequestMapping(path = "/homepage/staffmanagement/updatepower")
     public String updatePower(@RequestParam(value = "num")String num, @RequestParam(value = "power") String power){
         userDao.updatePower(power, num);
         return "staffmanagement";
     }
-    @RequestMapping(path = "/updatepassword")
+    @RequestMapping(path = "/homepage/staffmanagement/updatepassword")
     public String updatePassword(@RequestParam(value = "num") String num, @RequestParam(value = "pass") String pass){
         userDao.updatePassword(pass, num);
         return "staffmanagement";
     }
-    @RequestMapping(path = "/deleteuser")
+    @RequestMapping(path = "/homepage/staffmanagement/deleteuser")
     public String deleteUser(@RequestParam(value = "num") String num){
         userDao.deleteAll(num);
         return "staffmanagement";
     }
 
-    @RequestMapping(path = "/query")
+    @RequestMapping(path = "/homepage/staffmanagement/query")
     public String addUser(@RequestParam(value = "num") String num){
         userDao.selectOne(num);
         return "staffmanagement";

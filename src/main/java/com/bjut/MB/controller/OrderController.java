@@ -73,7 +73,7 @@ public class OrderController {
      * 随工单管理主页面
      * @return
      */
-    @RequestMapping(path = {"/ordermanagement"})
+    @RequestMapping(path = {"/homepage/ordermanagement"})
     public String homepage(){
         return "ordermanagement";
     }
@@ -85,7 +85,7 @@ public class OrderController {
      * @return
      * @throws IOException
      */
-    @RequestMapping(path = "/addorder" , method = RequestMethod.POST)
+    @RequestMapping(path = "/homepage/ordermanagement/addorder" , method = RequestMethod.POST)
     @Transactional(propagation= Propagation.REQUIRED )
     public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number, ModelMap model) throws IOException {
         String orderType = (request.getSession().getAttribute("orderType").toString());
@@ -244,7 +244,7 @@ public class OrderController {
      * @param ps
      * @return
      */
-    @RequestMapping(path = "/updateorder")
+    @RequestMapping(path = "/homepage/ordermanagement/updateorder")
     @ResponseBody
     public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                                @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
@@ -272,7 +272,7 @@ public class OrderController {
         return "succes";
     }
 
-    @RequestMapping(path = "/searchorder")
+    @RequestMapping(path = "/homepage/ordermanagement/searchorder")
     public String selectOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session){
         session.setAttribute("orderNum",orderNum);
         return "ordermanagement";
@@ -283,7 +283,7 @@ public class OrderController {
      * @param session
      * @return
      */
-    @RequestMapping(path = "/show")
+    @RequestMapping(path = "/homepage/ordermanagement/show")
     public String selectOrder(HttpSession session){
         String orderType = (session.getAttribute("orderType").toString());
         if(orderType =="选择表类型")
@@ -343,7 +343,7 @@ public class OrderController {
      * @param session
      * @return
      */
-    @RequestMapping(path = "/deleteorderone")
+    @RequestMapping(path = "/homepage/ordermanagement/deleteorderone")
     public String deleteOrderOne(@RequestParam(value = "name") String orderNum, HttpSession session, ModelMap model){
         String orderType = (session.getAttribute("orderType").toString());
         if(orderType =="选择表类型")
@@ -405,7 +405,7 @@ public class OrderController {
      * @param orderNum  随工单编号
      * @return
      */
-    @RequestMapping(path = "/deleteorderall")
+    @RequestMapping(path = "/homepage/ordermanagement/deleteorderall")
     @Transactional(propagation= Propagation.REQUIRED )
     public String deleteOrderAll(@RequestParam(value = "name") String orderNum, ModelMap model){
         Map<String,String> map = new HashMap<>();
@@ -441,7 +441,7 @@ public class OrderController {
      * @param session
      * @return
      */
-    @RequestMapping(path = "/selectordertype")
+    @RequestMapping(path = "/homepage/ordermanagement/selectordertype")
     public String selectOrderType(@RequestParam(value = "orderType") String orderType, HttpSession session){
         session.setAttribute("orderType", orderType);
         return "ordermanagement";

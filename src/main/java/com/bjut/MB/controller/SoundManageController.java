@@ -15,21 +15,21 @@ public class SoundManageController {
     @Autowired
     private SoundDao soundDao;
 
-    @RequestMapping(path = "/soundmanagement")
+    @RequestMapping(path = "homepage/recordmanagement")
     public String index(){
-        return "soundmanagement";
+        return "recordmanagement";
     }
 
-    @RequestMapping(path = "/updatesound")
+    @RequestMapping(path = "homepage/recordmanagement/updatesound")
     public String updateSound(@RequestParam(value = "id")String id, @RequestParam(value = "sound") String sound){
         soundDao.updatePassword(sound, id);
-        return "soundmanagement";
+        return "recordmanagement";
     }
 
-    @RequestMapping(path = "/selectsound")
+    @RequestMapping(path = "homepage/recordmanagement/selectsound")
 
     public String updateSound(@RequestParam(value = "id")int id){
         soundDao.selectById(id);
-        return "soundmanagement";
+        return "recordmanagement";
     }
 }

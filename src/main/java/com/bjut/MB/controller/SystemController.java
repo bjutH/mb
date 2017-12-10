@@ -28,19 +28,19 @@ public class SystemController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(path = {"/systemmanagement"})
+    @RequestMapping(path = {"/homepage/systemmanagement"})
     public String index( ){
         return "systemmanagement";
     }
 
-    @RequestMapping(path = {"/updatepassword"})
+    @RequestMapping(path = {"/homepage/systemmanagement/updatepassword"})
     public String updatePassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newpassword") String newPassword,
                                  ModelMap modelMap){
         systemService.UpdatePassword(hostHolder.getUser().getName(),oldPassword,newPassword);
         return "systemmanagement";
     }
 
-    @RequestMapping(path = {"/logout"})
+    @RequestMapping(path = {"/homepage/systemmanagement/logout"})
     public String logout(@CookieValue("ticket") String ticket){
         userService.logout(ticket);
         return "login01";
