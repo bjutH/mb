@@ -23,13 +23,13 @@ public class SoundManageController {
     @RequestMapping(path = "homepage/recordmanagement/updatesound")
     public String updateSound(@RequestParam(value = "id")String id, @RequestParam(value = "sound") String sound){
         soundDao.updatePassword(sound, id);
-        return "recordmanagement";
+        return "redirect:/homepage/recordmanagement";
     }
 
     @RequestMapping(path = "homepage/recordmanagement/selectsound")
 
     public String updateSound(@RequestParam(value = "id")int id){
         soundDao.selectById(id);
-        return "recordmanagement";
+        return "redirect:/homepage/recordmanagement";
     }
 }
