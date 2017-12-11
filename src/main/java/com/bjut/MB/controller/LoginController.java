@@ -68,7 +68,7 @@ public class LoginController {
                 Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath("/");
                 if (rememberme) {
-                    cookie.setMaxAge(3600 * 24 * 5);
+                    cookie.setMaxAge(3600 * 24 * 7);
                 }
                 response.addCookie(cookie);
             }
