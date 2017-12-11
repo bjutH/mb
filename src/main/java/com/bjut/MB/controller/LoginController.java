@@ -48,7 +48,7 @@ public class LoginController {
      */
     @RequestMapping(path = {"/login"})
     public String login(@RequestParam("name") String name, @RequestParam("password") String password, @RequestParam(value = "rememberme" ,
-                        defaultValue = "false") boolean rememberme, HttpSession session, HttpServletResponse response, ModelMap model)
+                        defaultValue = "true") boolean rememberme, HttpSession session, HttpServletResponse response, ModelMap model)
                         throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Map<String,String> map = new HashMap<>();
         if(StringUtils.isBlank(name)){
