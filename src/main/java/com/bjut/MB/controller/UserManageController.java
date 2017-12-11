@@ -16,7 +16,7 @@ public class UserManageController {
 
     @RequestMapping(path = "/homepage/staffmanagement")
     public String index(){
-        return "redirect:/homepage/staffmanagement";
+        return "staffmanagement";
     }
     @RequestMapping(path = "/homepage/staffmanagement/updatepower")
     public String updatePower(@RequestParam(value = "num")String num, @RequestParam(value = "power") String power){
