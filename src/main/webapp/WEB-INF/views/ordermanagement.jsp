@@ -137,68 +137,68 @@
         <div>
             <form id="selectorder" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame" style="height: 27px">
                 <input type="hidden" name="orderType" value="随工单"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=随工单;" id="order"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=随工单" id="order"
                    onclick="document.getElementById('selectorder').submit();">随工单</a><%--order--%>
             </form>
             <form id="selectmemo" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame" style="height: 27px">
                 <input type="hidden" name="orderType" value="仪器备忘录"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=仪器备忘录;" id="memo"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=仪器备忘录" id="memo"
                    onclick="document.getElementById('selectmemo').submit();">仪器备忘录</a><%--memo--%>
             </form>
             <form id="selectremade" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame" style="height: 27px">
                 <input type="hidden" name="orderType" value="返工记录表"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=返工记录表;" id="remade"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=返工记录表" id="remade"
                    onclick="document.getElementById('selectremade').submit();">返工记录表</a><%--remade--%>
             </form>
             <form id="selectaging" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame" style="height: 27px">
                 <input type="hidden" name="orderType" value="老化观测表"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=老化观测表;" id="aging"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=老化观测表" id="aging"
                    onclick="document.getElementById('selectaging').submit();">老化观测表</a><%--aging--%>
             </form>
             <form id="selectpack" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame" style="height: 27px">
                 <input type="hidden" name="orderType" value="装箱记录单"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=装箱记录单;" id="pack"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=装箱记录单" id="pack"
                    onclick="document.getElementById('selectpack').submit();">装箱记录单</a><%--pack--%>
             </form>
             <form id="selectdebug" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame" style="height: 27px">
                 <input type="hidden" name="orderType" value="整机调试报告单"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=整机调试报告单;" id="debug"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=整机调试报告单" id="debug"
                    onclick="document.getElementById('selectdebug').submit();">整机调试报告单</a><%--debug--%>
             </form>
             <form id="selectprocessTest" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame"
                   style="height: 27px">
                 <input type="hidden" name="orderType" value="工序检验报告单"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=工序检验报告单;" id="processTest"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=工序检验报告单" id="processTest"
                    onclick="document.getElementById('selectprocessTest').submit();">工序检验报告单</a><%--processTest--%>
             </form>
             <form id="selectmachineTest" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame"
                   style="height: 27px">
                 <input type="hidden" name="orderType" value="整机检验报告单"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=整机检验报告单;" id="machineTest"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=整机检验报告单" id="machineTest"
                    onclick="document.getElementById('selectmachineTest').submit();">整机检验报告单</a><%--machineTest--%>
             </form>
             <form id="selectproductTest" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame"
                   style="height: 27px">
                 <input type="hidden" name="orderType" value="成品检验报告单"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=成品检验报告单;" id="productTest"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=成品检验报告单" id="productTest"
                    onclick="document.getElementById('selectproductTest').submit();">成品检验报告单</a><%--productTest--%>
             </form>
             <form id="selectsphygmomanometer" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame"
                   style="height: 27px">
                 <input type="hidden" name="orderType" value="血压计检定报告单"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=血压计检定报告单;" id="sphygmomanometer"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=血压计检定报告单" id="sphygmomanometer"
                    onclick="document.getElementById('selectsphygmomanometer').submit();">血压计检定报告单</a><%--sphygmomanometer--%>
             </form>
             <form id="selectperformTest" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame"
                   style="height: 27px">
                 <input type="hidden" name="orderType" value="性能要求检验单"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=性能要求检验单;" id="performTest"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=性能要求检验单" id="performTest"
                    onclick="document.getElementById('selectperformTest').submit();">性能要求检验单</a><%--performTest--%>
             </form>
             <form id="selectfinalTest" action="/homepage/ordermanagement/selectordertype" method="post" target="hidden_frame"
                   style="height: 27px">
                 <input type="hidden" name="orderType" value="最终检验报告单"/>
-                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=最终检验报告单;" id="finalTest"
+                <a class="list-group-item" href="/homepage/ordermanagement/selectordertype?orderType=最终检验报告单" id="finalTest"
                    onclick="document.getElementById('selectfinalTest').submit();">最终检验报告单</a><%--finalTest--%><%--上传到selectordertype--%>
             </form>
         </div>
