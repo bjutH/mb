@@ -234,7 +234,7 @@ public class OrderController {
         map.put("code","0");
         model.addAttribute(map);
         session.setAttribute("msg",map);
-        return "ordermanagement";
+        return "redirect:/homepage/ordermanagement";
     }
 
     /**
