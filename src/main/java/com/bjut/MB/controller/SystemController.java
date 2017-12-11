@@ -35,7 +35,7 @@ public class SystemController {
     public String updatePassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword,
                                  ModelMap modelMap){
         systemService.UpdatePassword(hostHolder.getUser().getName(),oldPassword,newPassword);
-        return "homepage";
+        return "redirect:/homepage";
     }
 
     @RequestMapping(path = {"/homepage/logout"})

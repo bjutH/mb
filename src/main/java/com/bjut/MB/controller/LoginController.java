@@ -2,7 +2,6 @@ package com.bjut.MB.controller;
 
 
 import com.bjut.MB.model.HostHolder;
-import com.bjut.MB.model.User;
 import com.bjut.MB.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -55,13 +54,13 @@ public class LoginController {
             map.put("code","1");
             map.put("msg","用户名不能为空!");
             model.addAttribute("msg","用户名不能为空!");
-            return "login01";
+            return "redirect:/login01";
         }
         if(StringUtils.isBlank(password)){
             map.put("code","1");
             map.put("msg","密码不能为空!");
             model.addAttribute("msg","用户名不能为空!");
-            return "login01";
+            return "redirect:/login01";
         }
         try {
             map = userService.login(name,password);
@@ -77,13 +76,13 @@ public class LoginController {
                 map.put("code","1");
                 map.put("msg","用户名或密码错误!");
                 model.addAttribute("msg","用户名或密码错误!");
-                return "login01";
+                return "redirect:/login01";
             }
         }catch (Exception e){
             logger.error("登陆异常" + e.getMessage());
             map.put("code","1");
             model.addAttribute(map);
-            return "login01";
+            return "redirect:/login01";
         }
         return "redirect:/homepage";
     }
@@ -103,13 +102,13 @@ public class LoginController {
             map.put("code","1");
             map.put("msg","用户名不能为空!");
             model.addAttribute("msg","用户名不能为空!");
-            return "login01";
+            return "redirect:/login01";
         }
         if(StringUtils.isBlank(password)){
             map.put("code","1");
             map.put("msg","密码不能为空!");
             model.addAttribute("msg","密码不能为空!");
-            return "login01";
+            return "redirect:/login01";
         }
         try {
             map = userService.reg(name,password);
@@ -124,8 +123,8 @@ public class LoginController {
         }catch (Exception e){
             logger.error("注册异常" + e.getMessage());
             map.put("code","1");
-            model.addAttribute(map);
-            return "login01";
+            model.addAttribute("msg","注册异常!");
+            return "redirect:/login01";
         }
         return "redirect:/homepage";
     }

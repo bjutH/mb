@@ -16,28 +16,28 @@ public class UserManageController {
 
     @RequestMapping(path = "/homepage/staffmanagement")
     public String index(){
-        return "staffmanagement";
+        return "redirect:/homepage/staffmanagement";
     }
     @RequestMapping(path = "/homepage/staffmanagement/updatepower")
     public String updatePower(@RequestParam(value = "num")String num, @RequestParam(value = "power") String power){
         userDao.updatePower(power, num);
-        return "staffmanagement";
+        return "redirect:/homepage/staffmanagement";
     }
     @RequestMapping(path = "/homepage/staffmanagement/updatepassword")
     public String updatePassword(@RequestParam(value = "name") String name, @RequestParam(value = "pass") String pass){
         userDao.updatePassword(pass, name);
-        return "staffmanagement";
+        return "redirect:/homepage/staffmanagement";
     }
     @RequestMapping(path = "/homepage/staffmanagement/deleteuser")
     public String deleteUser(@RequestParam(value = "num") String num){
         userDao.deleteAll(num);
-        return "staffmanagement";
+        return "redirect:/homepage/staffmanagement";
     }
 
     @RequestMapping(path = "/homepage/staffmanagement/query")
     public String addUser(@RequestParam(value = "num") String num){
         userDao.selectOne(num);
-        return "staffmanagement";
+        return "redirect:/homepage/staffmanagement";
     }
 
 
