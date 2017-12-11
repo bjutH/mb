@@ -90,9 +90,9 @@ public class UserService {
 
     private String addLoginTicket(int userId) {
         LoginTicket ticket = new LoginTicket();
-         ticket.setNum(userId);
+        ticket.setNum(userId);
         Date date = new Date();
-        date.setTime(date.getTime() + 1000*3600*24);
+        date.setTime(date.getTime() + 1000*3600*24*7);
         ticket.setDate(date);
         ticket.setStatus(0);
         ticket.setTicket(UUID.randomUUID().toString().replaceAll("-", ""));
