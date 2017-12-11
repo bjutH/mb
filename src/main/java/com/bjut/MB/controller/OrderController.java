@@ -279,7 +279,6 @@ public class OrderController {
             return "redirect:/homepage/ordermanagement";
         }
         session.setAttribute("orderNum",orderNum);
-        model.addAttribute("search","true");
         return "redirect:/homepage/ordermanagement";
     }
 
