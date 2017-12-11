@@ -36,7 +36,7 @@ public class LoginController {
 
     @RequestMapping(path = {"/index"})
     public String index( ){
-        return "index";
+        return "login01";
     }
 
     /**

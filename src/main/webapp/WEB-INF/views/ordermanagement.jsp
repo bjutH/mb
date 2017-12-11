@@ -1,43 +1,45 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <title>随工单管理</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script type="text/javascript" src="../../jquery.min.js"></script>
     <script type="text/javascript" src="../../pageoffice.js" id="po_js_main"></script>
     <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="../js/bootstrap.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
 
-
     <script type="text/javascript">
         function checkform1() {
             var orderType = "${sessionScope.get("orderType")}";
-//            if (orderType == "请选择随工单类型") {
-//                alert('请选择随工单类型！');
-//                return false;
-//            }
-//            if (document.getElementById('inp1').value.length == 0) {
-//                alert('路径为空！');
-//                document.getElementById('ipt1').focus();
-//                return false;
-//            }
-//            if (document.getElementById('inp1').value == "请输入搜索内容") {
-//                alert('路径为空！');
-//                document.getElementById('ipt1').focus();
-//                return false;
-//            }
-//            if (document.getElementById('inp2').value.length == 0) {
-//                alert('输入为空！');
-//                document.getElementById('ipt2').focus();
-//                return false;
-//            }
-//            if (document.getElementById('inp2').value == "请输入搜索内容") {
-//                alert('输入为空！');
-//                document.getElementById('ipt2').focus();
-//                return false;
-//            }
+            if (orderType == "请选择随工单类型") {
+                alert('请选择随工单类型！');
+                return false;
+            }
+            if (document.getElementById('inp1').value.length == 0) {
+                alert('路径为空！');
+                document.getElementById('ipt1').focus();
+                return false;
+            }
+            if (document.getElementById('inp1').value == "请输入搜索内容") {
+                alert('路径为空！');
+                document.getElementById('ipt1').focus();
+                return false;
+            }
+            if (document.getElementById('inp2').value.length == 0) {
+                alert('输入为空！');
+                document.getElementById('ipt2').focus();
+                return false;
+            }
+            if (document.getElementById('inp2').value == "请输入搜索内容") {
+                alert('输入为空！');
+                document.getElementById('ipt2').focus();
+                return false;
+            }
             return true;
         }
 
@@ -262,8 +264,8 @@
                         <input class="btn btn-default" type="submit" class="search-icon" value="搜索"
                                onclick="checkform3()" style="float: right"/>
                     </form>
-                    <a href="javascript:POBrowser.openWindow('/homepage/ordermanagement/show','width=1200px;height=800px;');"
-                       style="color: white;float: right">打开</a>
+                        <a href="javascript:POBrowser.openWindow('/homepage/ordermanagement/show','width=1200px;height=800px;');"
+                           style="color: white;float: right" >打开</a>
                 </div>
             </div>
         </div>
