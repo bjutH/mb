@@ -17,7 +17,7 @@ public class SoundManageController {
 
     @RequestMapping(path = "homepage/recordmanagement")
     public String index(){
-        return "recordmanagement";
+        return "redirect:/homepage/recordmanagement";
     }
 
     @RequestMapping(path = "homepage/recordmanagement/updatesound")

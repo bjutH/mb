@@ -70,7 +70,7 @@ public class OrderController {
      */
     @RequestMapping(path = {"/homepage/ordermanagement"})
     public String homepage(){
-        return "ordermanagement";
+        return "redirect:/homepage/ordermanagement";
     }
 
     /**
