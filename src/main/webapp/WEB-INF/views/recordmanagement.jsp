@@ -12,7 +12,6 @@
     <link href="../css/bootstrap-table.css" rel="stylesheet">
     <script src="../js/bootstrap-table.js" type="text/javascript"></script>
     <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
-
     <style>
         body {
             width: 100%;
@@ -40,7 +39,7 @@
 <div class="container">
     <table id="table"
            data-toggle="table"
-           data-url="../json/data2.json">
+           data-url="../json/data2.json" style="background-color: white">
         <thead>
         <tr>
             <th data-field="id">ID</th>

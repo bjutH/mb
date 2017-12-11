@@ -15,7 +15,7 @@
     <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
 
     <link href="../css/index.css" rel="stylesheet">
-    <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../js/staff.js"></script>
     <style>
         body{
             width: 100%;
@@ -24,7 +24,6 @@
             background-size: cover;
         }
     </style>
-
 </head>
 <body>
 <%@include file="head.jsp"%>
