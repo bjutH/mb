@@ -40,7 +40,7 @@
 <div class="container">
     <table id="table"
            data-toggle="table"
-           data-url="../json/data2.json">
+           data-url="../json/data2.json" style="background-color: white">
         <thead>
         <tr>
             <th data-field="id">ID</th>
