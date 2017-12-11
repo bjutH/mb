@@ -24,7 +24,6 @@
             background-size: cover;
         }
     </style>
-
 </head>
 <body>
 <%@include file="head.jsp"%>

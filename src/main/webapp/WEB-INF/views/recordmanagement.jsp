@@ -12,7 +12,6 @@
     <link href="../css/bootstrap-table.css" rel="stylesheet">
     <script src="../js/bootstrap-table.js" type="text/javascript"></script>
     <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
-
     <style>
         body {
             width: 100%;
