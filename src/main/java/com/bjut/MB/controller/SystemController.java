@@ -35,12 +35,12 @@ public class SystemController {
     public String updatePassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword,
                                  ModelMap modelMap){
         systemService.UpdatePassword(hostHolder.getUser().getName(),oldPassword,newPassword);
-        return "homepage";
+        return "redirect:/homepage";
     }
 
     @RequestMapping(path = {"/homepage/logout"})
     public String logout(@CookieValue("ticket") String ticket, HttpServletResponse httpServletResponse) throws IOException {
         userService.logout(ticket);
-        return "redirect:/";
+        return "redirect:/index";
     }
 }
