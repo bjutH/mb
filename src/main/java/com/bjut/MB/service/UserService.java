@@ -11,7 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -100,7 +103,15 @@ public class UserService {
         return ticket.getTicket();
     }
 
-    public void logout(String tikcet){
+    public void logout(String tikcet, HttpServletRequest httpServletRequest){
         loginTicketDAO.updateStatus(tikcet,1);
+        if(httpServletRequest.getCookies() !=null) {
+            for (Cookie cookie : httpServletRequest.getCookies()) {
+                if (cookie.getName().equals("ticket")) {
+                    cookie.setMaxAge(0);
+                    break;
+                }
+            }
+        }
     }
 }
