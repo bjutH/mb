@@ -85,7 +85,7 @@
                 document.getElementById('ipt4').focus();
                 return false;
             }
-            if (document.getElementById('inp4').value == "请输入搜索内容") {
+            if (document.getElementById('inp4').value == "请输入单号") {
                 alert('输入为空！');
                 document.getElementById('ipt4').focus();
                 return false;
@@ -130,9 +130,6 @@
 </head>
 <body>
 <%@include file="head.jsp" %>
-<%--避免刷新，不能接收返回--%>
-<%--<iframe name='hidden_frame' id="hidden_frame">--%>
-    <%--<p>返回信息</p></iframe>--%>
 <div class="container" style="position: absolute;left: 15%;top: 15%">
     <div class="list-group" style="width: 230px;float: left">
         <a class="list-group-item active" id="test1">当前选择:${sessionScope.get("orderType")}</a>
@@ -207,46 +204,56 @@
     </div>
     <div style="position: relative;float: left;width: 60%;left: 4%;height: inherit">
         <ul id="myTab" class="nav nav-tabs">
-            <li class="active"><a href="#home" data-toggle="tab" style="background-color: white">添加</a></li>
-            <li><a href="#ios" data-toggle="tab" style="background-color: white">删除</a></li>
-            <li><a href="#java" data-toggle="tab" style="background-color: white">上传</a></li>
+            <li class="active"><a href="#home" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-plus"></span>添加</a></li>
+            <li><a href="#ios" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-trash"></span>删除</a></li>
+            <li><a href="#java" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-arrow-up"></span>上传</a></li>
         </ul>
         <div id="myTabContent" class="tab-content"
              style="width: 100%;background-color: #437ab2;border-radius: 0 5px 5px 5px">
             <div class="tab-pane fade in active" id="home"
-                 style="position: relative;width: 100%;height: 160px;background-color: #437ab2;color: white;border-radius: 0 5px 5px 5px">
+                 style="position: relative;width: 100%;height: 180px;background-color: #437ab2;color: white;border-radius: 0 5px 5px 5px">
                 <div class="container" style="width: 60%">
                     <form action="/homepage/ordermanagement/addorder" method="post" enctype="multipart/form-data" >
-                        选择路径:<input class="form-control" id="inp1" type="file" name="uploadfile"/>
-                        选择名称:<input class="form-control" id="inp2" type="text" name="number" placeholder="请输入名称"/>
+                        <p></p>
+                        选择路径:<span style="color: #cccccc">${msg}</span>
+                        <input class="form-control" id="inp1" type="file" name="uploadfile"/>
+                        选择名称:
+                        <input class="form-control" id="inp2" type="text" name="number" placeholder="请输入名称"/>
+                        <p></p>
                         <input id="updt" class="btn btn-default" type="submit" value="添加" onclick="checkform1()"
                                style="float: right" />
-                        <h1>${msg}</h1>
-
                     </form>
                 </div>
             </div>
             <div class="tab-pane fade" id="ios"
-                 style="position: relative;background-color: #437ab2;height: 100px;color: white;border-radius: 0 5px 5px 5px">
+                 style="position: relative;background-color: #437ab2;height: 140px;color: white;border-radius: 0 5px 5px 5px">
                 <div class="container" style="width: 60%">
                     <form action="/homepage/ordermanagement/deleteorderone" method="get">
                         <!--输入删除的随单表号码-->
+                        <p></p>
                         随工单编号：<input class="form-control" id="inp3" name="name" type="text" placeholder="请输入单号"/>
-                        <h1>${msg}</h1>
+                        <p></p>
                         <input id="deletest" class="btn btn-default" type="submit" value="确定" onclick="checkform2()"
                                style="float: right"/>
                     </form>
                 </div>
             </div>
             <div class="tab-pane fade" id="java"
-                 style="position: relative;background-color: #437ab2;height: 320px;color: white;border-radius: 0 5px 5px 5px">
+                 style="position: relative;background-color: #437ab2;height: 340px;color: white;border-radius: 0 5px 5px 5px">
                 <div class="container" style="width: 60%">
                     <form action="/homepage/ordermanagement/updateorder" method="get">
-                        随工单编号: <input class="form-control" type="text" name="orderNum" placeholder="请输入单号"/>
-                        工序: <input class="form-control" type="text" name="process" placeholder="请输入工序"/>
-                        操作者: <input class="form-control" type="text" name="operater" placeholder="请输入操作者"/>
-                        其他: <input class="form-control" type="text" name="other" placeholder="请输入其他"/>
-                        备注: <input class="form-control" type="text" name="ps" placeholder="请输入备注"/>
+                        <p></p>
+                        随工单编号:
+                        <input class="form-control" type="text" name="orderNum" placeholder="请输入单号"/>
+                        工序:
+                        <input class="form-control" type="text" name="process" placeholder="请输入工序"/>
+                        操作者:
+                        <input class="form-control" type="text" name="operater" placeholder="请输入操作者"/>
+                        其他:
+                        <input class="form-control" type="text" name="other" placeholder="请输入其他"/>
+                        备注:
+                        <input class="form-control" type="text" name="ps" placeholder="请输入备注"/>
+                        <p></p>
                         <input class="btn btn-default" type="submit" value="更新" style="float: right"/>
                     </form>
                 </div>
@@ -254,18 +261,19 @@
         </div>
         <div class="panel panel-default" style="position: relative;top: 20px">
             <div class="panel-heading">
-                搜索
+                <span class="glyphicon glyphicon-search"></span> 搜索
             </div>
             <div class="panel-body" style="background-color: #437ab2;">
                 <div class="container" style="width: 62%">
                     <form action="/homepage/ordermanagement/searchorder" method="get">
                         <input class="form-control" type="text" name="orderNum" class="search-input" placeholder="请输入单号"
                                id="inp4"/>
+                        <p></p>
                         <input class="btn btn-default" type="submit" class="search-icon" value="搜索"
-                               onclick="checkform3()" style="float: right"/>
+                               onclick="javascript:POBrowser.openWindow('/homepage/ordermanagement/show','width=1200px;height=800px;');" style="float: right"/>
                     </form>
-                        <a href="javascript:POBrowser.openWindow('/homepage/ordermanagement/show','width=1200px;height=800px;');"
-                           style="color: white;float: right" >打开</a>
+                        <%--<a href="javascript:POBrowser.openWindow('/homepage/ordermanagement/show','width=1200px;height=800px;');"--%>
+                           <%--style="background-color: white;color: #000000;float: right" >打开</a>--%>
                 </div>
             </div>
         </div>

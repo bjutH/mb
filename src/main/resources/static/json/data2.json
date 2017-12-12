@@ -4,57 +4,57 @@
         {
             "id": 0,
             "name": "Item 0",
-            "price": "$0"
+            "comment": "备注0"
         },
         {
             "id": 1,
             "name": "Item 1",
-            "price": "$1"
+            "comment": "备注1"
         },
         {
             "id": 2,
             "name": "Item 2",
-            "price": "$2"
+            "comment": "备注2"
         },
         {
             "id": 3,
             "name": "Item 3",
-            "price": "$3"
+            "comment": "备注3"
         },
         {
             "id": 4,
             "name": "Item 4",
-            "price": "$4"
+            "comment": "备注4"
         },
         {
             "id": 5,
             "name": "Item 5",
-            "price": "$5"
+            "comment": "备注5"
         },
         {
             "id": 6,
             "name": "Item 6",
-            "price": "$6"
+            "comment": "备注6"
         },
         {
             "id": 7,
             "name": "Item 7",
-            "price": "$7"
+            "comment": "备注7"
         },
         {
             "id": 8,
             "name": "Item 8",
-            "price": "$8"
+            "comment": "备注8"
         },
         {
             "id": 9,
             "name": "Item 9",
-            "price": "$9"
+            "comment": "备注9"
         },
         {
             "id": 10,
             "name": "Item 10",
-            "price": "$10"
+            "comment": "备注10"
         }
     ]
 }

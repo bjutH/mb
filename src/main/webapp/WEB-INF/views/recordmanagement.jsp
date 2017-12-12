@@ -37,14 +37,14 @@
 <body>
 <%@include file="head.jsp" %>
 <div class="container">
-    <table id="table"
+    <table class="table-striped" id="table"
            data-toggle="table"
-           data-url="../json/data2.json" style="background-color: white">
+           data-url="../json/data2.json" style="background-color: white;height:200px;overflow:auto;" >
         <thead>
         <tr>
-            <th data-field="id">ID</th>
-            <th data-field="name">Item Name</th>
-            <th data-field="price">Item Price</th>
+            <th data-field="id">录音编号</th>
+            <th data-field="name">名称</th>
+            <th data-field="comment">备注</th>
         </tr>
         </thead>
     </table>

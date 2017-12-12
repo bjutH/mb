@@ -37,18 +37,23 @@
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion"
                            href="#collapseOne">
-                            登录
+                            <span class="glyphicon glyphicon-user"></span>登录
                         </a>
                     </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <form action="login" method="post">
-                            用户名：<input name="name" class="form-control" type="text" placeholder="请输入用户名">
+                            用户名：<span style="color: #cccccc">${msg}</span>
+                            <input name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>
-                            密码：<input name="password" class="form-control" type="password" placeholder="请输入密码">
+                            密码：<span style="color: #cccccc">${msg}</span>
+                            <input name="password" class="form-control" type="password" placeholder="请输入密码">
                             <br/>
+                            <div style="float: right">
+                            <input name="rememberme" type="checkbox" ><span>记住我&nbsp;&nbsp;&nbsp;</span>
                             <input type="submit" class="btn btn-default" value="登录" style="background-color: #2e6da4;color: white"/>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -58,22 +63,25 @@
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion"
                            href="#collapseTwo">
-                            注册
+                            <span class="glyphicon glyphicon-edit"></span>注册
                         </a>
                     </h4>
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse">
                     <div class="panel-body">
                         <form action="reg.action" method="post">
-                            用户名：<input name="name" class="form-control" type="text" placeholder="请输入用户名">
+                            用户名：<span style="color: #cccccc">${msg}</span>
+                            <input name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>
-                            密码：<input name="password" class="form-control" type="password" placeholder="请输入密码">
+                            密码：<span style="color: #cccccc">${msg}</span>
+                            <input name="password" class="form-control" type="password" placeholder="请输入密码">
                             <br/>
+                            <div style="float: right">
                             <input type="submit" class="btn btn-default" value="注册" style="background-color: #2e6da4;color: white"/>
+                    </div>
                         </form>
                     </div>
                 </div>
-                ${msg}
             </div>
         </div>
     </div>
