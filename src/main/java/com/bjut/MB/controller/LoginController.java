@@ -47,27 +47,27 @@ public class LoginController {
      */
     @RequestMapping(path = {"/login"})
     public String login(@RequestParam("name") String name, @RequestParam("password") String password, @RequestParam(value = "rememberme" ,
-                        defaultValue = "true") boolean rememberme, HttpSession session, HttpServletResponse response, ModelMap model)
+                        defaultValue = "off") String rememberme, HttpSession session, HttpServletResponse response, ModelMap model)
                         throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Map<String,String> map = new HashMap<>();
         if(StringUtils.isBlank(name)){
             map.put("code","1");
             map.put("msg","用户名不能为空!");
             model.addAttribute("msg","用户名不能为空!");
-            return "redirect:/login01";
+            return "redirect:/index";
         }
         if(StringUtils.isBlank(password)){
             map.put("code","1");
             map.put("msg","密码不能为空!");
             model.addAttribute("msg","用户名不能为空!");
-            return "redirect:/login01";
+            return "redirect:/index";
         }
         try {
             map = userService.login(name,password);
             if (map.containsKey("ticket")) {
                 Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath("/");
-                if (rememberme) {
+                if (rememberme.equals("on")) {
                     cookie.setMaxAge(3600 * 24 * 7);
                 }
                 response.addCookie(cookie);
@@ -76,13 +76,13 @@ public class LoginController {
                 map.put("code","1");
                 map.put("msg","用户名或密码错误!");
                 model.addAttribute("msg","用户名或密码错误!");
-                return "redirect:/login01";
+                return "redirect:/index";
             }
         }catch (Exception e){
             logger.error("登陆异常" + e.getMessage());
             map.put("code","1");
             model.addAttribute(map);
-            return "redirect:/login01";
+            return "redirect:/index";
         }
         return "redirect:/homepage";
     }
@@ -102,13 +102,13 @@ public class LoginController {
             map.put("code","1");
             map.put("msg","用户名不能为空!");
             model.addAttribute("msg","用户名不能为空!");
-            return "redirect:/login01";
+            return "redirect:/index";
         }
         if(StringUtils.isBlank(password)){
             map.put("code","1");
             map.put("msg","密码不能为空!");
             model.addAttribute("msg","密码不能为空!");
-            return "redirect:/login01";
+            return "redirect:/index";
         }
         try {
             map = userService.reg(name,password);
@@ -124,7 +124,7 @@ public class LoginController {
             logger.error("注册异常" + e.getMessage());
             map.put("code","1");
             model.addAttribute("msg","注册异常!");
-            return "redirect:/login01";
+            return "redirect:/index";
         }
         return "redirect:/homepage";
     }

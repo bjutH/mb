@@ -3,12 +3,14 @@
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="height: 60px;">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span>欢迎您，<c:if test="${not empty name}">
+            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span>欢迎您，
+                <c:if test="${not empty name}">
                 ${name}
             </c:if>
                 <c:if test="${empty name}">
                     游客
-                </c:if>!</a>
+                </c:if>
+                !</a>
         </div>
         <div>
             <ul class="nav navbar-nav navbar-right" >
@@ -17,7 +19,7 @@
                 <li style="border-right: 1px dashed #cccccc"><a href="#0" onclick="javascript:window.location.href='/homepage/staffmanagement'"><span class="glyphicon glyphicon-user"></span>人员管理</a></li>
                 <li style="border-right: 1px dashed #cccccc"><a href="#0" onclick="javascript:window.location.href='/homepage/recordmanagement'"><span class="glyphicon glyphicon-headphones"></span>录音管理</a></li>
                 <li><a href="#0" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-edit"></span>修改密码</a></li>
-                <li><a href="#0" onclick="javascript:window.location.href='/index'"><span class="glyphicon glyphicon-remove-circle"></span>注销</a></li>
+                <li><a href="#0" onclick="javascript:window.location.href='/homepage/logout'"><span class="glyphicon glyphicon-remove-circle"></span>注销</a></li>
             </ul>
         </div>
     </div>
@@ -37,7 +39,8 @@
             <form class="form-inline" role="form" action="/homepage/updatepassword" method="post">
                 <div class="modal-body">
                     <p>原始密码：<input type="text" name="oldPassword" class="form-control" placeholder="请输入原密码"></p>
-                    <p>修改密码：<input type="text" name="newPassword" class="form-control" placeholder="请输入新密码"></p>
+                    <p>新密码：<input type="text" name="newPassword" class="form-control" placeholder="请输入新密码"></p>
+                    <p>再次输入新密码：<input type="text" name="renewPassword" class="form-control" placeholder="请再次输入新密码"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
