@@ -62,7 +62,7 @@
         </button>
     </div>
     <div>
-    <table id="tb_departments"></table>
+    <table id="tb_departments" style="background-color: white"></table>
     </div>
 </div>
 </div>

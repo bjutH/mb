@@ -38,8 +38,8 @@
             </div>
             <form class="form-inline" role="form" action="/homepage/updatepassword" method="post">
                 <div class="modal-body">
-                    <p>原始密码：<input type="text" name="oldPassword" class="form-control" placeholder="请输入原密码"></p>
-                    <p>新密码：<input type="text" name="newPassword" class="form-control" placeholder="请输入新密码"></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原始密码：<input type="text" name="oldPassword" class="form-control" placeholder="请输入原密码"></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新密码：<input type="text" name="newPassword" class="form-control" placeholder="请输入新密码"></p>
                     <p>再次输入新密码：<input type="text" name="renewPassword" class="form-control" placeholder="请再次输入新密码"></p>
                 </div>
                 <div class="modal-footer">

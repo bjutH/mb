@@ -42,19 +42,6 @@
             }
             return true;
         }
-
-        //        function checkform1(){
-        //            if(document.getElementById('inp2').value.length==0){
-        //                alert('输入为空！');
-        //                document.getElementById('ipt2').focus();
-        //                return false;
-        //            }
-        //            if(document.getElementById('inp2').value=="请输入搜索内容"){
-        //                alert('输入为空！');
-        //                document.getElementById('ipt2').focus();
-        //                return false;
-        //            }
-        //        }
         function checkform2() {
             var orderType = "${sessionScope.get("orderType")}";
             if (orderType == "选择表类型") {
@@ -80,14 +67,52 @@
                 alert('请选择随工单类型！');
                 return false;
             }
-            if (document.getElementById('inp4').value.length == 0) {
-                alert('输入为空！');
+            if (document.getElementById('inpt1').value.length == 0) {
+                alert('单号不能为空！');
                 document.getElementById('ipt4').focus();
                 return false;
             }
-            if (document.getElementById('inp4').value == "请输入单号") {
-                alert('输入为空！');
+
+            if (document.getElementById('inpt2').value.length == 0) {
+                alert('工序不能为空！');
                 document.getElementById('ipt4').focus();
+                return false;
+            }
+
+            if (document.getElementById('inpt3').value.length == 0) {
+                alert('操作者不能为空！');
+                document.getElementById('ipt4').focus();
+                return false;
+            }
+            if (document.getElementById('inpt4').value.length == 0) {
+                alert('其他不能为空！');
+                document.getElementById('ipt4').focus();
+                return false;
+            }
+            if (document.getElementById('inpt5').value.length == 0) {
+                alert('备注不能为空！');
+                document.getElementById('ipt4').focus();
+                return false;
+            }
+            return true;
+        }
+
+        $
+
+        function checkform4() {
+            var orderType = "${sessionScope.get("orderType")}";
+            if (orderType == "选择表类型") {
+                alert('请选择随工单类型！');
+                return false;
+            }
+            if (document.getElementById('inpt6').value.length == 0) {
+                alert('搜索单号不能为空！');
+                document.getElementById('ipt3').focus();
+                return false;
+            }
+            if (document.getElementById('inpt6').value == "请输入单号") {
+                alert('搜索单号不能为空！');
+                document.getElementById('ipt3').focus();
                 return false;
             }
             return true;
@@ -244,17 +269,17 @@
                     <form action="/homepage/ordermanagement/updateorder" method="get">
                         <p></p>
                         随工单编号:
-                        <input class="form-control" type="text" name="orderNum" placeholder="请输入单号"/>
+                        <input id="inpt1" class="form-control" type="text" name="orderNum" placeholder="请输入单号"/>
                         工序:
-                        <input class="form-control" type="text" name="process" placeholder="请输入工序"/>
+                        <input id="inpt2" class="form-control" type="text" name="process" placeholder="请输入工序"/>
                         操作者:
-                        <input class="form-control" type="text" name="operater" placeholder="请输入操作者"/>
+                        <input id="inpt3" class="form-control" type="text" name="operater" placeholder="请输入操作者"/>
                         其他:
-                        <input class="form-control" type="text" name="other" placeholder="请输入其他"/>
+                        <input id="inpt4" class="form-control" type="text" name="other" placeholder="请输入其他"/>
                         备注:
-                        <input class="form-control" type="text" name="ps" placeholder="请输入备注"/>
+                        <input id="inpt5" class="form-control" type="text" name="ps" placeholder="请输入备注"/>
                         <p></p>
-                        <input class="btn btn-default" type="submit" value="更新" style="float: right"/>
+                        <input class="btn btn-default" type="submit" value="更新" style="float: right" onclick="checkform3()"/>
                     </form>
                 </div>
             </div>
@@ -267,10 +292,10 @@
                 <div class="container" style="width: 62%">
                     <form action="/homepage/ordermanagement/searchorder" method="get">
                         <input class="form-control" type="text" name="orderNum" class="search-input" placeholder="请输入单号"
-                               id="inp4"/>
+                               id="inpt6"/>
                         <p></p>
                         <input class="btn btn-default" type="submit" class="search-icon" value="搜索"
-                               onclick="javascript:POBrowser.openWindow('/homepage/ordermanagement/show','width=1200px;height=800px;');" style="float: right"/>
+                               onclick="checkform4();javascript:POBrowser.openWindow('/homepage/ordermanagement/show','width=1200px;height=800px;');" style="float: right"/>
                     </form>
                         <%--<a href="javascript:POBrowser.openWindow('/homepage/ordermanagement/show','width=1200px;height=800px;');"--%>
                            <%--style="background-color: white;color: #000000;float: right" >打开</a>--%>

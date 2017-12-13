@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8"/>
@@ -8,6 +9,55 @@
     <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="../js/bootstrap.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+
+    <script type="text/javascript">
+                function checkform1(){
+                    if(document.getElementById('inpt1').value.length==0){
+                        alert('用户名不能为空！');
+                        document.getElementById('ipt2').focus();
+                        return false;
+                    }
+                    if(document.getElementById('inpt1').value=="请输入用户名"){
+                        alert('用户名不能为空！');
+                        document.getElementById('ipt2').focus();
+                        return false;
+                    }
+                    if(document.getElementById('inpt2').value.length==0){
+                        alert('密码不能为空！');
+                        document.getElementById('ipt2').focus();
+                        return false;
+                    }
+                    if(document.getElementById('inpt2').value=="请输入密码"){
+                        alert('密码不能为空！');
+                        document.getElementById('ipt2').focus();
+                        return false;
+                    }
+                    return true;
+                }
+                    function checkform2(){
+                        if(document.getElementById('inpt3').value.length==0){
+                            alert('用户名不能为空！');
+                            document.getElementById('ipt2').focus();
+                            return false;
+                        }
+                        if(document.getElementById('inpt3').value=="请输入用户名"){
+                            alert('用户名不能为空！');
+                            document.getElementById('ipt2').focus();
+                            return false;
+                        }
+                        if(document.getElementById('inpt4').value.length==0){
+                            alert('密码不能为空！');
+                            document.getElementById('ipt2').focus();
+                            return false;
+                        }
+                        if(document.getElementById('inpt4').value=="请输入密码"){
+                            alert('密码不能为空！');
+                            document.getElementById('ipt2').focus();
+                            return false;
+                        }
+                        return true;
+                    }
+    </script>
 
     <style>
         body{
@@ -45,14 +95,14 @@
                     <div class="panel-body">
                         <form action="login" method="post">
                             用户名：<span style="color: #cccccc">${msg}</span>
-                            <input name="name" class="form-control" type="text" placeholder="请输入用户名">
+                            <input id="inpt1" name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>
                             密码：<span style="color: #cccccc">${msg}</span>
-                            <input name="password" class="form-control" type="password" placeholder="请输入密码">
+                            <input id="inpt2" name="password" class="form-control" type="password" placeholder="请输入密码">
                             <br/>
                             <div style="float: right">
                             <input name="rememberme" type="checkbox" ><span>记住我&nbsp;&nbsp;&nbsp;</span>
-                            <input type="submit" class="btn btn-default" value="登录" style="background-color: #2e6da4;color: white"/>
+                            <input type="submit" class="btn btn-default" value="登录" style="background-color: #2e6da4;color: white" onclick="checkform1()"/>
                             </div>
                         </form>
                     </div>
@@ -71,13 +121,13 @@
                     <div class="panel-body">
                         <form action="reg.action" method="post">
                             用户名：<span style="color: #cccccc">${msg}</span>
-                            <input name="name" class="form-control" type="text" placeholder="请输入用户名">
+                            <input id="inpt3" name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>
                             密码：<span style="color: #cccccc">${msg}</span>
-                            <input name="password" class="form-control" type="password" placeholder="请输入密码">
+                            <input id="inpt4" name="password" class="form-control" type="password" placeholder="请输入密码">
                             <br/>
                             <div style="float: right">
-                            <input type="submit" class="btn btn-default" value="注册" style="background-color: #2e6da4;color: white"/>
+                            <input type="submit" class="btn btn-default" value="注册" style="background-color: #2e6da4;color: white" onclick="checkform2()"/>
                     </div>
                         </form>
                     </div>
