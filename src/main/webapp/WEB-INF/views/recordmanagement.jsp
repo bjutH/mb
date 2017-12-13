@@ -44,7 +44,6 @@
         <thead>
         <tr>
             <th data-field="id">录音编号</th>
-            <th data-field="name">名称</th>
             <th data-field="comment">备注</th>
         </tr>
         </thead>

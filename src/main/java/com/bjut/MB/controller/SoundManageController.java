@@ -1,8 +1,10 @@
 package com.bjut.MB.controller;
 
 import com.bjut.MB.dao.SoundDao;
+import com.bjut.MB.model.SoundRecording;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,15 +23,25 @@ public class SoundManageController {
     }
 
     @RequestMapping(path = "homepage/recordmanagement/updatesound")
-    public String updateSound(@RequestParam(value = "id")String id, @RequestParam(value = "sound") String sound){
-        soundDao.updatePassword(sound, id);
+    public String updateSound(@RequestParam(value = "id")String id, @RequestParam(value = "sound") String sound, ModelMap model){
+        try {
+            soundDao.updatePassword(sound, id);
+            model.addAttribute("msg","成功！");
+        }catch (Exception e){
+            model.addAttribute("msg","错误！");
+        }
         return "redirect:/homepage/recordmanagement";
     }
 
     @RequestMapping(path = "homepage/recordmanagement/selectsound")
 
-    public String updateSound(@RequestParam(value = "id")int id){
-        soundDao.selectById(id);
+    public String selectSound(@RequestParam(value = "id")int id,ModelMap model){
+        try {
+            SoundRecording soundRecording = soundDao.selectById(id);
+            model.addAttribute("msg",soundRecording.getSound());
+        }catch (Exception e){
+            model.addAttribute("msg","错误！");
+        }
         return "redirect:/homepage/recordmanagement";
     }
 }
