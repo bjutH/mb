@@ -5,6 +5,7 @@ import com.bjut.MB.model.HostHolder;
 import com.bjut.MB.model.Order;
 import com.bjut.MB.model.User;
 import com.bjut.MB.service.*;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -288,7 +289,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping(path = "/homepage/ordermanagement/show")
-    public String selectOrder(HttpSession session, ModelMap model){
+    public String showOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session, ModelMap model){
         String orderType = (session.getAttribute("orderType").toString());
         if(orderType =="请选择随工单类型") {
             model.addAttribute("msg", "请选择随工单类型！");
@@ -300,7 +301,7 @@ public class OrderController {
             session.setAttribute("OpenModeType" , "OpenModeType.xlsNormalEdit");
         else
             session.setAttribute("OpenModeType" , "OpenModeType.xlsReadOnly");
-        String orderNum = session.getAttribute("orderNum").toString();
+//        String orderNum = session.getAttribute("orderNum").toString();
         switch (orderType){
             case "随工单":
                 path = orderService.selectPath(orderNum);
@@ -338,6 +339,10 @@ public class OrderController {
             case "最终检验报告单":
                 path = finalTestService.selectPath(orderNum);
                 break;
+        }
+        if(StringUtils.isBlank(path)){
+            model.addAttribute("msg","不存在！");
+            return "redirect:/homepage/ordermanagement";
         }
         session.setAttribute("path",path);
         return "word";

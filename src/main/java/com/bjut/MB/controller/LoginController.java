@@ -112,6 +112,10 @@ public class LoginController {
         }
         try {
             map = userService.reg(name,password);
+            if(map.get("code").equals("1")){
+                model.addAttribute("msg",map.get("msg"));
+                return "redirect:/index";
+            }
             if (map.containsKey("ticket")) {
                 Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath("/");
