@@ -115,15 +115,15 @@
                 document.getElementById('ipt3').focus();
                 return false;
             }
-//            var temp = $("#inpt6").val();
-////            alert(temp);
-//            $.ajax({
-//                url: "/homepage/ordermanagement/searchorder",
-//                data:{orderNum:"temp"},
-//                type: "GET",
-//                success:function(){POBrowser.openWindow('/homepage/ordermanagement/show', 'width=1200px;height=800px;');},
-//                error:function(){alert("错误")}
-//            });
+            var temp = $("#inpt6").val();
+//            alert(temp);
+            $.ajax({
+                url: "/homepage/ordermanagement/searchorder",
+                data:{orderNum:"temp"},
+                type: "GET",
+                success:function(){POBrowser.openWindow('/homepage/ordermanagement/show', 'width=1200px;height=800px;');},
+                error:function(){alert("错误")}
+            });
             return true;
         }
     </script>
@@ -300,13 +300,13 @@
             </div>
             <div class="panel-body" style="background-color: #437ab2;">
                 <div class="container" style="width: 62%">
-                    <form action="/homepage/ordermanagement/searchorder" method="get">
+                    <div action="/homepage/ordermanagement/searchorder" method="get">
                         <input class="form-control" type="text" name="orderNum" class="search-input" placeholder="请输入单号"
                                id="inpt6"/>
                         <p></p>
                         <input id="test0" class="btn btn-default" type="submit" class="search-icon" value="搜索"
                                onclick="checkform4()" style="float: right"/>
-                    </form>
+                    </div>
                         <%--<a href="javascript:POBrowser.openWindow('/homepage/ordermanagement/show','width=1200px;height=800px;');"--%>
                            <%--style="background-color: white;color: #000000;float: right" >打开</a>--%>
 
