@@ -5,9 +5,9 @@ import com.bjut.MB.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +48,7 @@ public class ProgressController {
     private HostHolder hostHolder;
 
     @RequestMapping(path = "/homepage/progresscontrollerall")
-    public String ProgressAll(@RequestParam(value = "orderNum") String orderNum, ModelMap model){
+    public String ProgressAll(@RequestParam(value = "orderNum") String orderNum, RedirectAttributes redirectAttributes){
         List<Order> orders = orderService.selectOrder(orderNum);
         List<Memo> memos = memoService.selectMemo(orderNum);
         List<Aging> agings = agingService.selectAging(orderNum);
@@ -60,80 +60,80 @@ public class ProgressController {
         List<Sphygmomanometer> sphygmomanometers = sphygmomanometerService.selectSphygmomanometer(orderNum);
         List<PerformTest> performTests = performTestService.selectPerformTest(orderNum);
         List<FinalTest> finalTests = finalTestService.selectFinalTest(orderNum);
-        model.addAttribute("随工单",true);
-        model.addAttribute("仪器备忘录",true);
-        model.addAttribute("老化观测表",true);
-        model.addAttribute("装箱记录单",true);
-        model.addAttribute("整机调试报告单",true);
-        model.addAttribute("工序检验报告单",true);
-        model.addAttribute("整机检验报告单",true);
-        model.addAttribute("成品检验报告单",true);
-        model.addAttribute("血压计检定报告单",true);
-        model.addAttribute("性能要求检验单",true);
-        model.addAttribute("最终检验报告单",true);
+        redirectAttributes.addFlashAttribute("随工单",true);
+        redirectAttributes.addFlashAttribute("仪器备忘录",true);
+        redirectAttributes.addFlashAttribute("老化观测表",true);
+        redirectAttributes.addFlashAttribute("装箱记录单",true);
+        redirectAttributes.addFlashAttribute("整机调试报告单",true);
+        redirectAttributes.addFlashAttribute("工序检验报告单",true);
+        redirectAttributes.addFlashAttribute("整机检验报告单",true);
+        redirectAttributes.addFlashAttribute("成品检验报告单",true);
+        redirectAttributes.addFlashAttribute("血压计检定报告单",true);
+        redirectAttributes.addFlashAttribute("性能要求检验单",true);
+        redirectAttributes.addFlashAttribute("最终检验报告单",true);
         for(Order order :orders){
             if(StringUtils.isBlank(order.getOperater())){
-                model.addAttribute("随工单",false);
+                redirectAttributes.addFlashAttribute("随工单",false);
                 break;
             }
         }
         for(Memo memo :memos){
             if(StringUtils.isBlank(memo.getNumber())){
-                model.addAttribute("仪器备忘录",false);
+                redirectAttributes.addFlashAttribute("仪器备忘录",false);
                 break;
             }
         }
         for(Aging aging :agings){
             if(StringUtils.isBlank(aging.getOperater())){
-                model.addAttribute("老化观测表",false);
+                redirectAttributes.addFlashAttribute("老化观测表",false);
                 break;
             }
         }
         for(Pack pack :packs){
             if(StringUtils.isBlank(pack.getOperater())){
-                model.addAttribute("装箱记录单",false);
+                redirectAttributes.addFlashAttribute("装箱记录单",false);
                 break;
             }
         }
         for(Debug debug :debugs){
             if(StringUtils.isBlank(debug.getResult())){
-                model.addAttribute("整机调试报告单",false);
+                redirectAttributes.addFlashAttribute("整机调试报告单",false);
                 break;
             }
         }
         for(ProcessTest processTest :processTests){
             if(StringUtils.isBlank(processTest.getResult())){
-                model.addAttribute("工序检验报告单",false);
+                redirectAttributes.addFlashAttribute("工序检验报告单",false);
                 break;
             }
         }
         for(MachineTest machineTest :machineTests){
             if(StringUtils.isBlank(machineTest.getResult())){
-                model.addAttribute("整机检验报告单",false);
+                redirectAttributes.addFlashAttribute("整机检验报告单",false);
                 break;
             }
         }
         for(ProductTest productTest :productTests){
             if(StringUtils.isBlank(productTest.getResult())){
-                model.addAttribute("成品检验报告单",false);
+                redirectAttributes.addFlashAttribute("成品检验报告单",false);
                 break;
             }
         }
         for(Sphygmomanometer sphygmomanometer :sphygmomanometers){
             if(StringUtils.isBlank(sphygmomanometer.getResult())){
-                model.addAttribute("血压计检定报告单",false);
+                redirectAttributes.addFlashAttribute("血压计检定报告单",false);
                 break;
             }
         }
         for(PerformTest performTest :performTests){
             if(StringUtils.isBlank(performTest.getResult())){
-                model.addAttribute("性能要求检验单",false);
+                redirectAttributes.addFlashAttribute("性能要求检验单",false);
                 break;
             }
         }
         for(FinalTest finalTest :finalTests){
             if(StringUtils.isBlank(finalTest.getResult())){
-                model.addAttribute("最终检验报告单",false);
+                redirectAttributes.addFlashAttribute("最终检验报告单",false);
                 break;
             }
         }
@@ -141,7 +141,7 @@ public class ProgressController {
     }
 
     @RequestMapping(path = "/homepage/progresscontrollerone")
-    public String ProgressOne(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "orderType") String orderType, ModelMap model){
+    public String ProgressOne(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "orderType") String orderType, RedirectAttributes redirectAttributes){
         Map<String,String> map = new HashMap<>();
         switch (orderType){
             case "随工单":
@@ -255,7 +255,7 @@ public class ProgressController {
                 }
                 break;
         }
-        model.addAttribute("map",map);
+        redirectAttributes.addFlashAttribute("map",map);
         return "redirect:/homepage/progresscontrollerone";
     }
 }

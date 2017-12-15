@@ -148,6 +148,12 @@ public class OrderService {
             map.put("msg", "随工单编号不能为空！");
             return map;
         }
+        List<Order> orders = orderDao.selectAll(orderNum);
+        if(orders.size() ==0){
+            map.put("code","1");
+            map.put("msg","随工单编号不存在！");
+            return map;
+        }
         try {
             orderDao.deleteAll(orderNum);
             map.put("code","0");
@@ -155,6 +161,7 @@ public class OrderService {
         catch (Exception e){
             logger.error("删除随工单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "删除随工单DAO异常！");
         }
         return map;
     }

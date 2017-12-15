@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
@@ -83,110 +83,82 @@ public class OrderController {
      */
     @RequestMapping(path = "/homepage/ordermanagement/addorder" , method = RequestMethod.POST)
     @Transactional(propagation= Propagation.REQUIRED )
-    public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number, ModelMap model, HttpSession session) throws IOException {
+    public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number, RedirectAttributes redirectAttributes, HttpSession session) throws IOException {
         String orderType = (request.getSession().getAttribute("orderType").toString());
-        Map<String,String> map = new HashMap<>();
         if(orderType =="请选择随工单类型") {
-            map.put("code","1");
-            map.put("msg","请选择随工单类型");
-            model.addAttribute(map);
-            model.addAttribute("msg", "请选择随工单类型！");
+            redirectAttributes.addFlashAttribute("msg", "请选择随工单类型！");
             return "redirect:/homepage/ordermanagement";
         }
         switch (orderType) {
             case "随工单":
                 if (orderService.selectOrder(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
             case  "仪器备忘录":
                 if (memoService.selectMemo(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
             case  "返工记录表":
                 if (remadeSercice.selectRemade(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
             case "老化观测表":
                 if (agingService.selectAging(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
             case "装箱记录单":
                 if (packService.selectPack(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
             case "整机调试报告单":
                 if (debugService.selectDebug(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
             case "工序检验报告单":
                 if (processTestService.selectProcessTest(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
             case "整机检验报告单":
                 if (machineTestService.selectMachineTest(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
             case "成品检验报告单":
                 if (productTestService.selectProductTest(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
             case "血压计检定报告单":
                 if (sphygmomanometerService.selectSphygmomanometer(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
             case "性能要求检验单":
                 if (performTestService.selectPerformTest(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
             case "最终检验报告单":
                 if (finalTestService.selectFinalTest(number).size() != 0) {
-                    map.put("code","1");
-                    map.put("msg", "已存在！");
-                    model.addAttribute("msg", "已存在！");
+                    redirectAttributes.addFlashAttribute("msg", "已存在！");
                     return "redirect:/homepage/ordermanagement";
                 }
                 break;
@@ -207,16 +179,12 @@ public class OrderController {
                     stream.close();
                 } catch (Exception e) {
                     logger.error("文件上传失败：" + e.getMessage());
-                    map.put("code","1");
-                    map.put("msg","文件 " + i + "上传失败 ");
-                    model.addAttribute("msg","文件 " + i + "上传失败 ");
+                    redirectAttributes.addFlashAttribute("msg","文件 " + i + "上传失败 ");
                     return "redirect:/homepage/ordermanagement";
 
                 }
             } else {
-                map.put("code","1");
-                map.put("msg","文件 " + i + "上传失败 ");
-                model.addAttribute("msg","文件 " + i + "上传失败 ");
+                redirectAttributes.addFlashAttribute("msg","文件 " + i + "上传失败 ");
                 return "redirect:/homepage/ordermanagement";
             }
         }
@@ -225,13 +193,9 @@ public class OrderController {
             excelUtils.importExcel(path, number,orderType);
         }
         catch (Exception e){
-            map.put("code","1");
-            map.put("msg","添加文件失败");
-            model.addAttribute("msg","添加文件失败");
+            redirectAttributes.addFlashAttribute("msg","添加文件失败");
             return "redirect:/homepage/ordermanagement";
         }
-        map.put("code","0");
-        model.addAttribute(map);
         return "redirect:/homepage/ordermanagement";
     }
 
@@ -247,7 +211,7 @@ public class OrderController {
     @RequestMapping(path = "/homepage/ordermanagement/updateorder")
     public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
                                @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
-                               @RequestParam(value = "ps") String ps, ModelMap model){
+                               @RequestParam(value = "ps") String ps, RedirectAttributes redirectAttributes){
         Map<String,String> map = new HashMap<>();
         try {
             String path =orderService.selectPath(orderNum);
@@ -258,7 +222,7 @@ public class OrderController {
             if(path == null){
                 map.put("code","1");
                 map.put("msg","不存在");
-                model.addAttribute("msg","成功！");
+                redirectAttributes.addFlashAttribute("msg","不存在！");
                 return "redirect:/homepage/ordermanagement";
             }
             map = excelUtils.replaceExcel(path,"随工单", process, order);
@@ -267,16 +231,16 @@ public class OrderController {
         catch (Exception e) {
             logger.error("更新随工单异常" + e.getMessage());
             map.put("code","1");
-            model.addAttribute("msg","失败！");
+            redirectAttributes.addFlashAttribute("msg","失败！");
         }
         return "redirect:/homepage/ordermanagement";
     }
 
     @RequestMapping(path = "/homepage/ordermanagement/searchorder")
-    public String selectOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session, ModelMap model){
+    public String selectOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session, RedirectAttributes redirectAttributes){
         String orderType = (session.getAttribute("orderType").toString());
         if(orderType =="请选择随工单类型") {
-            model.addAttribute("msg", "请选择随工单类型！");
+            redirectAttributes.addFlashAttribute("msg", "请选择随工单类型！");
             return "redirect:/homepage/ordermanagement";
         }
         session.setAttribute("orderNum",orderNum);
@@ -289,10 +253,10 @@ public class OrderController {
      * @return
      */
     @RequestMapping(path = "/homepage/ordermanagement/show")
-    public String showOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session, ModelMap model){
+    public String showOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session, RedirectAttributes redirectAttributes){
         String orderType = (session.getAttribute("orderType").toString());
         if(orderType =="请选择随工单类型") {
-            model.addAttribute("msg", "请选择随工单类型！");
+            redirectAttributes.addFlashAttribute("msg", "请选择随工单类型！");
             return "redirect:/homepage/ordermanagement";
         }
         User user = hostHolder.getUser();
@@ -341,7 +305,7 @@ public class OrderController {
                 break;
         }
         if(StringUtils.isBlank(path)){
-            model.addAttribute("msg","不存在！");
+            redirectAttributes.addFlashAttribute("msg","不存在！");
             return "redirect:/homepage/ordermanagement";
         }
         session.setAttribute("path",path);
@@ -355,10 +319,10 @@ public class OrderController {
      * @return
      */
     @RequestMapping(path = "/homepage/ordermanagement/deleteorderone")
-    public String deleteOrderOne(@RequestParam(value = "name") String orderNum, HttpSession session, ModelMap model){
+    public String deleteOrderOne(@RequestParam(value = "name") String orderNum, HttpSession session, RedirectAttributes redirectAttributes){
         String orderType = (session.getAttribute("orderType").toString());
         if(orderType =="请选择随工单类型") {
-            model.addAttribute("msg", "请选择随工单类型！");
+            redirectAttributes.addFlashAttribute("msg", "请选择随工单类型！");
             return "redirect:/homepage/ordermanagement";
         }
         Map<String,String> map = new HashMap<>();
@@ -405,11 +369,15 @@ public class OrderController {
             logger.error("删除单个随工单异常" + e.getMessage());
             map.put("code","1");
             map.put("msg","删除单个失败");
-            model.addAttribute("msg","删除单个失败");
+            redirectAttributes.addFlashAttribute("msg","删除单个失败");
             return "redirect:/homepage/ordermanagement";
         }
-        map.put("code","0");
-        model.addAttribute("msg","成功！");
+        if(!map.get("code").equals("0")) {
+            redirectAttributes.addFlashAttribute("msg", map.get("msg"));
+        }
+        else {
+            redirectAttributes.addFlashAttribute("msg", map.get("删除成功！"));
+        }
         return "redirect:/homepage/ordermanagement";
     }
 
@@ -420,8 +388,7 @@ public class OrderController {
      */
     @RequestMapping(path = "/homepage/ordermanagement/deleteorderall")
     @Transactional(propagation= Propagation.REQUIRED )
-    public String deleteOrderAll(@RequestParam(value = "name") String orderNum, ModelMap model){
-        Map<String,String> map = new HashMap<>();
+    public String deleteOrderAll(@RequestParam(value = "name") String orderNum, RedirectAttributes redirectAttributes){
         try {
                 orderService.deleteOrder(orderNum);
                 memoService.deleteMemo(orderNum);
@@ -438,13 +405,10 @@ public class OrderController {
             }
          catch (Exception e) {
             logger.error("删除全部随工单异常" + e.getMessage());
-            map.put("code","1");
-            map.put("msg","删除全部随工单失败");
-            model.addAttribute("msg","删除全部随工单失败");
+            redirectAttributes.addFlashAttribute("msg","删除全部随工单失败");
              return "redirect:/homepage/ordermanagement";
         }
-        map.put("code","0");
-        model.addAttribute("msg","成功！");
+        redirectAttributes.addFlashAttribute("msg","成功！");
         return "redirect:/homepage/ordermanagement";
     }
 
@@ -455,7 +419,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping(path = "/homepage/ordermanagement/selectordertype")
-    public String selectOrderType(@RequestParam(value = "orderType") String orderType, HttpSession session, ModelMap model){
+    public String selectOrderType(@RequestParam(value = "orderType") String orderType, HttpSession session, RedirectAttributes redirectAttributes){
         session.setAttribute("orderType", orderType);
         return "redirect:/homepage/ordermanagement";
     }

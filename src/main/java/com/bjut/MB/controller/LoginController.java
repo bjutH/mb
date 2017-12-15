@@ -8,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -47,19 +47,15 @@ public class LoginController {
      */
     @RequestMapping(path = {"/login"})
     public String login(@RequestParam("name") String name, @RequestParam("password") String password, @RequestParam(value = "rememberme" ,
-                        defaultValue = "off") String rememberme, HttpSession session, HttpServletResponse response, ModelMap model)
+                        defaultValue = "off") String rememberme, HttpSession session, HttpServletResponse response, RedirectAttributes redirectAttributes)
                         throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Map<String,String> map = new HashMap<>();
         if(StringUtils.isBlank(name)){
-            map.put("code","1");
-            map.put("msg","用户名不能为空!");
-            model.addAttribute("msg","用户名不能为空!");
+            redirectAttributes.addFlashAttribute("msg","用户名不能为空!");
             return "redirect:/index";
         }
         if(StringUtils.isBlank(password)){
-            map.put("code","1");
-            map.put("msg","密码不能为空!");
-            model.addAttribute("msg","用户名不能为空!");
+            redirectAttributes.addFlashAttribute("msg","用户名不能为空!");
             return "redirect:/index";
         }
         try {
@@ -73,15 +69,12 @@ public class LoginController {
                 response.addCookie(cookie);
             }
             else {
-                map.put("code","1");
-                map.put("msg","用户名或密码错误!");
-                model.addAttribute("msg","用户名或密码错误!");
+                redirectAttributes.addFlashAttribute("msg","用户名或密码错误!");
                 return "redirect:/index";
             }
         }catch (Exception e){
             logger.error("登陆异常" + e.getMessage());
-            map.put("code","1");
-            model.addAttribute(map);
+            redirectAttributes.addFlashAttribute(map);
             return "redirect:/index";
         }
         return "redirect:/homepage";
@@ -95,25 +88,21 @@ public class LoginController {
      */
     @RequestMapping(path = {"/reg"})
     public String reg(@RequestParam("name") String name, @RequestParam("password") String password, @RequestParam(value = "rememberme" ,
-            defaultValue = "false") boolean rememberme, HttpServletResponse response, ModelMap model)
+            defaultValue = "false") boolean rememberme, HttpServletResponse response, RedirectAttributes redirectAttributes)
             throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Map<String,String> map = new HashMap<>();
         if(StringUtils.isBlank(name)){
-            map.put("code","1");
-            map.put("msg","用户名不能为空!");
-            model.addAttribute("msg","用户名不能为空!");
+            redirectAttributes.addFlashAttribute("msg","用户名不能为空!");
             return "redirect:/index";
         }
         if(StringUtils.isBlank(password)){
-            map.put("code","1");
-            map.put("msg","密码不能为空!");
-            model.addAttribute("msg","密码不能为空!");
+            redirectAttributes.addFlashAttribute("msg","密码不能为空!");
             return "redirect:/index";
         }
         try {
             map = userService.reg(name,password);
             if(map.get("code").equals("1")){
-                model.addAttribute("msg",map.get("msg"));
+                redirectAttributes.addFlashAttribute("msg",map.get("msg"));
                 return "redirect:/index";
             }
             if (map.containsKey("ticket")) {
@@ -126,8 +115,7 @@ public class LoginController {
             }
         }catch (Exception e){
             logger.error("注册异常" + e.getMessage());
-            map.put("code","1");
-            model.addAttribute("msg","注册异常!");
+            redirectAttributes.addFlashAttribute("msg","注册异常!");
             return "redirect:/index";
         }
         return "redirect:/homepage";

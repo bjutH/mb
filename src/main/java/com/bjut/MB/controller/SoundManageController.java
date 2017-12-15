@@ -4,9 +4,9 @@ import com.bjut.MB.dao.SoundDao;
 import com.bjut.MB.model.SoundRecording;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by Cheng on 2017/12/8.
@@ -23,24 +23,24 @@ public class SoundManageController {
     }
 
     @RequestMapping(path = "homepage/recordmanagement/updatesound")
-    public String updateSound(@RequestParam(value = "id")String id, @RequestParam(value = "sound") String sound, ModelMap model){
+    public String updateSound(@RequestParam(value = "id")String id, @RequestParam(value = "sound") String sound, RedirectAttributes redirectAttributes){
         try {
             soundDao.updatePassword(sound, id);
-            model.addAttribute("msg","成功！");
+            redirectAttributes.addFlashAttribute("msg","成功！");
         }catch (Exception e){
-            model.addAttribute("msg","错误！");
+            redirectAttributes.addFlashAttribute("msg","错误！");
         }
         return "redirect:/homepage/recordmanagement";
     }
 
     @RequestMapping(path = "homepage/recordmanagement/selectsound")
 
-    public String selectSound(@RequestParam(value = "id")int id,ModelMap model){
+    public String selectSound(@RequestParam(value = "id")int id,RedirectAttributes redirectAttributes){
         try {
             SoundRecording soundRecording = soundDao.selectById(id);
-            model.addAttribute("msg",soundRecording.getSound());
+            redirectAttributes.addFlashAttribute("msg",soundRecording.getSound());
         }catch (Exception e){
-            model.addAttribute("msg","错误！");
+            redirectAttributes.addFlashAttribute("msg","错误！");
         }
         return "redirect:/homepage/recordmanagement";
     }
