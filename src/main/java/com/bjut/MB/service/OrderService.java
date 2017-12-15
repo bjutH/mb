@@ -53,10 +53,12 @@ public class OrderService {
         try {
             orderDao.addItem(orderNum, process, path);
             map.put("code","0");
+            map.put("msg", "添加随工单成功！");
         }
         catch (Exception e){
             logger.error("添加随工单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "添加随工单异常！");
         }
         return map;
     }
@@ -85,10 +87,12 @@ public class OrderService {
         try {
             orderDao.updateItem(orderNum, operater, process, other, ps);
             map.put("code","0");
+            map.put("msg", "更新随工单成功！");
         }
         catch (Exception e){
             logger.error("更新随工单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "更新随工单异常！");
         }
         return map;
     }
@@ -157,11 +161,12 @@ public class OrderService {
         try {
             orderDao.deleteAll(orderNum);
             map.put("code","0");
+            map.put("msg", "删除随工单成功！");
         }
         catch (Exception e){
             logger.error("删除随工单DAO异常" + e.getMessage());
             map.put("code","1");
-            map.put("msg", "删除随工单DAO异常！");
+            map.put("msg", "删除随工单异常！");
         }
         return map;
     }

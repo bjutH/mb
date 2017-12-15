@@ -51,10 +51,12 @@ public class PerformTestService {
         try {
             performTestDao.addItem(orderNum, process, path);
             map.put("code","0");
+            map.put("msg", "添加性能要求检验单成功！");
         }
         catch (Exception e){
             logger.error("添加性能要求检验单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "添加性能要求检验单异常！");
         }
         return map;
     }
@@ -83,10 +85,12 @@ public class PerformTestService {
         try {
             performTestDao.updateItem(orderNum, process, data, result, ps);
             map.put("code","0");
+            map.put("msg", "更新性能要求检验单成功！");
         }
         catch (Exception e){
             logger.error("更新性能要求检验单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "更新性能要求检验单异常！");
         }
         return map;
     }
@@ -149,10 +153,12 @@ public class PerformTestService {
         try {
             performTestDao.deleteAll(orderNum);
             map.put("code","0");
+            map.put("msg", "删除性能要求检验单成功！");
         }
         catch (Exception e){
             logger.error("删除性能要求检验单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "删除性能要求检验单异常！");
         }
         return map;
     }

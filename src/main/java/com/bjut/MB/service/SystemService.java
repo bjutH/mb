@@ -27,16 +27,18 @@ public class SystemService {
         String salt = user.getSalt();
         if (!PasswordUtils.MD5(oldPassword+user.getSalt()).equals(user.getPassword())) {
             map.put("code","1");
-            map.put("msg", "密码不正确");
+            map.put("msg", "密码不正确！");
             return map;
         }
         else {
             try {
                 userDao.updatePassword(PasswordUtils.MD5(newPassword+user.getSalt()),user.getName());
                 map.put("code","0");
+                map.put("msg", "修改成功！");
             }catch (Exception e){
-                logger.error("注册DAO异常" + e.getMessage());
+                logger.error("修改密码DAO异常" + e.getMessage());
                 map.put("code","1");
+                map.put("msg", "修改密码！");
             }
             return map;
         }

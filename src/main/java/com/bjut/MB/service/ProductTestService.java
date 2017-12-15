@@ -51,10 +51,12 @@ public class ProductTestService {
         try {
             productTestDao.addItem(orderNum, process, path);
             map.put("code","0");
+            map.put("msg", "添加成品检验报告单成功！");
         }
         catch (Exception e){
             logger.error("添加成品检验报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "添加成品检验报告单异常！");
         }
         return map;
     }
@@ -83,10 +85,12 @@ public class ProductTestService {
         try {
             productTestDao.updateItem(orderNum, process, data, result, ps);
             map.put("code","0");
+            map.put("msg", "更新成品检验报告单成功！");
         }
         catch (Exception e){
             logger.error("更新成品检验报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "更新成品检验报告单异常！");
         }
         return map;
     }
@@ -149,10 +153,12 @@ public class ProductTestService {
         try {
             productTestDao.deleteAll(orderNum);
             map.put("code","0");
+            map.put("msg", "删除成品检验报告单成功！");
         }
         catch (Exception e){
             logger.error("删除成品检验报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "删除成品检验报告单异常！");
         }
         return map;
     }

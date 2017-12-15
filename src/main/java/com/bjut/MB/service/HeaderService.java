@@ -45,10 +45,12 @@ public class HeaderService {
         try {
             headerDao.addItem(orderNum, path);
             map.put("code","0");
+            map.put("msg", "添加表头成功！");
         }
         catch (Exception e){
-            logger.error("添加表头DAO异常" + e.getMessage());
+            logger.error("添加表DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "添加表异常！");
         }
         return map;
     }
@@ -86,10 +88,12 @@ public class HeaderService {
             headerDao.updateItem(orderNum, name, type, label, conclusion, debuger, date, temperature, humidity,
                                 power, groud ,checkMachineName, checkMachineType, checkMachineNum, checker, checkerDate);
             map.put("code","0");
+            map.put("msg", "更新表头成功！");
         }
         catch (Exception e){
-            logger.error("更新表头表DAO异常" + e.getMessage());
+            logger.error("更新表头DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "更新表头异常！");
         }
         return map;
     }

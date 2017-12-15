@@ -48,10 +48,12 @@ public class AgingService {
         try {
             agingDao.addItem(orderNum, process, path);
             map.put("code","0");
+            map.put("msg", "添加老化观测表成功！");
         }
         catch (Exception e){
             logger.error("添加老化观测表DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "添加老化观测表异常！");
         }
         return map;
     }
@@ -83,10 +85,12 @@ public class AgingService {
         try {
             agingDao.updateItem(orderNum, process, result, date, phenomenon, handle, ps, operater);
             map.put("code","0");
+            map.put("msg", "更新老化观测表成功！");
         }
         catch (Exception e){
             logger.error("更新老化观测表DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "更新老化观测表异常！");
         }
         return map;
     }
@@ -149,10 +153,12 @@ public class AgingService {
         try {
             agingDao.deleteAll(orderNum);
             map.put("code","0");
+            map.put("msg", "删除老化观测表成功！");
         }
         catch (Exception e){
             logger.error("删除老化观测表DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "删除老化观测表异常！");
         }
         return map;
     }

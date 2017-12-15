@@ -55,10 +55,12 @@ public class RemadeSercice {
         try {
             remadeDao.addItem(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople, path);
             map.put("code","0");
+            map.put("msg", "添加返工记录表成功！");
         }
         catch (Exception e){
             logger.error("添加返工记录表DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "添加返工记录表异常！");
         }
         return map;
     }
@@ -91,10 +93,12 @@ public class RemadeSercice {
         try {
             remadeDao.updateItem(orderNum, date, number, updateSoftware, updateHardware, updateContent, updatePeople, testPeople);
             map.put("code","0");
+            map.put("msg", "更新返工记录表成功！");
         }
         catch (Exception e){
             logger.error("更新返工记录表DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "更新返工记录表异常！");
         }
         return map;
     }
@@ -132,10 +136,12 @@ public class RemadeSercice {
         try {
             remadeDao.deleteAll(orderNum);
             map.put("code","0");
+            map.put("msg", "删除返工记录表成功！");
         }
         catch (Exception e){
             logger.error("删除返工记录表DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "删除返工记录表异常！");
         }
         return map;
     }

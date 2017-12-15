@@ -51,10 +51,12 @@ public class DebugService {
         try {
             debugDao.addItem(orderNum, process, path);
             map.put("code","0");
+            map.put("msg", "添加整机调试报告单成功！");
         }
         catch (Exception e){
             logger.error("添加整机调试报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "添加整机调试报告单异常！");
         }
         return map;
     }
@@ -86,10 +88,12 @@ public class DebugService {
         try {
             debugDao.updateItem(orderNum, data, result, detectionDevice, deviceType, deviceNum, ps, process);
             map.put("code","0");
+            map.put("msg", "更新整机调试报告单成功！");
         }
         catch (Exception e){
             logger.error("更新整机调试报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "更新整机调试报告单异常！");
         }
         return map;
     }
@@ -151,10 +155,12 @@ public class DebugService {
         try {
             debugDao.deleteAll(orderNum);
             map.put("code","0");
+            map.put("msg", "删除整机调试报告单成功！");
         }
         catch (Exception e){
             logger.error("删除整机调试报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "删除整机调试报告单异常！");
         }
         return map;
     }

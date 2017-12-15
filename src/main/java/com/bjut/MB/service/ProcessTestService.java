@@ -51,10 +51,12 @@ public class ProcessTestService {
         try {
             processTestDao.addItem(orderNum, process, path);
             map.put("code","0");
+            map.put("msg", "添加关键工序检验报告单成功！");
         }
         catch (Exception e){
             logger.error("添加关键工序检验报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "添加关键工序检验报告单异常！");
         }
         return map;
     }
@@ -86,10 +88,12 @@ public class ProcessTestService {
         try {
             processTestDao.updateItem(orderNum, process, data, result, detectionDevice, deviceType, deviceNum, ps);
             map.put("code","0");
+            map.put("msg", "更新关键工序检验报告单成功！");
         }
         catch (Exception e){
             logger.error("更新关键工序检验报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "更新关键工序检验报告单异常！");
         }
         return map;
     }
@@ -152,10 +156,12 @@ public class ProcessTestService {
         try {
             processTestDao.deleteAll(orderNum);
             map.put("code","0");
+            map.put("msg", "删除关键工序检验报告单成功！");
         }
         catch (Exception e){
             logger.error("删除关键工序检验报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "删除关键工序检验报告单异常！");
         }
         return map;
     }

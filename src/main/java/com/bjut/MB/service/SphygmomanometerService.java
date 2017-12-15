@@ -51,10 +51,12 @@ public class SphygmomanometerService {
         try{
             sphygmomanometerDao.addItem(orderNum, process, path);
             map.put("code","0");
+            map.put("msg", "添加血压计检定报告单成功！");
         }
         catch (Exception e){
             logger.error("添加血压计检定报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "添加血压计检定报告单异常！");
         }
         return map;
     }
@@ -83,10 +85,12 @@ public class SphygmomanometerService {
         try {
             sphygmomanometerDao.updateItem(orderNum, data, result, process, ps);
             map.put("code","0");
+            map.put("msg", "更新血压计检定报告单成功！");
         }
         catch (Exception e){
             logger.error("更新血压计检定报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "更新血压计检定报告单异常！");
         }
         return map;
     }
@@ -149,10 +153,12 @@ public class SphygmomanometerService {
         try {
             sphygmomanometerDao.deleteAll(orderNum);
             map.put("code","0");
+            map.put("msg", "删除血压计检定报告单成功！");
         }
         catch (Exception e){
             logger.error("删除血压计检定报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "删除血压计检定报告单异常！");
         }
         return map;
     }

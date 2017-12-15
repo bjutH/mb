@@ -43,10 +43,12 @@ public class FinalTestService {
         try {
             finalTestDao.addItem(orderNum, process, path);
             map.put("code","0");
+            map.put("msg", "添加最终检验报告单成功！");
         }
         catch (Exception e){
             logger.error("添加最终检验报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "添加最终检验报告单异常！");
         }
         return map;
     }
@@ -73,10 +75,12 @@ public class FinalTestService {
         try {
             finalTestDao.updateItem(orderNum, process, result);
             map.put("code","0");
+            map.put("msg", "更新最终检验报告单成功！");
         }
         catch (Exception e){
             logger.error("更新最终检验报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "更新最终检验报告单异常！");
         }
         return map;
     }
@@ -138,10 +142,12 @@ public class FinalTestService {
         try {
             finalTestDao.deleteAll(orderNum);
             map.put("code","0");
+            map.put("msg", "删除最终检验报告单成功！");
         }
         catch (Exception e){
             logger.error("删除最终检验报告单DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "删除最终检验报告单异常！");
         }
         return map;
     }

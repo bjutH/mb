@@ -26,9 +26,9 @@ public class SoundManageController {
     public String updateSound(@RequestParam(value = "id")String id, @RequestParam(value = "sound") String sound, RedirectAttributes redirectAttributes){
         try {
             soundDao.updatePassword(sound, id);
-            redirectAttributes.addFlashAttribute("msg","成功！");
+            redirectAttributes.addFlashAttribute("msg","更新成功！");
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("msg","错误！");
+            redirectAttributes.addFlashAttribute("msg","更新失败！");
         }
         return "redirect:/homepage/recordmanagement";
     }
@@ -40,7 +40,7 @@ public class SoundManageController {
             SoundRecording soundRecording = soundDao.selectById(id);
             redirectAttributes.addFlashAttribute("msg",soundRecording.getSound());
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("msg","错误！");
+            redirectAttributes.addFlashAttribute("msg","查询失败！");
         }
         return "redirect:/homepage/recordmanagement";
     }

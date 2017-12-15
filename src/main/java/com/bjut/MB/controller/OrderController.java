@@ -372,12 +372,7 @@ public class OrderController {
             redirectAttributes.addFlashAttribute("msg","删除单个失败");
             return "redirect:/homepage/ordermanagement";
         }
-        if(!map.get("code").equals("0")) {
-            redirectAttributes.addFlashAttribute("msg", map.get("msg"));
-        }
-        else {
-            redirectAttributes.addFlashAttribute("msg", map.get("删除成功！"));
-        }
+        redirectAttributes.addFlashAttribute("msg", map.get("删除成功！"));
         return "redirect:/homepage/ordermanagement";
     }
 

@@ -45,7 +45,7 @@ public class UserService {
         User user = userDao.selectByName(name);
         if (user != null) {
             map.put("code","1");
-            map.put("msg", "用户名已存在");
+            map.put("msg", "用户名已存在！");
             return map;
         }
         String salt = UUID.randomUUID().toString().substring(0, 5);
@@ -59,6 +59,7 @@ public class UserService {
         }catch (Exception e){
             logger.error("注册DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "注册异常！");
         }
         return map;
     }

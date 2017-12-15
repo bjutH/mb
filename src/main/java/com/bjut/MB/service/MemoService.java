@@ -51,10 +51,12 @@ public class MemoService {
         try {
             yiqiDao.addItem(orderNum, process, path);
             map.put("code","0");
+            map.put("msg", "添加备忘录成功！");
         }
         catch (Exception e){
             logger.error("添加备忘录DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "添加备忘录异常！");
         }
         return map;
     }
@@ -88,10 +90,12 @@ public class MemoService {
         try {
             yiqiDao.updateItem(orderNum, process, number, boardNum, weld, debug, test, version, ps);
             map.put("code","0");
+            map.put("msg", "更新备忘录成功！");
         }
         catch (Exception e){
             logger.error("更新备忘录DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "更新备忘录异常！");
         }
         return map;
     }
@@ -154,10 +158,12 @@ public class MemoService {
         try {
             yiqiDao.deleteAll(orderNum);
             map.put("code","0");
+            map.put("msg", "删除备忘录成功！");
         }
         catch (Exception e){
             logger.error("删除备忘录DAO异常" + e.getMessage());
             map.put("code","1");
+            map.put("msg", "删除备忘录异常！");
         }
         return map;
     }
