@@ -98,7 +98,7 @@
                             密码：
                             <input id="inpt2" name="password" class="form-control" type="password" placeholder="请输入密码">
                             <br/>
-                            <div style="float: left"><span style="color: #d9534f">提示信息+${msg}</span></div>
+                            <div style="float: left"><span style="color: #d9534f">${msg}</span></div>
                             <div style="float: right">
                             <input name="rememberme" type="checkbox" ><span>记住我&nbsp;&nbsp;&nbsp;</span>
                             <input type="submit" class="btn btn-default" value="登录" style="background-color: #2e6da4;color: white" onclick="checkform1()"/>
