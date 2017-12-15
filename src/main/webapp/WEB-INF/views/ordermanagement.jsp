@@ -118,8 +118,8 @@
             var temp = $("#inpt6").val();
 //            alert(temp);
             $.ajax({
-                url: "/homepage/ordermanagement/searchorder",
-                data:{orderNum:"temp"},
+                url: "/homepage/ordermanagement/show",
+                data:{orderNum:temp},
                 type: "GET",
                 success:function(){POBrowser.openWindow('/homepage/ordermanagement/show', 'width=1200px;height=800px;');},
                 error:function(){alert("错误")}
@@ -300,7 +300,7 @@
             </div>
             <div class="panel-body" style="background-color: #437ab2;">
                 <div class="container" style="width: 62%">
-                    <div action="/homepage/ordermanagement/searchorder" method="get">
+                    <div action="/homepage/ordermanagement/show" method="get">
                         <input class="form-control" type="text" name="orderNum" class="search-input" placeholder="请输入单号"
                                id="inpt6"/>
                         <p></p>

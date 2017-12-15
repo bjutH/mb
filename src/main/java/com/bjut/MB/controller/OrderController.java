@@ -236,16 +236,16 @@ public class OrderController {
         return "redirect:/homepage/ordermanagement";
     }
 
-    @RequestMapping(path = "/homepage/ordermanagement/searchorder")
-    public String selectOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session, RedirectAttributes redirectAttributes){
-        String orderType = (session.getAttribute("orderType").toString());
-        if(orderType =="请选择随工单类型") {
-            redirectAttributes.addFlashAttribute("msg", "请选择随工单类型！");
-            return "redirect:/homepage/ordermanagement";
-        }
-        session.setAttribute("orderNum",orderNum);
-        return "redirect:/homepage/ordermanagement";
-    }
+//    @RequestMapping(path = "/homepage/ordermanagement/searchorder")
+//    public String selectOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session, RedirectAttributes redirectAttributes){
+//        String orderType = (session.getAttribute("orderType").toString());
+//        if(orderType =="请选择随工单类型") {
+//            redirectAttributes.addFlashAttribute("msg", "请选择随工单类型！");
+//            return "redirect:/homepage/ordermanagement";
+//        }
+//        session.setAttribute("orderNum",orderNum);
+//        return "redirect:/homepage/ordermanagement";
+//    }
 
     /**
      * pageoffice显示EXCEL
