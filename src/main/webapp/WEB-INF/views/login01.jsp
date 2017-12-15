@@ -78,8 +78,6 @@
     </div>
 </nav>
 <div class="container" style="width: 100%">
-    <%--<img src="../img/img-order/cd-hero-background.jpg" alt="登陆"--%>
-         <%--style="height :100%; width :100%; margin: 0px;padding: 0px">--%>
     <div style="position: absolute;left: 30%;top: 30%;width: 500px">
         <div class="panel-group" id="accordion">
             <div class="panel panel-default">
@@ -94,12 +92,13 @@
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <form action="login" method="post">
-                            用户名：<span style="color: #cccccc">${msg}</span>
+                            用户名：
                             <input id="inpt1" name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>
-                            密码：<span style="color: #cccccc">${msg}</span>
+                            密码：
                             <input id="inpt2" name="password" class="form-control" type="password" placeholder="请输入密码">
                             <br/>
+                            <div style="float: left"><span style="color: #d9534f">提示信息+${msg}</span></div>
                             <div style="float: right">
                             <input name="rememberme" type="checkbox" ><span>记住我&nbsp;&nbsp;&nbsp;</span>
                             <input type="submit" class="btn btn-default" value="登录" style="background-color: #2e6da4;color: white" onclick="checkform1()"/>
@@ -120,13 +119,15 @@
                 <div id="collapseTwo" class="panel-collapse collapse">
                     <div class="panel-body">
                         <form action="reg.action" method="post">
-                            用户名：<span style="color: #cccccc">${msg}</span>
+                            用户名：
                             <input id="inpt3" name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>
-                            密码：<span style="color: #cccccc">${msg}</span>
+                            密码：
                             <input id="inpt4" name="password" class="form-control" type="password" placeholder="请输入密码">
                             <br/>
+                            <div style="float: left"><span style="color: #d9534f">提示信息+${msg}</span></div>
                             <div style="float: right">
+                            <input name="rememberme" type="checkbox" ><span>记住我&nbsp;&nbsp;&nbsp;</span>
                             <input type="submit" class="btn btn-default" value="注册" style="background-color: #2e6da4;color: white" onclick="checkform2()"/>
                     </div>
                         </form>

@@ -97,7 +97,7 @@
             return true;
         }
 
-        $
+
 
         function checkform4() {
             var orderType = "${sessionScope.get("orderType")}";
@@ -115,6 +115,15 @@
                 document.getElementById('ipt3').focus();
                 return false;
             }
+//            var temp = $("#inpt6").val();
+////            alert(temp);
+//            $.ajax({
+//                url: "/homepage/ordermanagement/searchorder",
+//                data:{orderNum:"temp"},
+//                type: "GET",
+//                success:function(){POBrowser.openWindow('/homepage/ordermanagement/show', 'width=1200px;height=800px;');},
+//                error:function(){alert("错误")}
+//            });
             return true;
         }
     </script>
@@ -232,6 +241,7 @@
             <li class="active"><a href="#home" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-plus"></span>添加</a></li>
             <li><a href="#ios" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-trash"></span>删除</a></li>
             <li><a href="#java" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-arrow-up"></span>上传</a></li>
+            <li><a data-toggle="tab"><span style="color: #761c19">+显示提示信息位置+${msg}</span></a></li>
         </ul>
         <div id="myTabContent" class="tab-content"
              style="width: 100%;background-color: #437ab2;border-radius: 0 5px 5px 5px">
@@ -240,13 +250,13 @@
                 <div class="container" style="width: 60%">
                     <form action="/homepage/ordermanagement/addorder" method="post" enctype="multipart/form-data" >
                         <p></p>
-                        选择路径:<span style="color: #cccccc">${msg}</span>
+                        选择路径:
                         <input class="form-control" id="inp1" type="file" name="uploadfile"/>
                         选择名称:
                         <input class="form-control" id="inp2" type="text" name="number" placeholder="请输入名称"/>
                         <p></p>
-                        <input id="updt" class="btn btn-default" type="submit" value="添加" onclick="checkform1()"
-                               style="float: right" />
+                        <p><input id="updt" class="btn btn-default" type="submit" value="添加" onclick="checkform1()"
+                                                                                     style="float: right" /></p>
                     </form>
                 </div>
             </div>
@@ -258,8 +268,8 @@
                         <p></p>
                         随工单编号：<input class="form-control" id="inp3" name="name" type="text" placeholder="请输入单号"/>
                         <p></p>
-                        <input id="deletest" class="btn btn-default" type="submit" value="确定" onclick="checkform2()"
-                               style="float: right"/>
+                        <p><input id="deletest" class="btn btn-default" type="submit" value="确定" onclick="checkform2()"
+                                                                                    style="float: right"/></p>
                     </form>
                 </div>
             </div>
@@ -279,7 +289,7 @@
                         备注:
                         <input id="inpt5" class="form-control" type="text" name="ps" placeholder="请输入备注"/>
                         <p></p>
-                        <input class="btn btn-default" type="submit" value="更新" style="float: right" onclick="checkform3()"/>
+                        <p><input class="btn btn-default" type="submit" value="更新" style="float: right" onclick="checkform3()"/></p>
                     </form>
                 </div>
             </div>
@@ -294,11 +304,12 @@
                         <input class="form-control" type="text" name="orderNum" class="search-input" placeholder="请输入单号"
                                id="inpt6"/>
                         <p></p>
-                        <input class="btn btn-default" type="submit" class="search-icon" value="搜索"
-                               onclick="checkform4();javascript:POBrowser.openWindow('/homepage/ordermanagement/show','width=1200px;height=800px;');" style="float: right"/>
+                        <input id="test0" class="btn btn-default" type="submit" class="search-icon" value="搜索"
+                               onclick="checkform4()" style="float: right"/>
                     </form>
                         <%--<a href="javascript:POBrowser.openWindow('/homepage/ordermanagement/show','width=1200px;height=800px;');"--%>
                            <%--style="background-color: white;color: #000000;float: right" >打开</a>--%>
+
                 </div>
             </div>
         </div>
@@ -306,8 +317,3 @@
 </div>
 </body>
 </html>
-<script>
-    $(function () {
-        $("[data-toggle='popover']").popover();
-    });
-</script>

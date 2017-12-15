@@ -38,15 +38,42 @@
             </div>
             <form class="form-inline" role="form" action="/homepage/updatepassword" method="post">
                 <div class="modal-body">
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原始密码：<input type="text" name="oldPassword" class="form-control" placeholder="请输入原密码"></p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新密码：<input type="text" name="newPassword" class="form-control" placeholder="请输入新密码"></p>
-                    <p>再次输入新密码：<input type="text" name="renewPassword" class="form-control" placeholder="请再次输入新密码"></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原始密码：<input id="inp10" type="text" name="oldPassword" class="form-control" placeholder="请输入原密码"></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新密码：<input id="inp20" type="text" name="newPassword" class="form-control" placeholder="请输入新密码"></p>
+                    <p>再次输入新密码：<input id="inp30" type="text" name="renewPassword" class="form-control" placeholder="请再次输入新密码"></p>
                 </div>
                 <div class="modal-footer">
+                    <span style="float: left;color: #761c19">显示提示信息位置+${msg}</span>
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="submit" class="btn btn-primary">提交更改</button>
+                    <button onclick="checkform10()" type="submit" class="btn btn-primary">提交更改</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+
+<script>
+    function checkform10() {
+        if (document.getElementById('inp10').value.length == 0) {
+            alert('原密码不能为空！');
+            document.getElementById('ipt10').focus();
+            return false;
+        }
+        if (document.getElementById('inp2').value.length == 0) {
+            alert('新密码不能为空！');
+            document.getElementById('ipt20').focus();
+            return false;
+        }
+        if (document.getElementById('inp30').value.length == 0) {
+            alert('再次输入新密码不能为空！');
+            document.getElementById('ipt20').focus();
+            return false;
+        }
+        if (document.getElementById('inp30').value != document.getElementById('inp2').value) {
+            alert('两次输入新密码不同！');
+            document.getElementById('ipt20').focus();
+            return false;
+        }
+        return true;
+    }
+</script>
