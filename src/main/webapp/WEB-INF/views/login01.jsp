@@ -91,7 +91,7 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <form action="login" method="post">
+                        <form action="/login" method="post">
                             用户名：
                             <input id="inpt1" name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>
@@ -118,7 +118,7 @@
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <form action="reg.action" method="post">
+                        <form action="/reg" method="post">
                             用户名：
                             <input id="inpt3" name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>

@@ -1,3 +1,4 @@
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -36,10 +37,12 @@
                     <label class="control-label col-sm-1" for="num">编号</label>
                     <div class="col-sm-3">
                         <select name="num" id="num" class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
+                            <option value="0" selected>请选择：</option>
+                            <%
+                                for(int i=0;i<50;i++){
+                            %>
+                            <option  value="<%=i+1 %>"><%=i+1 %></option>
+                            <%} %>
                         </select>
                     </div>
                     <div class="col-sm-4" style="text-align:left;">

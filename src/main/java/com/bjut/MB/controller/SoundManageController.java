@@ -28,13 +28,13 @@ public class SoundManageController {
     @Autowired
     private SoundDao soundDao;
 
-    @RequestMapping(path = "homepage/recordmanagement")
+    @RequestMapping(path = "/homepage/recordmanagement")
     public String index(Model model){
 
         return "recordmanagement";
     }
 
-    @RequestMapping(path = "homepage/recordmanagement/updatesound")
+    @RequestMapping(path = "/homepage/recordmanagement/updatesound")
     public String updateSound(@RequestParam(value = "id")String id, @RequestParam(value = "sound") String sound, RedirectAttributes redirectAttributes){
         try {
             soundDao.updatePassword(sound, id);
@@ -45,7 +45,7 @@ public class SoundManageController {
         return "redirect:/homepage/recordmanagement";
     }
 
-    @RequestMapping(path = "homepage/recordmanagement/selectsound")
+    @RequestMapping(path = "/homepage/recordmanagement/selectsound")
 
     public String selectSound(@RequestParam(value = "id")int id,RedirectAttributes redirectAttributes){
         try {
