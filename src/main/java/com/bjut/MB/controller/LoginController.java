@@ -74,7 +74,7 @@ public class LoginController {
             }
         }catch (Exception e){
             logger.error("登陆异常" + e.getMessage());
-            redirectAttributes.addFlashAttribute(map);
+            redirectAttributes.addFlashAttribute("msg","登陆异常");
             return "redirect:/index";
         }
         return "redirect:/homepage";
