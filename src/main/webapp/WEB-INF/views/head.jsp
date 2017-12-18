@@ -43,7 +43,7 @@
                     <p>再次输入新密码：<input id="inp30" type="text" name="renewPassword" class="form-control" placeholder="请再次输入新密码"></p>
                 </div>
                 <div class="modal-footer">
-                    <span style="float: left;color: #761c19">显示提示信息位置+${msg}</span>
+                    <span style="float: left;color: #761c19">${msg}</span>
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                     <button onclick="checkform10()" type="submit" class="btn btn-primary">提交更改</button>
                 </div>

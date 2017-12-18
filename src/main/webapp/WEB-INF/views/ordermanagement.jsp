@@ -241,7 +241,7 @@
             <li class="active"><a href="#home" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-plus"></span>添加</a></li>
             <li><a href="#ios" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-trash"></span>删除</a></li>
             <li><a href="#java" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-arrow-up"></span>上传</a></li>
-            <li><a data-toggle="tab"><span style="color: #761c19">+显示提示信息位置+${msg}</span></a></li>
+            <li><a data-toggle="tab"><span style="color: #761c19">${msg}</span></a></li>
         </ul>
         <div id="myTabContent" class="tab-content"
              style="width: 100%;background-color: #437ab2;border-radius: 0 5px 5px 5px">
