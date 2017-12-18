@@ -258,4 +258,8 @@ public class ProgressController {
         redirectAttributes.addFlashAttribute("map",map);
         return "redirect:/homepage/progresscontrollerone";
     }
+    @RequestMapping(path = {"/homepage/process"})
+    public String homepage(){
+        return "process";
+    }
 }

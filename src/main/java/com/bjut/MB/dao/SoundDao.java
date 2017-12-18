@@ -19,4 +19,5 @@ public interface SoundDao {
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where id = #{id}"})
     SoundRecording selectById(@Param("id") int id);
+
 }

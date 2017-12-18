@@ -6,13 +6,16 @@
     <meta charset="UTF-8"/>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>录音管理</title>
+
     <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../js/soundrecord.js" type="text/javascript"></script>
     <!-- bootstrap-table -->
     <link href="../css/bootstrap-table.css" rel="stylesheet">
     <script src="../js/bootstrap-table.js" type="text/javascript"></script>
     <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
+
     <style>
         body {
             width: 100%;
@@ -21,26 +24,34 @@
             background-size: cover;
         }
     </style>
-    <script>
-        $.extend($.fn.bootstrapTable.defaults, {
-//            method: 'post',
-            pagination: true,
-            sidePagination: 'server',
-//            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            showRefresh: true
-        });
-        $.extend($.fn.bootstrapTable.columnDefaults, {
-            align: 'center',
-            valign: 'middle'
-        });
-    </script>
 </head>
 <body>
 <%@include file="head.jsp" %>
 <div class="container">
-    <table class="table-striped" id="table"
+    <div class="panel panel-default">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
+            <form id="numSearch" class="form-horizontal">
+                <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="num">编号</label>
+                    <div class="col-sm-3">
+                        <select name="num" id="num" class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4" style="text-align:left;">
+                        <button type="button" style="margin-left:50px" id="num_query" class="btn btn-primary">查询</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table-striped" id="srtable"
            data-toggle="table"
-           data-url="../json/data2.json" style="background-color: white;height:200px;overflow:auto;" >
+           style="background-color: white;height:200px;overflow:auto;" >
         <thead>
         <tr>
             <th data-field="id">录音编号</th>

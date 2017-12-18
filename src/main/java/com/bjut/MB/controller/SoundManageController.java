@@ -2,11 +2,22 @@ package com.bjut.MB.controller;
 
 import com.bjut.MB.dao.SoundDao;
 import com.bjut.MB.model.SoundRecording;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.print.DocFlavor;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Cheng on 2017/12/8.
@@ -18,7 +29,8 @@ public class SoundManageController {
     private SoundDao soundDao;
 
     @RequestMapping(path = "homepage/recordmanagement")
-    public String index(){
+    public String index(Model model){
+
         return "recordmanagement";
     }
 
@@ -43,5 +55,9 @@ public class SoundManageController {
             redirectAttributes.addFlashAttribute("msg","查询失败！");
         }
         return "redirect:/homepage/recordmanagement";
+
     }
+
+
 }
+
