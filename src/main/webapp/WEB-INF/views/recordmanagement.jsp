@@ -17,6 +17,13 @@
     <script src="../js/bootstrap-table.js" type="text/javascript"></script>
     <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
 
+    <script type="text/javascript">
+        function checkform1(){
+            $('num1').set(document.getElementById('num').value);
+            return true;
+        }
+    </script>
+
     <style>
         body {
             width: 100%;
@@ -37,7 +44,7 @@
                     <label class="control-label col-sm-1" for="num">编号</label>
                     <div class="col-sm-3">
                         <select name="num" id="num" class="form-control">
-                            <option value="0" selected>请选择：</option>
+                            <option value=${soundNum} selected>${soundNum}</option>
                             <%
                                 for(int i=0;i<50;i++){
                             %>
@@ -46,23 +53,36 @@
                         </select>
                     </div>
                     <div class="col-sm-4" style="text-align:left;">
-                        <button type="submit" style="margin-left:50px" id="num_query" class="btn btn-primary">查询</button>
-                        <th data-field="comment">${msg}</th>
+                        <input type="submit" class="btn btn-default" value="查询" style="background-color: #2e6da4;color: white"/>
+                        ${msg}
+                    </div>
+                </div>
+            </form>
+            <form id="numUpdate" class="form-horizontal" action="/homepage/recordmanagement/updatesound" method="get">
+                <div class="form-group" style="margin-top:15px">
+                    <div class="col-sm-1">
+                        <input id="num1" name="num" class="form-control" type="text" >
+                    </div>
+                    <div class="col-sm-3">
+                        <input id="sound" name="sound" class="form-control" type="text" placeholder=${msg1} >
+                    </div>
+                    <div class="col-sm-4" style="text-align:left;">
+                        <input id="update" type="submit" class="btn btn-default" value="修改"  style="background-color: #2e6da4;color: white" onclick="checkform1()"/>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <table class="table-striped" id="srtable"
-           data-toggle="table"
-           style="background-color: white;height:200px;overflow:auto;" >
-        <thead>
+    <%--<table class="table-striped" id="srtable"--%>
+           <%--data-toggle="table"--%>
+           <%--style="background-color: white;height:200px;overflow:auto;" >--%>
+        <%--<thead>--%>
         <%--<tr>--%>
             <%--<th data-field="id">录音编号</th>--%>
             <%--<th data-field="comment">备注</th>--%>
         <%--</tr>--%>
-        </thead>
-    </table>
+        <%--</thead>--%>
+    <%--</table>--%>
 </div>
 </body>
 </html>

@@ -15,7 +15,7 @@ public interface SoundDao {
     String SELECT_FIELDS = "*";
 
     @Update({"update ", TABLE_NAME, "set sound = #{sound} where id = #{id}"})
-    void updatePassword(@Param("sound") String sound, @Param("id") String id);
+    void updatePassword(@Param("sound") String sound, @Param("id") int id);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where id = #{id}"})
     SoundRecording selectById(@Param("id") int id);
