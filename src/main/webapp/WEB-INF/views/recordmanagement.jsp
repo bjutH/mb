@@ -47,6 +47,7 @@
                     </div>
                     <div class="col-sm-4" style="text-align:left;">
                         <button type="submit" style="margin-left:50px" id="num_query" class="btn btn-primary">查询</button>
+                        <th data-field="comment">${msg}</th>
                     </div>
                 </div>
             </form>
@@ -56,10 +57,10 @@
            data-toggle="table"
            style="background-color: white;height:200px;overflow:auto;" >
         <thead>
-        <tr>
-            <th data-field="id">录音编号</th>
-            <th data-field="comment">备注</th>
-        </tr>
+        <%--<tr>--%>
+            <%--<th data-field="id">录音编号</th>--%>
+            <%--<th data-field="comment">备注</th>--%>
+        <%--</tr>--%>
         </thead>
     </table>
 </div>
