@@ -32,7 +32,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">查询条件</div>
         <div class="panel-body">
-            <form id="numSearch" class="form-horizontal">
+            <form id="numSearch" class="form-horizontal" action="/homepage/recordmanagement/selectsound" method="get">
                 <div class="form-group" style="margin-top:15px">
                     <label class="control-label col-sm-1" for="num">编号</label>
                     <div class="col-sm-3">
@@ -46,7 +46,7 @@
                         </select>
                     </div>
                     <div class="col-sm-4" style="text-align:left;">
-                        <button type="button" style="margin-left:50px" id="num_query" class="btn btn-primary">查询</button>
+                        <button type="submit" style="margin-left:50px" id="num_query" class="btn btn-primary">查询</button>
                     </div>
                 </div>
             </form>

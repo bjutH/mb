@@ -47,9 +47,9 @@ public class SoundManageController {
 
     @RequestMapping(path = "/homepage/recordmanagement/selectsound")
 
-    public String selectSound(@RequestParam(value = "id")int id,RedirectAttributes redirectAttributes){
+    public String selectSound(@RequestParam(value = "num")int num,RedirectAttributes redirectAttributes){
         try {
-            SoundRecording soundRecording = soundDao.selectById(id);
+            SoundRecording soundRecording = soundDao.selectById(num);
             redirectAttributes.addFlashAttribute("msg",soundRecording.getSound());
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("msg","查询失败！");
