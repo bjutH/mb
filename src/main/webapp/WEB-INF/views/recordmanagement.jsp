@@ -19,7 +19,8 @@
 
     <script type="text/javascript">
         function checkform1(){
-            $('num1').set(document.getElementById('num').value);
+//            $('num1').set(document.getElementById('num').value);
+//            $('num1')
             return true;
         }
     </script>
