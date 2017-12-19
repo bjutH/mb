@@ -17,10 +17,9 @@
     <script src="../js/bootstrap-table.js" type="text/javascript"></script>
     <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
+    <script type="text/javascript" language="javascript">
         function checkform1(){
-//            $('num1').set(document.getElementById('num').value);
-//            $('num1')
+            document.getElementById("num1").value  = document.getElementById('num').value ;
             return true;
         }
     </script>
@@ -62,7 +61,7 @@
             <form id="numUpdate" class="form-horizontal" action="/homepage/recordmanagement/updatesound" method="get">
                 <div class="form-group" style="margin-top:15px">
                     <div class="col-sm-1">
-                        <input id="num1" name="num" class="form-control" type="text" >
+                        <input id="num1" name="num" class="form-control" style="display: none" type="text" >
                     </div>
                     <div class="col-sm-3">
                         <input id="sound" name="sound" class="form-control" type="text" placeholder=${msg1} >
