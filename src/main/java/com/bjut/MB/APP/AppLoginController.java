@@ -22,9 +22,9 @@ public class AppLoginController {
     @Autowired
     private UserService userService;
     @RequestMapping(value = "/login")
-    public Map<String,String> login(@RequestParam("name") String name, @RequestParam("password") String password) {
+    public Map<String,String> login(@RequestParam("name") String name) {
         Map<String,String> map = new HashMap<>();
-        map =userService.login(name,password);
+        map =userService.login(name);
         return map;
     }
 }

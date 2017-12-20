@@ -1,9 +1,7 @@
 package com.bjut.MB.APP;
 
-import com.bjut.MB.Utils.ExcelUtils;
-import com.bjut.MB.model.HostHolder;
-import com.bjut.MB.model.Order;
-import com.bjut.MB.service.*;
+import com.bjut.MB.service.DebugService;
+import com.bjut.MB.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +14,31 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
-
 /**
  * Created by Administrator on 2017/12/20.
  */
 @RestController
 @RequestMapping(value = "/app")
-public class AppOrderController {
-    private static final Logger logger = LoggerFactory.getLogger(AppOrderController.class);
+public class AppDebugController {
+    private static final Logger logger = LoggerFactory.getLogger(AppDebugController.class);
 
     @Autowired
-    private OrderService orderService;
+    private DebugService debugService;
 
-    @RequestMapping(value = "/order/select")
+    @RequestMapping(value = "/debug/select")
     public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
         List<String> list = new LinkedList<>();
-        list = orderService.selectOrderProcess(orderNum);
+        list = debugService.selectDebugProcess(orderNum);
         return list;
     }
 
-    @RequestMapping(value = "/order/update")
+    @RequestMapping(value = "/debug/update")
     public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process,
-                              @RequestParam(value = "operater") String operater,@RequestParam(value = "other") String other,
-                              @RequestParam(value = "ps") String ps) {
+                                     @RequestParam(value = "data") String data,@RequestParam(value = "result") String result,
+                                     @RequestParam(value = "detectionDevice") String detectionDevice,@RequestParam(value = "deviceType") String deviceType,
+                                     @RequestParam(value = "deviceNum") String deviceNum,@RequestParam(value = "ps") String ps) {
         Map<String,String> map = new HashMap<>();
-        map = orderService.updateOrder(orderNum,process,operater,other,ps);
+        map = debugService.updateDebug(orderNum,process,data,result,detectionDevice,deviceType,deviceNum,ps);
         return map;
     }
 }
