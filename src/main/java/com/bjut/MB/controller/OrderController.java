@@ -199,73 +199,50 @@ public class OrderController {
         return "redirect:/homepage/ordermanagement";
     }
 
-    /**
-     * 模拟平板上传
-     * @param orderNum
-     * @param process
-     * @param operater
-     * @param other
-     * @param ps
-     * @return
-     */
-    @RequestMapping(path = "/homepage/ordermanagement/updateorder")
-    public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                               @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
-                               @RequestParam(value = "ps") String ps, RedirectAttributes redirectAttributes){
-        Map<String,String> map = new HashMap<>();
-        try {
-            String path =orderService.selectPath(orderNum);
-            Order order = new Order();
-            order.setOperater(operater);
-            order.setOther(other);
-            order.setPs(ps);
-            if(path == null){
-                map.put("code","1");
-                map.put("msg","不存在");
-                redirectAttributes.addFlashAttribute("msg","不存在！");
-                return "redirect:/homepage/ordermanagement";
-            }
-            map = excelUtils.replaceExcel(path,"随工单", process, order);
-            orderService.updateOrder(orderNum,process,operater,other,ps);
-        }
-        catch (Exception e) {
-            logger.error("更新随工单异常" + e.getMessage());
-            map.put("code","1");
-            redirectAttributes.addFlashAttribute("msg","失败！");
-        }
-        return "redirect:/homepage/ordermanagement";
-    }
-
-//    @RequestMapping(path = "/homepage/ordermanagement/searchorder")
-//    public String selectOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session, RedirectAttributes redirectAttributes){
-//        String orderType = (session.getAttribute("orderType").toString());
-//        if(orderType =="请选择随工单类型") {
-//            redirectAttributes.addFlashAttribute("msg", "请选择随工单类型！");
-//            return "redirect:/homepage/ordermanagement";
+//    /**
+//     * 模拟平板上传
+//     * @param orderNum
+//     * @param process
+//     * @param operater
+//     * @param other
+//     * @param ps
+//     * @return
+//     */
+//    @RequestMapping(path = "/homepage/ordermanagement/updateorder")
+//    public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+//                               @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
+//                               @RequestParam(value = "ps") String ps, RedirectAttributes redirectAttributes){
+//        Map<String,String> map = new HashMap<>();
+//        try {
+//            String path =orderService.selectPath(orderNum);
+//            Order order = new Order();
+//            order.setOperater(operater);
+//            order.setOther(other);
+//            order.setPs(ps);
+//            if(path == null){
+//                map.put("code","1");
+//                map.put("msg","不存在");
+//                redirectAttributes.addFlashAttribute("msg","不存在！");
+//                return "redirect:/homepage/ordermanagement";
+//            }
+//            map = excelUtils.replaceExcel(path,"随工单", process, order);
+//            orderService.updateOrder(orderNum,process,operater,other,ps);
 //        }
-//        session.setAttribute("orderNum",orderNum);
+//        catch (Exception e) {
+//            logger.error("更新随工单异常" + e.getMessage());
+//            map.put("code","1");
+//            redirectAttributes.addFlashAttribute("msg","失败！");
+//        }
 //        return "redirect:/homepage/ordermanagement";
 //    }
 
-    /**
-     * pageoffice显示EXCEL
-     * @param session
-     * @return
-     */
-    @RequestMapping(path = "/homepage/ordermanagement/show")
-    public String showOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session, RedirectAttributes redirectAttributes){
+    @RequestMapping(path = "/homepage/ordermanagement/searchorder")
+    public String selectOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session, RedirectAttributes redirectAttributes){
         String orderType = (session.getAttribute("orderType").toString());
         if(orderType =="请选择随工单类型") {
             redirectAttributes.addFlashAttribute("msg", "请选择随工单类型！");
             return "redirect:/homepage/ordermanagement";
         }
-        User user = hostHolder.getUser();
-        String path = null;
-        if(user.getName().equals("admin"))
-            session.setAttribute("OpenModeType" , "OpenModeType.xlsNormalEdit");
-        else
-            session.setAttribute("OpenModeType" , "OpenModeType.xlsReadOnly");
-//        String orderNum = session.getAttribute("orderNum").toString();
         switch (orderType){
             case "随工单":
                 path = orderService.selectPath(orderNum);
@@ -306,10 +283,74 @@ public class OrderController {
         }
         if(StringUtils.isBlank(path)){
             redirectAttributes.addFlashAttribute("msg","不存在！");
+        }
+        else {
+            session.setAttribute("path", path);
+        }
+        return "redirect:/homepage/ordermanagement";
+    }
+
+    /**
+     * pageoffice显示EXCEL
+     * @param session
+     * @return
+     */
+    @RequestMapping(path = "/homepage/ordermanagement/show")
+    public String showOrder(HttpSession session, RedirectAttributes redirectAttributes){
+        String orderType = (session.getAttribute("orderType").toString());
+        if(orderType =="请选择随工单类型") {
+            redirectAttributes.addFlashAttribute("msg", "请选择随工单类型！");
             return "redirect:/homepage/ordermanagement";
         }
-        session.setAttribute("path",path);
-        return "word";
+        User user = hostHolder.getUser();
+        if(user.getName().equals("admin"))
+            session.setAttribute("OpenModeType" , "OpenModeType.xlsNormalEdit");
+        else
+            session.setAttribute("OpenModeType" , "OpenModeType.xlsReadOnly");
+//        switch (orderType){
+//            case "随工单":
+//                path = orderService.selectPath(orderNum);
+//                break;
+//            case  "仪器备忘录":
+//                path = memoService.selectPath(orderNum);
+//                break;
+//            case  "返工记录表":
+//                path = remadeSercice.selectPath(orderNum);
+//                break;
+//            case "老化观测表":
+//                path = agingService.selectPath(orderNum);
+//                break;
+//            case "装箱记录单":
+//                path = packService.selectPath(orderNum);
+//                break;
+//            case "整机调试报告单":
+//                path = debugService.selectPath(orderNum);
+//                break;
+//            case "工序检验报告单":
+//                path = processTestService.selectPath(orderNum);
+//                break;
+//            case "整机检验报告单":
+//                path = machineTestService.selectPath(orderNum);
+//                break;
+//            case "成品检验报告单":
+//                path = productTestService.selectPath(orderNum);
+//                break;
+//            case "血压计检定报告单":
+//                path = sphygmomanometerService.selectPath(orderNum);
+//                break;
+//            case "性能要求检验单":
+//                path = performTestService.selectPath(orderNum);
+//                break;
+//            case "最终检验报告单":
+//                path = finalTestService.selectPath(orderNum);
+//                break;
+//        }
+        try {
+            session.getAttribute("path").toString();
+            return "word";
+        }catch (Exception e){
+            return "word1";
+        }
     }
 
     /**

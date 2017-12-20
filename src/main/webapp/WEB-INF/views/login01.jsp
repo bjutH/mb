@@ -91,7 +91,7 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <form action="login" method="post">
+                        <form action="/login" method="post">
                             用户名：
                             <input id="inpt1" name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>
@@ -118,14 +118,14 @@
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <form action="reg.action" method="post">
+                        <form action="/reg" method="post">
                             用户名：
                             <input id="inpt3" name="name" class="form-control" type="text" placeholder="请输入用户名">
                             <br/>
                             密码：
                             <input id="inpt4" name="password" class="form-control" type="password" placeholder="请输入密码">
                             <br/>
-                            <div style="float: left"><span style="color: #d9534f">提示信息+${msg}</span></div>
+                            <div style="float: left"><span style="color: #d9534f">${msg}</span></div>
                             <div style="float: right">
                             <input name="rememberme" type="checkbox" ><span>记住我&nbsp;&nbsp;&nbsp;</span>
                             <input type="submit" class="btn btn-default" value="注册" style="background-color: #2e6da4;color: white" onclick="checkform2()"/>

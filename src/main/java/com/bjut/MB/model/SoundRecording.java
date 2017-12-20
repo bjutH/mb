@@ -6,6 +6,7 @@ package com.bjut.MB.model;
 public class SoundRecording {
     private int id;
     private String sound;
+    private int num;
 
     public int getId() {
         return id;
@@ -13,6 +14,14 @@ public class SoundRecording {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public String getSound() {
