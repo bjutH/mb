@@ -1,5 +1,6 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.model.FinalTest;
 import com.bjut.MB.service.FinalTestService;
 import com.bjut.MB.service.OrderService;
 import org.slf4j.Logger;
@@ -25,11 +26,18 @@ public class AppFinalTestController {
     @Autowired
     private FinalTestService finalTestService;
 
-    @RequestMapping(value = "/finalTest/select")
-    public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
-        List<String> list = new LinkedList<>();
-        list = finalTestService.selectFinalTestProcess(orderNum);
+    @RequestMapping(value = "/finalTest/selectall")
+    public List<FinalTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+        List<FinalTest> list = new LinkedList<>();
+        list = finalTestService.selectFinalTest(orderNum);
         return list;
+    }
+
+    @RequestMapping(value = "/finalTest/selectone")
+    public FinalTest selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
+        FinalTest finalTest = new FinalTest();
+        finalTest = finalTestService.selectFinalTest(orderNum,process);
+        return finalTest;
     }
 
     @RequestMapping(value = "/finalTest/update")

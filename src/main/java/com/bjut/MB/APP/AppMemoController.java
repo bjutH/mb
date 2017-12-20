@@ -1,5 +1,6 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.model.Memo;
 import com.bjut.MB.service.MemoService;
 import com.bjut.MB.service.OrderService;
 import org.slf4j.Logger;
@@ -25,11 +26,18 @@ public class AppMemoController {
     @Autowired
     private MemoService memoService;
 
-    @RequestMapping(value = "/memo/select")
-    public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
-        List<String> list = new LinkedList<>();
-        list = memoService.selectMemoProcess(orderNum);
+    @RequestMapping(value = "/memo/selectall")
+    public List<Memo> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+        List<Memo> list = new LinkedList<>();
+        list = memoService.selectMemo(orderNum);
         return list;
+    }
+
+    @RequestMapping(value = "/memo/selectone")
+    public Memo selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
+        Memo memo = new Memo();
+        memo = memoService.selectMemo(orderNum,process);
+        return memo;
     }
 
     @RequestMapping(value = "/memo/update")

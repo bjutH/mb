@@ -1,5 +1,6 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.model.Aging;
 import com.bjut.MB.service.AgingService;
 import com.bjut.MB.service.OrderService;
 import org.slf4j.Logger;
@@ -22,11 +23,18 @@ public class AppAgingController {
     @Autowired
     private AgingService agingService;
 
-    @RequestMapping(value = "/aging/select")
-    public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
-        List<String> list = new LinkedList<>();
-        list = agingService.selectAgingProcess(orderNum);
+    @RequestMapping(value = "/aging/selectall")
+    public List<Aging> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+        List<Aging> list = new LinkedList<>();
+        list = agingService.selectAging(orderNum);
         return list;
+    }
+
+    @RequestMapping(value = "/aging/selectone")
+    public Aging selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
+        Aging aging = new Aging();
+        aging = agingService.selectAging(orderNum,process);
+        return aging;
     }
 
     @RequestMapping(value = "/aging/update")

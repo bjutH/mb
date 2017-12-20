@@ -1,5 +1,6 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.model.ProcessTest;
 import com.bjut.MB.service.OrderService;
 import com.bjut.MB.service.ProcessTestService;
 import org.slf4j.Logger;
@@ -25,11 +26,18 @@ public class AppProcessTestController {
     @Autowired
     private ProcessTestService processTestService;
 
-    @RequestMapping(value = "/processTest/select")
-    public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
-        List<String> list = new LinkedList<>();
-        list = processTestService.selectProcessTestProcess(orderNum);
+    @RequestMapping(value = "/processTest/selectall")
+    public List<ProcessTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+        List<ProcessTest> list = new LinkedList<>();
+        list = processTestService.selectProcessTest(orderNum);
         return list;
+    }
+
+    @RequestMapping(value = "/processTest/selectone")
+    public ProcessTest selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
+        ProcessTest processTest = new ProcessTest();
+        processTest = processTestService.selectProcessTest(orderNum,process);
+        return processTest;
     }
 
     @RequestMapping(value = "/processTest/update")

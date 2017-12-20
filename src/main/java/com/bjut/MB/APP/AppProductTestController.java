@@ -1,5 +1,6 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.model.ProductTest;
 import com.bjut.MB.service.OrderService;
 import com.bjut.MB.service.ProductTestService;
 import org.slf4j.Logger;
@@ -25,11 +26,18 @@ public class AppProductTestController {
     @Autowired
     private ProductTestService productTestService;
 
-    @RequestMapping(value = "/productTest/select")
-    public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
-        List<String> list = new LinkedList<>();
-        list = productTestService.selectProductTestProcess(orderNum);
+    @RequestMapping(value = "/productTest/selectall")
+    public List<ProductTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+        List<ProductTest> list = new LinkedList<>();
+        list = productTestService.selectProductTest(orderNum);
         return list;
+    }
+
+    @RequestMapping(value = "/productTest/selectone")
+    public ProductTest selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
+        ProductTest productTest = new ProductTest();
+        productTest = productTestService.selectProductTest(orderNum,process);
+        return productTest;
     }
 
     @RequestMapping(value = "/productTest/update")

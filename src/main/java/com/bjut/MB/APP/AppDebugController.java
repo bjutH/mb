@@ -1,5 +1,6 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.model.Debug;
 import com.bjut.MB.service.DebugService;
 import com.bjut.MB.service.OrderService;
 import org.slf4j.Logger;
@@ -25,11 +26,18 @@ public class AppDebugController {
     @Autowired
     private DebugService debugService;
 
-    @RequestMapping(value = "/debug/select")
-    public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
-        List<String> list = new LinkedList<>();
-        list = debugService.selectDebugProcess(orderNum);
+    @RequestMapping(value = "/debug/selectall")
+    public List<Debug> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+        List<Debug> list = new LinkedList<>();
+        list = debugService.selectDebug(orderNum);
         return list;
+    }
+
+    @RequestMapping(value = "/debug/selectone")
+    public Debug selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
+        Debug debug = new Debug();
+        debug = debugService.selectDebug(orderNum,process);
+        return debug;
     }
 
     @RequestMapping(value = "/debug/update")

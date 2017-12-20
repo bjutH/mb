@@ -1,5 +1,6 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.model.Pack;
 import com.bjut.MB.service.OrderService;
 import com.bjut.MB.service.PackService;
 import org.slf4j.Logger;
@@ -25,11 +26,18 @@ public class AppPackController {
     @Autowired
     private PackService packService;
 
-    @RequestMapping(value = "/pack/select")
-    public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
-        List<String> list = new LinkedList<>();
-        list = packService.selectPackProcess(orderNum);
+    @RequestMapping(value = "/pack/selectall")
+    public List<Pack> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+        List<Pack> list = new LinkedList<>();
+        list = packService.selectPack(orderNum);
         return list;
+    }
+
+    @RequestMapping(value = "/pack/selectone")
+    public Pack selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
+        Pack pack = new Pack();
+        pack = packService.selectPack(orderNum,process);
+        return pack;
     }
 
     @RequestMapping(value = "/pack/update")

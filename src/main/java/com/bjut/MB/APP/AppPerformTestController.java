@@ -1,5 +1,6 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.model.PerformTest;
 import com.bjut.MB.service.OrderService;
 import com.bjut.MB.service.PerformTestService;
 import org.slf4j.Logger;
@@ -25,11 +26,18 @@ public class AppPerformTestController {
     @Autowired
     private PerformTestService performTestService;
 
-    @RequestMapping(value = "/performTest/select")
-    public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
-        List<String> list = new LinkedList<>();
-        list = performTestService.selectPerformTestProcess(orderNum);
+    @RequestMapping(value = "/performTest/selectall")
+    public List<PerformTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+        List<PerformTest> list = new LinkedList<>();
+        list = performTestService.selectPerformTest(orderNum);
         return list;
+    }
+
+    @RequestMapping(value = "/performTest/selectone")
+    public PerformTest selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
+        PerformTest performTest = new PerformTest();
+        performTest = performTestService.selectPerformTest(orderNum,process);
+        return performTest;
     }
 
     @RequestMapping(value = "/performTest/update")
