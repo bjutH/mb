@@ -38,7 +38,7 @@ public interface UserDao {
     /**
      *
      * @param password 密码
-     * @param id
+     * @param name  名称
      */
 
     @Update({"update ", TABLE_NAME, "set password = #{password} where name = #{name}"})

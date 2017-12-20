@@ -33,7 +33,7 @@ public interface OrderDao {
      * @param process 工序
      * @return
      */
-    @Select({"select ", "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
+    @Select({"select ",SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and process = #{process}"})
     Order selectOne(@Param("product_num") String product_num, @Param("process") String process);
 
 

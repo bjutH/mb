@@ -29,11 +29,18 @@ public class AppOrderController {
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping(value = "/order/select")
-    public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
-        List<String> list = new LinkedList<>();
-        list = orderService.selectOrderProcess(orderNum);
+    @RequestMapping(value = "/order/selectall")
+    public List<Order> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+        List<Order> list = new LinkedList<>();
+        list = orderService.selectOrder(orderNum);
         return list;
+    }
+
+    @RequestMapping(value = "/order/selectone")
+    public Order selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
+        Order order = new Order();
+        order = orderService.selectOrder(orderNum,process);
+        return order;
     }
 
     @RequestMapping(value = "/order/update")
