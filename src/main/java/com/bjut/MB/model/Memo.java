@@ -4,7 +4,7 @@ package com.bjut.MB.model;
  * Created by Administrator on 2017/11/3.
  */
 public class Memo {
-    private String orderNum;
+    private String productNum;
     private String process;
     private String number;
     private String boardNum;
@@ -14,12 +14,12 @@ public class Memo {
     private String version;
     private String ps;
 
-    public String getOrderNum() {
-        return orderNum;
+    public String getProductNum() {
+        return productNum;
     }
 
-    public void setOrderNum(String orderNum) {
-        this.orderNum = orderNum;
+    public void setProductNum(String productNum) {
+        this.productNum = productNum;
     }
 
     public String getProcess() {
