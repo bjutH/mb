@@ -1,5 +1,6 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.model.Sphygmomanometer;
 import com.bjut.MB.service.OrderService;
 import com.bjut.MB.service.SphygmomanometerService;
 import org.slf4j.Logger;
@@ -25,11 +26,18 @@ public class AppSphygmomanometerController {
     @Autowired
     private SphygmomanometerService sphygmomanometerService;
 
-    @RequestMapping(value = "/sphygmomanometer/select")
-    public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
-        List<String> list = new LinkedList<>();
-        list = sphygmomanometerService.selectSphygmomanometerProcess(orderNum);
+    @RequestMapping(value = "/sphygmomanometer/selectall")
+    public List<Sphygmomanometer> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+        List<Sphygmomanometer> list = new LinkedList<>();
+        list = sphygmomanometerService.selectSphygmomanometer(orderNum);
         return list;
+    }
+
+    @RequestMapping(value = "/sphygmomanometer/selectone")
+    public Sphygmomanometer selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
+        Sphygmomanometer sphygmomanometer = new Sphygmomanometer();
+        sphygmomanometer = sphygmomanometerService.selectSphygmomanometer(orderNum,process);
+        return sphygmomanometer;
     }
 
     @RequestMapping(value = "/sphygmomanometer/update")

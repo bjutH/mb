@@ -16,8 +16,7 @@ public class MbApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		orderDao.addItem("123","gongxu","c:/file/test");
-		orderDao.updateItem("123","lisan","gongxu","haha","ps");
+		orderDao.selectOne("123","发料");
 	}
 
 }

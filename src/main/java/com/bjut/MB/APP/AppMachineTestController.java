@@ -1,5 +1,6 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.model.MachineTest;
 import com.bjut.MB.service.MachineTestService;
 import com.bjut.MB.service.OrderService;
 import org.slf4j.Logger;
@@ -25,11 +26,18 @@ public class AppMachineTestController {
     @Autowired
     private MachineTestService machineTestService;
 
-    @RequestMapping(value = "/machineTest/select")
-    public List<String> select(@RequestParam(value = "orderNum") String orderNum) {
-        List<String> list = new LinkedList<>();
-        list = machineTestService.selectMachineTestProcess(orderNum);
+    @RequestMapping(value = "/machineTest/selectall")
+    public List<MachineTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+        List<MachineTest> list = new LinkedList<>();
+        list = machineTestService.selectMachineTest(orderNum);
         return list;
+    }
+
+    @RequestMapping(value = "/machineTest/selectone")
+    public MachineTest selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
+        MachineTest machineTest = new MachineTest();
+        machineTest = machineTestService.selectMachineTest(orderNum,process);
+        return machineTest;
     }
 
     @RequestMapping(value = "/machineTest/update")
