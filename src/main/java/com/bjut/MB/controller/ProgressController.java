@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -299,7 +300,20 @@ public class ProgressController {
         return "redirect:/homepage/process";
     }
     @RequestMapping(path = {"/homepage/process"})
-    public String homepage(){
+    public String homepage(RedirectAttributes redirectAttributes){
+        List<String> list = new LinkedList<>();
+        list.add("随工单");
+        list.add("仪器备忘录");
+        list.add("老化观测表");
+        list.add("装箱记录单");
+        list.add("整机调试报告单");
+        list.add("工序检验报告单");
+        list.add("整机检验报告单");
+        list.add("成品检验报告单");
+        list.add("血压计检定报告单");
+        list.add("性能要求检验单");
+        list.add("最终检验报告单");
+        redirectAttributes.addFlashAttribute("list",list);
         return "process";
     }
 }

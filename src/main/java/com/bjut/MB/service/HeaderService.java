@@ -57,36 +57,96 @@ public class HeaderService {
 
     /**
      *
- * @param orderNum               产品编号/仪器序号
-     * @param name                  产品名称
-     * @param type                  产品类型/仪器型号
-     * @param label                 内部标记
-     * @param conclusion            调试结论
-     * @param debuger               调试人员/检验员
-     * @param date                  调试日期
-     * @param temperature           环境温度
-     * @param humidity              相对湿度
-     * @param power                 供电电源
-     * @param groud                 是否有效接地
-     * @param checkMachineName      检测设备名称
-     * @param checkMachineType      检测设备类型
-     * @param checkMachineNum       检测设备编号
-     * @param checker               核验/放行人
-     * @param checkerDate           核验/放行日期
-     * @return                      返回一个map，key:code时，value为0则正常；为1说明有错
+     * @param excel_type 表格类型
+     * @param product_num 产品编号/仪器序号
+     * @param product_name 产品名称
+     * @param product_type 产品类型/仪器型号
+     * @param inner_label 内部标记
+     * @param debug_conclusion 调试结论
+     * @param debuger 调试人员/检验员
+     * @param debug_date 调试日期
+     * @param environment_temperature 环境温度
+     * @param relative_humidity 相对湿度
+     * @param power 供电电源
+     * @param is_groud 是否有效接地
+     * @param check_machine_name1 检测设备名称
+     * @param check_machine_type1 检测设备类型
+     * @param check_machine_num1  检测设备编号
+     * @param check_machine_name2 检测设备名称
+     * @param check_machine_type2 检测设备类型
+     * @param check_machine_num2  检测设备编号
+     * @param check_machine_name3 检测设备名称
+     * @param check_machine_type3 检测设备类型
+     * @param check_machine_num3  检测设备编号
+     * @param check_machine_name4 检测设备名称
+     * @param check_machine_type4 检测设备类型
+     * @param check_machine_num4  检测设备编号
+     * @param check_machine_name5 检测设备名称
+     * @param check_machine_type5 检测设备类型
+     * @param check_machine_num5  检测设备编号
+     * @param check_machine_name6 检测设备名称
+     * @param check_machine_type6 检测设备类型
+     * @param check_machine_num6  检测设备编号
+     * @param check_machine_name7 检测设备名称
+     * @param check_machine_type7 检测设备类型
+     * @param check_machine_num7  检测设备编号
+     * @param check_machine_name8 检测设备名称
+     * @param check_machine_type8 检测设备类型
+     * @param check_machine_num8  检测设备编号
+     * @param check_machine_name9 检测设备名称
+     * @param check_machine_type9 检测设备类型
+     * @param check_machine_num9  检测设备编号
+     * @param check_machine_name10 检测设备名称
+     * @param check_machine_type10 检测设备类型
+     * @param check_machine_num10  检测设备编号
+     * @param check_machine_name11 检测设备名称
+     * @param check_machine_type11 检测设备类型
+     * @param check_machine_num11  检测设备编号
+     * @param check_machine_name12 检测设备名称
+     * @param check_machine_type12 检测设备类型
+     * @param check_machine_num12  检测设备编号
+     * @param checker 核验/放行人
+     * @param check_date 核验/放行日期
+     * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
-    public Map<String, String> updateHeader(String orderNum, String name, String type, String label, String conclusion,String debuger,
-                                            Date date, String temperature, String humidity, String power, String groud ,String checkMachineName,
-                                            String checkMachineType,String checkMachineNum, String checker, Date checkerDate){
+    public Map<String, String> updateHeader(String productNum, String excelType, String productName, String productType,
+                                            String innerLabel, String  debugConclusion, String debuger, Date debugDate,
+                                            String environmentTemperature, String relativeHumidity, String power, String isGroud,
+                                            String checkMachineName1, String checkMachineType1, String checkMachineNum1,
+                                            String checkMachineName2, String checkMachineType2, String checkMachineNum2,
+                                            String checkMachineName3, String checkMachineType3, String checkMachineNum3,
+                                            String checkMachineName4, String checkMachineType4, String checkMachineNum4,
+                                            String checkMachineName5, String checkMachineType5, String checkMachineNum5,
+                                            String checkMachineName6, String checkMachineType6, String checkMachineNum6,
+                                            String checkMachineName7, String checkMachineType7, String checkMachineNum7,
+                                            String checkMachineName8, String checkMachineType8, String checkMachineNum8,
+                                            String checkMachineName9, String checkMachineType9, String checkMachineNum9,
+                                            String checkMachineName10, String checkMachineType10, String checkMachineNum10,
+                                            String checkMachineName11, String checkMachineType11, String checkMachineNum11,
+                                            String checkMachineName12, String checkMachineType12, String checkMachineNum12,
+                                            String checker, Date checkDate){
         Map<String, String> map = new HashMap<String, String>();
-        if(StringUtils.isBlank(orderNum)){
+        if(StringUtils.isBlank(product_num)){
             map.put("code","1");
             map.put("msg", "表头编号不能为空！");
             return map;
         }
         try {
-//            headerDao.updateItem(orderNum, name, type, label, conclusion, debuger, date, temperature, humidity,
-//                                power, groud ,checkMachineName, checkMachineType, checkMachineNum, checker, checkerDate);
+            headerDao.updateItem(product_num, excel_type, product_name, product_type, inner_label, debug_conclusion, debuger,
+                                  debug_date, environment_temperature, relative_humidity ,power, is_groud,
+                                    check_machine_name1,check_machine_type1, check_machine_num1,
+                                    check_machine_name2,check_machine_type2,check_machine_num2,
+                                    check_machine_name3,check_machine_type3,check_machine_num3,
+                                    check_machine_name4,check_machine_type4,check_machine_num4,
+                                    check_machine_name5,check_machine_type5, check_machine_num5,
+                                    check_machine_name6,check_machine_type6,check_machine_num6,
+                                    check_machine_name7,check_machine_type7,check_machine_num7,
+                                    check_machine_name8,check_machine_type8,check_machine_num8,
+                                    check_machine_name9,check_machine_type9, check_machine_num9,
+                                    check_machine_name10,check_machine_type10,check_machine_num10,
+                                    check_machine_name11,check_machine_type11,check_machine_num11,
+                                    check_machine_name12,check_machine_type12,check_machine_num12,
+                                    checker, check_date);
             map.put("code","0");
             map.put("msg", "更新表头成功！");
         }
@@ -103,9 +163,9 @@ public class HeaderService {
      * @param orderNum  产品编号
      * @return          返回一个Header的LIST集合
      */
-//    public List<Header> selectHeaderAll(String orderNum){
-//        return headerDao.selectAll(orderNum);
-//    }
+    public List<Header> selectHeaderAll(String orderNum,String orderType){
+        return headerDao.selectAll(orderNum,orderType);
+    }
 
     /**
      *

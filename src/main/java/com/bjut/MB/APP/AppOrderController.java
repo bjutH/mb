@@ -68,4 +68,18 @@ public class AppOrderController {
         }
         return map;
     }
+
+    @RequestMapping(value = "/order/updatehead")
+    public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "orderNum") String orderNum, ) {
+        Map<String,String> map = new HashMap<>();
+        String name = UUID.randomUUID().toString();
+        path = request.getSession().getServletContext().getRealPath("/sign/" + name + ".gif");
+        if(Base64Utils.decode(operater,path)) {
+            map = orderService.updateOrder(orderNum, process, path, other, ps);
+        }else {
+            map.put("code","1");
+            map.put("code","更新失败！");
+        }
+        return map;
+    }
 }
