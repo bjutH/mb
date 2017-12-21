@@ -2,6 +2,7 @@ package com.bjut.MB.APP;
 
 import com.bjut.MB.model.FinalTest;
 import com.bjut.MB.service.FinalTestService;
+import com.bjut.MB.service.HeaderService;
 import com.bjut.MB.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,8 @@ public class AppFinalTestController {
 
     @Autowired
     private FinalTestService finalTestService;
+    @Autowired
+    private HeaderService headerService;
 
     @RequestMapping(value = "/finalTest/selectall")
     public List<FinalTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
@@ -45,6 +48,29 @@ public class AppFinalTestController {
                               @RequestParam(value = "result") String result) {
         Map<String,String> map = new HashMap<>();
         map = finalTestService.updateFinalTest(orderNum,process,result);
+        return map;
+    }
+
+    @RequestMapping(value = "/order/updatehead")
+    public Map<String,String> select( @RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum,
+                                      @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
+                                      @RequestParam(value = "productName") String productName) {
+        Map<String,String> map = new HashMap<>();
+        map = headerService.updateHeader(productNum,excelType,productName,productType,innerLabel,null,null,
+                null,null,null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null);
         return map;
     }
 }

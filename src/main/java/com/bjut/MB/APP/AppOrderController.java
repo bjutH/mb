@@ -72,11 +72,11 @@ public class AppOrderController {
     }
 
     @RequestMapping(value = "/order/updatehead")
-    public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "excelType") String excelType,
+    public Map<String,String> select( @RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum,
                                      @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
                                      @RequestParam(value = "productName") String productName) {
         Map<String,String> map = new HashMap<>();
-        map = headerService.updateHeader(orderNum,excelType,productName,productType,innerLabel,null,null,
+        map = headerService.updateHeader(productNum,excelType,productName,productType,innerLabel,null,null,
                 null,null,null,null,null,
                 null,null,null,
                 null,null,null,
