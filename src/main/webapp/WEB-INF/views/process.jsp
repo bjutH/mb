@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -82,15 +83,15 @@
             <form id="orderInfo" class="form-horizontal" action="/homepage/progresscontrollerone">
                 <div class="form-group" style="margin-top:15px">
                     <label class="control-label col-sm-1" for="orderType">类型</label>
-
-                    <select name="num" id="num" class="form-control" >
-                        <option value=${soundNum} selected>${soundNum}</option>
-                        <%
-                            for(int i=0;i<50;i++){
-                        %>
-                        <option  value="<%=i+1 %>"><%=i+1 %></option>
-                        <%} %>
+                    <div class="col-sm-3">
+                    <select name="num" id="num" class="form-control">
+                        <option value="0" selected>请选择随工单类型</option>
+                            <c:forEach items="${list}" var="item">
+                                <option value=i++ >i++</option>
+                            </c:forEach>
                     </select>
+                    </div>
+
                     <%--<div class="col-sm-3">--%>
                         <%--<input type="text" name="orderType"id="orderType">--%>
                     <%--</div>--%>
