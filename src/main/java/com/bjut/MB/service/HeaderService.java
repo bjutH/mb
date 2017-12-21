@@ -57,56 +57,56 @@ public class HeaderService {
 
     /**
      *
-     * @param excel_type 表格类型
-     * @param product_num 产品编号/仪器序号
-     * @param product_name 产品名称
-     * @param product_type 产品类型/仪器型号
-     * @param inner_label 内部标记
-     * @param debug_conclusion 调试结论
+     * @param productNum 产品编号/仪器序号
+     * @param excelType 表格类型
+     * @param productName 产品名称
+     * @param productType 产品类型/仪器型号
+     * @param innerLabel 内部标记
+     * @param debugConclusion 调试结论
      * @param debuger 调试人员/检验员
-     * @param debug_date 调试日期
-     * @param environment_temperature 环境温度
-     * @param relative_humidity 相对湿度
+     * @param debugDate 调试日期
+     * @param environmentTemperature 环境温度
+     * @param relativeHumidity 相对湿度
      * @param power 供电电源
-     * @param is_groud 是否有效接地
-     * @param check_machine_name1 检测设备名称
-     * @param check_machine_type1 检测设备类型
-     * @param check_machine_num1  检测设备编号
-     * @param check_machine_name2 检测设备名称
-     * @param check_machine_type2 检测设备类型
-     * @param check_machine_num2  检测设备编号
-     * @param check_machine_name3 检测设备名称
-     * @param check_machine_type3 检测设备类型
-     * @param check_machine_num3  检测设备编号
-     * @param check_machine_name4 检测设备名称
-     * @param check_machine_type4 检测设备类型
-     * @param check_machine_num4  检测设备编号
-     * @param check_machine_name5 检测设备名称
-     * @param check_machine_type5 检测设备类型
-     * @param check_machine_num5  检测设备编号
-     * @param check_machine_name6 检测设备名称
-     * @param check_machine_type6 检测设备类型
-     * @param check_machine_num6  检测设备编号
-     * @param check_machine_name7 检测设备名称
-     * @param check_machine_type7 检测设备类型
-     * @param check_machine_num7  检测设备编号
-     * @param check_machine_name8 检测设备名称
-     * @param check_machine_type8 检测设备类型
-     * @param check_machine_num8  检测设备编号
-     * @param check_machine_name9 检测设备名称
-     * @param check_machine_type9 检测设备类型
-     * @param check_machine_num9  检测设备编号
-     * @param check_machine_name10 检测设备名称
-     * @param check_machine_type10 检测设备类型
-     * @param check_machine_num10  检测设备编号
-     * @param check_machine_name11 检测设备名称
-     * @param check_machine_type11 检测设备类型
-     * @param check_machine_num11  检测设备编号
-     * @param check_machine_name12 检测设备名称
-     * @param check_machine_type12 检测设备类型
-     * @param check_machine_num12  检测设备编号
+     * @param isGroud 是否有效接地
+     * @param checkMachineName1 检测设备名称
+     * @param checkMachineType1 检测设备类型
+     * @param checkMachineNum1  检测设备编号
+     * @param checkMachineName2 检测设备名称
+     * @param checkMachineType2 检测设备类型
+     * @param checkMachineNum2  检测设备编号
+     * @param checkMachineName3 检测设备名称
+     * @param checkMachineType3 检测设备类型
+     * @param checkMachineNum3  检测设备编号
+     * @param checkMachineName4 检测设备名称
+     * @param checkMachineType4 检测设备类型
+     * @param checkMachineNum4  检测设备编号
+     * @param checkMachineName5 检测设备名称
+     * @param checkMachineType5 检测设备类型
+     * @param checkMachineNum5  检测设备编号
+     * @param checkMachineName6 检测设备名称
+     * @param checkMachineType6 检测设备类型
+     * @param checkMachineNum6  检测设备编号
+     * @param checkMachineName7 检测设备名称
+     * @param checkMachineType7 检测设备类型
+     * @param checkMachineNum7  检测设备编号
+     * @param checkMachineName8 检测设备名称
+     * @param checkMachineType8 检测设备类型
+     * @param checkMachineNum8  检测设备编号
+     * @param checkMachineName9 检测设备名称
+     * @param checkMachineType9 检测设备类型
+     * @param checkMachineNum9  检测设备编号
+     * @param checkMachineName10 检测设备名称
+     * @param checkMachineType10 检测设备类型
+     * @param checkMachineNum10  检测设备编号
+     * @param checkMachineName11 检测设备名称
+     * @param checkMachineType11 检测设备类型
+     * @param checkMachineNum11  检测设备编号
+     * @param checkMachineName12 检测设备名称
+     * @param checkMachineType12 检测设备类型
+     * @param checkMachineNum12  检测设备编号
      * @param checker 核验/放行人
-     * @param check_date 核验/放行日期
+     * @param checkDate 核验/放行日期
      * @return          返回一个map，key:code时，value为0则正常；为1说明有错
      */
     public Map<String, String> updateHeader(String productNum, String excelType, String productName, String productType,
@@ -126,27 +126,27 @@ public class HeaderService {
                                             String checkMachineName12, String checkMachineType12, String checkMachineNum12,
                                             String checker, Date checkDate){
         Map<String, String> map = new HashMap<String, String>();
-        if(StringUtils.isBlank(product_num)){
+        if(StringUtils.isBlank(productNum)){
             map.put("code","1");
             map.put("msg", "表头编号不能为空！");
             return map;
         }
         try {
-            headerDao.updateItem(product_num, excel_type, product_name, product_type, inner_label, debug_conclusion, debuger,
-                                  debug_date, environment_temperature, relative_humidity ,power, is_groud,
-                                    check_machine_name1,check_machine_type1, check_machine_num1,
-                                    check_machine_name2,check_machine_type2,check_machine_num2,
-                                    check_machine_name3,check_machine_type3,check_machine_num3,
-                                    check_machine_name4,check_machine_type4,check_machine_num4,
-                                    check_machine_name5,check_machine_type5, check_machine_num5,
-                                    check_machine_name6,check_machine_type6,check_machine_num6,
-                                    check_machine_name7,check_machine_type7,check_machine_num7,
-                                    check_machine_name8,check_machine_type8,check_machine_num8,
-                                    check_machine_name9,check_machine_type9, check_machine_num9,
-                                    check_machine_name10,check_machine_type10,check_machine_num10,
-                                    check_machine_name11,check_machine_type11,check_machine_num11,
-                                    check_machine_name12,check_machine_type12,check_machine_num12,
-                                    checker, check_date);
+            headerDao.updateItem(productNum, excelType, productName, productType, innerLabel, debugConclusion, debuger,
+                                    debugDate, environmentTemperature, relativeHumidity ,power, isGroud,
+                                    checkMachineName1,checkMachineType1, checkMachineNum1,
+                                    checkMachineName2,checkMachineType2, checkMachineNum2,
+                                    checkMachineName3,checkMachineType3, checkMachineNum3,
+                                    checkMachineName4,checkMachineType4, checkMachineNum4,
+                                    checkMachineName5,checkMachineType5, checkMachineNum5,
+                                    checkMachineName6,checkMachineType6, checkMachineNum6,
+                                    checkMachineName7,checkMachineType7, checkMachineNum7,
+                                    checkMachineName8,checkMachineType8, checkMachineNum8,
+                                    checkMachineName9,checkMachineType9, checkMachineNum9,
+                                    checkMachineName10,checkMachineType10, checkMachineNum10,
+                                    checkMachineName11,checkMachineType11, checkMachineNum11,
+                                    checkMachineName12,checkMachineType12, checkMachineNum12,
+                                    checker, checkDate);
             map.put("code","0");
             map.put("msg", "更新表头成功！");
         }

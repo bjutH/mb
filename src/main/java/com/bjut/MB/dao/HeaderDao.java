@@ -36,8 +36,8 @@ public interface HeaderDao {
     String selectPath(@Param("product_num") String product_num);
     /**
      *
-     * @param excel_type 表格类型
      * @param product_num 产品编号/仪器序号
+     * @param excel_type 表格类型
      * @param product_name 产品名称
      * @param product_type 产品类型/仪器型号
      * @param inner_label 内部标记

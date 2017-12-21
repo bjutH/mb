@@ -26,6 +26,8 @@ public class AppOrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private HeaderService headerService;
 
     @RequestMapping(value = "/order/selectall")
     public List<Order> selectAll(@RequestParam(value = "orderNum") String orderNum) {
@@ -69,17 +71,25 @@ public class AppOrderController {
         return map;
     }
 
-//    @RequestMapping(value = "/order/updatehead")
-//    public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "orderNum") String orderNum, ) {
-//        Map<String,String> map = new HashMap<>();
-//        String name = UUID.randomUUID().toString();
-//        path = request.getSession().getServletContext().getRealPath("/sign/" + name + ".gif");
-//        if(Base64Utils.decode(operater,path)) {
-//            map = orderService.updateOrder(orderNum, process, path, other, ps);
-//        }else {
-//            map.put("code","1");
-//            map.put("code","更新失败！");
-//        }
-//        return map;
-//    }
+    @RequestMapping(value = "/order/updatehead")
+    public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "excelType") String excelType,
+                                     @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
+                                     @RequestParam(value = "productName") String productName) {
+        map = headerService.updateHeader(orderNum,excelType,productName,productType,innerLabel,null,null,
+                null,null,null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null);
+        return map;
+    }
 }
