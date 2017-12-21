@@ -1,0 +1,105 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta charset="UTF-8"/>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>实时生产</title>
+
+    <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!-- bootstrap-table -->
+    <link href="../css/bootstrap-table.css" rel="stylesheet">
+    <script src="../js/bootstrap-table.js" type="text/javascript"></script>
+    <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
+
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            /*background: url("../img/img-order/cd-hero-background.jpg") no-repeat;*/
+            /*background-size: cover;*/
+        }
+    </style>
+</head>
+<body>
+<%@include file="head.jsp" %>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
+            <form id="numSearch" class="form-horizontal" action="/homepage/progresscontrollerall">
+                <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="orderNum">编号</label>
+                    <div class="col-sm-3">
+
+                        <input type="text" name="orderNum"id="orderNumber">
+                    </div>
+
+                        <div class="col-sm-4" style="text-align:left;">
+                            <input type="submit" class="btn btn-default" value="查询" style="background-color: #2e6da4;color: white"/>
+                            <%--${msg}--%>
+
+                    </div>
+                </div>
+
+            </form>
+            <form id="oederInfo" class="form-horizontal" action="/homepage/progresscontrollerone">
+                <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="orderNum"></label>
+                    <div class="col-sm-3">
+
+                        <label type="text" name="orderNum"id="orderNumber">完成了吗？</label>
+                    </div>
+
+                    <div class="col-sm-4" style="text-align:left;">
+
+                        <%--<input type="submit" class="btn btn-default" value="" style="background-color: #2e6da4;color: white"/>--%>
+                        <%--${msg}--%>
+
+                    </div>
+                </div>
+
+            </form>
+            <form id="orderInfo" class="form-horizontal" action="/homepage/progresscontrollerone">
+                <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="orderType"></label>
+                    <div class="col-sm-3">
+
+                        <input type="text" name="orderType"id="orderType">
+                    </div>
+
+                    <div class="col-sm-4" style="text-align:left;">
+
+                        <input type="submit" class="btn btn-default" value="具体进度" style="background-color: #2e6da4;color: white"/>
+                        <%--${msg}--%>
+
+                    </div>
+                </div>
+
+            </form>
+            <label class="container">
+
+                具体进度
+            </label>
+        </div>
+    </div>
+
+    <%--<table class="table-striped"--%>
+           <%--id="srtable"--%>
+           <%--data-toggle="table"--%>
+           <%--style="background-color: white;height:200px;overflow:auto;" >--%>
+        <%--<thead>--%>
+        <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<th data-field="id">录音编号</th>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<th data-field="comment">备注+</th>&ndash;%&gt;--%>
+        <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
+        <%--</thead>--%>
+    <%--</table>--%>
+</div>
+</body>
+</html>
+

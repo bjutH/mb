@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-sm-4" style="text-align:left;">
                         <input type="submit" class="btn btn-default" value="查询" style="background-color: #2e6da4;color: white"/>
-                        ${msg}
+                        <%--${msg}--%>
                     </div>
                 </div>
             </form>
