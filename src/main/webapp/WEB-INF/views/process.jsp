@@ -52,14 +52,23 @@
                     <label class="control-label col-sm-1" for="orderNum"></label>
                     <div class="col-sm-3">
 
-                        <label type="text" name="orderNum"id="orderNumber">完成了吗？</label>
+                        <label type="text" name="orderNum"id="orderNumber">
+                            随工单： ${随工单}
+                            仪器备忘录：${仪器备忘录}
+                            老化观测表：${老化观测表}
+                            装箱记录单：${装箱记录单}
+                            整机调试报告单：${整机调试报告单}
+                            工序检验报告单：${工序检验报告单}
+                            整机检验报告单：${整机检验报告单}
+                            成品检验报告单：${成品检验报告单}
+                            血压计检定报告单：${血压计检定报告单}
+                            性能要求检验单：${性能要求检验单}
+                            最终检验报告单：${最终检验报告单}</label>
                     </div>
 
                     <div class="col-sm-4" style="text-align:left;">
 
                         <%--<input type="submit" class="btn btn-default" value="" style="background-color: #2e6da4;color: white"/>--%>
-                        <%--${msg}--%>
-
                     </div>
                 </div>
 

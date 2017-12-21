@@ -47,6 +47,12 @@ public class ProgressController {
     @Autowired
     private HostHolder hostHolder;
 
+    /**
+     *
+     * @param orderNum              随工单编号
+     * @param redirectAttributes
+     * @return          map结果，0为完成，1为未完成，2为没有这个表
+     */
     @RequestMapping(path = "/homepage/progresscontrollerall")
     public String ProgressAll(@RequestParam(value = "orderNum") String orderNum, RedirectAttributes redirectAttributes){
         List<Order> orders = orderService.selectOrder(orderNum);
@@ -60,80 +66,114 @@ public class ProgressController {
         List<Sphygmomanometer> sphygmomanometers = sphygmomanometerService.selectSphygmomanometer(orderNum);
         List<PerformTest> performTests = performTestService.selectPerformTest(orderNum);
         List<FinalTest> finalTests = finalTestService.selectFinalTest(orderNum);
-        redirectAttributes.addFlashAttribute("随工单",true);
-        redirectAttributes.addFlashAttribute("仪器备忘录",true);
-        redirectAttributes.addFlashAttribute("老化观测表",true);
-        redirectAttributes.addFlashAttribute("装箱记录单",true);
-        redirectAttributes.addFlashAttribute("整机调试报告单",true);
-        redirectAttributes.addFlashAttribute("工序检验报告单",true);
-        redirectAttributes.addFlashAttribute("整机检验报告单",true);
-        redirectAttributes.addFlashAttribute("成品检验报告单",true);
-        redirectAttributes.addFlashAttribute("血压计检定报告单",true);
-        redirectAttributes.addFlashAttribute("性能要求检验单",true);
-        redirectAttributes.addFlashAttribute("最终检验报告单",true);
+        redirectAttributes.addFlashAttribute("随工单","0");
+        redirectAttributes.addFlashAttribute("仪器备忘录","0");
+        redirectAttributes.addFlashAttribute("老化观测表","0");
+        redirectAttributes.addFlashAttribute("装箱记录单","0");
+        redirectAttributes.addFlashAttribute("整机调试报告单","0");
+        redirectAttributes.addFlashAttribute("工序检验报告单","0");
+        redirectAttributes.addFlashAttribute("整机检验报告单","0");
+        redirectAttributes.addFlashAttribute("成品检验报告单","0");
+        redirectAttributes.addFlashAttribute("血压计检定报告单","0");
+        redirectAttributes.addFlashAttribute("性能要求检验单","0");
+        redirectAttributes.addFlashAttribute("最终检验报告单","0");
+        if(orders.size()==0){
+            redirectAttributes.addFlashAttribute("随工单","2");
+        }
+        if(memos.size()==0){
+            redirectAttributes.addFlashAttribute("仪器备忘录","2");
+        }
+        if(agings.size()==0){
+            redirectAttributes.addFlashAttribute("老化观测表","2");
+        }
+        if(packs.size()==0){
+            redirectAttributes.addFlashAttribute("装箱记录单","2");
+        }
+        if(debugs.size()==0){
+            redirectAttributes.addFlashAttribute("整机调试报告单","2");
+        }
+        if(processTests.size()==0){
+            redirectAttributes.addFlashAttribute("工序检验报告单","2");
+        }
+        if(machineTests.size()==0){
+            redirectAttributes.addFlashAttribute("整机检验报告单","2");
+        }
+        if(productTests.size()==0){
+            redirectAttributes.addFlashAttribute("成品检验报告单","2");
+        }
+        if(sphygmomanometers.size()==0){
+            redirectAttributes.addFlashAttribute("血压计检定报告单","2");
+        }
+        if(performTests.size()==0){
+            redirectAttributes.addFlashAttribute("性能要求检验单","2");
+        }
+        if(finalTests.size()==0){
+            redirectAttributes.addFlashAttribute("最终检验报告单","2");
+        }
+
         for(Order order :orders){
             if(StringUtils.isBlank(order.getOperater())){
-                redirectAttributes.addFlashAttribute("随工单",false);
+                redirectAttributes.addFlashAttribute("随工单","1");
                 break;
             }
         }
         for(Memo memo :memos){
             if(StringUtils.isBlank(memo.getNumber())){
-                redirectAttributes.addFlashAttribute("仪器备忘录",false);
+                redirectAttributes.addFlashAttribute("仪器备忘录","1");
                 break;
             }
         }
         for(Aging aging :agings){
             if(StringUtils.isBlank(aging.getOperater())){
-                redirectAttributes.addFlashAttribute("老化观测表",false);
+                redirectAttributes.addFlashAttribute("老化观测表","1");
                 break;
             }
         }
         for(Pack pack :packs){
             if(StringUtils.isBlank(pack.getOperater())){
-                redirectAttributes.addFlashAttribute("装箱记录单",false);
+                redirectAttributes.addFlashAttribute("装箱记录单","1");
                 break;
             }
         }
         for(Debug debug :debugs){
             if(StringUtils.isBlank(debug.getResult())){
-                redirectAttributes.addFlashAttribute("整机调试报告单",false);
+                redirectAttributes.addFlashAttribute("整机调试报告单","1");
                 break;
             }
         }
         for(ProcessTest processTest :processTests){
             if(StringUtils.isBlank(processTest.getResult())){
-                redirectAttributes.addFlashAttribute("工序检验报告单",false);
+                redirectAttributes.addFlashAttribute("工序检验报告单","1");
                 break;
             }
         }
         for(MachineTest machineTest :machineTests){
             if(StringUtils.isBlank(machineTest.getResult())){
-                redirectAttributes.addFlashAttribute("整机检验报告单",false);
+                redirectAttributes.addFlashAttribute("整机检验报告单","1");
                 break;
             }
         }
         for(ProductTest productTest :productTests){
             if(StringUtils.isBlank(productTest.getResult())){
-                redirectAttributes.addFlashAttribute("成品检验报告单",false);
+                redirectAttributes.addFlashAttribute("成品检验报告单","1");
                 break;
             }
         }
         for(Sphygmomanometer sphygmomanometer :sphygmomanometers){
             if(StringUtils.isBlank(sphygmomanometer.getResult())){
-                redirectAttributes.addFlashAttribute("血压计检定报告单",false);
+                redirectAttributes.addFlashAttribute("血压计检定报告单","1");
                 break;
             }
         }
         for(PerformTest performTest :performTests){
             if(StringUtils.isBlank(performTest.getResult())){
-                redirectAttributes.addFlashAttribute("性能要求检验单",false);
+                redirectAttributes.addFlashAttribute("性能要求检验单","1");
                 break;
             }
         }
         for(FinalTest finalTest :finalTests){
             if(StringUtils.isBlank(finalTest.getResult())){
-                redirectAttributes.addFlashAttribute("最终检验报告单",false);
+                redirectAttributes.addFlashAttribute("最终检验报告单","1");
                 break;
             }
         }

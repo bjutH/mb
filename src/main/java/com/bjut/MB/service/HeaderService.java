@@ -85,8 +85,8 @@ public class HeaderService {
             return map;
         }
         try {
-            headerDao.updateItem(orderNum, name, type, label, conclusion, debuger, date, temperature, humidity,
-                                power, groud ,checkMachineName, checkMachineType, checkMachineNum, checker, checkerDate);
+//            headerDao.updateItem(orderNum, name, type, label, conclusion, debuger, date, temperature, humidity,
+//                                power, groud ,checkMachineName, checkMachineType, checkMachineNum, checker, checkerDate);
             map.put("code","0");
             map.put("msg", "更新表头成功！");
         }
@@ -103,9 +103,9 @@ public class HeaderService {
      * @param orderNum  产品编号
      * @return          返回一个Header的LIST集合
      */
-    public List<Header> selectHeaderAll(String orderNum){
-        return headerDao.selectAll(orderNum);
-    }
+//    public List<Header> selectHeaderAll(String orderNum){
+//        return headerDao.selectAll(orderNum);
+//    }
 
     /**
      *
