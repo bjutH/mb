@@ -1,20 +1,23 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.Utils.Base64Utils;
 import com.bjut.MB.Utils.ExcelUtils;
 import com.bjut.MB.model.HostHolder;
 import com.bjut.MB.model.Order;
 import com.bjut.MB.service.*;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import sun.misc.BASE64Encoder;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.util.*;
 
 import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
 
@@ -33,6 +36,13 @@ public class AppOrderController {
     public List<Order> selectAll(@RequestParam(value = "orderNum") String orderNum) {
         List<Order> list = new LinkedList<>();
         list = orderService.selectOrder(orderNum);
+        for(Order order:list){
+            String path = order.getOperater();
+            if(!StringUtils.isBlank(path)) {
+                String operater = Base64Utils.encode(path);
+                order.setOperater(operater);
+            }
+        }
         return list;
     }
 
@@ -40,15 +50,27 @@ public class AppOrderController {
     public Order selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
         Order order = new Order();
         order = orderService.selectOrder(orderNum,process);
+        String path = order.getOperater();
+        if(!StringUtils.isBlank(path)) {
+            String operater = Base64Utils.encode(path);
+            order.setOperater(operater);
+        }
         return order;
     }
 
     @RequestMapping(value = "/order/update")
-    public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process,
-                              @RequestParam(value = "operater") String operater,@RequestParam(value = "other") String other,
-                              @RequestParam(value = "ps") String ps) {
+    public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+                                     @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
+                                     @RequestParam(value = "ps") String ps, HttpServletRequest request) {
         Map<String,String> map = new HashMap<>();
-        map = orderService.updateOrder(orderNum,process,operater,other,ps);
+        String name = UUID.randomUUID().toString();
+        path = request.getSession().getServletContext().getRealPath("/sign/" + name + ".gif");
+        if(Base64Utils.decode(operater,path)) {
+            map = orderService.updateOrder(orderNum, process, path, other, ps);
+        }else {
+            map.put("code","1");
+            map.put("code","更新失败！");
+        }
         return map;
     }
 }

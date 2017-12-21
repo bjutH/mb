@@ -16,7 +16,6 @@ public class MbApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		orderDao.selectOne("123","发料");
 	}
 
 }
