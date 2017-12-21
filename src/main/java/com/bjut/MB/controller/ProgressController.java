@@ -137,7 +137,7 @@ public class ProgressController {
                 break;
             }
         }
-        return "redirect:/homepage/progresscontrollerall";
+        return "redirect:/homepage/process";
     }
 
     @RequestMapping(path = "/homepage/progresscontrollerone")
@@ -256,7 +256,7 @@ public class ProgressController {
                 break;
         }
         redirectAttributes.addFlashAttribute("map",map);
-        return "redirect:/homepage/progresscontrollerone";
+        return "redirect:/homepage/process";
     }
     @RequestMapping(path = {"/homepage/process"})
     public String homepage(){
