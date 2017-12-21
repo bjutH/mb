@@ -1,6 +1,5 @@
 package com.bjut.MB.Utils;
 
-//import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +9,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.UUID;
-
-import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
 
 /**
  * Created by Administrator on 2017/12/21.
