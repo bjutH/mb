@@ -329,7 +329,7 @@ public class ExcelUtils {
                                             value = ((Aging) object).getPs();
                                             break;
                                         case "6":
-                                            value = ((Aging) object).getOperater();
+                                            value = ((Aging) object).getDebuger();
                                             break;
                                     }
                                     break;
@@ -342,7 +342,7 @@ public class ExcelUtils {
                                             value = ((Pack) object).getCheck();
                                             break;
                                         case "3":
-                                            value = ((Pack) object).getOperater();
+                                            value = ((Pack) object).getPackager();
                                             break;
                                     }
                                     break;

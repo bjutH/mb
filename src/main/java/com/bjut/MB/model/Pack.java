@@ -8,7 +8,7 @@ public class Pack {
     private String process;
     private String result;
     private String check;
-    private String operater;
+    private String packager;
 
     public String getProductNum() {
         return productNum;
@@ -42,11 +42,11 @@ public class Pack {
         this.check = check;
     }
 
-    public String getOperater() {
-        return operater;
+    public String getPackager() {
+        return packager;
     }
 
-    public void setOperater(String operater) {
-        this.operater = operater;
+    public void setPackager(String packager) {
+        this.packager = packager;
     }
 }

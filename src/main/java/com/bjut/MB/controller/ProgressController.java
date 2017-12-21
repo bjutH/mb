@@ -124,13 +124,13 @@ public class ProgressController {
             }
         }
         for(Aging aging :agings){
-            if(StringUtils.isBlank(aging.getOperater())){
+            if(StringUtils.isBlank(aging.getDebuger())){
                 redirectAttributes.addFlashAttribute("老化观测表","1");
                 break;
             }
         }
         for(Pack pack :packs){
-            if(StringUtils.isBlank(pack.getOperater())){
+            if(StringUtils.isBlank(pack.getPackager())){
                 redirectAttributes.addFlashAttribute("装箱记录单","1");
                 break;
             }
@@ -207,7 +207,7 @@ public class ProgressController {
             case "老化观测表":
                 List<Aging> agings = agingService.selectAging(orderNum);
                 for(Aging aging : agings){
-                    if(StringUtils.isBlank(aging.getOperater())) {
+                    if(StringUtils.isBlank(aging.getDebuger())) {
                         map.put(aging.getProcess(), "false");
                     }else {
                         map.put(aging.getProcess(), "true");
@@ -217,7 +217,7 @@ public class ProgressController {
             case "装箱记录单":
                 List<Pack> packs = packService.selectPack(orderNum);
                 for(Pack pack : packs){
-                    if(StringUtils.isBlank(pack.getOperater())) {
+                    if(StringUtils.isBlank(pack.getPackager())) {
                         map.put(pack.getProcess(), "false");
                     }else {
                         map.put(pack.getProcess(), "true");

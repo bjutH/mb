@@ -33,10 +33,10 @@ public class AppAgingController {
         List<Aging> list = new LinkedList<>();
         list = agingService.selectAging(orderNum);
         for(Aging aging:list){
-            String path = aging.getOperater();
+            String path = aging.getDebuger();
             if(!StringUtils.isBlank(path)) {
                 String operater = Base64Utils.encode(path);
-                aging.setOperater(operater);
+                aging.setDebuger(operater);
             }
         }
         return list;
@@ -46,10 +46,10 @@ public class AppAgingController {
     public Aging selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
         Aging aging = new Aging();
         aging = agingService.selectAging(orderNum,process);
-        String path = aging.getOperater();
+        String path = aging.getDebuger();
         if(!StringUtils.isBlank(path)) {
             String operater = Base64Utils.encode(path);
-            aging.setOperater(operater);
+            aging.setDebuger(operater);
         }
         return aging;
     }

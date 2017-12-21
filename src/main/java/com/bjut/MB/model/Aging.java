@@ -13,7 +13,7 @@ public class Aging {
     private String phenomenon;
     private String handle;
     private String ps;
-    private String operater;
+    private String debuger;
 
     public String getProductNum() {
         return productNum;
@@ -71,11 +71,11 @@ public class Aging {
         this.ps = ps;
     }
 
-    public String getOperater() {
-        return operater;
+    public String getDebuger() {
+        return debuger;
     }
 
-    public void setOperater(String operater) {
-        this.operater = operater;
+    public void setDebuger(String debuger) {
+        this.debuger = debuger;
     }
 }
