@@ -89,6 +89,24 @@ public class UserService {
         }
         String ticket = addLoginTicket(user.getId());
         map.put("ticket", ticket);
+        map.put("code","0");
+        return map;
+    }
+
+    public Map<String,String> login(String name){
+        Map<String,String>  map = new HashMap<>();
+        if(StringUtils.isBlank(name)){
+            map.put("code","1");
+            map.put("msg","用户名不能为空!");
+            return map;
+        }
+        User user = userDao.selectByName(name);
+        if (user == null) {
+            map.put("code","1");
+            map.put("msg", "用户名不存在");
+            return map;
+        }
+        map.put("code","0");
         return map;
     }
 

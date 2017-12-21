@@ -38,21 +38,21 @@ public interface UserDao {
     /**
      *
      * @param password 密码
-     * @param id
+     * @param name  名称
      */
 
     @Update({"update ", TABLE_NAME, "set password = #{password} where name = #{name}"})
     void updatePassword(@Param("password") String password, @Param("name") String name);
 
 
-    @Update({"update ", TABLE_NAME, "set power = #{power} where num = #{num}"})
-    void updatePower(@Param("power") String power, @Param("num") String num);
+    @Update({"update ", TABLE_NAME, "set power = #{power} where name = #{name}"})
+    void updatePower(@Param("power") String power, @Param("name") String name);
 
     /**
      *
-     * @param num
+     * @param name
      */
-    @Delete({"delete from", TABLE_NAME, "where num = #{num}"})
-    void deleteAll(@Param("num") String num);
+    @Delete({"delete from", TABLE_NAME, "where name = #{name}"})
+    void deleteAll(@Param("name") String name);
 
 }

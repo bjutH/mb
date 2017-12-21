@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by Administrator on 2017/11/3.
  */
 public class Remade {
-    private String orderNum;
+    private String productNum;
     private Date date;
     private String number;
     private String updateSoftware;
@@ -15,12 +15,12 @@ public class Remade {
     private String updatePeople;
     private String testPeople;
 
-    public String getOrderNum() {
-        return orderNum;
+    public String getProductNum() {
+        return productNum;
     }
 
-    public void setOrderNum(String orderNum) {
-        this.orderNum = orderNum;
+    public void setProductNum(String productNum) {
+        this.productNum = productNum;
     }
 
     public Date getDate() {

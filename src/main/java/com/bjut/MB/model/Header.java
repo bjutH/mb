@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by Administrator on 2017/11/19.
  */
 public class Header {
-    private String orderNum;
+    private String productNum;
     private String name;
     private String type;
     private String label;
@@ -23,12 +23,12 @@ public class Header {
     private String checker;
     private Date checkerDate;
 
-    public String getOrderNum() {
-        return orderNum;
+    public String getProductNum() {
+        return productNum;
     }
 
-    public void setOrderNum(String orderNum) {
-        this.orderNum = orderNum;
+    public void setProductNum(String productNum) {
+        this.productNum = productNum;
     }
 
     public String getName() {

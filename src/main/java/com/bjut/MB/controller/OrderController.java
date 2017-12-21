@@ -199,42 +199,42 @@ public class OrderController {
         return "redirect:/homepage/ordermanagement";
     }
 
-    /**
-     * 模拟平板上传
-     * @param orderNum
-     * @param process
-     * @param operater
-     * @param other
-     * @param ps
-     * @return
-     */
-    @RequestMapping(path = "/homepage/ordermanagement/updateorder")
-    public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
-                               @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
-                               @RequestParam(value = "ps") String ps, RedirectAttributes redirectAttributes){
-        Map<String,String> map = new HashMap<>();
-        try {
-            String path =orderService.selectPath(orderNum);
-            Order order = new Order();
-            order.setOperater(operater);
-            order.setOther(other);
-            order.setPs(ps);
-            if(path == null){
-                map.put("code","1");
-                map.put("msg","不存在");
-                redirectAttributes.addFlashAttribute("msg","不存在！");
-                return "redirect:/homepage/ordermanagement";
-            }
-            map = excelUtils.replaceExcel(path,"随工单", process, order);
-            orderService.updateOrder(orderNum,process,operater,other,ps);
-        }
-        catch (Exception e) {
-            logger.error("更新随工单异常" + e.getMessage());
-            map.put("code","1");
-            redirectAttributes.addFlashAttribute("msg","失败！");
-        }
-        return "redirect:/homepage/ordermanagement";
-    }
+//    /**
+//     * 模拟平板上传
+//     * @param orderNum
+//     * @param process
+//     * @param operater
+//     * @param other
+//     * @param ps
+//     * @return
+//     */
+//    @RequestMapping(path = "/homepage/ordermanagement/updateorder")
+//    public String updateOrder(@RequestParam(value = "orderNum") String orderNum, @RequestParam(value = "process") String process,
+//                               @RequestParam(value = "operater") String operater, @RequestParam(value = "other") String other,
+//                               @RequestParam(value = "ps") String ps, RedirectAttributes redirectAttributes){
+//        Map<String,String> map = new HashMap<>();
+//        try {
+//            String path =orderService.selectPath(orderNum);
+//            Order order = new Order();
+//            order.setOperater(operater);
+//            order.setOther(other);
+//            order.setPs(ps);
+//            if(path == null){
+//                map.put("code","1");
+//                map.put("msg","不存在");
+//                redirectAttributes.addFlashAttribute("msg","不存在！");
+//                return "redirect:/homepage/ordermanagement";
+//            }
+//            map = excelUtils.replaceExcel(path,"随工单", process, order);
+//            orderService.updateOrder(orderNum,process,operater,other,ps);
+//        }
+//        catch (Exception e) {
+//            logger.error("更新随工单异常" + e.getMessage());
+//            map.put("code","1");
+//            redirectAttributes.addFlashAttribute("msg","失败！");
+//        }
+//        return "redirect:/homepage/ordermanagement";
+//    }
 
     @RequestMapping(path = "/homepage/ordermanagement/searchorder")
     public String selectOrder(@RequestParam(value = "orderNum") String orderNum, HttpSession session, RedirectAttributes redirectAttributes){
