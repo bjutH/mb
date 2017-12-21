@@ -33,10 +33,10 @@ public class AppPackController {
         List<Pack> list = new LinkedList<>();
         list = packService.selectPack(orderNum);
         for(Pack pack:list){
-            String path = pack.getOperater();
+            String path = pack.getPackager();
             if(!StringUtils.isBlank(path)) {
                 String operater = Base64Utils.encode(path);
-                pack.setOperater(operater);
+                pack.setPackager(operater);
             }
         }
         return list;
@@ -46,10 +46,10 @@ public class AppPackController {
     public Pack selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
         Pack pack = new Pack();
         pack = packService.selectPack(orderNum,process);
-        String path = pack.getOperater();
+        String path = pack.getPackager();
         if(!StringUtils.isBlank(path)) {
             String operater = Base64Utils.encode(path);
-            pack.setOperater(operater);
+            pack.setPackager(operater);
         }
         return pack;
     }

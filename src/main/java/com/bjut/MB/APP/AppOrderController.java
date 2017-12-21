@@ -26,6 +26,8 @@ public class AppOrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private HeaderService headerService;
 
     @RequestMapping(value = "/order/selectall")
     public List<Order> selectAll(@RequestParam(value = "orderNum") String orderNum) {
@@ -66,6 +68,29 @@ public class AppOrderController {
             map.put("code","1");
             map.put("code","更新失败！");
         }
+        return map;
+    }
+
+    @RequestMapping(value = "/order/updatehead")
+    public Map<String,String> select( @RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum,
+                                     @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
+                                     @RequestParam(value = "productName") String productName) {
+        Map<String,String> map = new HashMap<>();
+        map = headerService.updateHeader(productNum,excelType,productName,productType,innerLabel,null,null,
+                null,null,null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null);
         return map;
     }
 }

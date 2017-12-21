@@ -52,10 +52,10 @@
 
     <div id="toolbar" class="btn-group">
         <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalTable">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>修改密码
         </button>
         <button id="btn_edit" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalTablev">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改权限
         </button>
         <button id="btn_delete" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalTabled">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
@@ -67,19 +67,19 @@
 </div>
 </div>
 
-    <!-- 新增模态框（Modal） -->
+    <!-- 修改密码模态框（Modal） -->
     <div class="modal fade" id="modalTable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">新增</h4>
+                    <h4 class="modal-title">修改密码</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="get">
-                        姓名:<input class="form-control" name="" type="text" placeholder="请输入姓名">
-                        职位:<input class="form-control" name="" type="text" placeholder="请输入职位">
+                    <form action="/homepage/staffmanagement/updatepassword" method="get">
+                        姓名:<input class="form-control" name="name" type="text" placeholder="请输入姓名">
+                        新密码:<input class="form-control" name="pass" type="text" placeholder="请输入新密码">
                         <input class="btn btn-default" type="submit" value="提交">
                     </form>
                 </div>
@@ -100,9 +100,9 @@
                 <h4 class="modal-title">修改</h4>
             </div>
             <div class="modal-body">
-                <form action="" method="get">
-                    <p>姓名:<input class="form-control" name="" type="text" placeholder="请输入姓名"></p>
-                    <p>职位:<input class="form-control" name="" type="text" placeholder="请输入职位"></p>
+                <form action="/homepage/staffmanagement/updatepower" method="get">
+                    <p>姓名:<input class="form-control" name="name" type="text" placeholder="请输入姓名"></p>
+                    <p>职位:<input class="form-control" name="power" type="text" placeholder="请输入职位"></p>
                     <input class="btn btn-default" type="submit" value="提交">
                 </form>
             </div>
@@ -123,8 +123,8 @@
                 <h4 class="modal-title">修改</h4>
             </div>
             <div class="modal-body">
-                <form action="" method="get">
-                    姓名:<input class="form-control" name="" type="text" placeholder="请输入姓名">
+                <form action="/homepage/staffmanagement/deleteuser" method="get">
+                    姓名:<input class="form-control" name="name" type="text" placeholder="请输入姓名">
                     <input class="btn btn-default" type="submit" value="提交">
                 </form>
             </div>
