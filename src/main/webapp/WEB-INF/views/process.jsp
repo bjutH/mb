@@ -15,6 +15,12 @@
     <link href="../css/bootstrap-table.css" rel="stylesheet">
     <script src="../js/bootstrap-table.js" type="text/javascript"></script>
     <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
+    <script type="text/javascript" language="javascript">
+        function checkform2(){
+            document.getElementById("orderNum1").value  = document.getElementById('orderNum').value ;
+            return true;
+        }
+    </script>
 
     <style>
         body {
@@ -75,15 +81,26 @@
             </form>
             <form id="orderInfo" class="form-horizontal" action="/homepage/progresscontrollerone">
                 <div class="form-group" style="margin-top:15px">
-                    <label class="control-label col-sm-1" for="orderType"></label>
-                    <div class="col-sm-3">
+                    <label class="control-label col-sm-1" for="orderType">类型</label>
 
-                        <input type="text" name="orderType"id="orderType">
+                    <select name="num" id="num" class="form-control" >
+                        <option value=${soundNum} selected>${soundNum}</option>
+                        <%
+                            for(int i=0;i<50;i++){
+                        %>
+                        <option  value="<%=i+1 %>"><%=i+1 %></option>
+                        <%} %>
+                    </select>
+                    <%--<div class="col-sm-3">--%>
+                        <%--<input type="text" name="orderType"id="orderType">--%>
+                    <%--</div>--%>
+
+                    <div class="col-sm-1">
+                        <input id="orderNum1" name="orderNum" class="form-control" style="display: none" type="text" >
                     </div>
-
                     <div class="col-sm-4" style="text-align:left;">
 
-                        <input type="submit" class="btn btn-default" value="具体进度" style="background-color: #2e6da4;color: white"/>
+                        <input type="submit" class="btn btn-default" value="具体进度" style="background-color: #2e6da4;color: white"onclick="checkform2()"/>
                         <%--${msg}--%>
 
                     </div>
@@ -104,7 +121,7 @@
         <%--<thead>--%>
         <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
             <%--&lt;%&ndash;<th data-field="id">录音编号</th>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;<th data-field="comment">备注+</th>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<th data-field="comment">备注</th>&ndash;%&gt;--%>
         <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
         <%--</thead>--%>
     <%--</table>--%>
