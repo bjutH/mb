@@ -1,131 +1,129 @@
-{
-    "total": 21,
-    "rows": [
-        {
-            "Name": 0,
-            "ParentName": "Item 0",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 1,
-            "ParentName": "Item 1",
-            "Level": "仓库",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 2,
-            "ParentName": "Item 2",
-            "Level": "员工",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 3,
-            "ParentName": "Item 3",
-            "Level": "管理员",
-            "Comment": "A"
-        },
-        {
-            "Name": 4,
-            "ParentName": "Item 4",
-            "Level": "管理员",
-            "Comment": "B"
-        },
-        {
-            "Name": 5,
-            "ParentName": "Item 5",
-            "Level": "管理员",
-            "Comment": "D"
-        },
-        {
-            "Name": 6,
-            "ParentName": "Item 6",
-            "Level": "管理员",
-            "Comment": "V"
-        },
-        {
-            "Name": 7,
-            "ParentName": "Item 7",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 8,
-            "ParentName": "Item 8",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 9,
-            "ParentName": "Item 9",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 10,
-            "ParentName": "Item 10",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 11,
-            "ParentName": "Item 1",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 12,
-            "ParentName": "Item 2",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 13,
-            "ParentName": "Item 3",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 14,
-            "ParentName": "Item 4",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 15,
-            "ParentName": "Item 5",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 16,
-            "ParentName": "Item 6",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 17,
-            "ParentName": "Item 7",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 18,
-            "ParentName": "Item 8",
-            "Level": "管理员",
-            "Comment": "WKHBNKLJHHB"
-        },
-        {
-            "Name": 19,
-            "ParentName": "Item 9",
-            "Level": "管理员",
-            "Comment": "备注0"
-        },
-        {
-            "Name": 20,
-            "ParentName": "Item 10",
-            "Level": "管理员",
-            "Comment": "备注0"
-        }
-    ]
-}
+[
+  {
+    "Name": 0,
+    "ParentName": "Item 0",
+    "Level": "调度员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 1,
+    "ParentName": "Item 1",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 2,
+    "ParentName": "Item 2",
+    "Level": "员工",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 3,
+    "ParentName": "Item 3",
+    "Level": "管理员",
+    "Comment": "A"
+  },
+  {
+    "Name": 4,
+    "ParentName": "Item 4",
+    "Level": "管理员",
+    "Comment": "B"
+  },
+  {
+    "Name": 5,
+    "ParentName": "Item 5",
+    "Level": "管理员",
+    "Comment": "D"
+  },
+  {
+    "Name": 6,
+    "ParentName": "Item 6",
+    "Level": "管理员",
+    "Comment": "V"
+  },
+  {
+    "Name": 7,
+    "ParentName": "Item 7",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 8,
+    "ParentName": "Item 8",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 9,
+    "ParentName": "Item 9",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 10,
+    "ParentName": "Item 10",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 11,
+    "ParentName": "Item 1",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 12,
+    "ParentName": "Item 2",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 13,
+    "ParentName": "Item 3",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 14,
+    "ParentName": "Item 4",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 15,
+    "ParentName": "Item 5",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 16,
+    "ParentName": "Item 6",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 17,
+    "ParentName": "Item 7",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 18,
+    "ParentName": "Item 8",
+    "Level": "管理员",
+    "Comment": "WKHBNKLJHHB"
+  },
+  {
+    "Name": 19,
+    "ParentName": "Item 9",
+    "Level": "管理员",
+    "Comment": "备注0"
+  },
+  {
+    "Name": 20,
+    "ParentName": "Item 10",
+    "Level": "管理员",
+    "Comment": "备注0"
+  }
+]
+

@@ -240,8 +240,8 @@
         <ul id="myTab" class="nav nav-tabs">
             <li class="active"><a href="#home" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-plus"></span>添加</a></li>
             <li><a href="#ios" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-trash"></span>删除</a></li>
-            <%--<li><a href="#java" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-arrow-up"></span>上传</a></li>--%>
-            <li><a data-toggle="tab"><span style="color: #761c19">${msg}</span></a></li>
+            <li><a href="#java" data-toggle="tab" style="background-color: white"><span class="glyphicon glyphicon-arrow-up"></span>上传</a></li>
+            <li><a data-toggle="tab"><span style="color: #761c19">+显示提示信息位置+${msg}</span></a></li>
         </ul>
         <div id="myTabContent" class="tab-content"
              style="width: 100%;background-color: #437ab2;border-radius: 0 5px 5px 5px">
@@ -272,27 +272,27 @@
                                                                                     style="float: right"/></p>
                     </form>
                 </div>
-            <%--</div>--%>
-            <%--<div class="tab-pane fade" id="java"--%>
-                 <%--style="position: relative;background-color: #437ab2;height: 340px;color: white;border-radius: 0 5px 5px 5px">--%>
-                <%--<div class="container" style="width: 60%">--%>
-                    <%--<form action="/homepage/ordermanagement/updateorder" method="get">--%>
-                        <%--<p></p>--%>
-                        <%--随工单编号:--%>
-                        <%--<input id="inpt1" class="form-control" type="text" name="orderNum" placeholder="请输入单号"/>--%>
-                        <%--工序:--%>
-                        <%--<input id="inpt2" class="form-control" type="text" name="process" placeholder="请输入工序"/>--%>
-                        <%--操作者:--%>
-                        <%--<input id="inpt3" class="form-control" type="text" name="operater" placeholder="请输入操作者"/>--%>
-                        <%--其他:--%>
-                        <%--<input id="inpt4" class="form-control" type="text" name="other" placeholder="请输入其他"/>--%>
-                        <%--备注:--%>
-                        <%--<input id="inpt5" class="form-control" type="text" name="ps" placeholder="请输入备注"/>--%>
-                        <%--<p></p>--%>
-                        <%--<p><input class="btn btn-default" type="submit" value="更新" style="float: right" onclick="checkform3()"/></p>--%>
-                    <%--</form>--%>
-                <%--</div>--%>
-            <%--</div>--%>
+            </div>
+            <div class="tab-pane fade" id="java"
+                 style="position: relative;background-color: #437ab2;height: 340px;color: white;border-radius: 0 5px 5px 5px">
+                <div class="container" style="width: 60%">
+                    <form action="/homepage/ordermanagement/updateorder" method="get">
+                        <p></p>
+                        随工单编号:
+                        <input id="inpt1" class="form-control" type="text" name="orderNum" placeholder="请输入单号"/>
+                        工序:
+                        <input id="inpt2" class="form-control" type="text" name="process" placeholder="请输入工序"/>
+                        操作者:
+                        <input id="inpt3" class="form-control" type="text" name="operater" placeholder="请输入操作者"/>
+                        其他:
+                        <input id="inpt4" class="form-control" type="text" name="other" placeholder="请输入其他"/>
+                        备注:
+                        <input id="inpt5" class="form-control" type="text" name="ps" placeholder="请输入备注"/>
+                        <p></p>
+                        <p><input class="btn btn-default" type="submit" value="更新" style="float: right" onclick="checkform3()"/></p>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="panel panel-default" style="position: relative;top: 20px">
             <div class="panel-heading">
