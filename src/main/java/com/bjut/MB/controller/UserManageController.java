@@ -131,7 +131,7 @@ public class UserManageController {
         return "redirect:/homepage/staffmanagement";
     }
 
-    @RequestMapping(path = "/homepage/staffmanagement/setpower")
+    @RequestMapping(path = "/homepage/staffmanagement/addtask")
     public String addUser(@RequestParam(value = "power") String power){
         String name = hostHolder.getUser().getName();
         String[] strings = power.split(",");
