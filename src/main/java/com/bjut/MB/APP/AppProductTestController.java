@@ -26,21 +26,21 @@ public class AppProductTestController {
     @Autowired
     private HeaderService headerService;
 
-    @RequestMapping(value = "/productTest/selectall")
+    @RequestMapping(value = "/producttest/selectall")
     public List<ProductTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
         List<ProductTest> list = new LinkedList<>();
         list = productTestService.selectProductTest(orderNum);
         return list;
     }
 
-    @RequestMapping(value = "/productTest/selectone")
+    @RequestMapping(value = "/producttest/selectone")
     public ProductTest selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
         ProductTest productTest = new ProductTest();
         productTest = productTestService.selectProductTest(orderNum,process);
         return productTest;
     }
 
-    @RequestMapping(value = "/productTest/update")
+    @RequestMapping(value = "/producttest/update")
     public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process,
                               @RequestParam(value = "data") String data,@RequestParam(value = "result") String result,
                               @RequestParam(value = "ps") String ps) {

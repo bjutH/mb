@@ -29,21 +29,21 @@ public class AppFinalTestController {
     @Autowired
     private HeaderService headerService;
 
-    @RequestMapping(value = "/finalTest/selectall")
+    @RequestMapping(value = "/finaltest/selectall")
     public List<FinalTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
         List<FinalTest> list = new LinkedList<>();
         list = finalTestService.selectFinalTest(orderNum);
         return list;
     }
 
-    @RequestMapping(value = "/finalTest/selectone")
+    @RequestMapping(value = "/finaltest/selectone")
     public FinalTest selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
         FinalTest finalTest = new FinalTest();
         finalTest = finalTestService.selectFinalTest(orderNum,process);
         return finalTest;
     }
 
-    @RequestMapping(value = "/finalTest/update")
+    @RequestMapping(value = "/finaltest/update")
     public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process,
                               @RequestParam(value = "result") String result) {
         Map<String,String> map = new HashMap<>();

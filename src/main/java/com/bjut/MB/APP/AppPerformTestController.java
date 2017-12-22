@@ -26,21 +26,21 @@ public class AppPerformTestController {
     @Autowired
     private HeaderService headerService;
 
-    @RequestMapping(value = "/performTest/selectall")
+    @RequestMapping(value = "/performtest/selectall")
     public List<PerformTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
         List<PerformTest> list = new LinkedList<>();
         list = performTestService.selectPerformTest(orderNum);
         return list;
     }
 
-    @RequestMapping(value = "/performTest/selectone")
+    @RequestMapping(value = "/performtest/selectone")
     public PerformTest selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
         PerformTest performTest = new PerformTest();
         performTest = performTestService.selectPerformTest(orderNum,process);
         return performTest;
     }
 
-    @RequestMapping(value = "/performTest/update")
+    @RequestMapping(value = "/performtest/update")
     public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process,
                               @RequestParam(value = "data") String data,@RequestParam(value = "result") String result,
                               @RequestParam(value = "ps") String ps) {

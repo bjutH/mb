@@ -26,21 +26,21 @@ public class AppProcessTestController {
     @Autowired
     private HeaderService headerService;
 
-    @RequestMapping(value = "/processTest/selectall")
+    @RequestMapping(value = "/processtest/selectall")
     public List<ProcessTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
         List<ProcessTest> list = new LinkedList<>();
         list = processTestService.selectProcessTest(orderNum);
         return list;
     }
 
-    @RequestMapping(value = "/processTest/selectone")
+    @RequestMapping(value = "/processtest/selectone")
     public ProcessTest selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
         ProcessTest processTest = new ProcessTest();
         processTest = processTestService.selectProcessTest(orderNum,process);
         return processTest;
     }
 
-    @RequestMapping(value = "/processTest/update")
+    @RequestMapping(value = "/processtest/update")
     public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process,
                                      @RequestParam(value = "data") String data,@RequestParam(value = "result") String result,
                                      @RequestParam(value = "detectionDevice") String detectionDevice,@RequestParam(value = "deviceType") String deviceType,

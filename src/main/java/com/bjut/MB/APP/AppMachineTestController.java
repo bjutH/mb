@@ -26,21 +26,21 @@ public class AppMachineTestController {
     @Autowired
     private HeaderService headerService;
 
-    @RequestMapping(value = "/machineTest/selectall")
+    @RequestMapping(value = "/machinetest/selectall")
     public List<MachineTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
         List<MachineTest> list = new LinkedList<>();
         list = machineTestService.selectMachineTest(orderNum);
         return list;
     }
 
-    @RequestMapping(value = "/machineTest/selectone")
+    @RequestMapping(value = "/machinetest/selectone")
     public MachineTest selectOne(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process) {
         MachineTest machineTest = new MachineTest();
         machineTest = machineTestService.selectMachineTest(orderNum,process);
         return machineTest;
     }
 
-    @RequestMapping(value = "/machineTest/update")
+    @RequestMapping(value = "/machinetest/update")
     public Map<String,String> select(@RequestParam(value = "orderNum") String orderNum,@RequestParam(value = "process") String process,
                               @RequestParam(value = "data") String data,@RequestParam(value = "result") String result,
                               @RequestParam(value = "ps") String ps) {
