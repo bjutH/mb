@@ -132,9 +132,24 @@ public class UserManageController {
     }
 
     @RequestMapping(path = "/homepage/staffmanagement/addtask")
-    public String addUser(@RequestParam(value = "power") String power){
-        String name = hostHolder.getUser().getName();
-        String[] strings = power.split(",");
+    public String addTask(@RequestParam(value = "task") String task,@RequestParam(value = "name") String name){
+        String[] strings = task.split(",");
+        for(int i =0;i<strings.length;i++){
+
+        }
+        return "redirect:/homepage/staffmanagement";
+    }
+
+    @RequestMapping(path = "/homepage/staffmanagement/selecttask")
+    public String selectTask(@RequestParam(value = "name") String name,RedirectAttributes redirectAttributes){
+        List<String> list = new LinkedList<>();
+
+        return "redirect:/homepage/staffmanagement";
+    }
+
+    @RequestMapping(path = "/homepage/staffmanagement/deletetask")
+    public String deleteTask(@RequestParam(value = "name") String name,@RequestParam(value = "task") String task,RedirectAttributes redirectAttributes){
+        String[] strings = task.split(",");
         for(int i =0;i<strings.length;i++){
 
         }
