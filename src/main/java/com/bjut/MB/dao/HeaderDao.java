@@ -21,7 +21,7 @@ public interface HeaderDao {
     void addItem(@Param("product_num") String product_num, @Param("path") String path);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num} and excel_type = #{excel_type}"})
-    List<Header> selectAll(@Param("product_num") String product_num, @Param("excel_type") String excel_type);
+    List<Header> selectOne(@Param("product_num") String product_num, @Param("excel_type") String excel_type);
 
     /**
      *
@@ -29,7 +29,7 @@ public interface HeaderDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where product_num = #{product_num}"})
-    Header selectOne(@Param("product_num") String product_num);
+    Header selectAll(@Param("product_num") String product_num);
 
 
     @Select({"select DISTINCT path from ", TABLE_NAME, "where product_num = #{product_num}"})
