@@ -1,11 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta charset="UTF-8"/>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>员工管理</title>
+    <title>任务管理</title>
+
+
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/bootstrap-editable.css"/>
     <link href="../css/bootstrap-table.css" rel="stylesheet">
@@ -19,7 +20,8 @@
     <script src="../js/bootstrap-table.js" type="text/javascript"></script>
     <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
     <script src="../js/bootstrap-table-editable.js" type="text/javascript"></script>
-    <script type="text/javascript" src="../js/staffedit.js"></script>
+    <script type="text/javascript" src="../js/task.js"></script>
+
     <style>
         body {
             width: 100%;
@@ -33,13 +35,11 @@
             border-radius: 0px 0px 5px 5px;
         }
     </style>
-
 </head>
-
 <body>
 <%@include file="head.jsp" %>
+
 <div style="position: absolute;top: 80px;width: 100%">
-    <div style="width: 80%;margin: 0 auto;vertical-align: middle">
     <%--<div class="panel-body" style="padding-bottom:0px;">--%>
     <%--<div class="panel panel-default">--%>
     <%--<div class="panel-heading">查询条件</div>--%>
@@ -61,13 +61,10 @@
     <%--</form>--%>
     <%--</div>--%>
     <%--</div>--%>
-
-    <div id="toolbar" class="btn-group" >
-        <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalTable">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>修改密码
-        </button>
+<div style="width: 80%;margin: 0 auto">
+    <div id="toolbar" class="btn-group">
         <button id="btn_edit" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalTablev">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改权限
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>分配任务
         </button>
         <button id="btn_delete" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalTabled">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
@@ -76,54 +73,53 @@
     <div>
         <table id="tb_departments" style="background-color: white"></table>
     </div>
-    </div>
-
 </div>
 </div>
+</div>
 
-<!-- 修改密码模态框（Modal） -->
-<div class="modal fade" id="modalTable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">修改密码</h4>
-            </div>
-            <div class="modal-body">
-                <form action="/homepage/staffmanagement/updatepassword" method="get">
-                    <p>姓名:<input class="form-control" name="name" type="text" placeholder="请输入姓名"></p>
-                    <p>新密码:<input class="form-control" name="pass" type="text" placeholder="请输入新密码"></p>
-                    <input class="btn btn-default" type="submit" value="提交" style="background-color: #437ab2;color: white">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<%--<!-- 修改密码模态框（Modal） -->--%>
+<%--<div class="modal fade" id="modalTable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">--%>
+    <%--<div class="modal-dialog">--%>
+        <%--<div class="modal-content">--%>
+            <%--<div class="modal-header">--%>
+                <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
+                    <%--<span aria-hidden="true">&times;</span></button>--%>
+                <%--<h4 class="modal-title">修改密码</h4>--%>
+            <%--</div>--%>
+            <%--<div class="modal-body">--%>
+                <%--<form action="/homepage/staffmanagement/updatepassword" method="get">--%>
+                    <%--<p>姓名:<input class="form-control" name="name" type="text" placeholder="请输入姓名"></p>--%>
+                    <%--<p>新密码:<input class="form-control" name="pass" type="text" placeholder="请输入新密码"></p>--%>
+                    <%--<input class="btn btn-default" type="submit" value="提交" style="background-color: #437ab2;color: white">--%>
+                <%--</form>--%>
+            <%--</div>--%>
+            <%--<div class="modal-footer">--%>
+                <%--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>--%>
+            <%--</div>--%>
+        <%--</div><!-- /.modal-content -->--%>
+    <%--</div><!-- /.modal-dialog -->--%>
+<%--</div><!-- /.modal -->--%>
 
-<!-- 修改模态框（Modal） -->
+<!-- 分配任务模态框（Modal） -->
 <div class="modal fade" id="modalTablev" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">修改</h4>
+                <h4 class="modal-title">分配任务</h4>
             </div>
             <div class="modal-body">
-                <form action="/homepage/staffmanagement/updatepower" method="get">
+                <form action="/???????" method="get">
                     <p>姓名:<input class="form-control" name="name" type="text" placeholder="请输入姓名"></p>
-                    <p>职位:
+                    <p>任务:
                     <div class="form-group">
-                        <select class="form-control" name="power">
+                        <select class="form-control" name="task">
                             <option selected="selected">未选择</option>
-                            <option value="调度员">调度员</option>
-                            <option value="管理员">管理员</option>
-                            <option value="组长">组长</option>
-                            <option value="游客">游客</option>
+                            <option value="任务1">任务1</option>
+                            <option value="任务2">任务2</option>
+                            <option value="任务3">任务3</option>
+                            <option value="任务4">任务4</option>
                         </select>
                     </div>
                     </p>
@@ -144,10 +140,10 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">修改</h4>
+                <h4 class="modal-title">删除</h4>
             </div>
             <div class="modal-body">
-                <form action="/homepage/staffmanagement/deleteuser" method="get">
+                <form action="/????????" method="get">
                     <p>姓名:<input class="form-control" name="name" type="text" placeholder="请输入姓名"></p>
                     <input class="btn btn-default" type="submit" value="提交" style="background-color: #437ab2;color: white">
                 </form>
@@ -183,6 +179,17 @@
             $(".fixed-table-pagination").addClass("addwhite");
         }
     );
+</script>
+
+<script>
+    var $table = $('#table'),
+        $button = $('#button');
+
+    $(function () {
+        $button.click(function () {
+            alert('getSelections: ' + JSON.stringify($table.bootstrapTable('getAllSelections')));
+        });
+    });
 </script>
 </body>
 </html>
