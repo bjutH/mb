@@ -4,6 +4,8 @@ import com.bjut.MB.dao.UserDao;
 import com.bjut.MB.model.*;
 import com.bjut.MB.service.*;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,8 @@ import java.util.List;
  */
 @Controller
 public class UserManageController {
+    private static final Logger logger = LoggerFactory.getLogger(UserManageController.class);
+
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -157,7 +161,7 @@ public class UserManageController {
         return "redirect:/homepage/staffmanagement";
     }
 
-    @RequestMapping(path = "/homepage/staffmanagement/deletetask")
+    @RequestMapping(path = "/homepage/staffmanagement/deletetaskone")
     @Transactional
     public String deleteTask(@RequestParam(value = "name") String name,@RequestParam(value = "task") String task,RedirectAttributes redirectAttributes){
         String[] strings = task.split(",");
@@ -165,6 +169,18 @@ public class UserManageController {
             for(int i =0;i<strings.length;i++){
                 taskService.deleteTask(name,task);
             }
+            redirectAttributes.addFlashAttribute("msg","删除成功！");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("msg","删除失败！");
+        }
+        return "redirect:/homepage/staffmanagement";
+    }
+
+    @RequestMapping(path = "/homepage/staffmanagement/deletetaskall")
+    @Transactional
+    public String deleteTask(@RequestParam(value = "name") String name,RedirectAttributes redirectAttributes){
+        try {
+            taskService.deleteAllTask(name);
             redirectAttributes.addFlashAttribute("msg","删除成功！");
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("msg","删除失败！");
