@@ -161,20 +161,12 @@ public class HeaderService {
     /**
      *
      * @param orderNum  产品编号
-     * @return          返回一个Header的LIST集合
+     * @return          返回一个Header
      */
-    public List<Header> selectHeaderAll(String orderNum,String orderType){
-        return headerDao.selectAll(orderNum,orderType);
+    public Header selectHeader(String orderNum,String orderType){
+        return headerDao.selectOne(orderNum,orderType);
     }
 
-    /**
-     *
-     * @param orderNum  产品编号
-     * @return           返回一个Header对象
-     */
-    public Header selectHeader(String orderNum){
-        return headerDao.selectOne(orderNum);
-    }
 
     /**
      *

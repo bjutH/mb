@@ -5,6 +5,7 @@ import com.bjut.MB.model.Aging;
 import com.bjut.MB.service.AgingService;
 import com.bjut.MB.service.HeaderService;
 import com.bjut.MB.service.OrderService;
+import com.bjut.MB.service.TaskService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
@@ -30,11 +32,14 @@ public class AppAgingController {
     private AgingService agingService;
     @Autowired
     private HeaderService headerService;
+    @Autowired
+    private TaskService taskService;
 
     @RequestMapping(value = "/aging/selectall")
-    public List<Aging> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+    public List<Aging> selectAll(@RequestParam(value = "orderNum") String orderNum,HttpSession session) {
         List<Aging> list = new LinkedList<>();
         list = agingService.selectAging(orderNum);
+        String name = session.getAttribute("appname").toString();
         for(Aging aging:list){
             String path = aging.getDebuger();
             if(!StringUtils.isBlank(path)) {

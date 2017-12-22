@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,9 +23,10 @@ public class AppLoginController {
     @Autowired
     private UserService userService;
     @RequestMapping(value = "/login")
-    public Map<String,String> login(@RequestParam("name") String name) {
+    public Map<String,String> login(@RequestParam("name") String name,HttpSession session) {
         Map<String,String> map = new HashMap<>();
         map =userService.login(name);
+        session.setAttribute("appname",name);
         return map;
     }
 }
