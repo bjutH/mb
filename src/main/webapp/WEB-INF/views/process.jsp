@@ -18,7 +18,7 @@
     <script src="../js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
     <script type="text/javascript" language="javascript">
         function checkform2(){
-            document.getElementById("orderNum1").value  = document.getElementById('orderNum').value ;
+            document.getElementById("orderNumber1").value  = document.getElementById('orderNumber').value ;
             return true;
         }
     </script>
@@ -40,7 +40,7 @@
         <div class="panel-body">
             <form id="numSearch" class="form-horizontal" action="/homepage/progresscontrollerall">
                 <div class="form-group" style="margin-top:15px">
-                    <label class="control-label col-sm-1" for="orderNum">编号</label>
+                    <label class="control-label col-sm-1" >编号</label>
                     <div class="col-sm-3">
 
                         <input type="text" name="orderNum"id="orderNumber">
@@ -52,42 +52,33 @@
 
                     </div>
                 </div>
+                <div class="col-sm-3">
 
-            </form>
-            <form id="oederInfo" class="form-horizontal" action="/homepage/progresscontrollerone">
-                <div class="form-group" style="margin-top:15px">
-                    <label class="control-label col-sm-1" for="orderNum"></label>
-                    <div class="col-sm-3">
-
-                        <label type="text" name="orderNum"id="orderNumber">
-                            随工单： ${随工单}
-                            仪器备忘录：${仪器备忘录}
-                            老化观测表：${老化观测表}
-                            装箱记录单：${装箱记录单}
-                            整机调试报告单：${整机调试报告单}
-                            工序检验报告单：${工序检验报告单}
-                            整机检验报告单：${整机检验报告单}
-                            成品检验报告单：${成品检验报告单}
-                            血压计检定报告单：${血压计检定报告单}
-                            性能要求检验单：${性能要求检验单}
-                            最终检验报告单：${最终检验报告单}</label>
-                    </div>
-
-                    <div class="col-sm-4" style="text-align:left;">
-
-                        <%--<input type="submit" class="btn btn-default" value="" style="background-color: #2e6da4;color: white"/>--%>
-                    </div>
+                    <label type="text" name="orderNum">
+                        随工单： ${随工单}
+                        仪器备忘录：${仪器备忘录}
+                        老化观测表：${老化观测表}
+                        装箱记录单：${装箱记录单}
+                        整机调试报告单：${整机调试报告单}
+                        工序检验报告单：${工序检验报告单}
+                        整机检验报告单：${整机检验报告单}
+                        成品检验报告单：${成品检验报告单}
+                        血压计检定报告单：${血压计检定报告单}
+                        性能要求检验单：${性能要求检验单}
+                        最终检验报告单：${最终检验报告单}</label>
                 </div>
 
             </form>
+        </div>
+            <div>
             <form id="orderInfo" class="form-horizontal" action="/homepage/progresscontrollerone">
                 <div class="form-group" style="margin-top:15px">
-                    <label class="control-label col-sm-1" for="orderType">类型</label>
+                    <label class="control-label col-sm-1" >类型</label>
                     <div class="col-sm-3">
-                    <select name="num" id="num" class="form-control">
+                    <select name="orderType" id="num" class="form-control">
                         <option value="0" selected>请选择随工单类型</option>
                             <c:forEach items="${list}" var="item">
-                                <option value=i++ >i++</option>
+                                <option value=${item} >${item}</option>
                             </c:forEach>
                     </select>
                     </div>
@@ -97,7 +88,7 @@
                     <%--</div>--%>
 
                     <div class="col-sm-1">
-                        <input id="orderNum1" name="orderNum" class="form-control" style="display: none" type="text" >
+                        <input id="orderNumber1" name="orderNum" class="form-control" style="display: none" type="text" >
                     </div>
                     <div class="col-sm-4" style="text-align:left;">
 
@@ -108,9 +99,12 @@
                 </div>
 
             </form>
+            </div>
             <label class="container">
-
-                具体进度
+                <c:forEach items="${map}" var="item">
+                    <c:out value="${item.key}" />
+                    <c:out value="${item.value}" />
+                </c:forEach>
             </label>
         </div>
     </div>

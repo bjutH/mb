@@ -20,15 +20,15 @@
 </head>
 <body>
 <%@include file="head.jsp" %>
-<div class="panel panel-default" style="height: 40%;width: 97%;margin: 0 auto;">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-       生产流程实时显示
-        </h3>
-    </div>
-    <div class="panel-body">
-        内容
-    </div>
-</div>
+<%--<div class="panel panel-default" style="height: 40%;width: 97%;margin: 0 auto;">--%>
+    <%--<div class="panel-heading">--%>
+        <%--<h3 class="panel-title">--%>
+       <%--生产流程实时显示--%>
+        <%--</h3>--%>
+    <%--</div>--%>
+    <%--<div class="panel-body">--%>
+        <%--内容--%>
+    <%--</div>--%>
+<%--</div>--%>
 </body>
 </html>
