@@ -2,6 +2,7 @@ package com.bjut.MB.APP;
 
 import com.bjut.MB.Utils.Base64Utils;
 import com.bjut.MB.model.Pack;
+import com.bjut.MB.service.HeaderService;
 import com.bjut.MB.service.OrderService;
 import com.bjut.MB.service.PackService;
 import org.apache.commons.lang.StringUtils;
@@ -27,6 +28,8 @@ public class AppPackController {
 
     @Autowired
     private PackService packService;
+    @Autowired
+    private HeaderService headerService;
 
     @RequestMapping(value = "/pack/selectall")
     public List<Pack> selectAll(@RequestParam(value = "orderNum") String orderNum) {
@@ -67,6 +70,29 @@ public class AppPackController {
             map.put("code","1");
             map.put("code","更新失败！");
         }
+        return map;
+    }
+
+    @RequestMapping(value = "/pack/updatehead")
+    public Map<String,String> select( @RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum,
+                                      @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
+                                      @RequestParam(value = "productName") String productName) {
+        Map<String,String> map = new HashMap<>();
+        map = headerService.updateHeader(productNum,excelType,productName,productType,innerLabel,null,null,
+                null,null,null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null);
         return map;
     }
 }

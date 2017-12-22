@@ -50,7 +50,7 @@ public class AppDebugController {
         return map;
     }
 
-    @RequestMapping(value = "/order/updatehead")
+    @RequestMapping(value = "/debug/updatehead")
     public Map<String,String> select(@RequestParam(value = "productNum") String productNum, @RequestParam(value = "excelType") String excelType,
                                      @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
                                      @RequestParam(value = "debugConclusion") String debugConclusion, @RequestParam(value = "debuger") String debuger,

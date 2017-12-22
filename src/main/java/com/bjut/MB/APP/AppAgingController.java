@@ -76,7 +76,7 @@ public class AppAgingController {
     }
 
 
-    @RequestMapping(value = "/order/updatehead")
+    @RequestMapping(value = "/aging/updatehead")
     public Map<String,String> select(@RequestParam(value = "productNum") String productNum, @RequestParam(value = "excelType") String excelType,
                                      @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
                                      @RequestParam(value = "productName") String productName) {

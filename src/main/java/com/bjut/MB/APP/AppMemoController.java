@@ -1,6 +1,7 @@
 package com.bjut.MB.APP;
 
 import com.bjut.MB.model.Memo;
+import com.bjut.MB.service.HeaderService;
 import com.bjut.MB.service.MemoService;
 import com.bjut.MB.service.OrderService;
 import org.slf4j.Logger;
@@ -25,6 +26,8 @@ public class AppMemoController {
 
     @Autowired
     private MemoService memoService;
+    @Autowired
+    private HeaderService headerService;
 
     @RequestMapping(value = "/memo/selectall")
     public List<Memo> selectAll(@RequestParam(value = "orderNum") String orderNum) {
@@ -48,6 +51,29 @@ public class AppMemoController {
                                      @RequestParam(value = "ps") String ps) {
         Map<String,String> map = new HashMap<>();
         map = memoService.updateMemo(orderNum,process,number,boardNum,weld,debug,test,version,ps);
+        return map;
+    }
+
+    @RequestMapping(value = "/memo/updatehead")
+    public Map<String,String> select( @RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum,
+                                      @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
+                                      @RequestParam(value = "productName") String productName) {
+        Map<String,String> map = new HashMap<>();
+        map = headerService.updateHeader(productNum,excelType,productName,productType,innerLabel,null,null,
+                null,null,null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null,null,
+                null,null);
         return map;
     }
 }
