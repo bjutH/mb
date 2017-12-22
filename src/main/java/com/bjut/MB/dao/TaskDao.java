@@ -12,23 +12,18 @@ import java.util.List;
 public interface TaskDao {
     String TABLE_NAME = "`task`";
     String INSERT_FIELDS = "`name`,`task`";
-    String SELECT_FIELDS = "*";
+    String SELECT_FIELDS = "task";
 
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS, ") values ( #{name}, #{task})"})
-    void addUser(@Param("name") String name, @Param("task") String task);
-
+    void addTask(@Param("name") String name, @Param("task") String task);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where name = #{name}"})
-    User selectByName(@Param("name") String name);
-
-
-
-
+    List<String> selectByName(@Param("name") String name);
 
 
     @Update({"update ", TABLE_NAME, "set task = #{task} where name = #{name}"})
-    void updatePassword(@Param("password") String task, @Param("name") String name);
+    void updateTask(@Param("password") String task, @Param("name") String name);
 
     /**
      *
@@ -36,4 +31,7 @@ public interface TaskDao {
      */
     @Delete({"delete from", TABLE_NAME, "where name = #{name}"})
     void deleteAll(@Param("name") String name);
+
+    @Delete({"delete from", TABLE_NAME, "where name = #{name} and task = #{task}"})
+    void deleteOneTask(@Param("name") String name, @Param("task") String task);
 }
