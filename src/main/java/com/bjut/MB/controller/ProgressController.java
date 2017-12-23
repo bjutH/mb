@@ -315,7 +315,6 @@ public class ProgressController {
         list.add("性能要求检验单");
         list.add("最终检验报告单");
         modelMap.addAttribute("list",list);
-
         return "process";
     }
 }

@@ -14,7 +14,7 @@
         </div>
         <div>
             <ul class="nav navbar-nav navbar-right" >
-                <li style="border-right: 1px dashed #cccccc"><a href="#0" onclick="javascript:window.location.href='/homepage'"><span class="glyphicon glyphicon-sort"></span>实时生产</a></li>
+                <li style="border-right: 1px dashed #cccccc"><a href="#0" onclick="javascript:window.location.href='/homepage/process'"><span class="glyphicon glyphicon-sort"></span>实时生产</a></li>
                 <li style="border-right: 1px dashed #cccccc"><a href="#0" onclick="javascript:window.location.href='/homepage/ordermanagement'"><span class="glyphicon glyphicon-folder-open"></span>随工单管理</a></li>
                 <li style="border-right: 1px dashed #cccccc"><a href="#0" onclick="javascript:window.location.href='/homepage/staffmanagement'"><span class="glyphicon glyphicon-user"></span>人员管理</a></li>
                 <li style="border-right: 1px dashed #cccccc"><a href="#0" onclick="javascript:window.location.href='/homepage/recordmanagement'"><span class="glyphicon glyphicon-headphones"></span>录音管理</a></li>
