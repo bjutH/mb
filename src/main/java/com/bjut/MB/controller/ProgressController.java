@@ -68,114 +68,114 @@ public class ProgressController {
         List<Sphygmomanometer> sphygmomanometers = sphygmomanometerService.selectSphygmomanometer(orderNum);
         List<PerformTest> performTests = performTestService.selectPerformTest(orderNum);
         List<FinalTest> finalTests = finalTestService.selectFinalTest(orderNum);
-        redirectAttributes.addFlashAttribute("随工单","0");
-        redirectAttributes.addFlashAttribute("仪器备忘录","0");
-        redirectAttributes.addFlashAttribute("老化观测表","0");
-        redirectAttributes.addFlashAttribute("装箱记录单","0");
-        redirectAttributes.addFlashAttribute("整机调试报告单","0");
-        redirectAttributes.addFlashAttribute("工序检验报告单","0");
-        redirectAttributes.addFlashAttribute("整机检验报告单","0");
-        redirectAttributes.addFlashAttribute("成品检验报告单","0");
-        redirectAttributes.addFlashAttribute("血压计检定报告单","0");
-        redirectAttributes.addFlashAttribute("性能要求检验单","0");
-        redirectAttributes.addFlashAttribute("最终检验报告单","0");
+        redirectAttributes.addFlashAttribute("随工单","已完成");
+        redirectAttributes.addFlashAttribute("仪器备忘录","已完成");
+        redirectAttributes.addFlashAttribute("老化观测表","已完成");
+        redirectAttributes.addFlashAttribute("装箱记录单","已完成");
+        redirectAttributes.addFlashAttribute("整机调试报告单","已完成");
+        redirectAttributes.addFlashAttribute("工序检验报告单","已完成");
+        redirectAttributes.addFlashAttribute("整机检验报告单","已完成");
+        redirectAttributes.addFlashAttribute("成品检验报告单","已完成");
+        redirectAttributes.addFlashAttribute("血压计检定报告单","已完成");
+        redirectAttributes.addFlashAttribute("性能要求检验单","已完成");
+        redirectAttributes.addFlashAttribute("最终检验报告单","已完成");
         if(orders.size()==0){
-            redirectAttributes.addFlashAttribute("随工单","2");
+            redirectAttributes.addFlashAttribute("随工单","无");
         }
         if(memos.size()==0){
-            redirectAttributes.addFlashAttribute("仪器备忘录","2");
+            redirectAttributes.addFlashAttribute("仪器备忘录","无");
         }
         if(agings.size()==0){
-            redirectAttributes.addFlashAttribute("老化观测表","2");
+            redirectAttributes.addFlashAttribute("老化观测表","无");
         }
         if(packs.size()==0){
-            redirectAttributes.addFlashAttribute("装箱记录单","2");
+            redirectAttributes.addFlashAttribute("装箱记录单","无");
         }
         if(debugs.size()==0){
-            redirectAttributes.addFlashAttribute("整机调试报告单","2");
+            redirectAttributes.addFlashAttribute("整机调试报告单","无");
         }
         if(processTests.size()==0){
-            redirectAttributes.addFlashAttribute("工序检验报告单","2");
+            redirectAttributes.addFlashAttribute("工序检验报告单","无");
         }
         if(machineTests.size()==0){
-            redirectAttributes.addFlashAttribute("整机检验报告单","2");
+            redirectAttributes.addFlashAttribute("整机检验报告单","无");
         }
         if(productTests.size()==0){
-            redirectAttributes.addFlashAttribute("成品检验报告单","2");
+            redirectAttributes.addFlashAttribute("成品检验报告单","无");
         }
         if(sphygmomanometers.size()==0){
-            redirectAttributes.addFlashAttribute("血压计检定报告单","2");
+            redirectAttributes.addFlashAttribute("血压计检定报告单","无");
         }
         if(performTests.size()==0){
-            redirectAttributes.addFlashAttribute("性能要求检验单","2");
+            redirectAttributes.addFlashAttribute("性能要求检验单","无");
         }
         if(finalTests.size()==0){
-            redirectAttributes.addFlashAttribute("最终检验报告单","2");
+            redirectAttributes.addFlashAttribute("最终检验报告单","无");
         }
 
         for(Order order :orders){
             if(StringUtils.isBlank(order.getOperater())){
-                redirectAttributes.addFlashAttribute("随工单","1");
+                redirectAttributes.addFlashAttribute("随工单","未完成");
                 break;
             }
         }
         for(Memo memo :memos){
             if(StringUtils.isBlank(memo.getNumber())){
-                redirectAttributes.addFlashAttribute("仪器备忘录","1");
+                redirectAttributes.addFlashAttribute("仪器备忘录","未完成");
                 break;
             }
         }
         for(Aging aging :agings){
             if(StringUtils.isBlank(aging.getDebuger())){
-                redirectAttributes.addFlashAttribute("老化观测表","1");
+                redirectAttributes.addFlashAttribute("老化观测表","未完成");
                 break;
             }
         }
         for(Pack pack :packs){
             if(StringUtils.isBlank(pack.getPackager())){
-                redirectAttributes.addFlashAttribute("装箱记录单","1");
+                redirectAttributes.addFlashAttribute("装箱记录单","未完成");
                 break;
             }
         }
         for(Debug debug :debugs){
             if(StringUtils.isBlank(debug.getResult())){
-                redirectAttributes.addFlashAttribute("整机调试报告单","1");
+                redirectAttributes.addFlashAttribute("整机调试报告单","未完成");
                 break;
             }
         }
         for(ProcessTest processTest :processTests){
             if(StringUtils.isBlank(processTest.getResult())){
-                redirectAttributes.addFlashAttribute("工序检验报告单","1");
+                redirectAttributes.addFlashAttribute("工序检验报告单","未完成");
                 break;
             }
         }
         for(MachineTest machineTest :machineTests){
             if(StringUtils.isBlank(machineTest.getResult())){
-                redirectAttributes.addFlashAttribute("整机检验报告单","1");
+                redirectAttributes.addFlashAttribute("整机检验报告单","未完成");
                 break;
             }
         }
         for(ProductTest productTest :productTests){
             if(StringUtils.isBlank(productTest.getResult())){
-                redirectAttributes.addFlashAttribute("成品检验报告单","1");
+                redirectAttributes.addFlashAttribute("成品检验报告单","未完成");
                 break;
             }
         }
         for(Sphygmomanometer sphygmomanometer :sphygmomanometers){
             if(StringUtils.isBlank(sphygmomanometer.getResult())){
-                redirectAttributes.addFlashAttribute("血压计检定报告单","1");
+                redirectAttributes.addFlashAttribute("血压计检定报告单","未完成");
                 break;
             }
         }
         for(PerformTest performTest :performTests){
             if(StringUtils.isBlank(performTest.getResult())){
-                redirectAttributes.addFlashAttribute("性能要求检验单","1");
+                redirectAttributes.addFlashAttribute("性能要求检验单","未完成");
                 break;
             }
         }
         for(FinalTest finalTest :finalTests){
             if(StringUtils.isBlank(finalTest.getResult())){
-                redirectAttributes.addFlashAttribute("最终检验报告单","1");
+                redirectAttributes.addFlashAttribute("最终检验报告单","未完成");
                 break;
             }
         }
@@ -190,9 +190,9 @@ public class ProgressController {
                 List<Order> orders = orderService.selectOrder(orderNum);
                 for(Order order : orders){
                     if(StringUtils.isBlank(order.getOperater())) {
-                        map.put(order.getProcess(), "false");
+                        map.put(order.getProcess(), "未完成");
                     }else {
-                        map.put(order.getProcess(), "true");
+                        map.put(order.getProcess(), "已完成");
                     }
                 }
                 break;
@@ -200,9 +200,9 @@ public class ProgressController {
                 List<Memo> memos = memoService.selectMemo(orderNum);
                 for(Memo memo : memos){
                     if(StringUtils.isBlank(memo.getNumber())) {
-                        map.put(memo.getProcess(), "false");
+                        map.put(memo.getProcess(), "未完成");
                     }else {
-                        map.put(memo.getProcess(), "true");
+                        map.put(memo.getProcess(), "已完成");
                     }
                 }
                 break;
@@ -210,9 +210,9 @@ public class ProgressController {
                 List<Aging> agings = agingService.selectAging(orderNum);
                 for(Aging aging : agings){
                     if(StringUtils.isBlank(aging.getDebuger())) {
-                        map.put(aging.getProcess(), "false");
+                        map.put(aging.getProcess(), "未完成");
                     }else {
-                        map.put(aging.getProcess(), "true");
+                        map.put(aging.getProcess(), "已完成");
                     }
                 }
                 break;
@@ -220,9 +220,9 @@ public class ProgressController {
                 List<Pack> packs = packService.selectPack(orderNum);
                 for(Pack pack : packs){
                     if(StringUtils.isBlank(pack.getPackager())) {
-                        map.put(pack.getProcess(), "false");
+                        map.put(pack.getProcess(), "未完成");
                     }else {
-                        map.put(pack.getProcess(), "true");
+                        map.put(pack.getProcess(), "已完成");
                     }
                 }
                 break;
@@ -230,9 +230,9 @@ public class ProgressController {
                 List<Debug> debugs = debugService.selectDebug(orderNum);
                 for(Debug debug : debugs){
                     if(StringUtils.isBlank(debug.getResult())) {
-                        map.put(debug.getProcess(), "false");
+                        map.put(debug.getProcess(), "未完成");
                     }else {
-                        map.put(debug.getProcess(), "true");
+                        map.put(debug.getProcess(), "已完成");
                     }
                 }
                 break;
@@ -240,9 +240,9 @@ public class ProgressController {
                 List<ProcessTest> processTests = processTestService.selectProcessTest(orderNum);
                 for(ProcessTest processTest : processTests){
                     if(StringUtils.isBlank(processTest.getResult())) {
-                        map.put(processTest.getProcess(), "false");
+                        map.put(processTest.getProcess(), "未完成");
                     }else {
-                        map.put(processTest.getProcess(), "true");
+                        map.put(processTest.getProcess(), "已完成");
                     }
                 }
                 break;
@@ -250,9 +250,9 @@ public class ProgressController {
                 List<MachineTest> machineTests = machineTestService.selectMachineTest(orderNum);
                 for(MachineTest machineTest : machineTests){
                     if(StringUtils.isBlank(machineTest.getResult())) {
-                        map.put(machineTest.getProcess(), "false");
+                        map.put(machineTest.getProcess(), "未完成");
                     }else {
-                        map.put(machineTest.getProcess(), "true");
+                        map.put(machineTest.getProcess(), "已完成");
                     }
                 }
                 break;
@@ -260,9 +260,9 @@ public class ProgressController {
                 List<ProductTest> productTests = productTestService.selectProductTest(orderNum);
                 for(ProductTest productTest : productTests){
                     if(StringUtils.isBlank(productTest.getResult())) {
-                        map.put(productTest.getProcess(), "false");
+                        map.put(productTest.getProcess(), "未完成");
                     }else {
-                        map.put(productTest.getProcess(), "true");
+                        map.put(productTest.getProcess(), "已完成");
                     }
                 }
                 break;
@@ -270,9 +270,9 @@ public class ProgressController {
                 List<Sphygmomanometer> sphygmomanometers = sphygmomanometerService.selectSphygmomanometer(orderNum);
                 for(Sphygmomanometer sphygmomanometer : sphygmomanometers){
                     if(StringUtils.isBlank(sphygmomanometer.getResult())) {
-                        map.put(sphygmomanometer.getProcess(), "false");
+                        map.put(sphygmomanometer.getProcess(), "未完成");
                     }else {
-                        map.put(sphygmomanometer.getProcess(), "true");
+                        map.put(sphygmomanometer.getProcess(), "已完成");
                     }
                 }
                 break;
@@ -280,9 +280,9 @@ public class ProgressController {
                 List<PerformTest> performTests = performTestService.selectPerformTest(orderNum);
                 for(PerformTest performTest : performTests){
                     if(StringUtils.isBlank(performTest.getResult())) {
-                        map.put(performTest.getProcess(), "false");
+                        map.put(performTest.getProcess(), "未完成");
                     }else {
-                        map.put(performTest.getProcess(), "true");
+                        map.put(performTest.getProcess(), "已完成");
                     }
                 }
                 break;
@@ -290,9 +290,9 @@ public class ProgressController {
                 List<FinalTest> finalTests = finalTestService.selectFinalTest(orderNum);
                 for(FinalTest finalTest : finalTests){
                     if(StringUtils.isBlank(finalTest.getResult())) {
-                        map.put(finalTest.getProcess(), "false");
+                        map.put(finalTest.getProcess(), "未完成");
                     }else {
-                        map.put(finalTest.getProcess(), "true");
+                        map.put(finalTest.getProcess(), "已完成");
                     }
                 }
                 break;
