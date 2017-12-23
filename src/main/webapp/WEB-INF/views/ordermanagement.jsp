@@ -193,21 +193,21 @@
             alert('请选择随工单类型！');
             return false;
         }
-        if (document.getElementById('inp1').value.length == 0) {
-            alert('路径为空！');
-            document.getElementById('ipt1').focus();
-            return false;
-        }
+//        if (document.getElementById('inp1').value.length == 0) {
+//            alert('路径为空！');
+//            document.getElementById('ipt1').focus();
+//            return false;
+//        }
         if (document.getElementById('inp1').value == "请输入搜索内容") {
             alert('路径为空！');
             document.getElementById('ipt1').focus();
             return false;
         }
-        if (document.getElementById('inp2').value.length == 0) {
-            alert('输入为空！');
-            document.getElementById('ipt2').focus();
-            return false;
-        }
+//        if (document.getElementById('inp2').value.length == 0) {
+//            alert('输入为空！');
+//            document.getElementById('ipt2').focus();
+//            return false;
+//        }
         if (document.getElementById('inp2').value == "请输入搜索内容") {
             alert('输入为空！');
             document.getElementById('ipt2').focus();
@@ -221,11 +221,11 @@
             alert('请选择随工单类型！');
             return false;
         }
-        if (document.getElementById('inp3').value.length == 0) {
-            alert('输入为空！');
-            document.getElementById('ipt3').focus();
-            return false;
-        }
+//        if (document.getElementById('inp3').value.length == 0) {
+//            alert('输入为空！');
+//            document.getElementById('ipt3').focus();
+//            return false;
+//        }
         if (document.getElementById('inp3').value == "请输入搜索内容") {
             alert('输入为空！');
             document.getElementById('ipt3').focus();
@@ -278,11 +278,11 @@
             alert('请选择随工单类型！');
             return false;
         }
-        if (document.getElementById('inpt6').value.length == 0) {
-            alert('搜索单号不能为空！');
-            document.getElementById('ipt3').focus();
-            return false;
-        }
+//        if (document.getElementById('inpt6').value.length == 0) {
+//            alert('搜索单号不能为空！');
+//            document.getElementById('ipt3').focus();
+//            return false;
+//        }
         if (document.getElementById('inpt6').value == "请输入单号") {
             alert('搜索单号不能为空！');
             document.getElementById('ipt3').focus();
