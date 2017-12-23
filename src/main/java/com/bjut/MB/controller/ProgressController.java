@@ -5,7 +5,6 @@ import com.bjut.MB.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -301,7 +300,7 @@ public class ProgressController {
         return "redirect:/homepage/process";
     }
     @RequestMapping(path = {"/homepage/process"})
-    public String homepage(ModelMap modelMap){
+    public String homepage(RedirectAttributes redirectAttributes){
         List<String> list = new LinkedList<>();
         list.add("随工单");
         list.add("仪器备忘录");
@@ -314,7 +313,8 @@ public class ProgressController {
         list.add("血压计检定报告单");
         list.add("性能要求检验单");
         list.add("最终检验报告单");
-        modelMap.addAttribute("list",list);
-        return "process";
+        redirectAttributes.addFlashAttribute("list",list);
+        redirectAttributes.addFlashAttribute("data",12345);
+        return "redirect:/homepage/process";
     }
 }
