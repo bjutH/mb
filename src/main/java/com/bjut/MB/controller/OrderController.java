@@ -84,7 +84,7 @@ public class OrderController {
     @RequestMapping(path = "/homepage/ordermanagement/addorder" , method = RequestMethod.POST)
     @Transactional(propagation= Propagation.REQUIRED )
     public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number, RedirectAttributes redirectAttributes, HttpSession session) throws IOException {
-        if(!hostHolder.getUser().getPower().equals("admin")||!hostHolder.getUser().getPower().equals("dispatcher")){
+        if(!hostHolder.getUser().getPower().equals("admin")&&!hostHolder.getUser().getPower().equals("dispatcher")){
             redirectAttributes.addFlashAttribute("msg", "无权限添加！");
             return "redirect:/homepage/ordermanagement";
         }
