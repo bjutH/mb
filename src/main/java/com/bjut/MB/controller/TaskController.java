@@ -63,7 +63,7 @@ public class TaskController {
         String power = hostHolder.getUser().getPower().toString();
         List<String> list = new LinkedList<>();
         if(power.equals("管理员")){
-            list = taskService.queryTask(name);
+            list = taskService.queryTask("admin");
             modelMap.addAttribute("list",list);
         }
         else {
