@@ -110,7 +110,7 @@
                 <h4 class="modal-title">分配任务</h4>
             </div>
             <div class="modal-body">
-                <form action="/???????" method="get">
+                <form action="/homepage/taskmanagement/addtask" method="get">
                     <p>姓名:<input class="form-control" name="name" type="text" placeholder="请输入姓名"></p>
                     <p>任务:
                     <div class="form-group">
@@ -143,7 +143,7 @@
                 <h4 class="modal-title">删除</h4>
             </div>
             <div class="modal-body">
-                <form action="/????????" method="get">
+                <form action="/homepage/taskmanagement/deletetaskall" method="get">
                     <p>姓名:<input class="form-control" name="name" type="text" placeholder="请输入姓名"></p>
                     <input class="btn btn-default" type="submit" value="提交" style="background-color: #437ab2;color: white">
                 </form>
