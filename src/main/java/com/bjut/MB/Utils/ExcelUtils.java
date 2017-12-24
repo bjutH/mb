@@ -2,16 +2,15 @@ package com.bjut.MB.Utils;
 
 import com.bjut.MB.dao.*;
 import com.bjut.MB.model.*;
+import com.bjut.MB.model.Header;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
 import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.util.IOUtils;
+import org.apache.poi.xssf.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -113,9 +109,9 @@ public class ExcelUtils {
                         case "number":
                             value = number;
                             setCellStrValue(i, j, value);
-                        case "lable":
-                            value = number;
-                            setCellStrValue(i, j, value);
+//                        case "lable":
+//                            value = number;
+//                            setCellStrValue(i, j, value);
                     }
                 }
                 if(cellValue.contains("$")){
@@ -274,6 +270,488 @@ public class ExcelUtils {
                 String cellValue = cell.getStringCellValue();
                 if(!StringUtils.isBlank(cellValue)){
                     String first = String.valueOf(cellValue.charAt(0));
+                    if(first.equals("*")){
+                        String value = null;
+                        String string = cellValue.substring(1, cellValue.length());
+                        switch (type){
+                            case "随工单":
+                                switch (string){
+                                    case "型号":
+                                        value=((Header) object).getProductType();
+                                        break;
+                                    case "内部标记":
+                                        value=((Header) object).getInnerLabel();
+                                        break;
+                                    case "名称":
+                                        value=((Header) object).getProductName();
+                                        break;
+                                }
+                                break;
+                            case "整机调试报告单":
+                                switch (string) {
+                                    case "内部标记":
+                                        value = ((Header) object).getInnerLabel();
+                                        break;
+                                    case "仪器型号":
+                                        value = ((Header) object).getProductType();
+                                        break;
+                                    case "调试结论":
+                                        value = ((Header) object).getDebugConclusion();
+                                        break;
+                                    case "调试人员":
+                                        value = "";
+                                        String GifPath = ((Header) object).getDebuger();
+                                        setCellStrGif(i,j,GifPath);
+                                        break;
+                                    case "调试日期":
+                                        value = ((Header) object).getDebugDate().toString();
+                                        break;
+                                    case "环境温度":
+                                        value = ((Header) object).getEnvironmentTemperature();
+                                        break;
+                                    case "相对湿度":
+                                        value = ((Header) object).getRelativeHumidity();
+                                        break;
+                                    case "供电电源":
+                                        value = ((Header) object).getPower();
+                                        break;
+                                    case "有效接地":
+                                        value = ((Header) object).getIsGroud();
+                                        break;
+                                }
+                                break;
+                            case "工序检验报告单":
+                                switch (string) {
+                                    case "内部标记":
+                                        value = ((Header) object).getInnerLabel();
+                                        break;
+                                    case "仪器型号":
+                                        value = ((Header) object).getProductType();
+                                        break;
+                                    case "检验结论":
+                                        value = ((Header) object).getDebugConclusion();
+                                        break;
+                                    case "检验人员":
+                                        value = "";
+                                        String GifPath = ((Header) object).getDebuger();
+                                        setCellStrGif(i,j,GifPath);
+                                        break;
+                                    case "检验日期":
+                                        value = ((Header) object).getDebugDate().toString();
+                                        break;
+                                    case "环境温度":
+                                        value = ((Header) object).getEnvironmentTemperature();
+                                        break;
+                                    case "相对湿度":
+                                        value = ((Header) object).getRelativeHumidity();
+                                        break;
+                                    case "供电电源":
+                                        value = ((Header) object).getPower();
+                                        break;
+                                    case "有效接地":
+                                        value = ((Header) object).getIsGroud();
+                                        break;
+                                }
+                                break;
+                            case "整机检验报告单":
+                                switch (string) {
+                                    case "内部标记":
+                                        value = ((Header) object).getInnerLabel();
+                                        break;
+                                    case "仪器型号":
+                                        value = ((Header) object).getProductType();
+                                        break;
+                                    case "检验结论":
+                                        value = ((Header) object).getDebugConclusion();
+                                        break;
+                                    case "检验人员":
+                                        value = "";
+                                        String GifPath = ((Header) object).getDebuger();
+                                        setCellStrGif(i,j,GifPath);
+                                        break;
+                                    case "检验日期":
+                                        value = ((Header) object).getDebugDate().toString();
+                                        break;
+                                    case "环境温度":
+                                        value = ((Header) object).getEnvironmentTemperature();
+                                        break;
+                                    case "相对湿度":
+                                        value = ((Header) object).getRelativeHumidity();
+                                        break;
+                                    case "供电电源":
+                                        value = ((Header) object).getPower();
+                                        break;
+                                    case "有效接地":
+                                        value = ((Header) object).getIsGroud();
+                                        break;
+                                    case "检测设备名称1":
+                                        value = ((Header) object).getCheckMachineName1();
+                                        break;
+                                    case "检测设备型号1":
+                                        value = ((Header) object).getCheckMachineType1();
+                                        break;
+                                    case "检测设备编号1":
+                                        value = ((Header) object).getCheckMachineNum1();
+                                        break;
+                                    case "检测设备名称2":
+                                        value = ((Header) object).getCheckMachineName2();
+                                        break;
+                                    case "检测设备型号2":
+                                        value = ((Header) object).getCheckMachineType2();;
+                                        break;
+                                    case "检测设备编号2":
+                                        value = ((Header) object).getCheckMachineNum2();
+                                        break;
+                                    case "检测设备名称3":
+                                        value = ((Header) object).getCheckMachineName3();
+                                        break;
+                                    case "检测设备型号3":
+                                        value = ((Header) object).getCheckMachineType3();
+                                        break;
+                                    case "检测设备编号3":
+                                        value = ((Header) object).getCheckMachineNum3();
+                                        break;
+                                    case "检测设备名称4":
+                                        value = ((Header) object).getCheckMachineName4();
+                                        break;
+                                    case "检测设备型号4":
+                                        value = ((Header) object).getCheckMachineType4();
+                                        break;
+                                    case "检测设备编号4":
+                                        value = ((Header) object).getCheckMachineNum4();
+                                        break;
+                                }
+                                break;
+                            case "成品检验报告单":
+                                switch (string) {
+                                    case "型号":
+                                        value = ((Header) object).getProductType();
+                                        break;
+                                    case "检验员":
+                                        value = "";
+                                        String GifPath = ((Header) object).getDebuger();
+                                        setCellStrGif(i,j,GifPath);
+                                        break;
+                                    case "复核员":
+                                        value = "";
+                                        String GifPath1 = ((Header) object).getChecker();
+                                        setCellStrGif(i,j,GifPath1);
+                                        break;
+                                    case "检验结论":
+                                        value = ((Header) object).getDebugConclusion();
+                                        break;
+                                    case "检验日期":
+                                        value = ((Header) object).getDebugDate().toString();
+                                        break;
+                                    case "环境温度":
+                                        value = ((Header) object).getEnvironmentTemperature();
+                                        break;
+                                    case "相对湿度":
+                                        value = ((Header) object).getRelativeHumidity();
+                                        break;
+                                    case "供电电源":
+                                        value = ((Header) object).getPower();
+                                        break;
+                                    case "有效接地":
+                                        value = ((Header) object).getIsGroud();
+                                        break;
+                                    case "检测设备名称1":
+                                        value = ((Header) object).getCheckMachineName1();
+                                        break;
+                                    case "检测设备型号1":
+                                        value = ((Header) object).getCheckMachineType1();
+                                        break;
+                                    case "检测设备编号1":
+                                        value = ((Header) object).getCheckMachineNum1();
+                                        break;
+                                    case "检测设备名称2":
+                                        value = ((Header) object).getCheckMachineName2();
+                                        break;
+                                    case "检测设备型号2":
+                                        value = ((Header) object).getCheckMachineType2();;
+                                        break;
+                                    case "检测设备编号2":
+                                        value = ((Header) object).getCheckMachineNum2();
+                                        break;
+                                    case "检测设备名称3":
+                                        value = ((Header) object).getCheckMachineName3();
+                                        break;
+                                    case "检测设备型号3":
+                                        value = ((Header) object).getCheckMachineType3();
+                                        break;
+                                    case "检测设备编号3":
+                                        value = ((Header) object).getCheckMachineNum3();
+                                        break;
+                                    case "检测设备名称4":
+                                        value = ((Header) object).getCheckMachineName4();
+                                        break;
+                                    case "检测设备型号4":
+                                        value = ((Header) object).getCheckMachineType4();
+                                        break;
+                                    case "检测设备编号4":
+                                        value = ((Header) object).getCheckMachineNum4();
+                                        break;
+                                    case "检测设备名称5":
+                                        value = ((Header) object).getCheckMachineName5();
+                                        break;
+                                    case "检测设备型号5":
+                                        value = ((Header) object).getCheckMachineType5();
+                                        break;
+                                    case "检测设备编号5":
+                                        value = ((Header) object).getCheckMachineNum5();
+                                        break;
+                                    case "检测设备名称6":
+                                        value = ((Header) object).getCheckMachineName6();
+                                        break;
+                                    case "检测设备型号6":
+                                        value = ((Header) object).getCheckMachineType6();;
+                                        break;
+                                    case "检测设备编号6":
+                                        value = ((Header) object).getCheckMachineNum6();
+                                        break;
+                                    case "检测设备名称7":
+                                        value = ((Header) object).getCheckMachineName7();
+                                        break;
+                                    case "检测设备型号7":
+                                        value = ((Header) object).getCheckMachineType7();
+                                        break;
+                                    case "检测设备编号7":
+                                        value = ((Header) object).getCheckMachineNum7();
+                                        break;
+                                    case "检测设备名称8":
+                                        value = ((Header) object).getCheckMachineName8();
+                                        break;
+                                    case "检测设备型号8":
+                                        value = ((Header) object).getCheckMachineType8();
+                                        break;
+                                    case "检测设备编号8":
+                                        value = ((Header) object).getCheckMachineNum8();
+                                        break;
+                                    case "检测设备名称9":
+                                        value = ((Header) object).getCheckMachineName9();
+                                        break;
+                                    case "检测设备型号9":
+                                        value = ((Header) object).getCheckMachineType9();
+                                        break;
+                                    case "检测设备编号9":
+                                        value = ((Header) object).getCheckMachineNum9();
+                                        break;
+                                    case "检测设备名称10":
+                                        value = ((Header) object).getCheckMachineName10();
+                                        break;
+                                    case "检测设备型号10":
+                                        value = ((Header) object).getCheckMachineType10();;
+                                        break;
+                                    case "检测设备编号10":
+                                        value = ((Header) object).getCheckMachineNum10();
+                                        break;
+                                    case "检测设备名称11":
+                                        value = ((Header) object).getCheckMachineName11();
+                                        break;
+                                    case "检测设备型号11":
+                                        value = ((Header) object).getCheckMachineType11();
+                                        break;
+                                    case "检测设备编号11":
+                                        value = ((Header) object).getCheckMachineNum11();
+                                        break;
+                                    case "检测设备名称12":
+                                        value = ((Header) object).getCheckMachineName12();
+                                        break;
+                                    case "检测设备型号12":
+                                        value = ((Header) object).getCheckMachineType12();
+                                        break;
+                                    case "检测设备编号12":
+                                        value = ((Header) object).getCheckMachineNum12();
+                                        break;
+                                }
+                                break;
+                            case "血压计检定报告单":
+                                switch (string) {
+                                    case "机型":
+                                        value = ((Header) object).getProductType();
+                                        break;
+                                    case "环境温度":
+                                        value = ((Header) object).getEnvironmentTemperature();
+                                        break;
+                                    case "相对湿度":
+                                        value = ((Header) object).getRelativeHumidity();
+                                        break;
+                                    case "供电电源":
+                                        value = ((Header) object).getPower();
+                                        break;
+                                    case "有效接地":
+                                        value = ((Header) object).getIsGroud();
+                                        break;
+                                    case "检测设备名称1":
+                                        value = ((Header) object).getCheckMachineName1();
+                                        break;
+                                    case "检测设备型号1":
+                                        value = ((Header) object).getCheckMachineType1();
+                                        break;
+                                    case "检测设备编号1":
+                                        value = ((Header) object).getCheckMachineNum1();
+                                        break;
+                                    case "检测设备名称2":
+                                        value = ((Header) object).getCheckMachineName2();
+                                        break;
+                                    case "检测设备型号2":
+                                        value = ((Header) object).getCheckMachineType2();;
+                                        break;
+                                    case "检测设备编号2":
+                                        value = ((Header) object).getCheckMachineNum2();
+                                        break;
+                                    case "检测设备名称3":
+                                        value = ((Header) object).getCheckMachineName3();
+                                        break;
+                                    case "检测设备型号3":
+                                        value = ((Header) object).getCheckMachineType3();
+                                        break;
+                                    case "检测设备编号3":
+                                        value = ((Header) object).getCheckMachineNum3();
+                                        break;
+                                    case "检测设备名称4":
+                                        value = ((Header) object).getCheckMachineName4();
+                                        break;
+                                    case "检测设备型号4":
+                                        value = ((Header) object).getCheckMachineType4();
+                                        break;
+                                    case "检测设备编号4":
+                                        value = ((Header) object).getCheckMachineNum4();
+                                        break;
+                                    case "检验人":
+                                        value = "";
+                                        String GifPath = ((Header) object).getDebuger();
+                                        setCellStrGif(i,j,GifPath);
+                                        break;
+                                    case "核验人":
+                                        value = "";
+                                        String GifPath1 = ((Header) object).getChecker();
+                                        setCellStrGif(i,j,GifPath1);
+                                        break;
+                                    case "批准人":
+                                        value = "";
+                                        String GifPath2 = ((Header) object).getChecker2();
+                                        setCellStrGif(i,j,GifPath2);
+                                        break;
+                                    case "检验日期":
+                                        value = ((Header) object).getDebugDate().toString();
+                                        break;
+                                    case "核验日期":
+                                        value = ((Header) object).getCheckDate().toString();
+                                        break;
+                                    case "批准日期":
+                                        value = ((Header) object).getCheckDate2().toString();
+                                        break;
+                                    case "检验结论":
+                                        value = ((Header) object).getDebugConclusion();
+                                        break;
+                                }
+                                break;
+                            case "性能要求检验单":
+                                switch (string) {
+                                    case "机型":
+                                        value = ((Header) object).getProductType();
+                                        break;
+                                    case "环境温度":
+                                        value = ((Header) object).getEnvironmentTemperature();
+                                        break;
+                                    case "相对湿度":
+                                        value = ((Header) object).getRelativeHumidity();
+                                        break;
+                                    case "供电电源":
+                                        value = ((Header) object).getPower();
+                                        break;
+                                    case "有效接地":
+                                        value = ((Header) object).getIsGroud();
+                                        break;
+                                    case "检测设备名称1":
+                                        value = ((Header) object).getCheckMachineName1();
+                                        break;
+                                    case "检测设备型号1":
+                                        value = ((Header) object).getCheckMachineType1();
+                                        break;
+                                    case "检测设备编号1":
+                                        value = ((Header) object).getCheckMachineNum1();
+                                        break;
+                                    case "检测设备名称2":
+                                        value = ((Header) object).getCheckMachineName2();
+                                        break;
+                                    case "检测设备型号2":
+                                        value = ((Header) object).getCheckMachineType2();;
+                                        break;
+                                    case "检测设备编号2":
+                                        value = ((Header) object).getCheckMachineNum2();
+                                        break;
+                                    case "检测设备名称3":
+                                        value = ((Header) object).getCheckMachineName3();
+                                        break;
+                                    case "检测设备型号3":
+                                        value = ((Header) object).getCheckMachineType3();
+                                        break;
+                                    case "检测设备编号3":
+                                        value = ((Header) object).getCheckMachineNum3();
+                                        break;
+                                    case "检验人":
+                                        value = "";
+                                        String GifPath = ((Header) object).getDebuger();
+                                        setCellStrGif(i,j,GifPath);
+                                        break;
+                                    case "核验人":
+                                        value = "";
+                                        String GifPath1 = ((Header) object).getChecker();
+                                        setCellStrGif(i,j,GifPath1);
+                                        break;
+                                    case "批准人":
+                                        value = "";
+                                        String GifPath2 = ((Header) object).getChecker2();
+                                        setCellStrGif(i,j,GifPath2);
+                                        break;
+                                    case "检验日期":
+                                        value = ((Header) object).getDebugDate().toString();
+                                        break;
+                                    case "核验日期":
+                                        value = ((Header) object).getCheckDate().toString();
+                                        break;
+                                    case "批准日期":
+                                        value = ((Header) object).getCheckDate2().toString();
+                                        break;
+                                    case "检验结论":
+                                        value = ((Header) object).getDebugConclusion();
+                                        break;
+                                }
+                                break;
+                            case "最终检验报告单":
+                                switch (string) {
+                                    case "仪器型号":
+                                        value = ((Header) object).getProductType();
+                                        break;
+                                    case "内部标记":
+                                        value = ((Header) object).getInnerLabel();
+                                        break;
+                                    case "检验结果":
+                                        value = ((Header) object).getDebugConclusion();
+                                        break;
+                                    case "检 验 员":
+                                        value = "";
+                                        String GifPath = ((Header) object).getDebuger();
+                                        setCellStrGif(i,j,GifPath);
+                                        break;
+                                    case "检验日期":
+                                        value = ((Header) object).getDebugDate().toString();
+                                        break;
+                                    case "核验/放行人":
+                                        value = "";
+                                        String GifPath1 = ((Header) object).getCheckMachineName1();
+                                        setCellStrGif(i,j,GifPath1);
+                                        break;
+                                    case "核验/放行日期":
+                                        value = ((Header) object).getCheckDate().toString();
+                                        break;
+                                }
+                                break;
+                        }
+                        setCellStrValue(i, j, value);
+                    }
                     if(first.equals("#")) {
                         String last = String.valueOf(cellValue.charAt(cellValue.length() - 1));
                         String value = null;
@@ -283,6 +761,7 @@ public class ExcelUtils {
                                 case "随工单":
                                     switch (last) {
                                         case "1":
+                                            value = "";
                                             String GifPath = ((Order) object).getOperater();
                                             setCellStrGif(i,j,GifPath);
                                             break;
@@ -322,7 +801,9 @@ public class ExcelUtils {
                                 case "老化观测表":
                                     switch (last) {
                                         case "1":
-                                            value = ((Aging) object).getResult();
+                                            value = "";
+                                            String GifPath = ((Aging) object).getDebuger();
+                                            setCellStrGif(i,j,GifPath);
                                             break;
                                         case "2":
                                             value = ((Aging) object).getDate().toString();
@@ -344,7 +825,9 @@ public class ExcelUtils {
                                 case "装箱记录单":
                                     switch (last) {
                                         case "1":
-                                            value = ((Pack) object).getResult();
+                                            value = "";
+                                            String GifPath = ((Pack) object).getPackager();
+                                            setCellStrGif(i,j,GifPath);
                                             break;
                                         case "2":
                                             value = ((Pack) object).getCheck();
@@ -484,7 +967,7 @@ public class ExcelUtils {
                 columnNum = row.getPhysicalNumberOfCells();
             }
             for (int j = 0; j < columnNum; j++) {
-                XSSFCell cell = (XSSFCell) sheet.getRow(i).getCell(j);
+                XSSFCell cell = (XSSFCell)sheet.getRow(i).getCell(j);
                 String cellValue = cell.getStringCellValue();
                 for (Map.Entry<String, String> entry : map.entrySet()) {
                     String key = entry.getKey();
@@ -512,37 +995,26 @@ public class ExcelUtils {
      * 设置图片
      * @param rowIndex--行值 从0开始
      * @param cellnum--列值  从0开始
-     * @param GIFpath--图片路径
+     * @param JPGpath--图片路径
      */
-    private void setCellStrGif(int rowIndex, int cellnum, String GIFpath) {
-        FileOutputStream fileOut = null;
-        BufferedImage bufferImg = null;
+    private void setCellStrGif(int rowIndex, int cellnum, String JPGpath) {
         try {
-            ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
-            //加载图片
-            bufferImg = ImageIO.read(new File(GIFpath));
-            ImageIO.write(bufferImg, "gif", byteArrayOut);
-            HSSFWorkbook wb = new HSSFWorkbook();
-            HSSFSheet sheet1 = wb.createSheet("sheet1");
-            HSSFPatriarch patriarch = sheet1.createDrawingPatriarch();
-            /**
-             dx1 - the x coordinate within the first cell.//定义了图片在第一个cell内的偏移x坐标，既左上角所在cell的偏移x坐标，一般可设0
-             dy1 - the y coordinate within the first cell.//定义了图片在第一个cell的偏移y坐标，既左上角所在cell的偏移y坐标，一般可设0
-             dx2 - the x coordinate within the second cell.//定义了图片在第二个cell的偏移x坐标，既右下角所在cell的偏移x坐标，一般可设0
-             dy2 - the y coordinate within the second cell.//定义了图片在第二个cell的偏移y坐标，既右下角所在cell的偏移y坐标，一般可设0
-             col1 - the column (0 based) of the first cell.//第一个cell所在列，既图片左上角所在列
-             row1 - the row (0 based) of the first cell.//图片左上角所在行
-             col2 - the column (0 based) of the second cell.//图片右下角所在列
-             row2 - the row (0 based) of the second cell.//图片右下角所在行
-             */
-            HSSFClientAnchor anchor = new HSSFClientAnchor(100, 0, 0, 0,(short) cellnum, rowIndex, (short) cellnum, rowIndex);
+            // 打开图片
+            InputStream is = new FileInputStream(JPGpath);
+            byte[] bytes = IOUtils.toByteArray(is);
+            int pictureIdx = wb.addPicture(bytes, Workbook.PICTURE_TYPE_JPEG);
+            is.close();
+            Drawing drawing = sheet.createDrawingPatriarch();
+            //anchor主要用于设置图片的属性
+            ClientAnchor anchor = new XSSFClientAnchor();
+            anchor.setCol1(cellnum);
+            anchor.setCol2(cellnum+1);
+            anchor.setRow1(rowIndex);
+            anchor.setRow2(rowIndex+1);
             //插入图片
-            patriarch.createPicture(anchor, wb.addPicture(byteArrayOut.toByteArray(), HSSFWorkbook.PICTURE_TYPE_JPEG));
-//            fileOut = new FileOutputStream(path);
-//            // 输出文件
-//            wb.write(fileOut);
-        } catch (Exception e) {
-            e.printStackTrace();
+            drawing.createPicture(anchor, pictureIdx);
+        }catch (Exception e){
+            logger.error(e.getMessage());
         }
     }
     /**
