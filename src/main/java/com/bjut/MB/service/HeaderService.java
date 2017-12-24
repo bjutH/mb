@@ -124,7 +124,7 @@ public class HeaderService {
                                             String checkMachineName10, String checkMachineType10, String checkMachineNum10,
                                             String checkMachineName11, String checkMachineType11, String checkMachineNum11,
                                             String checkMachineName12, String checkMachineType12, String checkMachineNum12,
-                                            String checker, Date checkDate){
+                                            String checker, Date checkDate,String checker2, Date checkDate2){
         Map<String, String> map = new HashMap<String, String>();
         if(StringUtils.isBlank(productNum)){
             map.put("code","1");
@@ -146,7 +146,7 @@ public class HeaderService {
                                     checkMachineName10,checkMachineType10, checkMachineNum10,
                                     checkMachineName11,checkMachineType11, checkMachineNum11,
                                     checkMachineName12,checkMachineType12, checkMachineNum12,
-                                    checker, checkDate);
+                                    checker, checkDate,checker2, checkDate2);
             map.put("code","0");
             map.put("msg", "更新表头成功！");
         }

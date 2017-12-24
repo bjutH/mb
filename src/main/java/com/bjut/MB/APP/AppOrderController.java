@@ -2,6 +2,7 @@ package com.bjut.MB.APP;
 
 import com.bjut.MB.Utils.Base64Utils;
 import com.bjut.MB.Utils.ExcelUtils;
+import com.bjut.MB.Utils.HeadUtils;
 import com.bjut.MB.model.Header;
 import com.bjut.MB.model.Order;
 import com.bjut.MB.service.*;
@@ -40,21 +41,23 @@ public class AppOrderController {
     @RequestMapping(value = "/order/selectall")
     public List<Order> selectAll(@RequestParam(value = "orderNum") String orderNum,HttpSession session) {
         List<Order> list = new LinkedList<>();
+        List<Order> list1 = new LinkedList<>();
         List<String> listtask = new LinkedList<>();
         list = orderService.selectOrder(orderNum);
         String name = session.getAttribute("appname").toString();
         listtask = taskService.queryTask(name);
+
         for(Order order:list){
             String path = order.getOperater();
             if(!StringUtils.isBlank(path)) {
                 String operater = Base64Utils.encode(path);
                 order.setOperater(operater);
             }
-            if(!listtask.contains(order.getProcess())){
-                list.remove(this);
+            if(listtask.contains(order.getProcess())){
+                list1.add(order);
             }
         }
-        return list;
+        return list1;
     }
 
     @RequestMapping(value = "/order/selectone")
@@ -76,12 +79,12 @@ public class AppOrderController {
                                      @RequestParam(value = "ps") String ps, HttpServletRequest request) {
         Map<String,String> map = new HashMap<>();
         String name = UUID.randomUUID().toString();
-        String gifPath = request.getSession().getServletContext().getRealPath("/sign/" + name + ".gif");
-        if(Base64Utils.decode(operater,gifPath)) {
+        String jpgPath = request.getSession().getServletContext().getRealPath("/sign/" + name + ".jpg");
+        if(Base64Utils.decodeJpg(operater,jpgPath)) {
             try {
-                orderService.updateOrder(orderNum, process, gifPath, other, ps);
+                orderService.updateOrder(orderNum, process, jpgPath, other, ps);
                 Order order = new Order();
-                order.setOperater(gifPath);
+                order.setOperater(jpgPath);
                 order.setOther(other);
                 order.setPs(ps);
                 String path = orderService.selectPath(orderNum);
@@ -99,31 +102,56 @@ public class AppOrderController {
     }
 
     @RequestMapping(value = "/order/updatehead")
-    public Map<String,String> updateHead( @RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum,
+    public Map<String,String> updateHead(@RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum,
                                      @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
                                      @RequestParam(value = "productName") String productName) {
         Map<String,String> map = new HashMap<>();
-        map = headerService.updateHeader(productNum,excelType,productName,productType,innerLabel,null,null,
-                null,null,null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null);
+        try {
+            headerService.updateHeader(productNum, excelType, productName, productType, innerLabel, null, null,
+                    null, null, null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null, null);
+            String path = orderService.selectPath(productNum);
+            Header header =HeadUtils.setHead(productNum, excelType, productName, productType, innerLabel, null, null,
+                    null, null, null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null, null);
+            excelUtils.replaceExcel(path,"随工单", null, header);
+            map.put("code","0");
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            map.put("code","1");
+            map.put("msg",e.getMessage());
+        }
         return map;
     }
 
     @RequestMapping(value = "/order/showhead")
     public Header selectHead( @RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum) {
         Header header =headerService.selectHeader(productNum,excelType);
+        HeadUtils.setHeadJpg(header);
         return header;
     }
 }
