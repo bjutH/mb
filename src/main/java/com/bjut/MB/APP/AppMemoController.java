@@ -87,26 +87,26 @@ public class AppMemoController {
         return map;
     }
 
-    @RequestMapping(value = "/memo/updatehead")
-    public Map<String,String> select( @RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum,
-                                      @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
-                                      @RequestParam(value = "productName") String productName) {
-        Map<String,String> map = new HashMap<>();
-        map = headerService.updateHeader(productNum,excelType,productName,productType,innerLabel,null,null,
-                null,null,null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null);
-        return map;
-    }
+//    @RequestMapping(value = "/memo/updatehead")
+//    public Map<String,String> select( @RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum,
+//                                      @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
+//                                      @RequestParam(value = "productName") String productName) {
+//        Map<String,String> map = new HashMap<>();
+//        map = headerService.updateHeader(productNum,excelType,productName,productType,innerLabel,null,null,
+//                null,null,null,null,null,
+//                null,null,null,
+//                null,null,null,
+//                null,null,null,
+//                null,null,null,
+//                null,null,null,
+//                null,null,null,
+//                null,null,null,
+//                null,null,null,
+//                null,null,null,
+//                null,null,null,
+//                null,null,null,
+//                null,null,null,
+//                null,null,null,null);
+//        return map;
+//    }
 }

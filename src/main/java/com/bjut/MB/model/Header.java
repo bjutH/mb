@@ -56,6 +56,8 @@ public class Header {
     private String checkMachineNum12;
     private String checker;
     private Date checkDate;
+    private String checker2;
+    private Date checkDate2;
 
     public String getProductNum() {
         return productNum;
@@ -455,5 +457,21 @@ public class Header {
 
     public void setCheckDate(Date checkDate) {
         this.checkDate = checkDate;
+    }
+
+    public String getChecker2() {
+        return checker2;
+    }
+
+    public void setChecker2(String checker2) {
+        this.checker2 = checker2;
+    }
+
+    public Date getCheckDate2() {
+        return checkDate2;
+    }
+
+    public void setCheckDate2(Date checkDate2) {
+        this.checkDate2 = checkDate2;
     }
 }

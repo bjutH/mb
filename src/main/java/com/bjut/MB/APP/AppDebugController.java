@@ -2,7 +2,9 @@ package com.bjut.MB.APP;
 
 import com.bjut.MB.Utils.Base64Utils;
 import com.bjut.MB.Utils.ExcelUtils;
+import com.bjut.MB.Utils.HeadUtils;
 import com.bjut.MB.model.Debug;
+import com.bjut.MB.model.Header;
 import com.bjut.MB.service.DebugService;
 import com.bjut.MB.service.HeaderService;
 import com.bjut.MB.service.OrderService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -90,23 +93,51 @@ public class AppDebugController {
                                      @RequestParam(value = "debugConclusion") String debugConclusion, @RequestParam(value = "debuger") String debuger,
                                      @RequestParam(value = "debugeDate") Date debugeDate, @RequestParam(value = "environmentTemperature") String environmentTemperature,
                                      @RequestParam(value = "relative_humidity") String relative_humidity, @RequestParam(value = "power") String power,
-                                     @RequestParam(value = "is_groud") String is_groud ) {
+                                     @RequestParam(value = "is_groud") String is_groud,HttpServletRequest request ) {
         Map<String,String> map = new HashMap<>();
-        map = headerService.updateHeader(productNum,excelType,null,productType,innerLabel,debugConclusion,debuger,
-                null,environmentTemperature,relative_humidity,null,is_groud,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,debugeDate);
+        String name = UUID.randomUUID().toString();
+        String jpgPath = request.getSession().getServletContext().getRealPath("/sign/" + name + ".jpg");
+        try {
+            Base64Utils.decodeJpg(debuger,jpgPath);
+            headerService.updateHeader(productNum,excelType,null,productType,innerLabel,debugConclusion,debuger,
+                    debugeDate,environmentTemperature,relative_humidity,null,is_groud,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,null);
+            String path = debugService.selectPath(productNum);
+            Header header = HeadUtils.setHead(productNum,excelType,null,productType,innerLabel,debugConclusion,debuger,
+                    debugeDate,environmentTemperature,relative_humidity,null,is_groud,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,null);
+            excelUtils.replaceExcel(path,"整机调试报告单", null, header);
+            map.put("code","0");
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            map.put("code","1");
+            map.put("msg",e.getMessage());
+        }
         return map;
     }
+
 }

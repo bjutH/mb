@@ -1,6 +1,9 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.Utils.Base64Utils;
 import com.bjut.MB.Utils.ExcelUtils;
+import com.bjut.MB.Utils.HeadUtils;
+import com.bjut.MB.model.Header;
 import com.bjut.MB.model.ProcessTest;
 import com.bjut.MB.model.ProductTest;
 import com.bjut.MB.service.HeaderService;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -81,7 +85,7 @@ public class AppProductTestController {
 
     @RequestMapping(value = "/producttest/updatehead")
     public Map<String,String> select(@RequestParam(value = "productNum") String productNum, @RequestParam(value = "excelType") String excelType,
-                                     @RequestParam(value = "productType") String productType, @RequestParam(value = "innerLabel") String innerLabel,
+                                     @RequestParam(value = "productType") String productType, @RequestParam(value = "checker") String checker,
                                      @RequestParam(value = "debugConclusion") String debugConclusion, @RequestParam(value = "debuger") String debuger,
                                      @RequestParam(value = "debugeDate") Date debugeDate, @RequestParam(value = "environmentTemperature") String environmentTemperature,
                                      @RequestParam(value = "relative_humidity") String relative_humidity, @RequestParam(value = "power") String power,
@@ -97,23 +101,54 @@ public class AppProductTestController {
                                      @RequestParam(value = "checkMachineName9") String checkMachineName9, @RequestParam(value = "checkMachineType9") String checkMachineType9, @RequestParam(value = "checkMachineNum1") String checkMachineNum9,
                                      @RequestParam(value = "checkMachineName10") String checkMachineName10, @RequestParam(value = "checkMachineType10") String checkMachineType10, @RequestParam(value = "checkMachineNum2") String checkMachineNum10,
                                      @RequestParam(value = "checkMachineName11") String checkMachineName11, @RequestParam(value = "checkMachineType11") String checkMachineType11, @RequestParam(value = "checkMachineNum3") String checkMachineNum11,
-                                     @RequestParam(value = "checkMachineName12") String checkMachineName12, @RequestParam(value = "checkMachineType12") String checkMachineType12, @RequestParam(value = "checkMachineNum4") String checkMachineNum12) {
+                                     @RequestParam(value = "checkMachineName12") String checkMachineName12, @RequestParam(value = "checkMachineType12") String checkMachineType12, @RequestParam(value = "checkMachineNum4") String checkMachineNum12,
+                                     HttpServletRequest request) {
         Map<String,String> map = new HashMap<>();
-        map = headerService.updateHeader(productNum,excelType,null,productType,innerLabel,debugConclusion,debuger,
-                null,environmentTemperature,relative_humidity,null,is_groud,
-                checkMachineName1,checkMachineType1,checkMachineNum1,
-                checkMachineName2,checkMachineType2,checkMachineNum2,
-                checkMachineName3,checkMachineType3,checkMachineNum3,
-                checkMachineName4,checkMachineType4,checkMachineNum4,
-                checkMachineName5,checkMachineType5,checkMachineNum5,
-                checkMachineName6,checkMachineType6,checkMachineNum6,
-                checkMachineName7,checkMachineType7,checkMachineNum7,
-                checkMachineName8,checkMachineType8,checkMachineNum8,
-                checkMachineName9,checkMachineType9,checkMachineNum9,
-                checkMachineName10,checkMachineType10,checkMachineNum10,
-                checkMachineName11,checkMachineType11,checkMachineNum11,
-                checkMachineName12,checkMachineType12,checkMachineNum12,
-                null,debugeDate);
+        String name = UUID.randomUUID().toString();
+        String jpgPath = request.getSession().getServletContext().getRealPath("/sign/" + name + ".jpg");
+        String name2 = UUID.randomUUID().toString();
+        String jpgPath2 = request.getSession().getServletContext().getRealPath("/sign/" + name2 + ".jpg");
+        try {
+            Base64Utils.decodeJpg(debuger,jpgPath);
+            Base64Utils.decodeJpg(checker,jpgPath2);
+            headerService.updateHeader(productNum,excelType,null,productType,null,debugConclusion,debuger,
+                    debugeDate,environmentTemperature,relative_humidity,null,is_groud,
+                    checkMachineName1,checkMachineType1,checkMachineNum1,
+                    checkMachineName2,checkMachineType2,checkMachineNum2,
+                    checkMachineName3,checkMachineType3,checkMachineNum3,
+                    checkMachineName4,checkMachineType4,checkMachineNum4,
+                    checkMachineName5,checkMachineType5,checkMachineNum5,
+                    checkMachineName6,checkMachineType6,checkMachineNum6,
+                    checkMachineName7,checkMachineType7,checkMachineNum7,
+                    checkMachineName8,checkMachineType8,checkMachineNum8,
+                    checkMachineName9,checkMachineType9,checkMachineNum9,
+                    checkMachineName10,checkMachineType10,checkMachineNum10,
+                    checkMachineName11,checkMachineType11,checkMachineNum11,
+                    checkMachineName12,checkMachineType12,checkMachineNum12,
+                    checker,null,null,null);
+            String path = productTestService.selectPath(productNum);
+            Header header = HeadUtils.setHead(productNum,excelType,null,productType,null,debugConclusion,debuger,
+                    debugeDate,environmentTemperature,relative_humidity,null,is_groud,
+                    checkMachineName1,checkMachineType1,checkMachineNum1,
+                    checkMachineName2,checkMachineType2,checkMachineNum2,
+                    checkMachineName3,checkMachineType3,checkMachineNum3,
+                    checkMachineName4,checkMachineType4,checkMachineNum4,
+                    checkMachineName5,checkMachineType5,checkMachineNum5,
+                    checkMachineName6,checkMachineType6,checkMachineNum6,
+                    checkMachineName7,checkMachineType7,checkMachineNum7,
+                    checkMachineName8,checkMachineType8,checkMachineNum8,
+                    checkMachineName9,checkMachineType9,checkMachineNum9,
+                    checkMachineName10,checkMachineType10,checkMachineNum10,
+                    checkMachineName11,checkMachineType11,checkMachineNum11,
+                    checkMachineName12,checkMachineType12,checkMachineNum12,
+                    checker,null,null,null);
+            excelUtils.replaceExcel(path,"成品检验报告单", null, header);
+            map.put("code","0");
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            map.put("code","1");
+            map.put("msg",e.getMessage());
+        }
         return map;
     }
 }

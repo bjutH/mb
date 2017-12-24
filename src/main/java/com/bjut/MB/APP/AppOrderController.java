@@ -2,6 +2,7 @@ package com.bjut.MB.APP;
 
 import com.bjut.MB.Utils.Base64Utils;
 import com.bjut.MB.Utils.ExcelUtils;
+import com.bjut.MB.Utils.HeadUtils;
 import com.bjut.MB.model.Header;
 import com.bjut.MB.model.Order;
 import com.bjut.MB.service.*;
@@ -101,31 +102,56 @@ public class AppOrderController {
     }
 
     @RequestMapping(value = "/order/updatehead")
-    public Map<String,String> updateHead( @RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum,
+    public Map<String,String> updateHead(@RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum,
                                      @RequestParam(value = "productType") String productType,@RequestParam(value = "innerLabel") String innerLabel,
                                      @RequestParam(value = "productName") String productName) {
         Map<String,String> map = new HashMap<>();
-        map = headerService.updateHeader(productNum,excelType,productName,productType,innerLabel,null,null,
-                null,null,null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null);
+        try {
+            headerService.updateHeader(productNum, excelType, productName, productType, innerLabel, null, null,
+                    null, null, null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null, null);
+            String path = orderService.selectPath(productNum);
+            Header header =HeadUtils.setHead(productNum, excelType, productName, productType, innerLabel, null, null,
+                    null, null, null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null, null);
+            excelUtils.replaceExcel(path,"随工单", null, header);
+            map.put("code","0");
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            map.put("code","1");
+            map.put("msg",e.getMessage());
+        }
         return map;
     }
 
     @RequestMapping(value = "/order/showhead")
     public Header selectHead( @RequestParam(value = "excelType") String excelType,@RequestParam(value = "productNum") String productNum) {
         Header header =headerService.selectHeader(productNum,excelType);
+        HeadUtils.setHeadJpg(header);
         return header;
     }
 }

@@ -1,6 +1,9 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.Utils.Base64Utils;
 import com.bjut.MB.Utils.ExcelUtils;
+import com.bjut.MB.Utils.HeadUtils;
+import com.bjut.MB.model.Header;
 import com.bjut.MB.model.MachineTest;
 import com.bjut.MB.service.HeaderService;
 import com.bjut.MB.service.MachineTestService;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -87,23 +91,51 @@ public class AppMachineTestController {
                                      @RequestParam(value = "checkMachineName1") String checkMachineName1, @RequestParam(value = "checkMachineType1") String checkMachineType1, @RequestParam(value = "checkMachineNum1") String checkMachineNum1,
                                      @RequestParam(value = "checkMachineName2") String checkMachineName2, @RequestParam(value = "checkMachineType2") String checkMachineType2, @RequestParam(value = "checkMachineNum2") String checkMachineNum2,
                                      @RequestParam(value = "checkMachineName3") String checkMachineName3, @RequestParam(value = "checkMachineType3") String checkMachineType3, @RequestParam(value = "checkMachineNum3") String checkMachineNum3,
-                                     @RequestParam(value = "checkMachineName4") String checkMachineName4, @RequestParam(value = "checkMachineType4") String checkMachineType4, @RequestParam(value = "checkMachineNum4") String checkMachineNum4) {
+                                     @RequestParam(value = "checkMachineName4") String checkMachineName4, @RequestParam(value = "checkMachineType4") String checkMachineType4, @RequestParam(value = "checkMachineNum4") String checkMachineNum4,
+                                     HttpServletRequest request) {
         Map<String,String> map = new HashMap<>();
-        map = headerService.updateHeader(productNum,excelType,null,productType,innerLabel,debugConclusion,debuger,
-                null,environmentTemperature,relative_humidity,null,is_groud,
-                checkMachineName1,checkMachineType1,checkMachineNum1,
-                checkMachineName2,checkMachineType2,checkMachineNum2,
-                checkMachineName3,checkMachineType3,checkMachineNum3,
-                checkMachineName4,checkMachineType4,checkMachineNum4,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,null,null,
-                null,debugeDate);
+        String name = UUID.randomUUID().toString();
+        String jpgPath = request.getSession().getServletContext().getRealPath("/sign/" + name + ".jpg");
+        try {
+            Base64Utils.decodeJpg(debuger,jpgPath);
+            headerService.updateHeader(productNum,excelType,null,productType,innerLabel,debugConclusion,debuger,
+                    debugeDate,environmentTemperature,relative_humidity,null,is_groud,
+                    checkMachineName1,checkMachineType1,checkMachineNum1,
+                    checkMachineName2,checkMachineType2,checkMachineNum2,
+                    checkMachineName3,checkMachineType3,checkMachineNum3,
+                    checkMachineName4,checkMachineType4,checkMachineNum4,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,null);
+            String path = machineTestService.selectPath(productNum);
+            Header header = HeadUtils.setHead(productNum,excelType,null,productType,innerLabel,debugConclusion,debuger,
+                    debugeDate,environmentTemperature,relative_humidity,null,is_groud,
+                    checkMachineName1,checkMachineType1,checkMachineNum1,
+                    checkMachineName2,checkMachineType2,checkMachineNum2,
+                    checkMachineName3,checkMachineType3,checkMachineNum3,
+                    checkMachineName4,checkMachineType4,checkMachineNum4,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,
+                    null,null,null,null);
+            excelUtils.replaceExcel(path,"整机检验报告单", null, header);
+            map.put("code","0");
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            map.put("code","1");
+            map.put("msg",e.getMessage());
+        }
         return map;
     }
 }
