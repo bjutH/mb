@@ -1,6 +1,7 @@
 package com.bjut.MB.service;
 
 import com.bjut.MB.dao.TaskDao;
+import com.bjut.MB.model.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,12 @@ public class TaskService {
     public List<String> queryTask(String name){
         List<String> tasks = new ArrayList<String>();
         tasks = taskDao.selectByName(name);
+        return tasks;
+    }
+
+    public List<Task> queryTaskAll(){
+        List<Task> tasks = new ArrayList<Task>();
+        tasks = taskDao.selectAll();
         return tasks;
     }
 }

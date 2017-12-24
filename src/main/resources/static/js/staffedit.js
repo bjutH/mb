@@ -16,7 +16,7 @@ var TableInit = function () {
     //初始化Table
     oTableInit.Init = function () {
         $('#tb_departments').bootstrapTable({
-            url: '../json/data1.json',                  //请求后台数据的URL（*）
+            url: '/homepage/staffmanagement/queryall',                  //请求后台数据的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
@@ -30,7 +30,7 @@ var TableInit = function () {
             pageSize: 14,                       //每页的记录行数（*）
             queryParamsType:"undefined",
             pageList: [10, 25, 50],        //可供选择的每页的行数（*）
-            search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
             strictSearch: true,
             showColumns: true,                  //是否显示所有的列
             showRefresh: true,                  //是否显示刷新按钮
@@ -44,56 +44,61 @@ var TableInit = function () {
             columns: [{
                 checkbox: true
             }, {
-                field: 'Name',
+                field: 'name',
                 title: '姓名',
-                editable: true
-            }, {
-                field: 'ParentName',
-                title: '部门',
-                editable: true
-            }, {
-                field: 'Level',
+                editable:false
+            }
+            // , {
+            //     field: 'ParentName',
+            //     title: '部门',
+            //     editable: true
+            // }
+            , {
+                field: 'power',
                 title: '权限级别',
                 editable: {
                     type: 'select',
                     pk: 1,
                     source: [
-                        {value: '调度员', text: '调度员'},
                         {value: '管理员', text: '管理员'},
+                        {value: '调度员', text: '调度员'},
                         {value: '组长', text: '组长'},
+                        {value: '组员', text: '组员'},
                         {value: '游客', text: '游客'}
                     ],
                     noeditFormatter: function (value,row,index) {
-                        var result={filed:"Level",value:value};
+                        var result={filed:"power",value:value};
                         return result;
                     }
                 }
-            }, {
-                field: 'Comment',
-                title: '描述',
-                editable: true
             }
+            // , {
+            //     field: 'Comment',
+            //     title: '描述',
+            //     editable: true
+            // }
             ],
             //提交修改后的数据
             onEditableSave: function (field, row, oldValue, $el) {
                 $.ajax({
                     type: "POST",
-                    url: "/？？？",    //提交修改后JSON的URL
+                    url: "/homepage/staffmanagement/updatepower",    //提交修改后JSON的URL
                     data: row,        //row是提交的数据
                     dataType: 'JSON',
 
-                    success: function (data, status) {
-                        alert(JSON.stringify( row ));
-                        // alert(JSON.stringify( data ));
-                        if (status == "success") {
-                            alert('提交数据成功');
-                        }
-                    },
-                    error: function (data) {
-                        alert(JSON.stringify( row ));
-                        // alert(JSON.stringify( data ));
-                        alert('+编辑失败+');
-                    }
+                    // success: function (data, status) {
+                    //     // alert(JSON.stringify( row ));
+                    //     // alert(JSON.stringify( data ));
+                    //     if (status == "success") {
+                    //         alert('提交数据成功');
+                    //     }
+                    // },
+                    // error: function (data, status) {
+                    //     // alert(JSON.stringify( row ));
+                    //     // alert(JSON.stringify( data ));
+                    //     alert(status);
+                    //     // alert('+编辑失败+');
+                    // }
                     // complete: function () {
                     //
                     // }

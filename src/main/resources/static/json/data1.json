@@ -1,14 +1,14 @@
 [
   {
-    "Name": 0,
+    "name": 0,
     "ParentName": "Item 0",
-    "Level": "调度员",
+    "power": "调度员",
     "Comment": "备注0"
   },
   {
-    "Name": 1,
+    "name": 1,
     "ParentName": "Item 1",
-    "Level": "管理员",
+    "power": "管理员",
     "Comment": "备注0"
   },
   {

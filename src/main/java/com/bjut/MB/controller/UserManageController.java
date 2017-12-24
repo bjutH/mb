@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.LinkedList;
@@ -53,10 +54,19 @@ public class UserManageController {
         return "redirect:/homepage/staffmanagement";
     }
 
+    @RequestMapping(path = "/homepage/staffmanagement/queryall")
+    @ResponseBody
+    public List<User> selectUser(){
+        List<User> list= userDao.selectAll();
+        return list;
+    }
+
     @RequestMapping(path = "/homepage/staffmanagement/add")
     public String addUser(@RequestParam(value = "num") String num, @RequestParam(value = "name") String name, @RequestParam(value = "password") String password, @RequestParam(value = "salt") String salt, @RequestParam(value = "power") String power){
         userDao.addUser(num, name, password, salt, power);
         return "redirect:/homepage/staffmanagement";
     }
+
+
 
 }

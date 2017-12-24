@@ -8,10 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,7 +58,18 @@ public class TaskController {
     private TaskService taskService;
 
     @RequestMapping(path = "/homepage/taskmanagement")
-    public String index(){
+    public String index(ModelMap modelMap){
+        String name = hostHolder.getUser().getName().toString();
+        String power = hostHolder.getUser().getPower().toString();
+        List<String> list = new LinkedList<>();
+        if(power.equals("管理员")){
+            list = taskService.queryTask(name);
+            modelMap.addAttribute("list",list);
+        }
+        else {
+            list = taskService.queryTask(name);
+            modelMap.addAttribute("list",list);
+        }
         return "taskmanagement";
     }
 
@@ -74,11 +89,19 @@ public class TaskController {
     }
 
     @RequestMapping(path = "/homepage/taskmanagement/selecttask")
-    public String selectTask(@RequestParam(value = "name") String name,RedirectAttributes redirectAttributes){
+    @ResponseBody
+    public List<String> selectTask(){
+        String name = hostHolder.getUser().getName().toString();
+        String power = hostHolder.getUser().getPower().toString();
         List<String> list = new LinkedList<>();
-        list = taskService.queryTask(name);
-        redirectAttributes.addFlashAttribute("list",list);
-        return "redirect:/homepage/taskmanagement";
+        if(power.equals("管理员")){
+            list = taskService.queryTask(name);
+            return list;
+        }
+        else {
+            list = taskService.queryTask(name);
+            return list;
+        }
     }
 
     @RequestMapping(path = "/homepage/taskmanagement/deletetaskone")
@@ -157,5 +180,26 @@ public class TaskController {
                 break;
         }
         return "redirect:/homepage/taskmanagement";
+    }
+
+    @RequestMapping(path = "/homepage/taskmanagement/selectordertype")
+    public String selectOrderType(@RequestParam(value = "orderType") String orderType, HttpSession session, RedirectAttributes redirectAttributes){
+        session.setAttribute("orderType1", orderType);
+        return "redirect:/homepage/taskmanagement";
+    }
+
+    @RequestMapping(path = "/homepage/taskmanagement/queryall")
+    @ResponseBody
+    public List<Task> selectUser(){
+        List<Task> list= taskService.queryTaskAll();
+        List<Task> list1 = new LinkedList<>();
+        for(Task task:list){
+            String name = task.getName();
+            User user = userDao.selectByName(name);
+            if(!user.getPower().equals("管理员")){
+                list1.add(task);
+            }
+        }
+        return list1;
     }
 }

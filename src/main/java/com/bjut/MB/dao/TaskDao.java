@@ -1,5 +1,6 @@
 package com.bjut.MB.dao;
 
+import com.bjut.MB.model.Task;
 import com.bjut.MB.model.User;
 import org.apache.ibatis.annotations.*;
 
@@ -20,6 +21,9 @@ public interface TaskDao {
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where name = #{name}"})
     List<String> selectByName(@Param("name") String name);
+
+    @Select({"select name,task from", TABLE_NAME})
+    List<Task> selectAll();
 
 
     @Update({"update ", TABLE_NAME, "set task = #{task} where name = #{name}"})

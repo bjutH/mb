@@ -26,13 +26,16 @@ public interface UserDao {
     void addUser(@Param("num") String num, @Param("name") String name, @Param("password") String password, @Param("salt") String salt, @Param("power") String power);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where num = #{num}"})
-    List<User> selectOne(@Param("num") String num);
+    User selectOne(@Param("num") String num);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where name = #{name}"})
     User selectByName(@Param("name") String name);
 
     @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where id = #{id}"})
     User selectById(@Param("id") int id);
+
+    @Select({"select name,power from", TABLE_NAME})
+    List<User> selectAll();
 
 
     /**

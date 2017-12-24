@@ -116,10 +116,9 @@
                     <div class="form-group">
                         <select class="form-control" name="task">
                             <option selected="selected">未选择</option>
-                            <option value="任务1">任务1</option>
-                            <option value="任务2">任务2</option>
-                            <option value="任务3">任务3</option>
-                            <option value="任务4">任务4</option>
+                            <c:forEach items="${list}" var="item">
+                                <option value=${item} >${item}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     </p>

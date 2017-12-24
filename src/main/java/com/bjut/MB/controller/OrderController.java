@@ -84,7 +84,7 @@ public class OrderController {
     @RequestMapping(path = "/homepage/ordermanagement/addorder" , method = RequestMethod.POST)
     @Transactional(propagation= Propagation.REQUIRED )
     public String addOrder(MultipartHttpServletRequest request, @RequestParam(value = "number") String number, RedirectAttributes redirectAttributes, HttpSession session) throws IOException {
-        if(!hostHolder.getUser().getPower().equals("admin")&&!hostHolder.getUser().getPower().equals("dispatcher")){
+        if(!hostHolder.getUser().getPower().equals("管理员")&&!hostHolder.getUser().getPower().equals("调度员")){
             redirectAttributes.addFlashAttribute("msg", "无权限添加！");
             return "redirect:/homepage/ordermanagement";
         }
@@ -307,7 +307,7 @@ public class OrderController {
             return "redirect:/homepage/ordermanagement";
         }
         User user = hostHolder.getUser();
-        if(user.getPower().equals("admin"))
+        if(user.getPower().equals("管理员"))
             session.setAttribute("OpenModeType" , "OpenModeType.xlsNormalEdit");
         else
             session.setAttribute("OpenModeType" , "OpenModeType.xlsReadOnly");
@@ -365,7 +365,7 @@ public class OrderController {
      */
     @RequestMapping(path = "/homepage/ordermanagement/deleteorderone")
     public String deleteOrderOne(@RequestParam(value = "name") String orderNum, HttpSession session, RedirectAttributes redirectAttributes){
-        if(!hostHolder.getUser().getPower().equals("admin")||!hostHolder.getUser().getPower().equals("dispatcher")){
+        if(!hostHolder.getUser().getPower().equals("管理员")||!hostHolder.getUser().getPower().equals("调度员")){
             redirectAttributes.addFlashAttribute("msg", "无权限删除！");
             return "redirect:/homepage/ordermanagement";
         }
