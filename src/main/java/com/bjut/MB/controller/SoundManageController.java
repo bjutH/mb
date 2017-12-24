@@ -16,10 +16,7 @@ import javax.print.DocFlavor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Cheng on 2017/12/8.
@@ -52,19 +49,22 @@ public class SoundManageController {
     }
 
     @RequestMapping(path = "/homepage/recordmanagement/selectsound")
-
     public String selectSound(@RequestParam(value = "num")String num, HttpSession session, RedirectAttributes redirectAttributes){
         session.setAttribute("soundNum",num);
         try {
-            SoundRecording soundRecording = soundDao.selectById(Integer.valueOf(num));
+            SoundRecording soundRecording = soundDao.selectByNum(Integer.valueOf(num));
             redirectAttributes.addFlashAttribute("msg1",soundRecording.getSound());
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("msg","查询失败！");
         }
         return "redirect:/homepage/recordmanagement";
-
     }
 
-
+    @RequestMapping(path = "/homepage/recordmanagement/selectall")
+    @ResponseBody
+    public List<SoundRecording> selectUser(){
+        List<SoundRecording> list= soundDao.selectAll();
+        return list;
+    }
 }
 

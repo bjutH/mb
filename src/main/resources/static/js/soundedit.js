@@ -16,7 +16,7 @@ var TableInit = function () {
     //初始化Table
     oTableInit.Init = function () {
         $('#tb_departments').bootstrapTable({
-            url: '/homepage/taskmanagement/queryall',                  //请求后台的URL（*）
+            url: '/homepage/recordmanagement/selectall',                  //请求后台数据的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
@@ -36,7 +36,7 @@ var TableInit = function () {
             showRefresh: true,                  //是否显示刷新按钮
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: false,                //是否启用点击选中行
-            // height: 540,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            // height: 670,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
             uniqueId: "id",                     //每一行的唯一标识，一般为主键列
             showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
@@ -44,13 +44,52 @@ var TableInit = function () {
             columns: [{
                 checkbox: true
             }, {
-                field: 'name',
-                title: '姓名'
-            }, {
-                field: 'task',
-                title: '任务',
+                field: 'num',
+                title: '编号',
+                editable:false
             }
-            ]
+            // , {
+            //     field: 'ParentName',
+            //     title: '部门',
+            //     editable: true
+            // }
+            , {
+                field: 'sound',
+                title: '备注',
+                editable:true
+                }
+            // , {
+            //     field: 'Comment',
+            //     title: '描述',
+            //     editable: true
+            // }
+            ],
+            //提交修改后的数据
+            onEditableSave: function (field, row, oldValue, $el) {
+                $.ajax({
+                    type: "POST",
+                    url: "/homepage/recordmanagement/updatesound",    //提交修改后JSON的URL
+                    data: row,        //row是提交的数据
+                    dataType: 'JSON',
+
+                    // success: function (data, status) {
+                    //     // alert(JSON.stringify( row ));
+                    //     // alert(JSON.stringify( data ));
+                    //     if (status == "success") {
+                    //         alert('提交数据成功');
+                    //     }
+                    // },
+                    // error: function (data, status) {
+                    //     // alert(JSON.stringify( row ));
+                    //     // alert(JSON.stringify( data ));
+                    //     alert(status);
+                    //     // alert('+编辑失败+');
+                    // }
+                    // complete: function () {
+                    //
+                    // }
+                })
+            }
 
         });
     };
