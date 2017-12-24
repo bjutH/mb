@@ -1,9 +1,11 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.Utils.ExcelUtils;
 import com.bjut.MB.model.Sphygmomanometer;
 import com.bjut.MB.service.HeaderService;
 import com.bjut.MB.service.OrderService;
 import com.bjut.MB.service.SphygmomanometerService;
+import com.bjut.MB.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -25,12 +28,26 @@ public class AppSphygmomanometerController {
     private SphygmomanometerService sphygmomanometerService;
     @Autowired
     private HeaderService headerService;
+    @Autowired
+    private TaskService taskService;
+    @Autowired
+    private ExcelUtils excelUtils;
 
     @RequestMapping(value = "/sphygmomanometer/selectall")
-    public List<Sphygmomanometer> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+    public List<Sphygmomanometer> selectAll(@RequestParam(value = "orderNum") String orderNum,HttpSession session) {
         List<Sphygmomanometer> list = new LinkedList<>();
+        List<Sphygmomanometer> list1 = new LinkedList<>();
+        List<String> listtask = new LinkedList<>();
         list = sphygmomanometerService.selectSphygmomanometer(orderNum);
-        return list;
+        String name = session.getAttribute("appname").toString();
+        listtask = taskService.queryTask(name);
+
+        for(Sphygmomanometer sphygmomanometer:list){
+            if(listtask.contains(sphygmomanometer.getProcess())){
+                list1.add(sphygmomanometer);
+            }
+        }
+        return list1;
     }
 
     @RequestMapping(value = "/sphygmomanometer/selectone")
@@ -45,7 +62,19 @@ public class AppSphygmomanometerController {
                               @RequestParam(value = "data") String data,@RequestParam(value = "result") String result,
                               @RequestParam(value = "ps") String ps) {
         Map<String,String> map = new HashMap<>();
-        map = sphygmomanometerService.updateSphygmomanometer(orderNum,process,data,result,ps);
+        try {
+            sphygmomanometerService.updateSphygmomanometer(orderNum,process,data,result,ps);
+            Sphygmomanometer sphygmomanometer = new Sphygmomanometer();
+            sphygmomanometer.setData(data);
+            sphygmomanometer.setResult(result);
+            sphygmomanometer.setPs(ps);
+            String path = sphygmomanometerService.selectPath(orderNum);
+            excelUtils.replaceExcel(path,"血压计检定报告单", process, sphygmomanometer);
+            map.put("code","0");
+        }catch (Exception e){
+            map.put("code","1");
+            map.put("code","更新失败！");
+        }
         return map;
     }
 

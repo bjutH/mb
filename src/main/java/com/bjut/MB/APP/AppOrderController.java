@@ -40,21 +40,23 @@ public class AppOrderController {
     @RequestMapping(value = "/order/selectall")
     public List<Order> selectAll(@RequestParam(value = "orderNum") String orderNum,HttpSession session) {
         List<Order> list = new LinkedList<>();
+        List<Order> list1 = new LinkedList<>();
         List<String> listtask = new LinkedList<>();
         list = orderService.selectOrder(orderNum);
         String name = session.getAttribute("appname").toString();
         listtask = taskService.queryTask(name);
+
         for(Order order:list){
             String path = order.getOperater();
             if(!StringUtils.isBlank(path)) {
                 String operater = Base64Utils.encode(path);
                 order.setOperater(operater);
             }
-            if(!listtask.contains(order.getProcess())){
-                list.remove(this);
+            if(listtask.contains(order.getProcess())){
+                list1.add(order);
             }
         }
-        return list;
+        return list1;
     }
 
     @RequestMapping(value = "/order/selectone")
@@ -76,12 +78,12 @@ public class AppOrderController {
                                      @RequestParam(value = "ps") String ps, HttpServletRequest request) {
         Map<String,String> map = new HashMap<>();
         String name = UUID.randomUUID().toString();
-        String gifPath = request.getSession().getServletContext().getRealPath("/sign/" + name + ".gif");
-        if(Base64Utils.decode(operater,gifPath)) {
+        String jpgPath = request.getSession().getServletContext().getRealPath("/sign/" + name + ".jpg");
+        if(Base64Utils.decodeJpg(operater,jpgPath)) {
             try {
-                orderService.updateOrder(orderNum, process, gifPath, other, ps);
+                orderService.updateOrder(orderNum, process, jpgPath, other, ps);
                 Order order = new Order();
-                order.setOperater(gifPath);
+                order.setOperater(jpgPath);
                 order.setOther(other);
                 order.setPs(ps);
                 String path = orderService.selectPath(orderNum);

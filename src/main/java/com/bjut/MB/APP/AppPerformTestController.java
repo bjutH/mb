@@ -1,9 +1,11 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.Utils.ExcelUtils;
 import com.bjut.MB.model.PerformTest;
 import com.bjut.MB.service.HeaderService;
 import com.bjut.MB.service.OrderService;
 import com.bjut.MB.service.PerformTestService;
+import com.bjut.MB.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -25,12 +28,26 @@ public class AppPerformTestController {
     private PerformTestService performTestService;
     @Autowired
     private HeaderService headerService;
+    @Autowired
+    private TaskService taskService;
+    @Autowired
+    private ExcelUtils excelUtils;
 
     @RequestMapping(value = "/performtest/selectall")
-    public List<PerformTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+    public List<PerformTest> selectAll(@RequestParam(value = "orderNum") String orderNum,HttpSession session) {
         List<PerformTest> list = new LinkedList<>();
+        List<PerformTest> list1 = new LinkedList<>();
+        List<String> listtask = new LinkedList<>();
         list = performTestService.selectPerformTest(orderNum);
-        return list;
+        String name = session.getAttribute("appname").toString();
+        listtask = taskService.queryTask(name);
+
+        for(PerformTest performTest:list){
+            if(listtask.contains(performTest.getProcess())){
+                list1.add(performTest);
+            }
+        }
+        return list1;
     }
 
     @RequestMapping(value = "/performtest/selectone")
@@ -45,7 +62,19 @@ public class AppPerformTestController {
                               @RequestParam(value = "data") String data,@RequestParam(value = "result") String result,
                               @RequestParam(value = "ps") String ps) {
         Map<String,String> map = new HashMap<>();
-        map = performTestService.updatePerformTest(orderNum,process,data,result,ps);
+        try {
+            performTestService.updatePerformTest(orderNum,process,data,result,ps);
+            PerformTest performTest = new PerformTest();
+            performTest.setData(data);
+            performTest.setResult(result);
+            performTest.setPs(ps);
+            String path = performTestService.selectPath(orderNum);
+            excelUtils.replaceExcel(path,"性能要求检验单", process, performTest);
+            map.put("code","0");
+        }catch (Exception e){
+            map.put("code","1");
+            map.put("code","更新失败！");
+        }
         return map;
     }
     @RequestMapping(value = "/performtest/updatehead")

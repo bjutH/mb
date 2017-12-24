@@ -32,7 +32,22 @@ public class Base64Utils {
         return base64;
     }
 
-    public static boolean decode(String base64,String path){
+    public static boolean decodeGif(String base64,String path){
+        try {
+            BufferedOutputStream stream = null;
+            byte[] bytes = Base64.decode(base64);
+            stream = new BufferedOutputStream(new FileOutputStream(new File(path)));
+            stream.write(bytes);
+            stream.flush();
+            stream.close();
+            return true;
+        } catch (Exception e) {
+            logger.error("文件上传失败：" + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean decodeJpg(String base64,String path){
         try {
             BufferedOutputStream stream = null;
             byte[] bytes = Base64.decode(base64);

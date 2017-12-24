@@ -1,9 +1,12 @@
 package com.bjut.MB.APP;
 
+import com.bjut.MB.Utils.ExcelUtils;
+import com.bjut.MB.model.ProcessTest;
 import com.bjut.MB.model.ProductTest;
 import com.bjut.MB.service.HeaderService;
 import com.bjut.MB.service.OrderService;
 import com.bjut.MB.service.ProductTestService;
+import com.bjut.MB.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -25,12 +29,26 @@ public class AppProductTestController {
     private ProductTestService productTestService;
     @Autowired
     private HeaderService headerService;
+    @Autowired
+    private TaskService taskService;
+    @Autowired
+    private ExcelUtils excelUtils;
 
     @RequestMapping(value = "/producttest/selectall")
-    public List<ProductTest> selectAll(@RequestParam(value = "orderNum") String orderNum) {
+    public List<ProductTest> selectAll(@RequestParam(value = "orderNum") String orderNum,HttpSession session) {
         List<ProductTest> list = new LinkedList<>();
+        List<ProductTest> list1 = new LinkedList<>();
+        List<String> listtask = new LinkedList<>();
         list = productTestService.selectProductTest(orderNum);
-        return list;
+        String name = session.getAttribute("appname").toString();
+        listtask = taskService.queryTask(name);
+
+        for(ProductTest productTest:list){
+            if(listtask.contains(productTest.getProcess())){
+                list1.add(productTest);
+            }
+        }
+        return list1;
     }
 
     @RequestMapping(value = "/producttest/selectone")
@@ -45,7 +63,19 @@ public class AppProductTestController {
                               @RequestParam(value = "data") String data,@RequestParam(value = "result") String result,
                               @RequestParam(value = "ps") String ps) {
         Map<String,String> map = new HashMap<>();
-        map = productTestService.updateProductTest(orderNum,process,data,result,ps);
+        try {
+            productTestService.updateProductTest(orderNum,process,data,result,ps);
+            ProductTest productTest = new ProductTest();
+            productTest.setData(data);
+            productTest.setResult(result);
+            productTest.setPs(ps);
+            String path = productTestService.selectPath(orderNum);
+            excelUtils.replaceExcel(path,"成品检验报告单", process, productTest);
+            map.put("code","0");
+        }catch (Exception e){
+            map.put("code","1");
+            map.put("code","更新失败！");
+        }
         return map;
     }
 
