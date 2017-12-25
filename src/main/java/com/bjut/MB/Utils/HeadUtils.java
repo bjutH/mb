@@ -87,17 +87,17 @@ public class HeadUtils {
     }
 
     public static void setHeadJpg(Header header){
-        if(StringUtils.isBlank(header.getDebuger())){
+        if(!StringUtils.isBlank(header.getDebuger())){
             String path = header.getDebuger();
             String debuger = Base64Utils.encode(path);
             header.setDebuger(debuger);
         }
-        if(StringUtils.isBlank(header.getChecker())){
+        if(!StringUtils.isBlank(header.getChecker())){
             String path = header.getChecker();
             String checker = Base64Utils.encode(path);
             header.setChecker(checker);
         }
-        if(StringUtils.isBlank(header.getChecker2())){
+        if(!StringUtils.isBlank(header.getChecker2())){
             String path = header.getChecker2();
             String checker2 = Base64Utils.encode(path);
             header.setDebuger(checker2);
