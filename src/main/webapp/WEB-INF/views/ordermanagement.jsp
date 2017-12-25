@@ -291,7 +291,7 @@
         var temp = $("#inpt6").val();
 //            alert(temp);
         $.ajax({
-            url: "/homepage/ordermanagement/show",
+            url: "/homepage/ordermanagement/searchorder",
             data:{orderNum:temp},
             type: "GET",
             success:function(){POBrowser.openWindow('/homepage/ordermanagement/show', 'width=1200px;height=800px;');},
