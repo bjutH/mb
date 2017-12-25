@@ -27,7 +27,7 @@ public class Base64Utils {
             inputFile.close();
             base64 = new BASE64Encoder().encode(buffer);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return base64;
     }
