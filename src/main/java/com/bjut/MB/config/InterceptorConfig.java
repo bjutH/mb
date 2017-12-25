@@ -2,6 +2,7 @@ package com.bjut.MB.config;
 
 import com.bjut.MB.interceptor.LoginInterceptor;
 import com.bjut.MB.interceptor.PassportInterceptor;
+import com.bjut.MB.interceptor.TaskManageInterceptor;
 import com.bjut.MB.interceptor.UserManageInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,11 +23,16 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter{
     @Autowired
     private UserManageInterceptor userManageInterceptor;
 
+    @Autowired
+    private TaskManageInterceptor taskManageInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(passportInterceptor);
         registry.addInterceptor(loginInterceptor).addPathPatterns("/homepage/*");
         registry.addInterceptor(userManageInterceptor).addPathPatterns("/homepage/staffmanagement");
+        registry.addInterceptor(userManageInterceptor).addPathPatterns("/homepage/recordmanagement");
+        registry.addInterceptor(taskManageInterceptor).addPathPatterns("/homepage/taskmanagement");
         super.addInterceptors(registry);
     }
 }
